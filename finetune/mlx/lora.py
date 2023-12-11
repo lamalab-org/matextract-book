@@ -16,7 +16,6 @@ from mlx.utils import tree_map, tree_flatten, tree_unflatten
 
 
 from models import ModelArgs, Model, LoRALinear
-import wikisql
 
 
 def build_parser():
@@ -299,7 +298,14 @@ if __name__ == "__main__":
     print(f"Trainable parameters {p:.3f}M")
 
     print("Loading datasets")
-    train_set, valid_set, test_set = wikisql.load()
+    with open("train.txt", "r") as f:
+        train_set = f.read().splitlines()
+
+    with open("val.txt", "r") as f:
+        valid_set = f.read().splitlines()
+
+    with open("test.txt", "r") as f:
+        test_set = f.read().splitlines()
 
     # Resume training the given adapters.
     if args.resume_adapter_file is not None:

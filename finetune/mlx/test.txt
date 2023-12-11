@@ -1,0 +1,2233 @@
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+Methyl 2-(4-chlorophenyl)-2-(2-cyanomethylbenzimidazol-1-yl)ethanoate (17). Yield: 77%, pale yellow solid, m.p. = 206 °C; 1H-NMR (DMSO-d6) δ 3.74 (s, 3H, OCH3), 4.25 (2d(AB system), 2H, CH2), 7.12 (d, J=7.0 Hz ,1H, ArCH), 7.37-7.23 (m, 6H, ArCH), 7.74 (d, J =7.0 Hz, 1H, ArCH), 10.97 (s, 1H, NH), 13C-NMR (DMSO-d6) δ 18.27 (CH2), 53.20 (OCH3), 110.74, 117.05, 119.97, 123.45, 124.30, 29.55 (6ArCH), 115.99, 118.21, 127.22, 135.03, 142.23, 142.96, 146.18 (C=N, C°N, 5ArC), 161.64 (C=O).
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "Methyl 2-(4-chlorophenyl)-2-(2-cyanomethylbenzimidazol-1-yl)ethanoate"
+yield: "77%"
+appearance: "pale yellow solid"
+mp:
+  low: 206
+  units: "°C"
+1Hnmr:
+  solvent: "DMSO-d6"
+  signals:
+    - delta: "3.74"
+      multiplicities: ["s"]
+      nbH: "3H"
+      assignment: "OCH3"
+    - delta: "4.25"
+      multiplicities: ["d", "d"]
+      couplings: [null, null]
+      nbH: "2H"
+      assignment: "CH2"
+    - delta: "7.12"
+      multiplicities: ["d"]
+      couplings: [7.0]
+      nbH: "1H"
+      assignment: "ArCH"
+    - delta: "7.37-7.23"
+      multiplicities: ["m"]
+      nbH: "6H"
+      assignment: "ArCH"
+    - delta: "7.74"
+      multiplicities: ["d"]
+      couplings: [7.0]
+      nbH: "1H"
+      assignment: "ArCH"
+    - delta: "10.97"
+      multiplicities: ["s"]
+      nbH: "1H"
+      assignment: "NH"
+13Cnmr:
+  solvent: "DMSO-d6"
+  signals:
+    - delta: "18.27"
+      otherInfo: "CH2"
+    - delta: "53.20"
+      otherInfo: "OCH3"
+    - delta: "110.74"
+      otherInfo: null
+    - delta: "117.05"
+      otherInfo: null
+    - delta: "119.97"
+      otherInfo: null
+    - delta: "123.45"
+      otherInfo: null
+    - delta: "124.30"
+      otherInfo: null
+    - delta: "29.55"
+      otherInfo: "6ArCH"
+    - delta: "115.99"
+      otherInfo: null
+    - delta: "118.21"
+      otherInfo: null
+    - delta: "127.22"
+      otherInfo: null
+    - delta: "135.03"
+      otherInfo: null
+    - delta: "142.23"
+      otherInfo: null
+    - delta: "142.96"
+      otherInfo: null
+    - delta: "146.18"
+      otherInfo: "C=N, C°N, 5ArC"
+    - delta: "161.64"
+      otherInfo: "C=O"
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+Methyl 3-sec-butylisoxazole-5-carboxylate (entry 10): Light yellow oil; 1H-NMR: 0.91 (t, 3H, J = 7.3 Hz), 1.31 (d, 3H, J = 7.1 Hz), 1.44–1.78 (m, 2H), 2.95 (m, 1H), 3.96 (s, 3H), 7.03 (s, 1H); 13C-NMR: 12.3, 20.4, 30.1, 31.2, 53.1, 112.8, 157.6, 159.4, 171.7; Anal. calcd. for C9H13NO3: C, 59.00; H, 7.15; N, 7.65%. Found: C, 58.84; H, 7.18; N, 7.63%.
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "Methyl 3-sec-butylisoxazole-5-carboxylate"
+appearance: "Light yellow oil"
+1Hnmr:
+  signals:
+    - delta: "0.91"
+      multiplicities: ["t"]
+      couplings: [7.3]
+      nbH: "3H"
+    - delta: "1.31"
+      multiplicities: ["d"]
+      couplings: [7.1]
+      nbH: "3H"
+    - delta: "1.44–1.78"
+      multiplicities: ["m"]
+      nbH: "2H"
+    - delta: "2.95"
+      multiplicities: ["m"]
+      nbH: "1H"
+    - delta: "3.96"
+      multiplicities: ["s"]
+      nbH: "3H"
+    - delta: "7.03"
+      multiplicities: ["s"]
+      nbH: "1H"
+13Cnmr:
+  signals:
+    - delta: "12.3"
+    - delta: "20.4"
+    - delta: "30.1"
+    - delta: "31.2"
+    - delta: "53.1"
+    - delta: "112.8"
+    - delta: "157.6"
+    - delta: "159.4"
+    - delta: "171.7"
+elementalAnalysis:
+  - atom: "C"
+    expect: 59.00
+    found: 58.84
+  - atom: "H"
+    expect: 7.15
+    found: 7.18
+  - atom: "N"
+    expect: 7.65
+    found: 7.63
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+6-Bromo-1-(4-methylphenyl)hexan-1-one (1b). Yield: 50 %; 1H-NMR: 7.76 (2 H, d, J = 8.06), 7.16 (2 H, d, J = 7.98), 3.34–3.31 (2 H, t, J = 6.78), 2.88–2.84 (2 H, t, J = 7.44), 2.31 (3 H, s), 1.85–1.78 (2 H, m), 1.70–1.62 (2 H, m), 1.47–1.39 (2 H, m) [Lit. [12] CDCl3: 7.85 (2 H, d, J = 7.30), 7.25 (2 H, d, J = 8.60), 3.42 (2 H, d, J = 8.60), 2.96 (2 H, t, J = 7.30), 2,41 (3 H, s), 1.97–1.86 (2 H, m), 1.82–1.74 (2 H, m), 1.58–1.47 (2 H, m)]; 13C-NMR: 199.61, 143.72, 134.47, 129.26, 128.13, 38.14, 33.67, 32.65, 27.89, 23.41, 21.62.
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "6-Bromo-1-(4-methylphenyl)hexan-1-one (1b)"
+yield: "50 %"
+1Hnmr:
+  solvent: "CDCl3"
+  signals:
+    - delta: "7.76"
+      multiplicities: ["d"]
+      couplings: [8.06]
+      nbH: "2"
+      assignment: null
+    - delta: "7.16"
+      multiplicities: ["d"]
+      couplings: [7.98]
+      nbH: "2"
+      assignment: null
+    - delta: "3.34–3.31"
+      multiplicities: ["t"]
+      couplings: [6.78]
+      nbH: "2"
+      assignment: null
+    - delta: "2.88–2.84"
+      multiplicities: ["t"]
+      couplings: [7.44]
+      nbH: "2"
+      assignment: null
+    - delta: "2.31"
+      multiplicities: ["s"]
+      couplings: []
+      nbH: "3"
+      assignment: null
+    - delta: "1.85–1.78"
+      multiplicities: ["m"]
+      couplings: []
+      nbH: "2"
+      assignment: null
+    - delta: "1.70–1.62"
+      multiplicities: ["m"]
+      couplings: []
+      nbH: "2"
+      assignment: null
+    - delta: "1.47–1.39"
+      multiplicities: ["m"]
+      couplings: []
+      nbH: "2"
+      assignment: null
+13Cnmr:
+  solvent: "CDCl3"
+  signals:
+    - delta: "199.61"
+      otherInfo: null
+    - delta: "143.72"
+      otherInfo: null
+    - delta: "134.47"
+      otherInfo: null
+    - delta: "129.26"
+      otherInfo: null
+    - delta: "128.13"
+      otherInfo: null
+    - delta: "38.14"
+      otherInfo: null
+    - delta: "33.67"
+      otherInfo: null
+    - delta: "32.65"
+      otherInfo: null
+    - delta: "27.89"
+      otherInfo: null
+    - delta: "23.41"
+      otherInfo: null
+    - delta: "21.62"
+      otherInfo: null
+otherInfo: "Lit. [12]"
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+3-(2,6-Diphenyl-4-pyridyl)-3-oxopropanenitrile (6a): Yield: 0.149 g (50%); mp 180 oC; IR υ = 2217 (CN), 1710 (CO), 1594 (C=N) cm-1; 1H-NMR δ = 4.98 (s, 2H, CH2), 7.36-8.30 (m, 12H, Ar-H) ppm; MS, m/z (%) 298 (M+, 100), 270 (15), 127 (65), 77 (70); Anal. Calcd. for C20H14N2O: C, 80.52; H, 4.73; N, 9.39. Found: C, 80.38; H, 4.61; N, 9.08.
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "3-(2,6-Diphenyl-4-pyridyl)-3-oxopropanenitrile (6a)"
+yield: "0.149 g (50%)"
+mp:
+  low: 180
+  units: "oC"
+ir:
+  peaks:
+    - {wavenum: 2217, assignment: "CN"}
+    - {wavenum: 1710, assignment: "CO"}
+    - {wavenum: 1594, assignment: "C=N"}
+1Hnmr:
+  signals:
+    - {delta: "4.98", multiplicities: ["s"], nbH: "2", assignment: "CH2"}
+    - {delta: "7.36-8.30", multiplicities: ["m"], nbH: "12", assignment: "Ar-H"}
+mass:
+  peaks:
+    - {mass: 298, intensity: 100}
+    - {mass: 270, intensity: 15}
+    - {mass: 127, intensity: 65}
+    - {mass: 77, intensity: 70}
+mf: "C20H14N2O"
+elementalAnalysis:
+  - {atom: "C", expect: 80.52, found: 80.38}
+  - {atom: "H", expect: 4.73, found: 4.61}
+  - {atom: "N", expect: 9.39, found: 9.08}
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+Dihydrokaempferol (6) [8]: C15H12O6; colorless needle (MeOH); HCl-Mg reaction (+); Molish reaction (-); ESI-MS (positive) m/z 311 [M+Na]+, 287 [M-H]+; 1H-NMR δ: 11.90 (1H, s, OH-5), 10.84 (1H, s, OH-7), 9.55 (1H, s, OH-4’), 7.30 (2H, d, J = 8.4 Hz, H-2’, 6’), 6.78 (2H, d, J = 8.4 Hz, H-3’, 5’), 5.91 (1H, d, J = 2.0 Hz, H-8), 5.86 (1H, d, J = 2.0 Hz, H-6), 5.75 (1H, br s, OH-3), 5.05 (1H, d, J = 11.4 Hz, H-2), 4.58 (1H, d, J = 11.4 Hz, H-3); 13C-NMR δ: 197.8 (C-4), 166.8 (C-7), 163.3 (C-5), 162.5 (C-9), 157.7 (C-4’), 129.4 (C-1’), 127.5 (C-2’, 6’), 114.9 (C-3’, 5’), 100.4 (C-10), 96.0 (C-6), 95.0 (C-8), 82.9 (C-2), 71.4 (C-3).
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "Dihydrokaempferol"
+appearance: "colorless needle (MeOH)"
+mass:
+  ionization: "positive"
+  peaks:
+    - {mass: 311, otherInfo: "[M+Na]+"}
+    - {mass: 287, otherInfo: "[M-H]+"}
+1Hnmr:
+  signals:
+    - {delta: "11.90", nbH: "1H", multiplicities: ["s"], assignment: "OH-5"}
+    - {delta: "10.84", nbH: "1H", multiplicities: ["s"], assignment: "OH-7"}
+    - {delta: "9.55", nbH: "1H", multiplicities: ["s"], assignment: "OH-4'"}
+    - {delta: "7.30", nbH: "2H", multiplicities: ["d"], couplings: [8.4], assignment: "H-2', 6'"}
+    - {delta: "6.78", nbH: "2H", multiplicities: ["d"], couplings: [8.4], assignment: "H-3', 5'"}
+    - {delta: "5.91", nbH: "1H", multiplicities: ["d"], couplings: [2.0], assignment: "H-8"}
+    - {delta: "5.86", nbH: "1H", multiplicities: ["d"], couplings: [2.0], assignment: "H-6"}
+    - {delta: "5.75", nbH: "1H", multiplicities: ["br s"], assignment: "OH-3"}
+    - {delta: "5.05", nbH: "1H", multiplicities: ["d"], couplings: [11.4], assignment: "H-2"}
+    - {delta: "4.58", nbH: "1H", multiplicities: ["d"], couplings: [11.4], assignment: "H-3"}
+13Cnmr:
+  signals:
+    - {delta: "197.8", otherInfo: "C-4"}
+    - {delta: "166.8", otherInfo: "C-7"}
+    - {delta: "163.3", otherInfo: "C-5"}
+    - {delta: "162.5", otherInfo: "C-9"}
+    - {delta: "157.7", otherInfo: "C-4'"}
+    - {delta: "129.4", otherInfo: "C-1'"}
+    - {delta: "127.5", otherInfo: "C-2', 6'"}
+    - {delta: "114.9", otherInfo: "C-3', 5'"}
+    - {delta: "100.4", otherInfo: "C-10"}
+    - {delta: "96.0", otherInfo: "C-6"}
+    - {delta: "95.0", otherInfo: "C-8"}
+    - {delta: "82.9", otherInfo: "C-2"}
+    - {delta: "71.4", otherInfo: "C-3"}
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+Ethyl p-fluorophenylacetate ethoxycarbonyl hydrazone (2b): Yield 80%, m.p. 58-59 °C; IR υ (cm-1): 3226 (NH), 1724 (C=O), 1659 (C=N), 837 (1,4-disubstituted phenyl); 1H-NMR δ (ppm): 1.11-1.18 (m, 6H, 2CH3), 3.45 (s, 2H, benzyl CH2), 4.00-4.06 (m, 4H, 2CH2), 7.07 (d, 2H, J= 8.80 Hz, Ar-H), 7.21 (d, 2H, J= 8.80 Hz, Ar-H), 9.08 (s, 1H, NH); 13C-NMR δ (ppm): 14.72 (O=COCH2CH3), 15.22 (OCH2CH3), 21.39 (benzyl CH2), 60.44 (O=COCH2CH3), 60.93 (OCH2CH3), Ar-C: [115.55 (2C), 130.85 (2C), 133.19, 160.39], 162.79 (C=N), 171.87 (C=O); Calculated (%) for C13H17FN2O3 (268.29); C: 58.20, H: 6.39, N: 10.44, found (%);C: 58.22, H: 6.40, N: 10.47.
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "Ethyl p-fluorophenylacetate ethoxycarbonyl hydrazone (2b)"
+yield: "80%"
+mp:
+  low: 58
+  high: 59
+  units: "°C"
+ir:
+  peaks:
+    - {wavenum: 3226, assignment: "NH"}
+    - {wavenum: 1724, assignment: "C=O"}
+    - {wavenum: 1659, assignment: "C=N"}
+    - {wavenum: 837, assignment: "1,4-disubstituted phenyl"}
+1Hnmr:
+  signals:
+    - {delta: "1.11-1.18", multiplicities: ["m"], nbH: "6H", assignment: "2CH3"}
+    - {delta: "3.45", multiplicities: ["s"], nbH: "2H", assignment: "benzyl CH2"}
+    - {delta: "4.00-4.06", multiplicities: ["m"], nbH: "4H", assignment: "2CH2"}
+    - {delta: "7.07", multiplicities: ["d"], couplings: [8.80], nbH: "2H", assignment: "Ar-H"}
+    - {delta: "7.21", multiplicities: ["d"], couplings: [8.80], nbH: "2H", assignment: "Ar-H"}
+    - {delta: "9.08", multiplicities: ["s"], nbH: "1H", assignment: "NH"}
+13Cnmr:
+  signals:
+    - {delta: "14.72", otherInfo: "O=COCH2CH3"}
+    - {delta: "15.22", otherInfo: "OCH2CH3"}
+    - {delta: "21.39", otherInfo: "benzyl CH2"}
+    - {delta: "60.44", otherInfo: "O=COCH2CH3"}
+    - {delta: "60.93", otherInfo: "OCH2CH3"}
+    - {delta: "115.55", otherInfo: "Ar-C"}
+    - {delta: "130.85", otherInfo: "Ar-C"}
+    - {delta: "133.19", otherInfo: "Ar-C"}
+    - {delta: "160.39", otherInfo: "Ar-C"}
+    - {delta: "162.79", otherInfo: "C=N"}
+    - {delta: "171.87", otherInfo: "C=O"}
+mf: "C13H17FN2O3"
+elementalAnalysis:
+  - {atom: "C", expect: 58.20, found: 58.22}
+  - {atom: "H", expect: 6.39, found: 6.40}
+  - {atom: "N", expect: 10.44, found: 10.47}
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+2-(4-(2-Chlorophenyl)piperazin-1-yl)-N-(4-oxo-2-(phenoxymethyl)quinazolin-3(4H)-yl)acetamide (8a): White powders from ethanol; m.p. 206-207 oC; yield 57%; IR ν/cm-1: 3200, 1680, 1590, 1550; 1H-NMR δ/ppm (CDCl3): 3.01-3.28 (m, 10H, piperazinyl and CH2), 5.03 (s, 2H, CH2O), 6.97-7.77 (m, 12H, arom-H), 8.10 (s, 1H, NH (D2O exchange)), 8.25 (d, J=7.65 Hz, 1H, arom-H5). Ms: m/z (%) 506 (M+2, 0.18), 504 (M, 0.46), 251 (C15H11N2O2, 4), 209 (C11H14ClN2, 100). Anal. for C27H26ClN5O3 (503.98): C, 64.35; H, 5.20; N, 13.90%. Found: C, 64.50; H, 5.60; N, 13.72%. 
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "2-(4-(2-Chlorophenyl)piperazin-1-yl)-N-(4-oxo-2-(phenoxymethyl)quinazolin-3(4H)-yl)acetamide (8a)"
+appearance: "White powders from ethanol"
+mp:
+  low: 206
+  high: 207
+  units: "°C"
+yield: "57%"
+ir:
+  peaks:
+    - {wavenum: 3200}
+    - {wavenum: 1680}
+    - {wavenum: 1590}
+    - {wavenum: 1550}
+1Hnmr:
+  solvent: "CDCl3"
+  signals:
+    - {delta: "3.01-3.28", multiplicities: ["m"], nbH: "10H", assignment: "piperazinyl and CH2"}
+    - {delta: "5.03", multiplicities: ["s"], nbH: "2H", assignment: "CH2O"}
+    - {delta: "6.97-7.77", multiplicities: ["m"], nbH: "12H", assignment: "arom-H"}
+    - {delta: "8.10", multiplicities: ["s"], nbH: "1H", assignment: "NH (D2O exchange)"}
+    - {delta: "8.25", multiplicities: ["d"], couplings: [7.65], nbH: "1H", assignment: "arom-H5"}
+mass:
+  peaks:
+    - {mass: 506, intensity: 0.18, otherInfo: "M+2"}
+    - {mass: 504, intensity: 0.46, otherInfo: "M"}
+    - {mass: 251, intensity: 4, otherInfo: "C15H11N2O2"}
+    - {mass: 209, intensity: 100, otherInfo: "C11H14ClN2"}
+mf: "C27H26ClN5O3"
+elementalAnalysis:
+  - {atom: "C", expect: 64.35, found: 64.50}
+  - {atom: "H", expect: 5.20, found: 5.60}
+  - {atom: "N", expect: 13.90, found: 13.72}
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+4-(3-Chloro-4-fluoroanilino)-7-(3-chloropropoxy)-6-methoxy-1,2,3-benzotriazine (8m): Yield: 77.1%; mp: 138-139 oC. IR (KBr): 3314, 2923, 1616, 1571, 1511, 1427, 1285, 849 cm-1; 1H-NMR (DMSO-d6) δ: 9.70 (1H, s, NH), 8.18 (1H, d, J = 4.4 Hz, H-2’), 7.90 (1H, s, H-8), 7.82 (1H, m, H-6’), 7.64 (1H, s, H-5), 7.51 (1H, t, J = 9.1 Hz, H-5’), 4.38 (2H, t, J = 5.9 Hz, ClCH2CH2CH2O-), 4.04 (3H, s, -OCH3), 3.84 (2H, t, J = 6.4 Hz, ClCH2CH2CH2O-), 2.29 (2H, m, ClCH2CH2CH2O-); LC-MS: 397.0 (M+H)+; 13C-NMR (DMSO-d6) δ: 155.47 (C-4’), 154.32 (C-7), 153.64 (C-6), 152.25 (C-4’), 150.32 (C-10), 141.81 (C-9), 136.57 (C-1’), 124.15 (C-2’), 122.93 (C-6’), 122.84 (C-6’), 119.47 (C-6’), 117.14 (C-5’), 116.85 (C-5’), 107.33 (C-5), 104.28 (C-4), 100.56 (C-8), 66.19 (ClCH2CH2CH2O-), 57.21 (-OCH3), 42.18 (ClCH2CH2CH2O-), 31.86 (ClCH2CH2CH2O-); Anal. Calcd. for C17H15Cl2FN4O2: C 51.40, H 3.81, N 14.10; Found: C 51.41, H 3.85, N 14.08.
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "4-(3-Chloro-4-fluoroanilino)-7-(3-chloropropoxy)-6-methoxy-1,2,3-benzotriazine (8m)"
+yield: "77.1%"
+mp:
+  low: 138
+  high: 139
+  units: "°C"
+ir:
+  conditions: "KBr"
+  peaks:
+    - {wavenum: 3314}
+    - {wavenum: 2923}
+    - {wavenum: 1616}
+    - {wavenum: 1571}
+    - {wavenum: 1511}
+    - {wavenum: 1427}
+    - {wavenum: 1285}
+    - {wavenum: 849}
+1Hnmr:
+  solvent: "DMSO-d6"
+  signals:
+    - {delta: "9.70", multiplicities: ["s"], nbH: "1", assignment: "NH"}
+    - {delta: "8.18", multiplicities: ["d"], couplings: [4.4], nbH: "1", assignment: "H-2'"}
+    - {delta: "7.90", multiplicities: ["s"], nbH: "1", assignment: "H-8"}
+    - {delta: "7.82", multiplicities: ["m"], nbH: "1", assignment: "H-6'"}
+    - {delta: "7.64", multiplicities: ["s"], nbH: "1", assignment: "H-5"}
+    - {delta: "7.51", multiplicities: ["t"], couplings: [9.1], nbH: "1", assignment: "H-5'"}
+    - {delta: "4.38", multiplicities: ["t"], couplings: [5.9], nbH: "2", assignment: "ClCH2CH2CH2O-"}
+    - {delta: "4.04", multiplicities: ["s"], nbH: "3", assignment: "-OCH3"}
+    - {delta: "3.84", multiplicities: ["t"], couplings: [6.4], nbH: "2", assignment: "ClCH2CH2CH2O-"}
+    - {delta: "2.29", multiplicities: ["m"], nbH: "2", assignment: "ClCH2CH2CH2O-"}
+13Cnmr:
+  solvent: "DMSO-d6"
+  signals:
+    - {delta: "155.47", otherInfo: "C-4'"}
+    - {delta: "154.32", otherInfo: "C-7"}
+    - {delta: "153.64", otherInfo: "C-6"}
+    - {delta: "152.25", otherInfo: "C-4'"}
+    - {delta: "150.32", otherInfo: "C-10"}
+    - {delta: "141.81", otherInfo: "C-9"}
+    - {delta: "136.57", otherInfo: "C-1'"}
+    - {delta: "124.15", otherInfo: "C-2'"}
+    - {delta: "122.93", otherInfo: "C-6'"}
+    - {delta: "122.84", otherInfo: "C-6'"}
+    - {delta: "119.47", otherInfo: "C-6'"}
+    - {delta: "117.14", otherInfo: "C-5'"}
+    - {delta: "116.85", otherInfo: "C-5'"}
+    - {delta: "107.33", otherInfo: "C-5"}
+    - {delta: "104.28", otherInfo: "C-4"}
+    - {delta: "100.56", otherInfo: "C-8"}
+    - {delta: "66.19", otherInfo: "ClCH2CH2CH2O-"}
+    - {delta: "57.21", otherInfo: "-OCH3"}
+    - {delta: "42.18", otherInfo: "ClCH2CH2CH2O-"}
+    - {delta: "31.86", otherInfo: "ClCH2CH2CH2O-"}
+mass:
+  ionization: "M+H)+"
+  peaks:
+    - {mass: 397.0, intensity: null, otherInfo: null}
+elementalAnalysis:
+  - {atom: "C", expect: 51.40, found: 51.41}
+  - {atom: "H", expect: 3.81, found: 3.85}
+  - {atom: "N", expect: 14.10, found: 14.08}
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+N-(4-{[2-(2-Naphthylsulfonyl)hydrazono]methyl}phenyl)benzamide (11a). Yield 83%; yellow solid; recrystallized from Et2O; m.p. 197-200 °C; 1H-NMR: δ 7.50–7.62 (m, 5H, Ar-H), 7.47-6.67 (m, 7H, Ar-H), 7.89-7.98 (m, 3H, Ar-H), 8.31-8.36 (m, 1H, Ar-H), 8.40 (s, 1H, CH=N-NH), 10.40 (s, 1H, NH-CO), 11.57 (s, 1H, =N-NH-SO2) ppm; MS (FAB+) m/z (%): 430 (MH+, 86), 55 (100); IR (KBr): ν 3339, 3221, 1652, 1580, 1520, 1410, 1320, 1167, 1049, 957, 830, 748, 665, 549 cm-1; Anal. calc. for C24H19N3O3S×3/5H20: C 62.73, H 4.40,  N 9.14%. Found C 62.71, H 4.27, N 9.18 %.
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "N-(4-{[2-(2-Naphthylsulfonyl)hydrazono]methyl}phenyl)benzamide (11a)"
+yield: "83%"
+appearance: "yellow solid"
+mp:
+  low: 197
+  high: 200
+  units: "°C"
+1Hnmr:
+  signals:
+    - delta: "7.50–7.62"
+      multiplicities: ["m"]
+      nbH: "5H"
+      assignment: "Ar-H"
+    - delta: "7.47-6.67"
+      multiplicities: ["m"]
+      nbH: "7H"
+      assignment: "Ar-H"
+    - delta: "7.89-7.98"
+      multiplicities: ["m"]
+      nbH: "3H"
+      assignment: "Ar-H"
+    - delta: "8.31-8.36"
+      multiplicities: ["m"]
+      nbH: "1H"
+      assignment: "Ar-H"
+    - delta: "8.40"
+      multiplicities: ["s"]
+      nbH: "1H"
+      assignment: "CH=N-NH"
+    - delta: "10.40"
+      multiplicities: ["s"]
+      nbH: "1H"
+      assignment: "NH-CO"
+    - delta: "11.57"
+      multiplicities: ["s"]
+      nbH: "1H"
+      assignment: "=N-NH-SO2"
+ms:
+  ionization: "FAB+"
+  peaks:
+    - mass: 430
+      intensity: 86
+    - mass: 55
+      intensity: 100
+ir:
+  conditions: "KBr"
+  peaks:
+    - wavenum: 3339
+    - wavenum: 3221
+    - wavenum: 1652
+    - wavenum: 1580
+    - wavenum: 1520
+    - wavenum: 1410
+    - wavenum: 1320
+    - wavenum: 1167
+    - wavenum: 1049
+    - wavenum: 957
+    - wavenum: 830
+    - wavenum: 748
+    - wavenum: 665
+    - wavenum: 549
+elementalAnalysis:
+  - atom: "C"
+    expect: 62.73
+    found: 62.71
+  - atom: "H"
+    expect: 4.40
+    found: 4.27
+  - atom: "N"
+    expect: 9.14
+    found: 9.18
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+1,3-Dimethyl-2-phenyl-1H-indole (11): M.p. 69 °C. (lit. [25] [66-67.5°C); yield: 70% (Method C); IR (cm-1): 3409, 3050, 1660, 1445, 1210, 739 cm-1; 1H-NMR: δ = 2.21 (s, 3H), 3.59 (s, 3H), 7.03-7.21 (m, 3H), 7.42-7.60 (m, 6H) ppm; Anal. required for C16H15N (221.12) C, 86.8; H, 6.8; N, 6.3; Found: C, 86.6; H, 6.9; N, 6.4 %.
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "1,3-Dimethyl-2-phenyl-1H-indole"
+mp:
+  low: 69
+  high: 69
+  units: "°C"
+yield: "70%"
+ir:
+  peaks:
+    - {wavenum: 3409}
+    - {wavenum: 3050}
+    - {wavenum: 1660}
+    - {wavenum: 1445}
+    - {wavenum: 1210}
+    - {wavenum: 739}
+1Hnmr:
+  signals:
+    - {delta: "2.21", multiplicities: ["s"], nbH: "3H"}
+    - {delta: "3.59", multiplicities: ["s"], nbH: "3H"}
+    - {delta: "7.03-7.21", multiplicities: ["m"], nbH: "3H"}
+    - {delta: "7.42-7.60", multiplicities: ["m"], nbH: "6H"}
+mf: "C16H15N"
+elementalAnalysis:
+  - {atom: "C", expect: 86.8, found: 86.6}
+  - {atom: "H", expect: 6.8, found: 6.9}
+  - {atom: "N", expect: 6.3, found: 6.4}
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+2-Amino-4-(4-methoxyphenyl)-5-(2-thienylcarbonyl)-4,5-dihydrothiophene-3-carbonitrile (15b): yellow crystals from ethanol; mp 170-172 oC; yield 60%; IR: ν = 3360, 3192 (NH2), 2215 (C=N), 1723 (CO); 1H-NMR: δ (ppm) = 3.70 (s, 3H, OCH3), 4.02 (d, 1H, J = 17 Hz), 4.96 (d, 1H, J = 17 Hz), 6.65 (br. S, 2H, NH2, D2O exchangeable ), 6.96 (d, 2H), 7.27-8.31 (m, 3H), 7.45 (d, 2H); 13C-NMR: δ (ppm) = 49.64, 56.90, 57.82, 70.39, 113.58, 116.82, 130.80, 131.35, 131.93, 132.72, 135.89, 144.82, 155.92, 161.59, 184.18; MS: m/z (%) = 343 (M++1, 11.4), 342 (M+, 26.8), 233 (18.6), 124 (16.7), 111 (86.1), 107 (48.5), 83 (100.0), 80 (18.3), 64 (10.2); Anal. Calcd. for C17H14N2O2S2 (342.43): C, 59.63; H, 4.12; N, 8.18; S, 18.73%. Found: C, 59.58; H, 3.99; N, 8.02; S, 18.51.
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "2-Amino-4-(4-methoxyphenyl)-5-(2-thienylcarbonyl)-4,5-dihydrothiophene-3-carbonitrile (15b)"
+appearance: "yellow crystals from ethanol"
+mp:
+  low: 170
+  high: 172
+  units: "oC"
+yield: "60%"
+ir:
+  peaks:
+    - wavenum: 3360
+      assignment: "NH2"
+    - wavenum: 3192
+      assignment: "NH2"
+    - wavenum: 2215
+      assignment: "C=N"
+    - wavenum: 1723
+      assignment: "CO"
+1Hnmr:
+  signals:
+    - delta: "3.70"
+      multiplicities: ["s"]
+      nbH: "3H"
+      assignment: "OCH3"
+    - delta: "4.02"
+      multiplicities: ["d"]
+      couplings: [17]
+      nbH: "1H"
+    - delta: "4.96"
+      multiplicities: ["d"]
+      couplings: [17]
+      nbH: "1H"
+    - delta: "6.65"
+      multiplicities: ["br. S"]
+      nbH: "2H"
+      assignment: "NH2, D2O exchangeable"
+    - delta: "6.96"
+      multiplicities: ["d"]
+      nbH: "2H"
+    - delta: "7.27-8.31"
+      multiplicities: ["m"]
+      nbH: "3H"
+    - delta: "7.45"
+      multiplicities: ["d"]
+      nbH: "2H"
+13Cnmr:
+  signals:
+    - delta: "49.64"
+      otherInfo: null
+    - delta: "56.90"
+      otherInfo: null
+    - delta: "57.82"
+      otherInfo: null
+    - delta: "70.39"
+      otherInfo: null
+    - delta: "113.58"
+      otherInfo: null
+    - delta: "116.82"
+      otherInfo: null
+    - delta: "130.80"
+      otherInfo: null
+    - delta: "131.35"
+      otherInfo: null
+    - delta: "131.93"
+      otherInfo: null
+    - delta: "132.72"
+      otherInfo: null
+    - delta: "135.89"
+      otherInfo: null
+    - delta: "144.82"
+      otherInfo: null
+    - delta: "155.92"
+      otherInfo: null
+    - delta: "161.59"
+      otherInfo: null
+    - delta: "184.18"
+      otherInfo: null
+mass:
+  ionization: null
+  mode: null
+  analyser: null
+  conditions: null
+  peaks:
+    - mass: 343
+      intensity: 11.4
+      otherInfo: "M++1"
+    - mass: 342
+      intensity: 26.8
+      otherInfo: "M+"
+    - mass: 233
+      intensity: 18.6
+      otherInfo: null
+    - mass: 124
+      intensity: 16.7
+      otherInfo: null
+    - mass: 111
+      intensity: 86.1
+      otherInfo: null
+    - mass: 107
+      intensity: 48.5
+      otherInfo: null
+    - mass: 83
+      intensity: 100.0
+      otherInfo: null
+    - mass: 80
+      intensity: 18.3
+      otherInfo: null
+    - mass: 64
+      intensity: 10.2
+      otherInfo: null
+elementalAnalysis:
+  - atom: "C"
+    expect: 59.63
+    found: 59.58
+  - atom: "H"
+    expect: 4.12
+    found: 3.99
+  - atom: "N"
+    expect: 8.18
+    found: 8.02
+  - atom: "S"
+    expect: 18.73
+    found: 18.51
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+4-Amino-6-methyl-1-β-<sc>d</sc>-ribofuranosyl-1,3,5-triazin-2(1H)-one (1g). Yield: 23.5%; mp: 142-145 °C [13] (water/methanol); IR ν/cm-1: 3359.6, 1650.8, 1594.7, 1105.4, 895.1, 797.8; 1H-NMR δ/ppm: 2.43 (3H, s, CH3), 3.45-3.47 (2H, m, H-5’, H-5”), 3.59-3.63 (1H, m, H-4’), 3.75-3.76 (1H, d, H-3’), 4.56 (1H, s, H-2’), 4.75 (1H, s, OH), 4.97 (1H, s, OH), 5.20 (1H, s, OH), 5.59-5.61 (1H, d, H-1’), 7.46-7.47 (2H, s, NH2); ESI-MS: 259.2 [M+H]+; Anal. Calcd. for C9H14N4O5: C 41.86, H 5.46, N 21.70. Found C 41.89, H 5.43, N 21.75.
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "4-Amino-6-methyl-1-β-d-ribofuranosyl-1,3,5-triazin-2(1H)-one"
+yield: "23.5%"
+mp:
+  low: 142
+  high: 145
+  units: "°C"
+  otherInfo: "(water/methanol)"
+ir:
+  peaks:
+    - {wavenum: 3359.6}
+    - {wavenum: 1650.8}
+    - {wavenum: 1594.7}
+    - {wavenum: 1105.4}
+    - {wavenum: 895.1}
+    - {wavenum: 797.8}
+1Hnmr:
+  signals:
+    - {delta: "2.43", multiplicities: ["s"], nbH: "3H", assignment: "CH3"}
+    - {delta: "3.45-3.47", multiplicities: ["m"], nbH: "2H", assignment: "H-5', H-5''"}
+    - {delta: "3.59-3.63", multiplicities: ["m"], nbH: "1H", assignment: "H-4'"}
+    - {delta: "3.75-3.76", multiplicities: ["d"], nbH: "1H", assignment: "H-3'"}
+    - {delta: "4.56", multiplicities: ["s"], nbH: "1H", assignment: "H-2'"}
+    - {delta: "4.75", multiplicities: ["s"], nbH: "1H", assignment: "OH"}
+    - {delta: "4.97", multiplicities: ["s"], nbH: "1H", assignment: "OH"}
+    - {delta: "5.20", multiplicities: ["s"], nbH: "1H", assignment: "OH"}
+    - {delta: "5.59-5.61", multiplicities: ["d"], nbH: "1H", assignment: "H-1'"}
+    - {delta: "7.46-7.47", multiplicities: ["s"], nbH: "2H", assignment: "NH2"}
+mass:
+  ionization: "ESI"
+  mode: "MS"
+  analyser: "Calcd."
+  peaks:
+    - {mass: 259.2, intensity: null, otherInfo: "[M+H]+"}
+mf: "C9H14N4O5"
+elementalAnalysis:
+  - {atom: "C", expect: 41.86, found: 41.89}
+  - {atom: "H", expect: 5.46, found: 5.43}
+  - {atom: "N", expect: 21.70, found: 21.75}
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+5-(4’-(Hydroxydiphenylmethyl)-piperidin-1-yl)-1-(4-n-butylphenyl)pentan-1-one (2n). Yield: 28 %; mp: 157 °C; IR: 2955, 2365, 1679, 1604, 1447, 1387, 1341, 1314, 1248, 1183; 1H-NMR: 8.37 (1 H, s), 7.77 (2 H, d, J = 8.24), 7.42 (4 H, d, J = 7.41), 7.22–7.17 (6 H, m), 7.11–7.07 (2 H, m), 3.37 (2 H, d, J = 11.56), 2.94–2.91 (2 H, m), 2.79–2.76 (2 H, m), 2.60–2.45 (5 H, m), 2.09–2.00 (2 H, m), 1.71–1.65 (4 H, m), 1.57–1.49 (4 H, m), 1.32–1.24 (2 H, m), 0.85 (3 H, t, J = 7.29); 13C-NMR: 199.17, 168.09, 148.96, 145.62, 134.41, 128.70, 128.30, 128.14, 126.65, 125.59, 78.85, 52.64, 42.66, 37.52, 35.69, 33.23, 23.84, 23.51, 22.32, 21.37, 13.91; LC/MS-MS: 484.34 (M+H+).
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "5-(4’-(Hydroxydiphenylmethyl)-piperidin-1-yl)-1-(4-n-butylphenyl)pentan-1-one (2n)"
+yield: "28 %"
+mp:
+  low: 157
+  high: 157
+  units: "°C"
+ir:
+  peaks:
+    - {wavenum: 2955}
+    - {wavenum: 2365}
+    - {wavenum: 1679}
+    - {wavenum: 1604}
+    - {wavenum: 1447}
+    - {wavenum: 1387}
+    - {wavenum: 1341}
+    - {wavenum: 1314}
+    - {wavenum: 1248}
+    - {wavenum: 1183}
+1Hnmr:
+  signals:
+    - {delta: "8.37", nbH: "1", multiplicities: ["s"], assignment: null}
+    - {delta: "7.77", nbH: "2", multiplicities: ["d"], couplings: [8.24], assignment: null}
+    - {delta: "7.42", nbH: "4", multiplicities: ["d"], couplings: [7.41], assignment: null}
+    - {delta: "7.22-7.17", nbH: "6", multiplicities: ["m"], assignment: null}
+    - {delta: "7.11-7.07", nbH: "2", multiplicities: ["m"], assignment: null}
+    - {delta: "3.37", nbH: "2", multiplicities: ["d"], couplings: [11.56], assignment: null}
+    - {delta: "2.94-2.91", nbH: "2", multiplicities: ["m"], assignment: null}
+    - {delta: "2.79-2.76", nbH: "2", multiplicities: ["m"], assignment: null}
+    - {delta: "2.60-2.45", nbH: "5", multiplicities: ["m"], assignment: null}
+    - {delta: "2.09-2.00", nbH: "2", multiplicities: ["m"], assignment: null}
+    - {delta: "1.71-1.65", nbH: "4", multiplicities: ["m"], assignment: null}
+    - {delta: "1.57-1.49", nbH: "4", multiplicities: ["m"], assignment: null}
+    - {delta: "1.32-1.24", nbH: "2", multiplicities: ["m"], assignment: null}
+    - {delta: "0.85", nbH: "3", multiplicities: ["t"], couplings: [7.29], assignment: null}
+13Cnmr:
+  signals:
+    - {delta: "199.17", otherInfo: null}
+    - {delta: "168.09", otherInfo: null}
+    - {delta: "148.96", otherInfo: null}
+    - {delta: "145.62", otherInfo: null}
+    - {delta: "134.41", otherInfo: null}
+    - {delta: "128.70", otherInfo: null}
+    - {delta: "128.30", otherInfo: null}
+    - {delta: "128.14", otherInfo: null}
+    - {delta: "126.65", otherInfo: null}
+    - {delta: "125.59", otherInfo: null}
+    - {delta: "78.85", otherInfo: null}
+    - {delta: "52.64", otherInfo: null}
+    - {delta: "42.66", otherInfo: null}
+    - {delta: "37.52", otherInfo: null}
+    - {delta: "35.69", otherInfo: null}
+    - {delta: "33.23", otherInfo: null}
+    - {delta: "23.84", otherInfo: null}
+    - {delta: "23.51", otherInfo: null}
+    - {delta: "22.32", otherInfo: null}
+    - {delta: "21.37", otherInfo: null}
+    - {delta: "13.91", otherInfo: null}
+mass:
+  ionization: null
+  mode: null
+  analyser: null
+  conditions: null
+  peaks:
+    - {mass: 484.34, intensity: null, otherInfo: null}
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+4-(Acridin-9-yl)-5-methyl-2,4-dihydro[1,2,4]triazole-3-thione (9e). Yield 64%; m.p. 259–261 °C; Anal. Calc. for C16H12N4S (292.36): 65.73% C, 4.14% H, 19.16% N; found: 65.44% C, 4.06% H, 18.87% N; 1H-NMR δ: 14.16 (s, 1H, NH), 8.35 (dd, J = 8.6, 1.2 Hz, 2H, H-4',5'), 7.98 (ddd, J = 8.6, 6.5, 1.2 Hz, 2H, H-3',6'), 7.75 (ddd, J = 8.8, 6.5, 1.2 Hz, 2H, H-2',7'), 7.59 (dd, J = 8.8, 1.2 Hz, 2H, H-1',8'), 1.92 (s, 3H, CH3); 13C-NMR δ: 168.3 (C=S), 149.3 (C-5), 148.9 (C-4a',10a'), 134.8 (C-9'), 131.1 (C-3',6'), 129.6 (C-4',5'), 128.4 (C-2',7'), 122.7 (C-1',8'), 122.4 (C-8a',9a'), 10.9 (CH3); 15N-NMR δ: -65.7, -104.3, -176.8 (N-2), -204.5.
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "4-(Acridin-9-yl)-5-methyl-2,4-dihydro[1,2,4]triazole-3-thione (9e)"
+yield: "64%"
+mp:
+  low: 259
+  high: 261
+  units: "°C"
+elementalAnalysis:
+  - atom: "C"
+    expect: 65.73
+    found: 65.44
+  - atom: "H"
+    expect: 4.14
+    found: 4.06
+  - atom: "N"
+    expect: 19.16
+    found: 18.87
+1Hnmr:
+  signals:
+    - delta: "14.16"
+      multiplicities: ["s"]
+      nbH: "1H"
+      assignment: "NH"
+    - delta: "8.35"
+      multiplicities: ["dd"]
+      couplings: [8.6, 1.2]
+      nbH: "2H"
+      assignment: "H-4',5'"
+    - delta: "7.98"
+      multiplicities: ["ddd"]
+      couplings: [8.6, 6.5, 1.2]
+      nbH: "2H"
+      assignment: "H-3',6'"
+    - delta: "7.75"
+      multiplicities: ["ddd"]
+      couplings: [8.8, 6.5, 1.2]
+      nbH: "2H"
+      assignment: "H-2',7'"
+    - delta: "7.59"
+      multiplicities: ["dd"]
+      couplings: [8.8, 1.2]
+      nbH: "2H"
+      assignment: "H-1',8'"
+    - delta: "1.92"
+      multiplicities: ["s"]
+      nbH: "3H"
+      assignment: "CH3"
+13Cnmr:
+  signals:
+    - delta: "168.3"
+      otherInfo: "C=S"
+    - delta: "149.3"
+      otherInfo: "C-5"
+    - delta: "148.9"
+      otherInfo: "C-4a',10a'"
+    - delta: "134.8"
+      otherInfo: "C-9'"
+    - delta: "131.1"
+      otherInfo: "C-3',6'"
+    - delta: "129.6"
+      otherInfo: "C-4',5'"
+    - delta: "128.4"
+      otherInfo: "C-2',7'"
+    - delta: "122.7"
+      otherInfo: "C-1',8'"
+    - delta: "122.4"
+      otherInfo: "C-8a',9a'"
+    - delta: "10.9"
+      otherInfo: "CH3"
+15Nnmr:
+  peaks:
+    - wavenum: -65.7
+    - wavenum: -104.3
+    - wavenum: -176.8
+mf: "C16H12N4S"
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+2-(2-Nitrophenyl)-1,3-dioxolane (9b). [21] Yield 91%; yellow oil; 1H-NMR (CDCl3): δ 4.04 (m, 4H, O-CH2-CH2-O), 6.48 (s, 1H, CH), 7.50 (m, 1H, Ar-H), 7.62 (m, 1H, Ar-H), 7.80 (d, 1H, J = 8.0 Hz, Ar-H), 7.89 (d, 1H, J = 8.0 Hz, Ar-H) ppm; MS (EI) m/z (%): 195 (M+, 69), 148 (100); IR (KBr): ν 2893, 1704, 1530, 1350, 1198, 1108, 944, 788 cm-1.
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "2-(2-Nitrophenyl)-1,3-dioxolane (9b)"
+yield: "91%"
+appearance: "yellow oil"
+"1Hnmr":
+  solvent: "CDCl3"
+  signals:
+    - delta: "4.04"
+      multiplicities: ["m"]
+      nbH: "4H"
+      assignment: "O-CH2-CH2-O"
+    - delta: "6.48"
+      multiplicities: ["s"]
+      nbH: "1H"
+      assignment: "CH"
+    - delta: "7.50"
+      multiplicities: ["m"]
+      nbH: "1H"
+      assignment: "Ar-H"
+    - delta: "7.62"
+      multiplicities: ["m"]
+      nbH: "1H"
+      assignment: "Ar-H"
+    - delta: "7.80"
+      multiplicities: ["d"]
+      couplings: [8.0]
+      nbH: "1H"
+      assignment: "Ar-H"
+    - delta: "7.89"
+      multiplicities: ["d"]
+      couplings: [8.0]
+      nbH: "1H"
+      assignment: "Ar-H"
+ms:
+  ionization: "EI"
+  peaks:
+    - mass: 195
+      intensity: 69
+      otherInfo: "M+"
+    - mass: 148
+      intensity: 100
+ir:
+  conditions: "KBr"
+  peaks:
+    - wavenum: 2893
+    - wavenum: 1704
+    - wavenum: 1530
+    - wavenum: 1350
+    - wavenum: 1198
+    - wavenum: 1108
+    - wavenum: 944
+    - wavenum: 788
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+6-Amino-1-(4'-O-α-<sc>d</sc>-glucopyranosyl-β-<sc>d</sc>-glucopyranosyl)-4-methyl-1,3,5-triazin-2(1H)-one (2d). Yield: 14.6%; mp: 175-177 °C (water/methanol); IR ν/cm-1: 3418.6, 2923.2, 1692.2, 1379.9, 1059.2, 918.6, 893.2, 869.0, 840.9, 798.3; 1H-NMR δ/ppm: 2.11 (3H, s, CH3), 3.10-3.12 (1H, m), 3.28 (2H, s), 3.60-3.83 (8H, m), 4.47 (1H, s, OH), 4.56 (1H, s, OH), 4.78 (1H, s, OH), 4.97 (2H, s, OH, H-2’), 5.02-5.03 (1H, s, H-1”), 5.54 (1H, s, OH), 5.58-5.60 (1H, d, OH), 5.74 (1H, s, OH), 5.89 (1H, s, H-1’), 7.02 (1H, s, br, NH), 8.40 (1H, s, br, NH); ESI-MS: 449.4 [M-H]+; Anal. Calcd. for C16H26N4O11: C 42.67, H 5.82, N 12.44. Found C 42.55, H 5.93, N 12.49.
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "6-Amino-1-(4'-O-α-d-glucopyranosyl-β-d-glucopyranosyl)-4-methyl-1,3,5-triazin-2(1H)-one (2d)"
+yield: "14.6%"
+mp:
+  low: 175
+  high: 177
+  units: "°C"
+  otherInfo: "water/methanol"
+ir:
+  peaks:
+    - {wavenum: 3418.6}
+    - {wavenum: 2923.2}
+    - {wavenum: 1692.2}
+    - {wavenum: 1379.9}
+    - {wavenum: 1059.2}
+    - {wavenum: 918.6}
+    - {wavenum: 893.2}
+    - {wavenum: 869.0}
+    - {wavenum: 840.9}
+    - {wavenum: 798.3}
+1Hnmr:
+  signals:
+    - {delta: "2.11", multiplicities: ["s"], nbH: "3H", assignment: "CH3"}
+    - {delta: "3.10-3.12", multiplicities: ["m"], nbH: "1H"}
+    - {delta: "3.28", multiplicities: ["s"], nbH: "2H"}
+    - {delta: "3.60-3.83", multiplicities: ["m"], nbH: "8H"}
+    - {delta: "4.47", multiplicities: ["s"], nbH: "1H", assignment: "OH"}
+    - {delta: "4.56", multiplicities: ["s"], nbH: "1H", assignment: "OH"}
+    - {delta: "4.78", multiplicities: ["s"], nbH: "1H", assignment: "OH"}
+    - {delta: "4.97", multiplicities: ["s"], nbH: "2H", assignment: "OH, H-2’"}
+    - {delta: "5.02-5.03", multiplicities: ["s"], nbH: "1H", assignment: "H-1”"}
+    - {delta: "5.54", multiplicities: ["s"], nbH: "1H", assignment: "OH"}
+    - {delta: "5.58-5.60", multiplicities: ["d"], nbH: "1H", assignment: "OH"}
+    - {delta: "5.74", multiplicities: ["s"], nbH: "1H", assignment: "OH"}
+    - {delta: "5.89", multiplicities: ["s"], nbH: "1H", assignment: "H-1’"}
+    - {delta: "7.02", multiplicities: ["s"], nbH: "1H", assignment: "br, NH"}
+    - {delta: "8.40", multiplicities: ["s"], nbH: "1H", assignment: "br, NH"}
+mass:
+  ionization: "ESI"
+  mode: "MS"
+  analyser: "Calcd."
+  conditions: "for C16H26N4O11"
+  peaks:
+    - {mass: 449.4, intensity: null, otherInfo: "[M-H]+"}
+mf: "C16H26N4O11"
+elementalAnalysis:
+  - {atom: "C", expect: 42.67, found: 42.55}
+  - {atom: "H", expect: 5.82, found: 5.93}
+  - {atom: "N", expect: 12.44, found: 12.49}
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+5-Bromo-1-phenylpentan-1-one (1i). Yield: 11 %; 1H-NMR: 7.96–7.94 (2 H, m), 7.58–7.54 (1 H, m), 7.48–7.45 (2 H, m), 3.38 (2 H, t, J = 6.62), 3.03–3.00 (2 H, m), 1.99–1.87 (4 H, m) [Lit. [13] CDCl3: 7.90–7.10 (5 H, m), 3.40 (2 H, t), 2.99 (2 H, t), 1.91 (4 H, m)]; 13C-NMR: 199.53, 136.80, 133.05, 128.59, 127.97, 37.38, 33.29, 32.16, 22.72.
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "5-Bromo-1-phenylpentan-1-one (1i)"
+yield: "11 %"
+1Hnmr:
+  solvent: "CDCl3"
+  signals:
+    - delta: "7.96–7.94"
+      multiplicities: ["m"]
+      nbH: "2"
+    - delta: "7.58–7.54"
+      multiplicities: ["m"]
+      nbH: "1"
+    - delta: "7.48–7.45"
+      multiplicities: ["m"]
+      nbH: "2"
+    - delta: "3.38"
+      multiplicities: ["t"]
+      couplings: [6.62]
+      nbH: "2"
+    - delta: "3.03–3.00"
+      multiplicities: ["m"]
+      nbH: "2"
+    - delta: "1.99–1.87"
+      multiplicities: ["m"]
+      nbH: "4"
+13Cnmr:
+  solvent: "CDCl3"
+  peaks:
+    - delta: "199.53"
+    - delta: "136.80"
+    - delta: "133.05"
+    - delta: "128.59"
+    - delta: "127.97"
+    - delta: "37.38"
+    - delta: "33.29"
+    - delta: "32.16"
+    - delta: "22.72"
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+3-Methyl-4-(4-diethylaminobenzylideneamino)-4,5-dihydro-1H-1,2,4-triazol-5-one (3a). Yield 84 %; mp. 211 °C (EtOH); 1H-NMR: δ 1.09 (t, 6H, 2CH2CH3), 2.20 (s, 3H, CH3), 3.37 (q, 4H, 2CH2CH3), 6.69 (d, 2H, J=9.2 Hz, Ar-H), 7.57 (d, 2H, J=8.8 Hz, Ar-H), 9.37 (s, 1H, N=CH), 11.66 (s, 1H, NH); 13C-NMR: δ 11.88 (CH3), 13.06 (2CH3), 44.47 (2CH2), 111.67 (2C), 120.17, 130.25 (2C), 144.76 (4-diethylaminophenyl carbons), 150.51 (triazole C3), 152.19 (N=CH), 156.10 (triazole C5); IR: 3180 (NH), 1688 (C=O), 1594 (C=N), 818 (1,4-disubstituted Ar) cm-1; UV λmax (ε): 357 (25324), 230 (9898), 207 (16875) nm; MS: m/z 273 (M+), 274 (M+1).
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "3-Methyl-4-(4-diethylaminobenzylideneamino)-4,5-dihydro-1H-1,2,4-triazol-5-one (3a)"
+yield: "84 %"
+mp:
+  high: 211
+  units: "°C"
+  otherInfo: "(EtOH)"
+1Hnmr:
+  signals:
+    - delta: "1.09"
+      multiplicities: ["t"]
+      nbH: "6H"
+      assignment: "2CH2CH3"
+    - delta: "2.20"
+      multiplicities: ["s"]
+      nbH: "3H"
+      assignment: "CH3"
+    - delta: "3.37"
+      multiplicities: ["q"]
+      nbH: "4H"
+      assignment: "2CH2CH3"
+    - delta: "6.69"
+      multiplicities: ["d"]
+      couplings: [9.2]
+      nbH: "2H"
+      assignment: "Ar-H"
+    - delta: "7.57"
+      multiplicities: ["d"]
+      couplings: [8.8]
+      nbH: "2H"
+      assignment: "Ar-H"
+    - delta: "9.37"
+      multiplicities: ["s"]
+      nbH: "1H"
+      assignment: "N=CH"
+    - delta: "11.66"
+      multiplicities: ["s"]
+      nbH: "1H"
+      assignment: "NH"
+13Cnmr:
+  signals:
+    - delta: "11.88"
+      otherInfo: "CH3"
+    - delta: "13.06"
+      otherInfo: "2CH3"
+    - delta: "44.47"
+      otherInfo: "2CH2"
+    - delta: "111.67"
+      otherInfo: "2C"
+    - delta: "120.17"
+      otherInfo: null
+    - delta: "130.25"
+      otherInfo: "2C"
+    - delta: "144.76"
+      otherInfo: "4-diethylaminophenyl carbons"
+    - delta: "150.51"
+      otherInfo: "triazole C3"
+    - delta: "152.19"
+      otherInfo: "N=CH"
+    - delta: "156.10"
+      otherInfo: "triazole C5"
+ir:
+  peaks:
+    - wavenum: 3180
+      assignment: "NH"
+    - wavenum: 1688
+      assignment: "C=O"
+    - wavenum: 1594
+      assignment: "C=N"
+    - wavenum: 818
+      assignment: "1,4-disubstituted Ar"
+mass:
+  ionization: null
+  mode: null
+  analyser: null
+  conditions: null
+  peaks:
+    - mass: 273
+      intensity: null
+      otherInfo: "M+"
+    - mass: 274
+      intensity: null
+      otherInfo: "M+1"
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+3-o-Fluorobenzyl-4-Amino-4,5-dihydro-1H-1,2,4-triazole-5-one (3a): Recrystallized from water; Yield 87%; m.p. 158-159 °C; IR υ (cm-1): 3316 (NH), 3220-3164 (NH2), 1726 (C=O), 1652 (C=N), 764 (1,2-disubstituted phenyl); 1H-NMR δ= 3.91 (s, 2H, benzyl CH2), 5.21 (s, 2H, NH2), 7.11-7.36 (m, 4H, Ar-H), 11.44 (s, 1H, NH); 13C-NMR δ= 25.87 (benzyl CH2), Ar-C: [116.68, 124.65, 121.11, 130.50, 132.92, 164.60], 149.38 (triazole C-3), 156.35 (triazole C-5); Calculated (%) for C9H9FN4O (208.20); C: 51.92, H: 4.36, N: 26.91, found (%);C: 51.82, H: 4.36, N: 26.96.
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "3-o-Fluorobenzyl-4-Amino-4,5-dihydro-1H-1,2,4-triazole-5-one (3a)"
+procedure: "Recrystallized from water"
+yield: "87%"
+mp:
+  low: 158
+  high: 159
+  units: "°C"
+ir:
+  peaks:
+    - {wavenum: 3316, assignment: "NH"}
+    - {wavenum: 3220, otherInfo: "NH2"}
+    - {wavenum: 1726, assignment: "C=O"}
+    - {wavenum: 1652, assignment: "C=N"}
+    - {wavenum: 764, assignment: "1,2-disubstituted phenyl"}
+1Hnmr:
+  signals:
+    - {delta: "3.91", multiplicities: ["s"], nbH: "2", assignment: "benzyl CH2"}
+    - {delta: "5.21", multiplicities: ["s"], nbH: "2", assignment: "NH2"}
+    - {delta: "7.11-7.36", multiplicities: ["m"], nbH: "4", assignment: "Ar-H"}
+    - {delta: "11.44", multiplicities: ["s"], nbH: "1", assignment: "NH"}
+13Cnmr:
+  signals:
+    - {delta: "25.87", otherInfo: "benzyl CH2"}
+    - {delta: "116.68", otherInfo: "Ar-C"}
+    - {delta: "124.65", otherInfo: "Ar-C"}
+    - {delta: "121.11", otherInfo: "Ar-C"}
+    - {delta: "130.50", otherInfo: "Ar-C"}
+    - {delta: "132.92", otherInfo: "Ar-C"}
+    - {delta: "164.60", otherInfo: "Ar-C"}
+    - {delta: "149.38", otherInfo: "triazole C-3"}
+    - {delta: "156.35", otherInfo: "triazole C-5"}
+mf: "C9H9FN4O"
+elementalAnalysis:
+  - {atom: "C", expect: 51.92, found: 51.82}
+  - {atom: "H", expect: 4.36, found: 4.36}
+  - {atom: "N", expect: 26.91, found: 26.96}
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+N4-(4,5-Dioxo-3-phenyl-2-thioxo-1-imidazolidinyl)isonicotinamide (4d). Yield 89%, m.p. 146–148 °C; Anal. Calc. for C15H10N4O3S (326.34): 55.21% C, 3.09% H, 17.17% N; found: 55.06% C, 3.04% H, 17.11% N; 1H-NMR δ: 12.26 (s, 1H, NH); 8.86 (m, 2H, H-2",6"), 7.89 (m, 2H, H-3",5"), 7.65–7.46 (m, 5H, Ph); 13C-NMR δ: 179.1 (C=S), 164.0 (NHC=O), 153.9, 152.4 (2 × C=O), 150.6 (C-2",6"), 137.6 (C-4"), 132.0 (C-1'), 129.6, 129.2 (C-3',5', C-4'), 128.2 (C-2',6'), 121.5 (C-3",5").
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "N4-(4,5-Dioxo-3-phenyl-2-thioxo-1-imidazolidinyl)isonicotinamide (4d)"
+yield: "89%"
+mp:
+  low: 146
+  high: 148
+  units: "°C"
+elementalAnalysis:
+  - atom: "C"
+    expect: 55.21
+    found: 55.06
+  - atom: "H"
+    expect: 3.09
+    found: 3.04
+  - atom: "N"
+    expect: 17.17
+    found: 17.11
+1Hnmr:
+  signals:
+    - delta: "12.26"
+      multiplicities: ["s"]
+      nbH: "1H"
+      assignment: "NH"
+    - delta: "8.86"
+      multiplicities: ["m"]
+      nbH: "2H"
+      assignment: "H-2\",6\""
+    - delta: "7.89"
+      multiplicities: ["m"]
+      nbH: "2H"
+      assignment: "H-3\",5\""
+    - delta: "7.65-7.46"
+      multiplicities: ["m"]
+      nbH: "5H"
+      assignment: "Ph"
+13Cnmr:
+  signals:
+    - delta: "179.1"
+      otherInfo: "C=S"
+    - delta: "164.0"
+      otherInfo: "NHC=O"
+    - delta: "153.9"
+      otherInfo: "2 × C=O"
+    - delta: "152.4"
+      otherInfo: "2 × C=O"
+    - delta: "150.6"
+      otherInfo: "C-2\",6\""
+    - delta: "137.6"
+      otherInfo: "C-4\""
+    - delta: "132.0"
+      otherInfo: "C-1'"
+    - delta: "129.6"
+      otherInfo: "C-3',5', C-4'"
+    - delta: "129.2"
+      otherInfo: "C-3',5', C-4'"
+    - delta: "128.2"
+      otherInfo: "C-2',6'"
+    - delta: "121.5"
+      otherInfo: "C-3\",5\""
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+1-[4-(Methylsulfonyl)phenyl]-2-pyridin-3-ylethanone oxime (7). The above procedure was followed using ethanone 3 (0.55 g, 2.00 mmol), NH2OH·HCl (0.28 g, 4.00 mmol) and NaOAc·3H2O (0.54 g, 4.00 mmol) in 30% aqueous EtOH (16 mL and 14.5 mL). The product was obtained as a white solid; yield 86%. Mp 187-8 °C. IR (KBr): ν(OH) 2703, ν(C=N) 1597, ν(SO2) 1300, 1146 cm-1. 1H NMR (400 MHz, DMSO-d6): δ 3.20 (s, 3H), 4.22 (s, 2H), 7.27-7.30 (m, 1H), 7.56-7.58 (m, 1H), 7.88-7.96 (m, 4H), 8.37-8.38 (m, 1H), 8.47 (s, 1H), 12.03 (s, 1H) ppm. 13C (50.3 MHz, DMSO-d6): δ 27.7 (CH2), 43.4 (CH3), 123.7 (CH), 126.6 (CH), 127.2 (CH), 132.5, 135.7 (CH), 140.0, 136.3, 140.7, 147.4 (CH), 149.5 (CH), 153.3 (C=N) ppm. ESI-HRMS: calcd for C14H15N2O3S [M+H]+ 291.0798; found 291.0804.
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "1-[4-(Methylsulfonyl)phenyl]-2-pyridin-3-ylethanone oxime (7)"
+procedure: "The above procedure was followed using ethanone 3 (0.55 g, 2.00 mmol), NH2OH·HCl (0.28 g, 4.00 mmol) and NaOAc·3H2O (0.54 g, 4.00 mmol) in 30% aqueous EtOH (16 mL and 14.5 mL)."
+yield: "86%"
+appearance: "white solid"
+mp:
+  low: 187
+  high: 188
+  units: "°C"
+ir:
+  conditions: "KBr"
+  peaks:
+    - {wavenum: 2703, assignment: "ν(OH)"}
+    - {wavenum: 1597, assignment: "ν(C=N)"}
+    - {wavenum: 1300, assignment: "ν(SO2)"}
+    - {wavenum: 1146}
+1Hnmr:
+  solvent: "DMSO-d6"
+  frequency: 400
+  signals:
+    - {delta: "3.20", multiplicities: ["s"], nbH: "3H"}
+    - {delta: "4.22", multiplicities: ["s"], nbH: "2H"}
+    - {delta: "7.27-7.30", multiplicities: ["m"], nbH: "1H"}
+    - {delta: "7.56-7.58", multiplicities: ["m"], nbH: "1H"}
+    - {delta: "7.88-7.96", multiplicities: ["m"], nbH: "4H"}
+    - {delta: "8.37-8.38", multiplicities: ["m"], nbH: "1H"}
+    - {delta: "8.47", multiplicities: ["s"], nbH: "1H"}
+    - {delta: "12.03", multiplicities: ["s"], nbH: "1H"}
+13Cnmr:
+  solvent: "DMSO-d6"
+  frequency: 50.3
+  signals:
+    - {delta: "27.7", otherInfo: "CH2"}
+    - {delta: "43.4", otherInfo: "CH3"}
+    - {delta: "123.7", otherInfo: "CH"}
+    - {delta: "126.6", otherInfo: "CH"}
+    - {delta: "127.2", otherInfo: "CH"}
+    - {delta: "132.5"}
+    - {delta: "135.7", otherInfo: "CH"}
+    - {delta: "140.0"}
+    - {delta: "136.3"}
+    - {delta: "140.7"}
+    - {delta: "147.4", otherInfo: "CH"}
+    - {delta: "149.5", otherInfo: "CH"}
+    - {delta: "153.3", otherInfo: "C=N"}
+hrms:
+  mf: "C14H15N2O3S"
+  expected: 291.0798
+  found: 291.0804
+```
+</s>
+<s>Q: 
+We have a scientific experimental part describing a chemical molecule and we need to parse all the available properties to the following YAML format:
+
+ {
+  name?: str
+  procedure?: str
+  yield?: str
+  appearance?: str
+  alphaD?: {value?: num, concentration?: num, solvent?: str}
+  ir?:
+    conditions?: str
+    peaks?: [{wavenum: num, assignment?: str}]
+  bp?: {low?: num, high?: num, units?: str, pressure?: num, pressureUnits?: str, otherInfo?: str}
+  mp?: {low?: num, high?: num, units?: str, otherInfo?: str}
+  1Hnmr?: {
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, multiplicities?: str[], couplings?: num[], nbH?: str, assignment?: str}]
+  },
+  13Cnmr?:
+    solvent?: str
+    frequency?: num
+    signals?: [{delta?: str, otherInfo?: str}]
+  mass?:
+    ionization?: str
+    mode?: str
+    analyser?: str
+    conditions?: str
+    peaks?: [{mass?: num, intensity?: num, otherInfo?: str}]
+  hrms?: {mf?: str, assignment?: str, expected?: num, found?: num, conditions?: str}
+  mf?: str
+  elementalAnalysis?: [{atom?: str, expect?: num, found?: num}]
+  otherInfo?: str
+
+Do not guess or speculate. If the information is not known or uncertain, just skip it.
+
+Here is the text to convert:
+
+
+2-[ N'-[2-(4-bromophenyl)-3,3-dicyano-1-thiocyanatoallylidene]hydrazino)benzoic acid (5g): Yellow solid (70%); mp. 225-227oC; IR (cm-1): 3414, 3335 (NH), 2214 (CN), 2178 (SCN), 1685 (CO); 1H-NMR δ: 7.09-7.49 (m, 4H, Ar-H), 7.65-7.98 (m, 4H, Ar-H), 10.66 (s, 1H, NH), 14.03 (s, 1H, COOH); Anal. Calcd. for C19H10BrN5O2S (452.29): C, 50.46; H, 2.23; N, 15.48. Found: C, 50.81; H, 2.11; N, 15.61.
+
+
+
+You may only provide the YAML and string must be quoted.
+
+
+A: ```yaml
+name: "2-[ N'-[2-(4-bromophenyl)-3,3-dicyano-1-thiocyanatoallylidene]hydrazino)benzoic acid"
+yield: "70%"
+appearance: "Yellow solid"
+mp:
+  low: 225
+  high: 227
+  units: "°C"
+ir:
+  peaks:
+    - {wavenum: 3414, assignment: "NH"}
+    - {wavenum: 3335, assignment: "NH"}
+    - {wavenum: 2214, assignment: "CN"}
+    - {wavenum: 2178, assignment: "SCN"}
+    - {wavenum: 1685, assignment: "CO"}
+1Hnmr:
+  signals:
+    - {delta: "7.09-7.49", multiplicities: ["m"], nbH: "4H", assignment: "Ar-H"}
+    - {delta: "7.65-7.98", multiplicities: ["m"], nbH: "4H", assignment: "Ar-H"}
+    - {delta: "10.66", multiplicities: ["s"], nbH: "1H", assignment: "NH"}
+    - {delta: "14.03", multiplicities: ["s"], nbH: "1H", assignment: "COOH"}
+mf: "C19H10BrN5O2S"
+elementalAnalysis:
+  - {atom: "C", found: 50.81, expect: 50.46}
+  - {atom: "H", found: 2.11, expect: 2.23}
+  - {atom: "N", found: 15.61, expect: 15.48}
+```
+</s>
