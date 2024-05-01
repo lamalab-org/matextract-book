@@ -43,8 +43,6 @@ def _resize_image(image, max_dimension):
             image = image.convert("RGBA")
         else:
             image = image.convert("RGB")
-    # convert to black and white
-    image = image.convert("L")
 
     if width > max_dimension or height > max_dimension:
         if width > height:

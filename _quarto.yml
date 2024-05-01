@@ -10,7 +10,7 @@ book:
     - constrained_decoding/index.ipynb
     - ocr/nougat/nougat.ipynb
 
-bibliography: references.bib
+# bibliography: references.bib
 # csl: nature.csl
 
 format:
