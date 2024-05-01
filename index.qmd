@@ -1,0 +1,8 @@
+---
+title: "Generative structured data extraction using LLMs"
+---
+
+## About this book
+
+Structured data is at the heart of machine learning. LLMs offer a convenient way to generate structured data based on unstructured inputs. 
+This book gives hands-on examples of the different steps in the extraction workflow using LLMs. 

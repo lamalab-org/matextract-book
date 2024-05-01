@@ -22,14 +22,14 @@ class ModelArgs:
 
 class LoRALinear(nn.Module):
     @staticmethod
-    def from_linear(linear: nn.Linear, rank: int = 8):
+    def from_linear(linear: nn.Linear, rank: int = 2):
         output_dims, input_dims = linear.weight.shape
         lora_lin = LoRALinear(input_dims, output_dims, rank)
         lora_lin.linear = linear
         return lora_lin
 
     def __init__(
-        self, input_dims: int, output_dims: int, lora_rank: int = 8, bias: bool = False
+        self, input_dims: int, output_dims: int, lora_rank: int = 2, bias: bool = False
     ):
         super().__init__()
 
