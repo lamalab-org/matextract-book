@@ -1,0 +1,23 @@
+project:
+  type: book
+
+book:
+  title: "Generative structured data extraction using LLMs"
+  author: "Mara Wilhelmi, Sherjeel Shabih, Martino Rıos Garcıa, Santiago Miret,Christoph Koch, Pepe Marquez, and Kevin Maik Jablonka"
+  date: "4/11/2024"
+  chapters:
+    - index.qmd
+    - constrained_decoding/index.ipynb
+    - ocr/nougat/nougat.ipynb
+
+# bibliography: references.bib
+# csl: nature.csl
+
+format:
+  html:
+    theme: cosmo
+    number-sections: false
+  pdf:
+    documentclass: scrreprt
+
+

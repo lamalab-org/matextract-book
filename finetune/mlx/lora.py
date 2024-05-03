@@ -8,7 +8,7 @@ from pathlib import Path
 from sentencepiece import SentencePieceProcessor
 import time
 from typing import List
-
+from tqdm import tqdm
 import mlx.core as mx
 import mlx.nn as nn
 import mlx.optimizers as optim
@@ -145,7 +145,7 @@ def iterate_batches(dset, tokenizer, batch_size, shuffle=True):
         indices = np.random.permutation(indices)
 
     # Collect batches from dataset
-    for i in range(0, len(indices) - batch_size + 1, batch_size):
+    for i in tqdm(range(0, len(indices) - batch_size + 1, batch_size)):
         # Encode batch
         batch = [tokenizer.encode(dset[indices[i + j]]) for j in range(batch_size)]
         lengths = [len(x) for x in batch]
@@ -161,9 +161,11 @@ def iterate_batches(dset, tokenizer, batch_size, shuffle=True):
 def evaluate(model, dataset, loss, tokenizer, batch_size, num_batches):
     all_losses = []
     ntokens = 0
-    for it, batch in zip(
-        range(num_batches),
-        iterate_batches(dataset, tokenizer, batch_size, shuffle=False),
+    for it, batch in tqdm(
+        zip(
+            range(num_batches),
+            iterate_batches(dataset, tokenizer, batch_size, shuffle=False),
+        )
     ):
         losses, toks = loss(model, *batch)
         all_losses.append((losses * toks).item())
@@ -181,8 +183,8 @@ def train(model, train_set, val_set, optimizer, loss, tokenizer, args):
 
     # Main training loop
     start = time.perf_counter()
-    for it, batch in zip(
-        range(args.iters), iterate_batches(train_set, tokenizer, args.batch_size)
+    for it, batch in tqdm(
+        zip(range(args.iters), iterate_batches(train_set, tokenizer, args.batch_size))
     ):
         # Forward and backward pass
         (lvalue, toks), grad = loss_value_and_grad(model, *batch)
