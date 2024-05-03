@@ -9,6 +9,7 @@ book:
     - index.qmd
     - constrained_decoding/index.ipynb
     - ocr/nougat/nougat.ipynb
+    - obtaining_data/obtaining_data.ipynb
 
 # bibliography: references.bib
 # csl: nature.csl
