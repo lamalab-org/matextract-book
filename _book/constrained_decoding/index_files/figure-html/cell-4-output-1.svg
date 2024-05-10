@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="624pt" height="258pt" viewBox="0.00 0.00 624.00 258.00">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 254)">
+<title>Entity Relationship Diagram created by erdantic</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-254 620,-254 620,4 -4,4"/>
+<text text-anchor="middle" x="308" y="-6.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v1.0.2 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
+<!-- __main__.CopolymerizationReaction -->
+<g id="node1" class="node">
+<title>__main__.CopolymerizationReaction</title>
+<g id="a_node1"><a xlink:title="__main__.CopolymerizationReaction
+
+Usage docs: https://docs.pydantic.dev/2.5/concepts/models/
+
+A base class for creating Pydantic models.
+
+Attributes:
+    __class_vars__: The names of classvars defined on the model.
+    __private_attributes__: Metadata about the private attributes of the model.
+    __signature__: The signature for instantiating the model.
+
+    __pydantic_complete__: Whether model building is completed, or if there are still undefined fields.
+    __pydantic_core_schema__: The pydantic-core schema used to build the SchemaValidator and SchemaSerializer.
+    __pydantic_custom_init__: Whether the model has a custom `__init__` function.
+    __pydantic_decorators__: Metadata containing the decorators defined on the model.
+        This replaces `Model.__validators__` and `Model.__root_validators__` from Pydantic V1.
+    __pydantic_generic_metadata__: Metadata for generic models; contains data used for a similar purpose to
+        __args__, __origin__, __parameters__ in typing-module generics. May eventually be replaced by these.
+    __pydantic_parent_namespace__: Parent namespace of the model, used for automatic rebuilding of models.
+    __pydantic_post_init__: The name of the post-init method for the model, if defined.
+    __pydantic_root_model__: Whether the model is a `RootModel`.
+    __pydantic_serializer__: The pydantic-core SchemaSerializer used to dump instances of the model.
+    __pydantic_validator__: The pydantic-core SchemaValidator used to validate instances of the model.
+
+    __pydantic_extra__: An instance attribute with the values of extra fields from validation when
+        `model_config['extra'] == 'allow'`.
+    __pydantic_fields_set__: An instance attribute with the names of fields explicitly set.
+    __pydantic_private__: Instance attribute with the values of private attributes set on the model instance.
+">
+<polygon fill="none" stroke="black" points="0,-229 0,-250 278,-250 278,-229 0,-229"/>
+<text text-anchor="start" x="61" y="-236.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">CopolymerizationReaction</text>
+<polygon fill="none" stroke="black" points="0,-208 0,-229 130,-229 130,-208 0,-208"/>
+<text text-anchor="start" x="32" y="-214.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">temperature</text>
+<polygon fill="none" stroke="black" points="130,-208 130,-229 278,-229 278,-208 130,-208"/>
+<text text-anchor="start" x="163" y="-214.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[float]</text>
+<polygon fill="none" stroke="black" points="0,-187 0,-208 130,-208 130,-187 0,-187"/>
+<text text-anchor="start" x="18" y="-193.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">temperature_unit</text>
+<polygon fill="none" stroke="black" points="130,-187 130,-208 278,-208 278,-187 130,-187"/>
+<text text-anchor="start" x="135.5" y="-193.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[Literal['C', 'K']]</text>
+<polygon fill="none" stroke="black" points="0,-166 0,-187 130,-187 130,-166 0,-166"/>
+<text text-anchor="start" x="45" y="-172.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">solvent</text>
+<polygon fill="none" stroke="black" points="130,-166 130,-187 278,-187 278,-166 130,-166"/>
+<text text-anchor="start" x="169" y="-172.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[str]</text>
+<polygon fill="none" stroke="black" points="0,-145 0,-166 130,-166 130,-145 0,-145"/>
+<text text-anchor="start" x="43.5" y="-151.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">initiator</text>
+<polygon fill="none" stroke="black" points="130,-145 130,-166 278,-166 278,-145 130,-145"/>
+<text text-anchor="start" x="169" y="-151.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[str]</text>
+<polygon fill="none" stroke="black" points="0,-124 0,-145 130,-145 130,-124 0,-124"/>
+<text text-anchor="start" x="35.5" y="-130.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">monomers</text>
+<polygon fill="none" stroke="black" points="130,-124 130,-145 278,-145 278,-124 130,-124"/>
+<text text-anchor="start" x="133" y="-130.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[List[Monomer]]</text>
+<polygon fill="none" stroke="black" points="0,-103 0,-124 130,-124 130,-103 0,-103"/>
+<text text-anchor="start" x="8.5" y="-109.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">polymerization_type</text>
+<polygon fill="none" stroke="black" points="130,-103 130,-124 278,-124 278,-103 130,-103"/>
+<text text-anchor="start" x="169" y="-109.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[str]</text>
+<polygon fill="none" stroke="black" points="0,-82 0,-103 130,-103 130,-82 0,-82"/>
+<text text-anchor="start" x="3" y="-88.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">determination_method</text>
+<polygon fill="none" stroke="black" points="130,-82 130,-103 278,-103 278,-82 130,-82"/>
+<text text-anchor="start" x="169" y="-88.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[str]</text>
+</a>
+</g>
+</g>
+<!-- __main__.Monomer -->
+<g id="node2" class="node">
+<title>__main__.Monomer</title>
+<g id="a_node2"><a xlink:title="__main__.Monomer
+
+Usage docs: https://docs.pydantic.dev/2.5/concepts/models/
+
+A base class for creating Pydantic models.
+
+Attributes:
+    __class_vars__: The names of classvars defined on the model.
+    __private_attributes__: Metadata about the private attributes of the model.
+    __signature__: The signature for instantiating the model.
+
+    __pydantic_complete__: Whether model building is completed, or if there are still undefined fields.
+    __pydantic_core_schema__: The pydantic-core schema used to build the SchemaValidator and SchemaSerializer.
+    __pydantic_custom_init__: Whether the model has a custom `__init__` function.
+    __pydantic_decorators__: Metadata containing the decorators defined on the model.
+        This replaces `Model.__validators__` and `Model.__root_validators__` from Pydantic V1.
+    __pydantic_generic_metadata__: Metadata for generic models; contains data used for a similar purpose to
+        __args__, __origin__, __parameters__ in typing-module generics. May eventually be replaced by these.
+    __pydantic_parent_namespace__: Parent namespace of the model, used for automatic rebuilding of models.
+    __pydantic_post_init__: The name of the post-init method for the model, if defined.
+    __pydantic_root_model__: Whether the model is a `RootModel`.
+    __pydantic_serializer__: The pydantic-core SchemaSerializer used to dump instances of the model.
+    __pydantic_validator__: The pydantic-core SchemaValidator used to validate instances of the model.
+
+    __pydantic_extra__: An instance attribute with the values of extra fields from validation when
+        `model_config['extra'] == 'allow'`.
+    __pydantic_fields_set__: An instance attribute with the names of fields explicitly set.
+    __pydantic_private__: Instance attribute with the values of private attributes set on the model instance.
+">
+<polygon fill="none" stroke="black" points="386,-123 386,-144 616,-144 616,-123 386,-123"/>
+<text text-anchor="start" x="471.5" y="-130.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">Monomer</text>
+<polygon fill="none" stroke="black" points="386,-102 386,-123 528,-123 528,-102 386,-102"/>
+<text text-anchor="start" x="441.5" y="-108.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">name</text>
+<polygon fill="none" stroke="black" points="528,-102 528,-123 616,-123 616,-102 528,-102"/>
+<text text-anchor="start" x="565" y="-108.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">str</text>
+<polygon fill="none" stroke="black" points="386,-81 386,-102 528,-102 528,-81 386,-81"/>
+<text text-anchor="start" x="405.5" y="-87.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">reactivity_constant</text>
+<polygon fill="none" stroke="black" points="528,-81 528,-102 616,-102 616,-81 528,-81"/>
+<text text-anchor="start" x="531" y="-87.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[float]</text>
+<polygon fill="none" stroke="black" points="386,-60 386,-81 528,-81 528,-60 386,-60"/>
+<text text-anchor="start" x="389" y="-66.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">reactivity_constant_error</text>
+<polygon fill="none" stroke="black" points="528,-60 528,-81 616,-81 616,-60 528,-60"/>
+<text text-anchor="start" x="531" y="-66.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[float]</text>
+<polygon fill="none" stroke="black" points="386,-39 386,-60 528,-60 528,-39 386,-39"/>
+<text text-anchor="start" x="422.5" y="-45.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">q_parameter</text>
+<polygon fill="none" stroke="black" points="528,-39 528,-60 616,-60 616,-39 528,-39"/>
+<text text-anchor="start" x="531" y="-45.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[float]</text>
+<polygon fill="none" stroke="black" points="386,-18 386,-39 528,-39 528,-18 386,-18"/>
+<text text-anchor="start" x="423" y="-24.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">e_parameter</text>
+<polygon fill="none" stroke="black" points="528,-18 528,-39 616,-39 616,-18 528,-18"/>
+<text text-anchor="start" x="531" y="-24.8" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[float]</text>
+</a>
+</g>
+</g>
+<!-- __main__.CopolymerizationReaction&#45;&gt;__main__.Monomer -->
+<g id="edge1" class="edge">
+<title>__main__.CopolymerizationReaction:e-&gt;__main__.Monomer:w</title>
+<path fill="none" stroke="black" d="M288.12,-134C321.91,-134 336.81,-134 367.64,-134"/>
+<polyline fill="none" stroke="black" points="278,-134 283,-134 "/>
+<polyline fill="none" stroke="black" points="283,-134 288,-134 "/>
+<polygon fill="black" stroke="black" points="376,-134 386,-138.5 381,-134 386,-134 386,-134 386,-134 381,-134 386,-129.5 376,-134 376,-134"/>
+<ellipse fill="none" stroke="black" cx="372" cy="-134" rx="4" ry="4"/>
+</g>
+</g>
+</svg>
