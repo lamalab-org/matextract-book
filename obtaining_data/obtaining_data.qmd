@@ -1,0 +1,11 @@
+---
+author: Mara Wilhelmi
+date: 2024-05-10
+title: 1 | Obtaining data for data extraction
+---
+
+At the start of each data extraction process one has to first collect a dataset containing all data sources relevant for the extraction topic. 
+Various Python packages are available to make this process easier and more efficient.
+
+- [Crossref](./crossref_search.ipynb) can be used to search for relevant articles and metadata
+- [Data can be mined](./data_mining.ipynb) from various sources such as ChemRxiv
