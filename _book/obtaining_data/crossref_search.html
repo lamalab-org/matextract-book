@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Mara Wilhelmi">
-<meta name="dcterms.date" content="2024-05-10">
 
-<title>Generative structured data extraction using LLMs - 1 | Obtaining data for data extraction</title>
+<title>Generative structured data extraction using LLMs - 1.1 | Obtaining a set of relevant data sources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../obtaining_data/crossref_search.html" rel="next">
-<link href="../index.html" rel="prev">
+<link href="../obtaining_data/data_mining.html" rel="next">
+<link href="../obtaining_data/obtaining_data.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -83,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../obtaining_data/obtaining_data.html">Data extraction workflow</a></li><li class="breadcrumb-item"><a href="../obtaining_data/obtaining_data.html"><span class="chapter-title">1 | Obtaining data for data extraction</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../obtaining_data/obtaining_data.html">Data extraction workflow</a></li><li class="breadcrumb-item"><a href="../obtaining_data/crossref_search.html"><span class="chapter-title">1.1 | Obtaining a set of relevant data sources</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -124,12 +156,12 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../obtaining_data/obtaining_data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1 | Obtaining data for data extraction</span></a>
+  <a href="../obtaining_data/obtaining_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1 | Obtaining data for data extraction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../obtaining_data/crossref_search.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Obtaining a set of relevant data sources</span></a>
+  <a href="../obtaining_data/crossref_search.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1.1 | Obtaining a set of relevant data sources</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -171,28 +203,16 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../obtaining_data/obtaining_data.html">Data extraction workflow</a></li><li class="breadcrumb-item"><a href="../obtaining_data/obtaining_data.html"><span class="chapter-title">1 | Obtaining data for data extraction</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../obtaining_data/obtaining_data.html">Data extraction workflow</a></li><li class="breadcrumb-item"><a href="../obtaining_data/crossref_search.html"><span class="chapter-title">1.1 | Obtaining a set of relevant data sources</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">1 | Obtaining data for data extraction</span></h1>
+<h1 class="title"><span class="chapter-title">1.1 | Obtaining a set of relevant data sources</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Mara Wilhelmi </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">May 10, 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -202,11 +222,27 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>At the start of each data extraction process one has to first collect a dataset containing all data sources relevant for the extraction topic. Various Python packages are available to make this process easier and more efficient.</p>
-<ul>
-<li><a href="../obtaining_data/crossref_search.html">Crossref</a> can be used to search for relevant articles and metadata</li>
-<li><a href="../obtaining_data/data_mining.html">Data can be mined</a> from various sources such as ChemRxiv</li>
-</ul>
+<p>At the start of the data extraction process you have to collect a set of potentially relevant data sources. Therefore, you could collect a dataset manually or use a tool to help to automate and speed up this process.</p>
+<p>The Crossref API is a very useful tool to collect the metadata of relevant articles. Besides the API there are multiple Python libraries available that make access to the API easier. One of these libraries is <a href="https://github.com/fabiobatalha/crossrefapi">crossrefapi</a>. As an example, 100 sources including metadata on the topic ‘buchwald-hartwig coupling’ are extracted and saved into a JSON file.</p>
+<div id="bf4c4bfd1ae1b6e" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> crossref.restful <span class="im">import</span> Works</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>works <span class="op">=</span> Works(timeout<span class="op">=</span><span class="dv">60</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Performing the search for sources on the topic of buchwald-hartwig coupling for 10 papers</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>query_result <span class="op">=</span> works.query(bibliographic<span class="op">=</span><span class="st">'buchwald-hartwig coupling'</span>).select(<span class="st">'DOI'</span>, <span class="st">'title'</span>, <span class="st">'author'</span>, <span class="st">'type'</span>, <span class="st">'publisher'</span>, <span class="st">'issued'</span>).sample(<span class="dv">10</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> [item <span class="cf">for</span> item <span class="kw">in</span> query_result]</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Save 100 results including their metadata in a json file</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'buchwald-hartwig_coupling_results.json'</span>, <span class="st">'w'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    json.dump(results, <span class="bu">file</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>With the obtained metadata one could afterwards try to filter for relevant or available data sources which could be downloaded through an API provided by the publishers or obtain from a data dump.</p>
+<p>An example for using such an article downloading API is provided in <a href="../obtaining_data/data_mining.html">the chapter about data mining</a>.</p>
 
 
 
@@ -622,13 +658,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link" aria-label="Generative structured data extraction using LLMs">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Generative structured data extraction using LLMs</span></span>
+      <a href="../obtaining_data/obtaining_data.html" class="pagination-link" aria-label="1 | Obtaining data for data extraction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">1 | Obtaining data for data extraction</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../obtaining_data/crossref_search.html" class="pagination-link" aria-label="Obtaining a set of relevant data sources">
-        <span class="nav-page-text"><span class="chapter-title">Obtaining a set of relevant data sources</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../obtaining_data/data_mining.html" class="pagination-link" aria-label="Mining data from ChemRxiv">
+        <span class="nav-page-text"><span class="chapter-title">Mining data from ChemRxiv</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

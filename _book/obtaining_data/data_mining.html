@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Mara Wilhelmi">
-<meta name="dcterms.date" content="2024-05-10">
 
-<title>Generative structured data extraction using LLMs - 1 | Obtaining data for data extraction</title>
+<title>Generative structured data extraction using LLMs - 1.2 | Mining data from ChemRxiv</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../obtaining_data/crossref_search.html" rel="next">
-<link href="../index.html" rel="prev">
+<link href="../constrained_decoding/index.html" rel="next">
+<link href="../obtaining_data/crossref_search.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -83,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../obtaining_data/obtaining_data.html">Data extraction workflow</a></li><li class="breadcrumb-item"><a href="../obtaining_data/obtaining_data.html"><span class="chapter-title">1 | Obtaining data for data extraction</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../obtaining_data/obtaining_data.html">Data extraction workflow</a></li><li class="breadcrumb-item"><a href="../obtaining_data/data_mining.html"><span class="chapter-title">1.2 | Mining data from ChemRxiv</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -124,17 +156,17 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../obtaining_data/obtaining_data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1 | Obtaining data for data extraction</span></a>
+  <a href="../obtaining_data/obtaining_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1 | Obtaining data for data extraction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../obtaining_data/crossref_search.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Obtaining a set of relevant data sources</span></a>
+  <a href="../obtaining_data/crossref_search.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.1 | Obtaining a set of relevant data sources</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../obtaining_data/data_mining.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Mining data from ChemRxiv</span></a>
+  <a href="../obtaining_data/data_mining.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1.2 | Mining data from ChemRxiv</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -171,28 +203,16 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../obtaining_data/obtaining_data.html">Data extraction workflow</a></li><li class="breadcrumb-item"><a href="../obtaining_data/obtaining_data.html"><span class="chapter-title">1 | Obtaining data for data extraction</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../obtaining_data/obtaining_data.html">Data extraction workflow</a></li><li class="breadcrumb-item"><a href="../obtaining_data/data_mining.html"><span class="chapter-title">1.2 | Mining data from ChemRxiv</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">1 | Obtaining data for data extraction</span></h1>
+<h1 class="title"><span class="chapter-title">1.2 | Mining data from ChemRxiv</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Mara Wilhelmi </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">May 10, 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -202,11 +222,37 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>At the start of each data extraction process one has to first collect a dataset containing all data sources relevant for the extraction topic. Various Python packages are available to make this process easier and more efficient.</p>
-<ul>
-<li><a href="../obtaining_data/crossref_search.html">Crossref</a> can be used to search for relevant articles and metadata</li>
-<li><a href="../obtaining_data/data_mining.html">Data can be mined</a> from various sources such as ChemRxiv</li>
-</ul>
+<p>There are multiple datasets available which are open for data mining.<br>
+To download full text documents from open access databases the <a href="https://github.com/jannisborn/paperscraper">paperscraper</a> tool can be used.</p>
+<p>As an example, we will download full text articles from ChemRxiv on the topic of ‘buchwald-hartwig coupling’.</p>
+<div id="250aba7a3f3bb866" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> paperscraper.get_dumps <span class="im">import</span> chemrxiv</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Download of the ChemRxiv paper dump</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>chemrxiv(save_path<span class="op">=</span><span class="st">'chemrxiv_2020-11-10.jsonl'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="de30d1a7afb79621" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> paperscraper.xrxiv.xrxiv_query <span class="im">import</span> XRXivQuery</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> paperscraper.pdf <span class="im">import</span> save_pdf_from_dump</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_json(<span class="st">'./chemrxiv_2020-11-10.jsonl'</span>, lines<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># define keywords for the paper search</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>synthesis <span class="op">=</span> [<span class="st">'synthesis'</span>]</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>reaction <span class="op">=</span> [<span class="st">'buchwald-hartwig'</span>]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># combine keywords using "AND" logic, i.e. search for papers that contain both keywords</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> [synthesis, reaction]</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># start searching for relevant papers in the ChemRxiv dump</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>querier <span class="op">=</span> XRXivQuery(<span class="st">'./chemrxiv_2020-11-10.jsonl'</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>querier.search_keywords(query, output_filepath<span class="op">=</span><span class="st">'buchwald-hartwig_coupling_ChemRxiv.jsonl'</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Save PDFs in current folder and name the files by their DOI</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>save_pdf_from_dump(<span class="st">'./buchwald-hartwig_coupling_ChemRxiv.jsonl'</span>, pdf_path<span class="op">=</span><span class="st">'./PDFs'</span>, key_to_save<span class="op">=</span><span class="st">'doi'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For further steps in the data extraction process annotated data in needed to evaluate the extraction pipeline. For this, one could use an annotation tool <a href="./annotation.ipynb">like doccano which is shown in the following example</a>.</p>
 
 
 
@@ -622,13 +668,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link" aria-label="Generative structured data extraction using LLMs">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Generative structured data extraction using LLMs</span></span>
+      <a href="../obtaining_data/crossref_search.html" class="pagination-link" aria-label="1.1 | Obtaining a set of relevant data sources">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">1.1 | Obtaining a set of relevant data sources</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../obtaining_data/crossref_search.html" class="pagination-link" aria-label="Obtaining a set of relevant data sources">
-        <span class="nav-page-text"><span class="chapter-title">Obtaining a set of relevant data sources</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../constrained_decoding/index.html" class="pagination-link" aria-label="Constrained generation to guarantee syntactic correctness">
+        <span class="nav-page-text"><span class="chapter-title">Constrained generation to guarantee syntactic correctness</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

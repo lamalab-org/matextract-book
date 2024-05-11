@@ -7,9 +7,16 @@ book:
   date: "4/11/2024"
   chapters:
     - index.qmd
-    - constrained_decoding/index.ipynb
-    - ocr/nougat/nougat.ipynb
-    - obtaining_data/obtaining_data.ipynb
+    - part: Data extraction workflow
+      chapters:
+        - obtaining_data/obtaining_data.qmd          
+        - obtaining_data/crossref_search.ipynb
+        - obtaining_data/data_mining.ipynb
+        - constrained_decoding/index.ipynb
+
+    - part: Case Studies  
+      chapters:
+        - ocr/nougat/nougat.ipynb
 
 # bibliography: references.bib
 # csl: nature.csl
