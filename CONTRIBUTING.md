@@ -28,7 +28,9 @@ We can add value to the book by providing explanations of the concepts and techn
 We use `quarto` to build the book. Consider the documentation for `quarto` to get an overview of the features available.
 In the current setup, you must add your section to the `quarto` configuration file `_quarto.yml` to include it in the book. 
 You can add `.qmd` and `.ipynb` files.
-
+You can test the book by running: 
+```console
+quarto preview
 
 ## Plotting style 
 
