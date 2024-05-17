@@ -1,6 +1,6 @@
 ## Contributing a section 
 
-Thank you for considering contributing to the book.
+Thank you for considering contributing to the book. Feel free to make a pull request to submit changes! Here is a small [guide](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project) to help.
 
 ### Style and formatting
 
