@@ -31,6 +31,7 @@ You can add `.qmd` and `.ipynb` files.
 You can test the book by running: 
 ```console
 quarto preview
+```
 
 ## Plotting style 
 
