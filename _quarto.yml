@@ -13,6 +13,7 @@ book:
         - obtaining_data/crossref_search.ipynb
         - obtaining_data/data_mining.ipynb
         - constrained_decoding/index.ipynb
+        - finetune/choosing_paradigm.ipynb
 
     - part: Case Studies  
       chapters:

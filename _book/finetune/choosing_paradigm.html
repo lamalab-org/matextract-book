@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.554">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Martiño Ríos García">
+<meta name="dcterms.date" content="2024-05-17">
+
+<title>Generative structured data extraction using LLMs - 4 | Choosing the learning paradigm</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../ocr/nougat/nougat.html" rel="next">
+<link href="../constrained_decoding/index.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../obtaining_data/obtaining_data.html">Data extraction workflow</a></li><li class="breadcrumb-item"><a href="../finetune/choosing_paradigm.html"><span class="chapter-title">4 | Choosing the learning paradigm</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Generative structured data extraction using LLMs</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Generative structured data extraction using LLMs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Data extraction workflow</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../obtaining_data/obtaining_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1 | Obtaining data for data extraction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../obtaining_data/crossref_search.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.1 | Obtaining a set of relevant data sources</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../obtaining_data/data_mining.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2 | Mining data from ChemRxiv</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../constrained_decoding/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Constrained generation to guarantee syntactic correctness</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../finetune/choosing_paradigm.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">4 | Choosing the learning paradigm</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Case Studies</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ocr/nougat/nougat.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">OCR with Nougat</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#first-steps" id="toc-first-steps" class="nav-link active" data-scroll-target="#first-steps">First steps</a></li>
+  <li><a href="#first-model-and-dataset" id="toc-first-model-and-dataset" class="nav-link" data-scroll-target="#first-model-and-dataset">First model and dataset</a></li>
+  <li><a href="#prompt-and-inference" id="toc-prompt-and-inference" class="nav-link" data-scroll-target="#prompt-and-inference">Prompt and Inference</a></li>
+  <li><a href="#another-model-closed-source-this-time" id="toc-another-model-closed-source-this-time" class="nav-link" data-scroll-target="#another-model-closed-source-this-time">Another model, closed-source this time</a></li>
+  <li><a href="#fine-tuning" id="toc-fine-tuning" class="nav-link" data-scroll-target="#fine-tuning">Fine-tuning</a></li>
+  <li><a href="#visualization-of-the-results" id="toc-visualization-of-the-results" class="nav-link" data-scroll-target="#visualization-of-the-results">Visualization of the results</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../obtaining_data/obtaining_data.html">Data extraction workflow</a></li><li class="breadcrumb-item"><a href="../finetune/choosing_paradigm.html"><span class="chapter-title">4 | Choosing the learning paradigm</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">4 | Choosing the learning paradigm</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Martiño Ríos García </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 17, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The objective of this book is to illustrate with a practical example how to decide which learning paradigm is better for each application. To illustrate the process, some information about chemical reactions will be extracted from paragraphs of text.</p>
+<section id="first-steps" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="first-steps">First steps</h2>
+<p>Choosing the learning paradigm should begin trying some models with a general pre-training. For this practical case, the first model to test is the very recent Llama-3 8B model with a zero and one-shot prompts.</p>
+<p>We will start by importing all the packages needed.</p>
+<div id="1777e540" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> wandb</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datasets <span class="im">import</span> (</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    load_dataset,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> (</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    AutoModelForCausalLM,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    AutoTokenizer,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    BitsAndBytesConfig,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    TrainingArguments,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    pipeline,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> peft <span class="im">import</span> (</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    LoraConfig,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> trl <span class="im">import</span> (</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    SFTTrainer,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    DataCollatorForCompletionOnlyLM,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> evaluate <span class="im">import</span> load</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> litellm</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> litellm <span class="im">import</span> completion</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> litellm.caching <span class="im">import</span> Cache</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statistics <span class="im">import</span> mean</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To continue we will allow for the caching of <code>LiteLLM</code>. Additionally, we will import all environment variables.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Note that using the environment variables is the safest way of keeping personal API keys secret.</p>
+</div></div><div id="94595c41" class="cell" data-tags="[&quot;hide-output&quot;]">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>litellm.cache <span class="op">=</span> Cache()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>load_dotenv(<span class="st">".env"</span>, override<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="first-model-and-dataset" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="first-model-and-dataset">First model and dataset</h2>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>It is important to include the <em>HF_token</em> in the <em>.env</em> file. By the time this notebook was created, the model that we are going to fine-tune (Llama3-8B) is only available after request for access.</p>
+</div></div><p>As starting model, we will try the Llama-3 8B model. We will call this model through the <em>Groq API</em>, which allows performing fast inference with several open-source models.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Groq is a provider of some of the most popular open-source models such as Llama or Mixtral models with a high inference speed. To use the Groq API, it also needed to add the <em>GROQ_API_KEY</em> to the <em>.env</em> file.</p>
+</div></div><div id="1b3dae40" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>base_model <span class="op">=</span> <span class="st">"groq/llama3-8b-8192"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The dataset used in this tutorial is the one used in Ai et al.’s <span class="citation" data-cites="Ai_2024">(<a href="choosing_paradigm.html#ref-Ai_2024" role="doc-biblioref">Ai et al. 2024</a>)</span> recent work, which contains data about chemical reactions. The dataset contains 100K reaction procedure—ORD JSON pairs.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p><strong>ORD</strong> stands for <em>Open Reaction Database</em> schema, a comprehensive data structure specially designed to describe all the elements involved in chemical reactions.</p>
+</div></div><div class="callout callout-style-default callout-tip callout-titled" title="Download data">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Download data
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>To obtain the data, the best way is to install the <em>GitHub</em> repository of the Ai et al.&nbsp;work and take from there. To do so, run the following commands:</p>
+<pre><code>!git clone https://github.com/qai222/LLM_organic_synthesis.git
+!cp LLM_organic_synthesis/workplace_data/datasets/USPTO-n100k-t2048_exp1.7z .
+!7za x USPTO-n100k-t2048_exp1.7z
+!cp USPTO-n100k-t2048_exp1/*.json .
+!rm -rf USPTO-n100k-t2048_exp1/ USPTO-n100k-t2048_exp1.7z LLM_organic_synthesis</code></pre>
+<p>This will leave four <em>.json</em> files in your current directory that contain all the data used here.</p>
+</div>
+</div>
+</div>
+<div id="0c5711cd" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>test_ds_path <span class="op">=</span> <span class="st">"test.json"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>test_dataset <span class="op">=</span> load_dataset(<span class="st">"json"</span>, data_files<span class="op">=</span>test_ds_path, split<span class="op">=</span><span class="st">"train"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>test_dataset <span class="op">=</span> test_dataset.shuffle(seed<span class="op">=</span><span class="dv">42</span>).select(<span class="bu">range</span>(<span class="dv">100</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>test_dataset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>Dataset({
+    features: ['output', 'instruction'],
+    num_rows: 100
+})</code></pre>
+</div>
+</div>
+<div id="4bc97d1f-827d-4b09-9149-63c42083a78a" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>test_dataset[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>{'output': '{"inputs": {"m1": {"components": [{"identifiers": [{"type": "NAME", "value": "4-nitrobenzyl (1R,3R,5R,6S)-6-((1R)-1-hydroxyethyl)-1-methyl-2-oxo-1-carbapenam-3-carboxylate"}], "amount": {"mass": {"value": 743.0, "units": "MILLIGRAM"}}, "reaction_role": "REACTANT"}]}, "m2": {"components": [{"identifiers": [{"type": "NAME", "value": "2-(tri-n-butylstannyl)-7-trifluoromethylthioimidazo[5,1-b]thiazole"}], "amount": {"mass": {"value": 1.06, "units": "GRAM"}}, "reaction_role": "REACTANT"}]}}, "conditions": {"conditions_are_dynamic": true}, "outcomes": [{"products": [{"identifiers": [{"type": "NAME", "value": "4-nitrobenzyl (1S,5R,6S)-6-((1R)-1-hydroxyethyl)-1-methyl-2-(7-trifluoromethylthioimidazo[5,1-b]thiazol-2-yl)-1-carbapen-2-em-3-carboxylate"}], "measurements": [{"type": "AMOUNT", "details": "MASS", "amount": {"mass": {"value": 172.0, "units": "MILLIGRAM"}}}], "reaction_role": "PRODUCT"}]}]}',
+ 'instruction': 'Below is a description of an organic reaction. Extract information from it to an ORD JSON record.\n\n### Procedure:\nThe procedure of Example 1a) was repeated, except that 743 mg of 4-nitrobenzyl (1R,3R,5R,6S)-6-((1R)-1-hydroxyethyl)-1-methyl-2-oxo-1-carbapenam-3-carboxylate and 1.06 g 2-(tri-n-butylstannyl)-7-trifluoromethylthioimidazo[5,1-b]thiazole were used as the starting compounds. Thus, 172 mg of 4-nitrobenzyl (1S,5R,6S)-6-((1R)-1-hydroxyethyl)-1-methyl-2-(7-trifluoromethylthioimidazo[5,1-b]thiazol-2-yl)-1-carbapen-2-em-3-carboxylate was prepared.\n\n### ORD JSON:\n'}</code></pre>
+</div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Note that the output comes in JSON format. For this simple example we are not going to constrain the output to JSON format. However, to ensure good results this constraining must be done. Deep explanation and examples about the options and how to constrain the output are provided in the chapter and its notebook “<em>Constrained decoding and enforcing valid outputs</em>”.</p>
+</div></div><p>This dataset is very big. Therefore, we will only take 100 samples from the test set used in the article mentioned above for our test set.</p>
+</section>
+<section id="prompt-and-inference" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="prompt-and-inference">Prompt and Inference</h2>
+<p>We define a simple prompt template. The prompt contains a simple <em>system</em> part (named as <em>PREFIX</em>) where the role and task of the model is defined as well as the example used only for the 1-shot prompt. Additionally, the prompt has a <em>user</em> prompt where the reaction instruction will be provided.</p>
+<div id="d274b45c" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>PREFIX <span class="op">=</span> <span class="st">"""You are a helpful scientific assistant. Your task is to extract information about organic reactions. </span><span class="sc">{shot}</span><span class="st">"""</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>SUFFIX <span class="op">=</span> <span class="st">"""</span><span class="ch">\n\n</span><span class="sc">{sample}</span><span class="ch">\n\n</span><span class="st">"""</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>SHOT <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="st">One example is provided to you to show how to perform the task:</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="st">### Procedure:</span><span class="ch">\n</span><span class="st">A suspension of 8 g of the product of Example 7 and 0.4 g of DABCO in 90 ml of xylenes were heated under N2 at 130</span><span class="ch">\u00b0</span><span class="st">-135</span><span class="ch">\u00b0</span><span class="st"> C. while 1.8 ml of phosgene was added portionwise at a rate to maintain a reflux temperature of about 130</span><span class="ch">\u00b0</span><span class="st">-135</span><span class="ch">\u00b0</span><span class="st"> C. The mixture was refluxed an additional two hours, cooled under N2 to room temperature, filtered, and the filtrate was concentrated in vacuo to yield 6.9 g of the subject compound as a crude oil.</span><span class="ch">\n\n</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="st">### ORD JSON:</span><span class="ch">\n</span><span class="st">{</span><span class="ch">\"</span><span class="st">inputs</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">m1_m2_m4</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">components</span><span class="ch">\"</span><span class="st">: [{</span><span class="ch">\"</span><span class="st">identifiers</span><span class="ch">\"</span><span class="st">: [{</span><span class="ch">\"</span><span class="st">type</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">NAME</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">value</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">product</span><span class="ch">\"</span><span class="st">}], </span><span class="ch">\"</span><span class="st">amount</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">mass</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">value</span><span class="ch">\"</span><span class="st">: 8.0, </span><span class="ch">\"</span><span class="st">units</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">GRAM</span><span class="ch">\"</span><span class="sc">}}</span><span class="st">, </span><span class="ch">\"</span><span class="st">reaction_role</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">REACTANT</span><span class="ch">\"</span><span class="st">}, {</span><span class="ch">\"</span><span class="st">identifiers</span><span class="ch">\"</span><span class="st">: [{</span><span class="ch">\"</span><span class="st">type</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">NAME</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">value</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">DABCO</span><span class="ch">\"</span><span class="st">}], </span><span class="ch">\"</span><span class="st">amount</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">mass</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">value</span><span class="ch">\"</span><span class="st">: 0.4, </span><span class="ch">\"</span><span class="st">units</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">GRAM</span><span class="ch">\"</span><span class="sc">}}</span><span class="st">, </span><span class="ch">\"</span><span class="st">reaction_role</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">REACTANT</span><span class="ch">\"</span><span class="st">}, {</span><span class="ch">\"</span><span class="st">identifiers</span><span class="ch">\"</span><span class="st">: [{</span><span class="ch">\"</span><span class="st">type</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">NAME</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">value</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">xylenes</span><span class="ch">\"</span><span class="st">}], </span><span class="ch">\"</span><span class="st">amount</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">volume</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">value</span><span class="ch">\"</span><span class="st">: 90.0, </span><span class="ch">\"</span><span class="st">units</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">MILLILITER</span><span class="ch">\"</span><span class="sc">}}</span><span class="st">, </span><span class="ch">\"</span><span class="st">reaction_role</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">SOLVENT</span><span class="ch">\"</span><span class="st">}]}, </span><span class="ch">\"</span><span class="st">m3</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">components</span><span class="ch">\"</span><span class="st">: [{</span><span class="ch">\"</span><span class="st">identifiers</span><span class="ch">\"</span><span class="st">: [{</span><span class="ch">\"</span><span class="st">type</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">NAME</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">value</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">phosgene</span><span class="ch">\"</span><span class="st">}], </span><span class="ch">\"</span><span class="st">amount</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">volume</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">value</span><span class="ch">\"</span><span class="st">: 1.8, </span><span class="ch">\"</span><span class="st">units</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">MILLILITER</span><span class="ch">\"</span><span class="sc">}}</span><span class="st">, </span><span class="ch">\"</span><span class="st">reaction_role</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">REACTANT</span><span class="ch">\"</span><span class="st">}]</span><span class="sc">}}</span><span class="st">, </span><span class="ch">\"</span><span class="st">conditions</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">temperature</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">control</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">type</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">AMBIENT</span><span class="ch">\"</span><span class="sc">}}</span><span class="st">, </span><span class="ch">\"</span><span class="st">conditions_are_dynamic</span><span class="ch">\"</span><span class="st">: true}, </span><span class="ch">\"</span><span class="st">workups</span><span class="ch">\"</span><span class="st">: [{</span><span class="ch">\"</span><span class="st">type</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">ADDITION</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">details</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">was added portionwise at a rate</span><span class="ch">\"</span><span class="st">}, {</span><span class="ch">\"</span><span class="st">type</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">TEMPERATURE</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">details</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">to maintain a reflux temperature of about 130</span><span class="ch">\\</span><span class="st">u00b0-135</span><span class="ch">\\</span><span class="st">u00b0 C</span><span class="ch">\"</span><span class="st">}, {</span><span class="ch">\"</span><span class="st">type</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">TEMPERATURE</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">details</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">The mixture was refluxed an additional two hours</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">duration</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">value</span><span class="ch">\"</span><span class="st">: 2.0, </span><span class="ch">\"</span><span class="st">units</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">HOUR</span><span class="ch">\"</span><span class="sc">}}</span><span class="st">, {</span><span class="ch">\"</span><span class="st">type</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">FILTRATION</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">details</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">filtered</span><span class="ch">\"</span><span class="st">}, {</span><span class="ch">\"</span><span class="st">type</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">CONCENTRATION</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">details</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">the filtrate was concentrated in vacuo</span><span class="ch">\"</span><span class="st">}], </span><span class="ch">\"</span><span class="st">outcomes</span><span class="ch">\"</span><span class="st">: [{</span><span class="ch">\"</span><span class="st">products</span><span class="ch">\"</span><span class="st">: [{</span><span class="ch">\"</span><span class="st">identifiers</span><span class="ch">\"</span><span class="st">: [{</span><span class="ch">\"</span><span class="st">type</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">NAME</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">value</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">subject compound</span><span class="ch">\"</span><span class="st">}], </span><span class="ch">\"</span><span class="st">measurements</span><span class="ch">\"</span><span class="st">: [{</span><span class="ch">\"</span><span class="st">type</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">AMOUNT</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">details</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">MASS</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">amount</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">mass</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">value</span><span class="ch">\"</span><span class="st">: 6.9, </span><span class="ch">\"</span><span class="st">units</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">GRAM</span><span class="ch">\"</span><span class="sc">}}</span><span class="st">}], </span><span class="ch">\"</span><span class="st">reaction_role</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">PRODUCT</span><span class="ch">\"</span><span class="st">}]}]}</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="ch">\n</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p><strong>PREFIX</strong> is supposed to be content of the system prompt. <strong>SUFFIX</strong> is the user prompt. <strong>SHOT</strong> is the 1-shot prompt that will be added to the system prompt when used.</p>
+</div></div><p>To continue, we loop all over the dataset two times, one for each type of prompt (zero and one-shot). For each dataset sample, we format the prompt to include the procedure-output schema pairs using the template defined in the previous cell. In addition, we also predict using the model and store those predictions for future evaluation.</p>
+<div id="704263f5" class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>shots <span class="op">=</span> [<span class="st">'0-shot'</span>, <span class="st">'1-shot'</span>]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>results_llama <span class="op">=</span> {}</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Start by looping over the shots</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> shots:</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> []</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    references <span class="op">=</span> []</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over all the samples of the dataset</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> test_dataset:</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        instruction <span class="op">=</span> t[<span class="st">"instruction"</span>]</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> t[<span class="st">"output"</span>]</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Format the prompt following OpenAI's prompting guidelines</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> s <span class="op">==</span> <span class="st">'0-shot'</span>:</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>            shot <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>            shot <span class="op">=</span> SHOT</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>        system <span class="op">=</span> PREFIX.<span class="bu">format</span>(shot<span class="op">=</span>shot)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        user <span class="op">=</span> SUFFIX.<span class="bu">format</span>(sample<span class="op">=</span>instruction)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>        prompt <span class="op">=</span> [</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>            {<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: system},</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>            {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: user},</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Do the completion using Groq API through LiteLLM</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        pred <span class="op">=</span> (</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>            completion(</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>                model<span class="op">=</span>base_model,</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>                messages<span class="op">=</span>prompt,</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>                caching<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>                temperature<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>            .choices[<span class="dv">0</span>]</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>            .message.content</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Save the predictions and the references for later evaluation</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>        references.append(output)</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>        predictions.append(pred)</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>    results_llama[s] <span class="op">=</span> {</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"predictions"</span>: predictions,</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"references"</span>: references,</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>The beauty of <em>LiteLLM</em>is that it allows to do completions for a bunch of models by different providers using for all the <em>OpenAI</em> prompt completions schema: {“role”: “system”, “content”: system_message}, {“role”: “user”, “content”: user_message}</p>
+<p>This format of completions is probably the most extended one, and is really intuitive.</p>
+</div></div><p>After generating the predictions, it’s essential to evaluate them. We will initially use BERT Score for a simple evaluation, as it provides precision, recall, and F<span class="math inline">\(_1\)</span>-scores based on similarity measures. However, for a complex schema like the one we are predicting, a more robust evaluation method should be utilized. (REF EVALUATION CHAPTER)</p>
+<div id="7138e781" class="cell" data-tags="[&quot;hide-output&quot;]">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>bertscore <span class="op">=</span> load(<span class="st">"bertscore"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>shots <span class="op">=</span> [<span class="st">'0-shot'</span>, <span class="st">'1-shot'</span>]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Start by looping over the shots</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> shots:</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> results_llama[s][<span class="st">"predictions"</span>]</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    references <span class="op">=</span> results_llama[s][<span class="st">"references"</span>]</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    results_ <span class="op">=</span> bertscore.compute(</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        predictions<span class="op">=</span>predictions,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        references<span class="op">=</span>references,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        model_type<span class="op">=</span><span class="st">"distilbert-base-uncased"</span>,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    results_llama[s].update(</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"precision"</span>: mean(results_[<span class="st">"precision"</span>]),</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"recall"</span>: mean(results_[<span class="st">"recall"</span>]),</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"f1_scores"</span>: mean(results_[<span class="st">"f1"</span>]),</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="37bbe43b-621c-4eb5-b826-94406a08b7a2" class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> shots:</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Results for the </span><span class="sc">{</span>s<span class="sc">}</span><span class="ss"> prompt"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\t</span><span class="ss">Precision: </span><span class="sc">{</span>results_llama[s][<span class="st">'precision'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\t</span><span class="ss">Recall: </span><span class="sc">{</span>results_llama[s][<span class="st">'recall'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\t</span><span class="ss">F1-Score: </span><span class="sc">{</span>results_llama[s][<span class="st">'f1_scores'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The results are really good, specially with the 1-shot prompt. However we are going to try next another different model, a closed-source in order to compare.</p>
+</section>
+<section id="another-model-closed-source-this-time" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="another-model-closed-source-this-time">Another model, closed-source this time</h2>
+<p>The second model we will use is the newer <em>OpenAI</em> model, the <em>GPT-4o</em> model. This allows us to compare open- and closed-source models.</p>
+<p>The procedure and code are exactly the same as for the previous case; the only difference is to define a different model.</p>
+<div id="41f62cbd" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>base_model <span class="op">=</span> <span class="st">"gpt-4o"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And we do the completions using both prompts for all the test samples.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p><em>OpenAI</em> models are also supported by the <em>LiteLLM</em> package.</p>
+</div></div><div id="7b2b9954-2646-4939-99b5-f5bdfd6c4a36" class="cell" data-tags="[&quot;hide-output&quot;]">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>results_openai <span class="op">=</span> {}</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>shots <span class="op">=</span> [<span class="st">"0-shot"</span>, <span class="st">"1-shot"</span>]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Start by looping over the shots</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> shots:</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> []</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    references <span class="op">=</span> []</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over all the samples of the dataset</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> test_dataset:</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        instruction <span class="op">=</span> t[<span class="st">"instruction"</span>]</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> t[<span class="st">"output"</span>]</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Format the prompt following OpenAI's prompting guidelines</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> s <span class="op">==</span> <span class="st">"0-shot"</span>:</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>            shot <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>            shot <span class="op">=</span> SHOT</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>        system <span class="op">=</span> PREFIX.<span class="bu">format</span>(shot<span class="op">=</span>shot)</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        user <span class="op">=</span> SUFFIX.<span class="bu">format</span>(sample<span class="op">=</span>instruction)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>        prompt <span class="op">=</span> [</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>            {<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: system},</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>            {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: user},</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Do the completion using Groq API through LiteLLM</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>        pred <span class="op">=</span> (</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>            completion(</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>                model<span class="op">=</span>base_model,</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>                messages<span class="op">=</span>prompt,</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>                caching<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>                temperature<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>            .choices[<span class="dv">0</span>]</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>            .message.content</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Remove some residual stuff in the json output by the model.</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">"```json"</span> <span class="kw">in</span> pred:</span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>            pred <span class="op">=</span> pred.replace(<span class="st">"```json</span><span class="ch">\n</span><span class="st">"</span>, <span class="st">""</span>)</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>            pred <span class="op">=</span> pred.replace(<span class="st">"```"</span>, <span class="st">""</span>)</span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Save the predictions and the references for later evaluation</span></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>        references.append(output)</span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>        predictions.append(pred)</span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>    results_openai[s] <span class="op">=</span> {</span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>        <span class="st">"predictions"</span>: predictions,</span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>        <span class="st">"references"</span>: references,</span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, we evaluate again using <em>BERT-score</em>.</p>
+<div id="cb7a9070" class="cell" data-tags="[&quot;hide-output&quot;]">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> shots:</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> results_openai[s][<span class="st">'predictions'</span>]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    references <span class="op">=</span> results_openai[s][<span class="st">'references'</span>]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    results_ <span class="op">=</span> bertscore.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>references, model_type<span class="op">=</span><span class="st">"distilbert-base-uncased"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    results_openai[s].update({</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">'precision'</span>: mean(results_[<span class="st">'precision'</span>]),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">'recall'</span>: mean(results_[<span class="st">'recall'</span>]),</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">'f1_scores'</span>: mean(results_[<span class="st">'f1'</span>]),</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="15fc80d6-1f72-4ca7-8ab8-772a4c43437b" class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> shots:</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Results for the </span><span class="sc">{</span>s<span class="sc">}</span><span class="ss"> prompt"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\t</span><span class="ss">Precision: </span><span class="sc">{</span>results_llama[s][<span class="st">'precision'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\t</span><span class="ss">Recall: </span><span class="sc">{</span>results_llama[s][<span class="st">'recall'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\t</span><span class="ss">F1-Score: </span><span class="sc">{</span>results_llama[s][<span class="st">'f1_scores'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The results with this <em>GPT-4o</em> model are really good, improving a bit the ones obtained with <em>Llama-3 8B</em> base model. However, we are going to try to further improve this results by fine-tuning the <em>Llama-3 8B</em> model.</p>
+</section>
+<section id="fine-tuning" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="fine-tuning">Fine-tuning</h2>
+<p>As the final step, we will fine-tune the <em>Llama-3 8B</em> using data similar to the one we used above.</p>
+<p>We will use packages built by <em>HuggingFace</em> to do the fine-tuning.</p>
+<p>First, we define the base model we will use and the path of the dataset.</p>
+<div id="e4470537" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>base_model <span class="op">=</span> <span class="st">"meta-llama/Meta-Llama-3-8B-Instruct"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>This will make it easy to track training progress using <a href="https://wandb.ai/">Weights and Biases</a>, allowing quick access to the loss curve and other important training parameters.</p>
+</div></div><div id="14b3d824" class="cell" data-tags="[&quot;hide-output&quot;]" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>wandb.login()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>In order the <code>wandb.login()</code>works, the <code>.env</code> imported previously must contain the personal <em>WANDB_API_KEY</em>.</p>
+</div></div><p>The next step is to load the dataset for the fine-tuning. For that, as for the testing from previous models, we will use the dataset used by Ai et al., but for this case, we will use their <strong>train</strong> dataset. Since this is a quick demonstration, we will only take 5000 samples.</p>
+<div id="37b7756e" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> load_dataset(<span class="st">"json"</span>, data_files<span class="op">=</span><span class="st">'train.json'</span>, split<span class="op">=</span><span class="st">"train"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> dataset.shuffle(seed<span class="op">=</span><span class="dv">42</span>).select(<span class="bu">range</span>(<span class="dv">5000</span>)) <span class="co"># Only use 5000 samples for quick demo</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> dataset.train_test_split(test_size<span class="op">=</span><span class="fl">0.1</span>, seed<span class="op">=</span><span class="dv">42</span>) <span class="co"># We define 90-10 % training-evaluation splits.</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>dataset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>DatasetDict({
+    train: Dataset({
+        features: ['output', 'instruction'],
+        num_rows: 4500
+    })
+    test: Dataset({
+        features: ['output', 'instruction'],
+        num_rows: 500
+    })
+})</code></pre>
+</div>
+</div>
+<p>Then we define the method to fine-tune and all the parameters. For this fine-tuning we will be using the popular QLoRA method. QLoRA <span class="citation" data-cites="dettmers2023qlora">(<a href="choosing_paradigm.html#ref-dettmers2023qlora" role="doc-biblioref">Dettmers et al. 2023</a>)</span> is an efficient finetuning approach that reduces memory usage during finetuning, while preserving full finetuning task performance.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Notes about QLoRA configuration">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes about QLoRA configuration
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>load_in_4bit=True</strong>: loads the model using the 4-bit quatization.</li>
+<li><strong>bnb_4bit_quant_type=“nf4”</strong>: quatizacies following the nf4 method.<span class="citation" data-cites="dettmers20228bit">(<a href="choosing_paradigm.html#ref-dettmers20228bit" role="doc-biblioref">Dettmers et al. 2022</a>)</span></li>
+<li><strong>bnb_4bit_use_double_quant=True</strong>: activate nested quantization for 4-bit base models.</li>
+<li><strong>bnb_4bit_compute_dtype=torch.bfloat16</strong>: Compute dtype for 4-bit base models.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="f3a1cc83" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># QLoRA configuration</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>bnb_config <span class="op">=</span> BitsAndBytesConfig(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    load_in_4bit<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    bnb_4bit_quant_type<span class="op">=</span><span class="st">"nf4"</span>, <span class="co"># fp4 or nf4</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    bnb_4bit_use_double_quant<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    bnb_4bit_compute_dtype<span class="op">=</span>torch.bfloat16</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Notes about LoRA configuration">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes about LoRA configuration
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>r</strong>: The rank of the updated matrices, expressed as integer. Lower rank results in smaller update matrices with fewer trainable parameters. It means that the adaptor that is build in top of the model to improved will be made by matrices of rank 32.</li>
+<li><strong>lora_alpha</strong>: LoRA scaling factor. It changes how the adaptation layer’s weights affect the base model’s.</li>
+<li><strong>lora_dropout</strong>: Dropout is a regularization technique where a proportion of neurons (or parameters) are randomly “dropped out” or turned off during training to prevent overfitting.</li>
+<li><strong>bias</strong>: Specifies if the bias parameters should be trained. Can be ‘none’, ‘all’ or ‘lora_only’.</li>
+<li><strong>task_type</strong>: Task to perform, “Causal LM”: Causal language modeling.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="395f3937-597e-474b-8aeb-39fcffab1e20" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>peft_config <span class="op">=</span> LoraConfig(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    r<span class="op">=</span><span class="dv">32</span>,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    lora_alpha<span class="op">=</span><span class="dv">64</span>, </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    lora_dropout<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    bias<span class="op">=</span><span class="st">"none"</span>, </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    task_type<span class="op">=</span><span class="st">"CAUSAL_LM"</span>, </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Before training, we define the tokenizer and the model for fine-tuning, set the training arguments, and initialize the trainer.</p>
+<div id="c1c24ce1" class="cell" data-tags="[&quot;hide-output&quot;]" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load tokenizer</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> AutoTokenizer.from_pretrained(base_model) <span class="co"># Define the tokenizer</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>tokenizer.pad_token <span class="op">=</span> tokenizer.eos_token</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>tokenizer.padding_side <span class="op">=</span> <span class="st">"right"</span> <span class="co"># Where the "pad_token" is placed</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Model config</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> AutoModelForCausalLM.from_pretrained(</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    base_model, <span class="co"># Model that we are going to fine-tune</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    quantization_config<span class="op">=</span>bnb_config, <span class="co"># QLoRA config defined above</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    device_map<span class="op">=</span><span class="st">"auto"</span>, <span class="co"># Where the model is trained, set device_map="auto" loads a model onto available GPUs first.</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>The <em>pad_token</em> is a special token used to make arrays of tokens the same size for batching purpose. The typical is to use the “eos_token” which is a special token representing the end of a sentence.</p>
+</div></div><div class="callout callout-style-default callout-tip callout-titled" title="Notes about the training arguments">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes about the training arguments
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>learning_rate</strong>: the learning rate is a hyper-parameter that sets how the training algorithm updates the values of the weights.</li>
+<li><strong>Batch size</strong>: it is the number of samples used in one forward and backward pass through the network. Ideally we would like to increase this number so the fine-tuning would last less. The problem is that for higher batch number, more GPU memory is needed. For example, for training the model used in this demostration using the exact same configuration but with a default token length (1024 tokens), with 40GB vRAM GPU, the maximum batch number is 2. Using 80GB of vRAM GPU the batch size can be increased to 4.
+<ul>
+<li><strong>per_device_train_batch_size</strong>: batch size for the training.</li>
+<li><strong>per_device_eval_batch_size</strong>: batch size for the evaluation.</li>
+</ul></li>
+<li><strong>gradient_accumulation_steps</strong>: Number of accumulated gradients over each batch.</li>
+<li><strong>optim</strong>: optimizer used. The main role of the optimizer is to minimize the loss function. The <strong>paged_adamw_32bit</strong> is the well known <strong>AdamW</strong> optimizer. <strong>AdamW</strong> optimization is a stochastic gradient descent method.<span class="citation" data-cites="loshchilov2019decoupled">(<a href="choosing_paradigm.html#ref-loshchilov2019decoupled" role="doc-biblioref">Loshchilov and Hutter 2019</a>)</span></li>
+<li><strong>num_train_epochs</strong>: number of times that the model goes through each sample during the training. Larger number might lead to best training results or to overfitting. Lower number might give a model that do not work as expected at all.</li>
+<li><strong>fp16</strong> and <strong>bf16</strong>: these parameters helps achieving mixed precision training which is a technique that aims to optimize the computational efficiency of training models by utilizing lower-precision numerical formats for certain variables. However, choosing of both parameters depends of the architecture of the GPUs that are being used during the training.</li>
+<li><strong>logging_steps</strong>: when the logging is done.</li>
+<li><strong>evaluation_strategy</strong>: the evaluation strategy to adopt during training. The most used is ‘steps’ meaning that the evaluation is done after a certain number of training steps.</li>
+<li><strong>eval_steps</strong>: define in which steps the evaluation is done.</li>
+<li><strong>max_grad_norm</strong>: maximum gradient norm (for gradient clipping). Gradient Clipping is a method where the error derivative is changed or clipped to a threshold during backward propagation through the network, and using the clipped gradients to update the weights.</li>
+<li><strong>warmup_steps</strong>: number of steps used for a linear warmup from 0 to learning_rate. The warmup helps to stabilize the optimization process and prevent divergence.</li>
+<li><strong>warmup_ratio</strong>: ratio of total training steps used for the linear warmup.</li>
+<li><strong>group_by_length</strong>: whether or not to group together samples of roughly the same length in the training dataset (to minimize padding applied and be more efficient). Only useful if applying dynamic padding.</li>
+<li><strong>lr_scheduler_type</strong>: describes the decayment of the learning rate during the training.</li>
+<li><strong>output_dir</strong>: directory to safe the report of the training process.</li>
+<li><strong>save_strategy</strong>: what we want to safe during the training. Set it to “no” to only safe the final model.</li>
+</ul>
+<p><img src="cosine.png" id="fig-cosine" class="img-fluid"> Shape of the “cosine” lr_scheduler_type option</p>
+</div>
+</div>
+</div>
+<div id="10da3de2" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the different hyperparameters and arguments for the fine-tuning</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>training_arguments <span class="op">=</span> TrainingArguments(</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">1e-6</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    per_device_train_batch_size<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    per_device_eval_batch_size<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    gradient_accumulation_steps<span class="op">=</span><span class="dv">4</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    optim<span class="op">=</span><span class="st">"paged_adamw_32bit"</span>,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    num_train_epochs<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    fp16<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    bf16<span class="op">=</span><span class="va">True</span>, <span class="co">#bf16 to True with an A100, False otherwise</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    logging_steps<span class="op">=</span><span class="dv">1</span>, <span class="co"># Logging is done every step.</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    evaluation_strategy<span class="op">=</span><span class="st">"steps"</span>, </span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    eval_steps<span class="op">=</span><span class="fl">0.05</span>,</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    max_grad_norm<span class="op">=</span><span class="fl">0.3</span>,</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    warmup_steps<span class="op">=</span><span class="dv">10</span>, </span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    warmup_ratio<span class="op">=</span><span class="fl">0.03</span>,</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    group_by_length<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    lr_scheduler_type<span class="op">=</span><span class="st">"cosine"</span>, </span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    output_dir<span class="op">=</span><span class="st">"./results/"</span>, </span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    save_strategy<span class="op">=</span><span class="st">'no'</span>, </span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="f750cdb9" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>response_template <span class="op">=</span> <span class="st">" ### Answer:"</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>collator <span class="op">=</span> DataCollatorForCompletionOnlyLM(response_template, tokenizer<span class="op">=</span>tokenizer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p><strong>Data collators</strong> are objects that will form a batch by using a list of dataset elements as input. There is one data collator for each task, here we use the one for completion-only.</p>
+</div><div class="">
+<p>The <strong>completion-only training</strong> instead of training the model on the whole input (prompt + answer) make the training more efficient by training only the model on completion.</p>
+</div></div>
+<div id="21d42807" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> formatting_prompts_func(example):</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    output_texts <span class="op">=</span> []</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(example[<span class="st">'instruction'</span>])):</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>        text <span class="op">=</span> <span class="ss">f"### Question: </span><span class="sc">{</span>example[<span class="st">'instruction'</span>][i]<span class="sc">}</span><span class="ch">\n</span><span class="ss"> ### Answer: </span><span class="sc">{</span>example[<span class="st">'output'</span>][i]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        output_texts.append(text)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> output_texts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>The <strong>formatting function</strong> is intended for those cases where the prompt is divided in more than one feature of the dataset. Using the a formatting functions allow us to join them in the best way.</p>
+</div></div><div id="49f7e685" class="cell" data-tags="[&quot;hide-output&quot;]" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> SFTTrainer(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model, <span class="co"># Model to fine-tune</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    max_seq_length<span class="op">=</span><span class="dv">2048</span>, <span class="co"># Max number of tokens of the completion</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>training_arguments, <span class="co"># Training arguments to use </span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>dataset[<span class="st">"train"</span>], <span class="co"># Set of the dataset used for the training</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    eval_dataset<span class="op">=</span>dataset[<span class="st">"test"</span>], <span class="co"># Set of the dataset used for the evaluations</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    peft_config<span class="op">=</span>peft_config, <span class="co"># Configuration and PEFT method to use</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    tokenizer<span class="op">=</span>tokenizer, <span class="co"># Tokenizer used </span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    packing<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    formatting_func<span class="op">=</span>formatting_prompts_func, <span class="co"># Prompt formatting function</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>collator, </span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>When <em>packing</em> is set to True means during the training, multiple short examples are pack in the same input sequence to increase training efficiency. However, when using a collator it must be False.</p>
+</div></div><p>And finally when everything is ready we train the model.</p>
+<div id="f61c3e34" class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>trainer.train()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+
+    <div>
+      
+      <progress value="5367" max="11250" style="width:300px; height:20px; vertical-align: middle;"></progress>
+      [ 5367/11250 2:46:41 &lt; 3:02:47, 0.54 it/s, Epoch 4.77/10]
+    </div>
+    
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Step</th>
+<th data-quarto-table-cell-role="th">Training Loss</th>
+<th data-quarto-table-cell-role="th">Validation Loss</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>563</td>
+<td>0.467600</td>
+<td>0.592538</td>
+</tr>
+<tr class="even">
+<td>1126</td>
+<td>0.404200</td>
+<td>0.572942</td>
+</tr>
+<tr class="odd">
+<td>1689</td>
+<td>0.509100</td>
+<td>0.566474</td>
+</tr>
+<tr class="even">
+<td>2252</td>
+<td>0.408500</td>
+<td>0.563503</td>
+</tr>
+<tr class="odd">
+<td>2815</td>
+<td>0.553200</td>
+<td>0.562221</td>
+</tr>
+<tr class="even">
+<td>3378</td>
+<td>0.472700</td>
+<td>0.561783</td>
+</tr>
+<tr class="odd">
+<td>3941</td>
+<td>0.495300</td>
+<td>0.561582</td>
+</tr>
+<tr class="even">
+<td>4504</td>
+<td>0.469400</td>
+<td>0.561479</td>
+</tr>
+<tr class="odd">
+<td>5067</td>
+<td>0.545600</td>
+<td>0.561480</td>
+</tr>
+</tbody>
+</table>
+<p>
+</p></div>
+</div>
+</div>
+<p>We can consult the loss curves from WandB to see if the training performs well and if there is no overfitting or other strange behavior.</p>
+<div id="fig-loss_curves" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-loss_curves-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-loss_curves" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-eloss" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-eloss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="train_loss.png" class="img-fluid figure-img" data-ref-parent="fig-loss_curves">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-eloss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Training-loss curve
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-loss_curves" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-tloss" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-tloss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="val_loss.png" class="img-fluid figure-img" data-ref-parent="fig-loss_curves">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-tloss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Evaluation-loss curve
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-loss_curves-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.1: Loss curves from the fine-tuning that were reported to <em>WandB</em>. Both curves looks such as they should be when the training goes fine.
+</figcaption>
+</figure>
+</div>
+<p>To evaluate the fine-tuned model and do inference, the easiest way is to use the trained model directly. To do that we have to define a <em>pipeline</em> for text-generation and then do the inference using that <em>pipeline</em> and evaluate in a similar way as for the previous models.</p>
+<div id="1fa71e48" class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the pipeline that will do the inference</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>sft_pipe <span class="op">=</span> pipeline(</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"text-generation"</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    temperature<span class="op">=</span><span class="fl">0.01</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>trainer.model, <span class="co"># We do the inference with the trained model.</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    tokenizer<span class="op">=</span>tokenizer,</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>The temperature defines the freedom degrees that are allowed to the model. For data extraction the best value is 0 but HuggingFace do not allow a round 0, so we have to set a number very close to 0.</p>
+</div></div><div id="3643bd1b" class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the inference for all the samples of the test set using 0 and 1-shot prompts.</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>results_sft <span class="op">=</span> {}</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>shots <span class="op">=</span> [<span class="st">'0-shot'</span>, <span class="st">'1-shot'</span>]</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Start by looping over the shots</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> shots:</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    count<span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(count)</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    references <span class="op">=</span> []</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    predictions_sft <span class="op">=</span> []</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    prompts <span class="op">=</span> []</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Loop over all the samples of the dataset</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> test_dataset:</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>        instruction <span class="op">=</span> t[<span class="st">'instruction'</span>]</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> t[<span class="st">'output'</span>]</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> s <span class="op">==</span> <span class="st">'0-shot'</span>:</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>            shot <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>            shot <span class="op">=</span> SHOT</span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Format the prompt</span></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>        system <span class="op">=</span> PREFIX.<span class="bu">format</span>(shot<span class="op">=</span>shot)</span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>        user <span class="op">=</span> SUFFIX.<span class="bu">format</span>(sample<span class="op">=</span>instruction)</span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>        prompt <span class="op">=</span> system <span class="op">+</span> user</span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>        references.append(output)</span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Do the completion using the pipeline defined above</span></span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> torch.cuda.amp.autocast():</span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>            pred <span class="op">=</span> sft_pipe(prompt)</span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Clean the output</span></span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a>        predictions_sft.append(pred[<span class="dv">0</span>][<span class="st">'generated_text'</span>].replace(prompt, <span class="st">''</span>))</span>
+<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a>    results_sft [s] <span class="op">=</span> {</span>
+<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">"predictions"</span>: predictions_sft,</span>
+<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"references"</span>: references,</span>
+<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Note that for this particular case we do not use <em>LiteLLM</em>. This is because this package do not yet support Completion only task with <em>HuggingFace</em> models. Thus the prompt is not written following OpenAI completions guide.</p>
+</div><div class="">
+<p>For this case, note that in the completion we replace the prompt by nothing. This is done because the model was instructed to always give the completions with the prompt at the beginning. Above, for the case where we used this same Llama model, this was not done because the API already provides the completion without the prompt.</p>
+</div></div>
+<p>Finally, we just need to calculate the metrics to evaluate this last model results.</p>
+<div id="84c5aa04" class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> shots:</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    predictions_sft <span class="op">=</span> results_sft[s][<span class="st">"predictions"</span>]</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    references <span class="op">=</span> results_sft[s][<span class="st">"references"</span>]</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> bertscore.compute(predictions<span class="op">=</span>predictions_sft, references<span class="op">=</span>references, model_type<span class="op">=</span><span class="st">"distilbert-base-uncased"</span>)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    results_sft[s].update({</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"precision"</span>: mean(results[<span class="st">"precision"</span>]),</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"recall"</span>: mean(results[<span class="st">"recall"</span>]),</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"f1_scores"</span>: mean(results[<span class="st">"f1"</span>]),</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="b043e1f1-07fc-4219-bf41-82b17619ee10" class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> shots:</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Results for the </span><span class="sc">{</span>s<span class="sc">}</span><span class="ss"> prompt"</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\t</span><span class="ss">Precision: </span><span class="sc">{</span>results_sft[s][<span class="st">'precision'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\t</span><span class="ss">Recall: </span><span class="sc">{</span>results_sft[s][<span class="st">'recall'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\t</span><span class="ss">F1-Score: </span><span class="sc">{</span>results_sft[s][<span class="st">'f1_scores'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The results are very similar as for the previous cases. But being honest with ourselfs, there was not a lot of room for big improvement.</p>
+</section>
+<section id="visualization-of-the-results" class="level2">
+<h2 class="anchored" data-anchor-id="visualization-of-the-results">Visualization of the results</h2>
+<p>To study the results in a more graphical way, we can plot all the results in two bars plots.</p>
+<div id="2aaeab06" class="cell" data-tags="[&quot;hide-input&quot;]">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set width of bar</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>barWidth <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">10</span>))</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>plt_models <span class="op">=</span> [<span class="st">"Llama3-8B"</span>, <span class="st">"Llama3-8B Fine-tuned"</span>, <span class="st">"GPT-4o"</span>]</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>plt_metrics <span class="op">=</span> [<span class="st">"Precision"</span>, <span class="st">"Recall"</span>, <span class="st">"F1-Score"</span>]</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>plt_data <span class="op">=</span> {}</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> index, model <span class="kw">in</span> <span class="bu">enumerate</span>(plt_models):</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    plt_data[model] <span class="op">=</span> metrics_0_shot[index]</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Set position of bar on X axis</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>br1 <span class="op">=</span> np.arange(<span class="bu">len</span>(metrics_0_shot[<span class="dv">0</span>]))</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>br2 <span class="op">=</span> [x <span class="op">+</span> barWidth <span class="cf">for</span> x <span class="kw">in</span> br1]</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>br3 <span class="op">=</span> [x <span class="op">+</span> barWidth <span class="cf">for</span> x <span class="kw">in</span> br2]</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the plot</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>plt.bar(</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>    br1,</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>    metrics_0_shot[<span class="dv">0</span>],</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"b"</span>,</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span>barWidth,</span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>    edgecolor<span class="op">=</span><span class="st">"black"</span>,</span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span>plt_models[<span class="dv">0</span>],</span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>plt.bar(</span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>    br2,</span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a>    metrics_0_shot[<span class="dv">1</span>],</span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"skyblue"</span>,</span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span>barWidth,</span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a>    edgecolor<span class="op">=</span><span class="st">"black"</span>,</span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span>plt_models[<span class="dv">1</span>],</span>
+<span id="cb33-32"><a href="#cb33-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-33"><a href="#cb33-33" aria-hidden="true" tabindex="-1"></a>plt.bar(</span>
+<span id="cb33-34"><a href="#cb33-34" aria-hidden="true" tabindex="-1"></a>    br3,</span>
+<span id="cb33-35"><a href="#cb33-35" aria-hidden="true" tabindex="-1"></a>    metrics_0_shot[<span class="dv">2</span>],</span>
+<span id="cb33-36"><a href="#cb33-36" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"mediumseagreen"</span>,</span>
+<span id="cb33-37"><a href="#cb33-37" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span>barWidth,</span>
+<span id="cb33-38"><a href="#cb33-38" aria-hidden="true" tabindex="-1"></a>    edgecolor<span class="op">=</span><span class="st">"black"</span>,</span>
+<span id="cb33-39"><a href="#cb33-39" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span>plt_models[<span class="dv">2</span>],</span>
+<span id="cb33-40"><a href="#cb33-40" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-41"><a href="#cb33-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-42"><a href="#cb33-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Adding Xticks</span></span>
+<span id="cb33-43"><a href="#cb33-43" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Metric"</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb33-44"><a href="#cb33-44" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Results"</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb33-45"><a href="#cb33-45" aria-hidden="true" tabindex="-1"></a>plt.xticks(</span>
+<span id="cb33-46"><a href="#cb33-46" aria-hidden="true" tabindex="-1"></a>    [r <span class="op">+</span> barWidth <span class="cf">for</span> r <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(metrics_0_shot[<span class="dv">0</span>]))], plt_metrics, fontsize<span class="op">=</span><span class="dv">12</span></span>
+<span id="cb33-47"><a href="#cb33-47" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-48"><a href="#cb33-48" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb33-49"><a href="#cb33-49" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Different metrics with 0 shot prompt for the models"</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb33-50"><a href="#cb33-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-51"><a href="#cb33-51" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb33-52"><a href="#cb33-52" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"bars0.png"</span>)</span>
+<span id="cb33-53"><a href="#cb33-53" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="6fa3cc0c" class="cell" data-tags="[&quot;hide-input&quot;]">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set width of bar</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>barWidth <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">10</span>))</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>plt_models <span class="op">=</span> [<span class="st">"Llama3-8B"</span>, <span class="st">"Llama3-8B Fine-tuned"</span>, <span class="st">"GPT-4-turbo"</span>]</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>plt_metrics <span class="op">=</span> [<span class="st">"Precision"</span>, <span class="st">"Recall"</span>, <span class="st">"F1-Score"</span>]</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>plt_data <span class="op">=</span> {}</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> index, model <span class="kw">in</span> <span class="bu">enumerate</span>(plt_models):</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    plt_data[model] <span class="op">=</span> metrics_1_shot[index]</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Set position of bar on X axis</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>br1 <span class="op">=</span> np.arange(<span class="bu">len</span>(metrics_1_shot[<span class="dv">0</span>]))</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>br2 <span class="op">=</span> [x <span class="op">+</span> barWidth <span class="cf">for</span> x <span class="kw">in</span> br1]</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>br3 <span class="op">=</span> [x <span class="op">+</span> barWidth <span class="cf">for</span> x <span class="kw">in</span> br2]</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the plot</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>plt.bar(</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>    br1,</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>    metrics_1_shot[<span class="dv">0</span>],</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"b"</span>,</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span>barWidth,</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>    edgecolor<span class="op">=</span><span class="st">"black"</span>,</span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span>plt_models[<span class="dv">0</span>],</span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>plt.bar(</span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>    br2,</span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>    metrics_1_shot[<span class="dv">1</span>],</span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"skyblue"</span>,</span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span>barWidth,</span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a>    edgecolor<span class="op">=</span><span class="st">"black"</span>,</span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span>plt_models[<span class="dv">1</span>],</span>
+<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a>plt.bar(</span>
+<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a>    br3,</span>
+<span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a>    metrics_1_shot[<span class="dv">2</span>],</span>
+<span id="cb34-36"><a href="#cb34-36" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"mediumseagreen"</span>,</span>
+<span id="cb34-37"><a href="#cb34-37" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span>barWidth,</span>
+<span id="cb34-38"><a href="#cb34-38" aria-hidden="true" tabindex="-1"></a>    edgecolor<span class="op">=</span><span class="st">"black"</span>,</span>
+<span id="cb34-39"><a href="#cb34-39" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span>plt_models[<span class="dv">2</span>],</span>
+<span id="cb34-40"><a href="#cb34-40" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-41"><a href="#cb34-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-42"><a href="#cb34-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Adding Xticks</span></span>
+<span id="cb34-43"><a href="#cb34-43" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Metric"</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb34-44"><a href="#cb34-44" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Results"</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb34-45"><a href="#cb34-45" aria-hidden="true" tabindex="-1"></a>plt.xticks(</span>
+<span id="cb34-46"><a href="#cb34-46" aria-hidden="true" tabindex="-1"></a>    [r <span class="op">+</span> barWidth <span class="cf">for</span> r <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(metrics_1_shot[<span class="dv">0</span>]))], plt_metrics, fontsize<span class="op">=</span><span class="dv">12</span></span>
+<span id="cb34-47"><a href="#cb34-47" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-48"><a href="#cb34-48" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb34-49"><a href="#cb34-49" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Different metrics with 1-shot prompt for the models"</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb34-50"><a href="#cb34-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-51"><a href="#cb34-51" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb34-52"><a href="#cb34-52" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"bars1.png"</span>)</span>
+<span id="cb34-53"><a href="#cb34-53" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The results for the three models are quite good, and there are no significant differences between them. This is partly due to the evaluation method used; however, employing a more robust evaluation will lead to more noticeable differences. For this reason, we recommend reviewing the Evaluations section and following the guidelines outlined there.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Ai_2024" class="csl-entry" role="listitem">
+Ai, Qianxiang, Fanwang Meng, Jiale Shi, Brenden Pelkie, and Connor W.
+Coley. 2024. <span>“Extracting Structured Data from Organic Synthesis
+Procedures Using a Fine-Tuned Large Language Model,”</span> April. <a href="https://doi.org/10.26434/chemrxiv-2024-979fz">https://doi.org/10.26434/chemrxiv-2024-979fz</a>.
+</div>
+<div id="ref-dettmers20228bit" class="csl-entry" role="listitem">
+Dettmers, Tim, Mike Lewis, Sam Shleifer, and Luke Zettlemoyer. 2022.
+<span>“8-Bit Optimizers via Block-Wise Quantization.”</span> <a href="https://arxiv.org/abs/2110.02861">https://arxiv.org/abs/2110.02861</a>.
+</div>
+<div id="ref-dettmers2023qlora" class="csl-entry" role="listitem">
+Dettmers, Tim, Artidoro Pagnoni, Ari Holtzman, and Luke Zettlemoyer.
+2023. <span>“QLoRA: Efficient Finetuning of Quantized LLMs.”</span> <a href="https://arxiv.org/abs/2305.14314">https://arxiv.org/abs/2305.14314</a>.
+</div>
+<div id="ref-loshchilov2019decoupled" class="csl-entry" role="listitem">
+Loshchilov, Ilya, and Frank Hutter. 2019. <span>“Decoupled Weight Decay
+Regularization.”</span> <a href="https://arxiv.org/abs/1711.05101">https://arxiv.org/abs/1711.05101</a>.
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../constrained_decoding/index.html" class="pagination-link" aria-label="Constrained generation to guarantee syntactic correctness">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Constrained generation to guarantee syntactic correctness</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../ocr/nougat/nougat.html" class="pagination-link" aria-label="OCR with Nougat">
+        <span class="nav-page-text"><span class="chapter-title">OCR with Nougat</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
