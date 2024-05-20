@@ -10,6 +10,18 @@ setup(
     packages=["llmstructdata"],
     install_requires=[
         "pandas",
+        "transformers",
+        "datasets",
+        "evaluate",
+        "accelerate",
+        "peft",
+        "trl",
+        "bitsandbytes",
+        "langchain",
+        "python-dotenv",
+        "litellm",
+        "numpy",
+        "matplotlib",
     ],
     long_description="""
 # Style and Imports for the Structured Data Extraction Book
