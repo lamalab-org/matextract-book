@@ -353,13 +353,10 @@ window.Quarto = {
 </section>
 <section id="first-model-and-dataset" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="first-model-and-dataset">First model and dataset</h2>
+<p>As starting model, we will try the Llama-3 8B model. We will call this model through the <em>Groq API</em>, which allows performing fast inference with several open-source models.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p>It is important to include the <em>HF_token</em> in the <em>.env</em> file. By the time this notebook was created, the model that we are going to fine-tune (Llama3-8B) is only available after request for access.</p>
-</div></div><p>As starting model, we will try the Llama-3 8B model. We will call this model through the <em>Groq API</em>, which allows performing fast inference with several open-source models.</p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p>Groq is a provider of some of the most popular open-source models such as Llama or Mixtral models with a high inference speed. To use the Groq API, it also needed to add the <em>GROQ_API_KEY</em> to the <em>.env</em> file.</p>
+<p><strong>Groq</strong> is a provider of some of the most popular open-source models such as Llama or Mixtral models with a high inference speed. To use the Groq API, it also needed to add the <em>GROQ_API_KEY</em> to the <em>.env</em> file.</p>
 </div></div><div id="1b3dae40" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>base_model <span class="op">=</span> <span class="st">"groq/llama3-8b-8192"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -477,7 +474,7 @@ Download data
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p>The beauty of <em>LiteLLM</em>is that it allows to do completions for a bunch of models by different providers using for all the <em>OpenAI</em> prompt completions schema: {“role”: “system”, “content”: system_message}, {“role”: “user”, “content”: user_message}</p>
+<p>The beauty of <em>LiteLLM</em>is that it allows to do completions for a bunch of models by different providers using for all the <a href="https://platform.openai.com/docs/api-reference/chat/create"><em>OpenAI</em> prompt completions schema</a>: {“role”: “system”, “content”: system_message}, {“role”: “user”, “content”: user_message}</p>
 <p>This format of completions is probably the most extended one, and is really intuitive.</p>
 </div></div><p>After generating the predictions, it’s essential to evaluate them. We will initially use BERT Score for a simple evaluation, as it provides precision, recall, and F<span class="math inline">\(_1\)</span>-scores based on similarity measures. However, for a complex schema like the one we are predicting, a more robust evaluation method should be utilized. (REF EVALUATION CHAPTER)</p>
 <div id="7138e781" class="cell" data-tags="[&quot;hide-output&quot;]">
@@ -519,11 +516,11 @@ Download data
 <div id="41f62cbd" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>base_model <span class="op">=</span> <span class="st">"gpt-4o"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>And we do the completions using both prompts for all the test samples.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p><em>OpenAI</em> models are also supported by the <em>LiteLLM</em> package.</p>
-</div></div><div id="7b2b9954-2646-4939-99b5-f5bdfd6c4a36" class="cell" data-tags="[&quot;hide-output&quot;]">
+</div></div><p>And we do the completions using both prompts for all the test samples.</p>
+<div id="7b2b9954-2646-4939-99b5-f5bdfd6c4a36" class="cell" data-tags="[&quot;hide-output&quot;]">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>results_openai <span class="op">=</span> {}</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>shots <span class="op">=</span> [<span class="st">"0-shot"</span>, <span class="st">"1-shot"</span>]</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -604,12 +601,23 @@ Download data
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>base_model <span class="op">=</span> <span class="st">"meta-llama/Meta-Llama-3-8B-Instruct"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p>This will make it easy to track training progress using <a href="https://wandb.ai/">Weights and Biases</a>, allowing quick access to the loss curve and other important training parameters.</p>
-</div></div><div id="14b3d824" class="cell" data-tags="[&quot;hide-output&quot;]" data-execution_count="12">
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It is important to include the <em>HF_token</em> in the <em>.env</em> file. By the time this notebook was created, the model that we are going to fine-tune (Llama3-8B) is only available after request for access.</p>
+</div>
+</div>
+<div id="14b3d824" class="cell" data-tags="[&quot;hide-output&quot;]" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>wandb.login()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>This will make it easy to track training progress using <a href="https://wandb.ai/">Weights and Biases</a>, allowing quick access to the loss curve and other important training parameters.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>In order the <code>wandb.login()</code>works, the <code>.env</code> imported previously must contain the personal <em>WANDB_API_KEY</em>.</p>
@@ -634,7 +642,7 @@ Download data
 </div>
 <p>Then we define the method to fine-tune and all the parameters. For this fine-tuning we will be using the popular QLoRA method. QLoRA <span class="citation" data-cites="dettmers2023qlora">(<a href="choosing_paradigm.html#ref-dettmers2023qlora" role="doc-biblioref">Dettmers et al. 2023</a>)</span> is an efficient finetuning approach that reduces memory usage during finetuning, while preserving full finetuning task performance.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Notes about QLoRA configuration">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -643,7 +651,7 @@ Notes about QLoRA configuration
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li><strong>load_in_4bit=True</strong>: loads the model using the 4-bit quatization.</li>
@@ -664,7 +672,7 @@ Notes about QLoRA configuration
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Notes about LoRA configuration">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -673,7 +681,7 @@ Notes about LoRA configuration
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li><strong>r</strong>: The rank of the updated matrices, expressed as integer. Lower rank results in smaller update matrices with fewer trainable parameters. It means that the adaptor that is build in top of the model to improved will be made by matrices of rank 32.</li>
@@ -712,7 +720,7 @@ Notes about LoRA configuration
 <div class="no-row-height column-margin column-container"><div class="">
 <p>The <em>pad_token</em> is a special token used to make arrays of tokens the same size for batching purpose. The typical is to use the “eos_token” which is a special token representing the end of a sentence.</p>
 </div></div><div class="callout callout-style-default callout-tip callout-titled" title="Notes about the training arguments">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -721,7 +729,7 @@ Notes about the training arguments
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li><strong>learning_rate</strong>: the learning rate is a hyper-parameter that sets how the training algorithm updates the values of the weights.</li>
