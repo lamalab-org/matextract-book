@@ -9,15 +9,15 @@ book:
     - index.qmd
     - part: Data extraction workflow
       chapters:
-        - obtaining_data/obtaining_data.qmd          
+        - obtaining_data/obtaining_data.qmd
         - obtaining_data/crossref_search.ipynb
         - obtaining_data/data_mining.ipynb
         - obtaining_data/annotation.ipynb
         - context_window/Dealing_with_context_window.ipynb
         - constrained_decoding/index.ipynb
-        - document_parsing_and_cleaning.qmd
+        - document_parsing_and_cleaning/document_parsing_and_cleaning.qmd
 
-    - part: Case Studies  
+    - part: Case Studies
       chapters:
         - ocr/nougat/nougat.ipynb
 
@@ -30,5 +30,3 @@ format:
     number-sections: false
   pdf:
     documentclass: scrreprt
-
-
