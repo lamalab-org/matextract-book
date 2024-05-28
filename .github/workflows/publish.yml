@@ -32,7 +32,7 @@ jobs:
       
       # From https://github.com/actions/setup-python
       - name: Setup Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
 
       # From https://github.com/r-lib/actions/tree/v2-branch/setup-r
       # - name: Setup R
