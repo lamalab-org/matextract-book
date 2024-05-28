@@ -22,6 +22,8 @@ setup(
         "litellm",
         "numpy",
         "matplotlib",
+        "sentence-transformers",
+        "chromadb",
     ],
     long_description="""
 # Style and Imports for the Structured Data Extraction Book
