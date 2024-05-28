@@ -3,7 +3,7 @@ project:
 
 book:
   title: "Generative structured data extraction using LLMs"
-  author: "Mara Wilhelmi, Sherjeel Shabih, Martino Rıos Garcıa, Santiago Miret,Christoph Koch, Pepe Marquez, and Kevin Maik Jablonka"
+  author: "Mara Wilhelmi, Sherjeel Shabih, Martiño Rios-Garcia, Santiago Miret, Christoph Koch, Pepe Marquez, and Kevin Maik Jablonka"
   date: "4/11/2024"
   chapters:
     - index.qmd
@@ -12,13 +12,16 @@ book:
         - obtaining_data/obtaining_data.qmd          
         - obtaining_data/crossref_search.ipynb
         - obtaining_data/data_mining.ipynb
+        - obtaining_data/annotation.ipynb
         - context_window/Dealing_with_context_window.ipynb
         - constrained_decoding/index.ipynb
+        - document_parsing_and_cleaning.qmd
+
     - part: Case Studies  
       chapters:
         - ocr/nougat/nougat.ipynb
 
-# bibliography: references.bib
+bibliography: references.bib
 # csl: nature.csl
 
 format:
