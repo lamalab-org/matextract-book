@@ -15,7 +15,7 @@ book:
         - obtaining_data/annotation.ipynb
         - constrained_decoding/index.ipynb
         - document_parsing_and_cleaning.qmd
-
+        - beyond_text/beyond_images.ipynb
     - part: Case Studies  
       chapters:
         - ocr/nougat/nougat.ipynb
