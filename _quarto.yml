@@ -14,7 +14,7 @@ book:
         - obtaining_data/data_mining.ipynb
         - obtaining_data/annotation.ipynb
         - constrained_decoding/index.ipynb
-        - document_parsing_and_cleaning.qmd
+        - document_parsing_and_cleaning/document_parsing_and_cleaning.qmd
 
     - part: Case Studies  
       chapters:
