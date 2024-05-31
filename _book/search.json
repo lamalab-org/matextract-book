@@ -157,7 +157,7 @@
     "href": "finetune/choosing_paradigm.html#references",
     "title": "4 | Choosing the learning paradigm",
     "section": "References",
-    "text": "References\n\n\nAi, Qianxiang, Fanwang Meng, Jiale Shi, Brenden Pelkie, and Connor W.\nColey. 2024. “Extracting Structured Data from Organic Synthesis\nProcedures Using a Fine-Tuned Large Language Model,” April. https://doi.org/10.26434/chemrxiv-2024-979fz.\n\n\nDettmers, Tim, Mike Lewis, Sam Shleifer, and Luke Zettlemoyer. 2022.\n“8-Bit Optimizers via Block-Wise Quantization.” https://arxiv.org/abs/2110.02861.\n\n\nDettmers, Tim, Artidoro Pagnoni, Ari Holtzman, and Luke Zettlemoyer.\n2023. “QLoRA: Efficient Finetuning of Quantized LLMs.” https://arxiv.org/abs/2305.14314.\n\n\nLoshchilov, Ilya, and Frank Hutter. 2019. “Decoupled Weight Decay\nRegularization.” https://arxiv.org/abs/1711.05101.",
+    "text": "References\n\n\n\n\nAi, Qianxiang, Fanwang Meng, Jiale Shi, Brenden Pelkie, and Connor W. Coley. 2024. “Extracting Structured Data from Organic Synthesis Procedures Using a Fine-Tuned Large Language Model,” April. https://doi.org/10.26434/chemrxiv-2024-979fz.\n\n\nDettmers, Tim, Mike Lewis, Sam Shleifer, and Luke Zettlemoyer. 2022. “8-Bit Optimizers via Block-Wise Quantization.” https://arxiv.org/abs/2110.02861.\n\n\nDettmers, Tim, Artidoro Pagnoni, Ari Holtzman, and Luke Zettlemoyer. 2023. “QLoRA: Efficient Finetuning of Quantized LLMs.” https://arxiv.org/abs/2305.14314.\n\n\nLoshchilov, Ilya, and Frank Hutter. 2019. “Decoupled Weight Decay Regularization.” https://arxiv.org/abs/1711.05101.",
     "crumbs": [
       "Data extraction workflow",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>4 | Choosing the learning paradigm</span>"

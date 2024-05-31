@@ -381,7 +381,7 @@ window.Quarto = {
 </div></div><div id="1b3dae40" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>base_model <span class="op">=</span> <span class="st">"groq/llama3-8b-8192"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The dataset used in this tutorial is the one used in Ai et al.’s <span class="citation" data-cites="Ai_2024">(<a href="choosing_paradigm.html#ref-Ai_2024" role="doc-biblioref">Ai et al. 2024</a>)</span> recent work, which contains data about chemical reactions. The dataset contains 100K reaction procedure—ORD JSON pairs.</p>
+<p>The dataset used in this tutorial is the one used in Ai et al.’s <span class="citation" data-cites="Ai_2024">(<a href="#ref-Ai_2024" role="doc-biblioref">Ai et al. 2024</a>)</span> recent work, which contains data about chemical reactions. The dataset contains 100K reaction procedure—ORD JSON pairs.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p><strong>ORD</strong> stands for <em>Open Reaction Database</em>, a comprehensive data structure specially designed to describe all the elements involved in chemical reactions.</p>
@@ -513,7 +513,7 @@ Notes about BERTScore
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><em>BERTScore</em> <span class="citation" data-cites="zhang2020bertscore">(<a href="choosing_paradigm.html#ref-zhang2020bertscore" role="doc-biblioref"><strong>zhang2020bertscore?</strong></a>)</span> is an evaluation method that proceeds by calculating the similarity of the candidate text with the reference. This similarity is calculated as a sum of cosine similarities token by token. To produce the embeddings this similarity calculation, in the original article, they used the BERT model’s embeddings. However, for our case we will be using the embeddings from the DistilBERT model <span class="citation" data-cites="sanh2020distilbert">(<a href="choosing_paradigm.html#ref-sanh2020distilbert" role="doc-biblioref"><strong>sanh2020distilbert?</strong></a>)</span> which achieves 97% of the original BERT model language understanding while only being 40% the size of BERT original model.</p>
+<p><em>BERTScore</em> <span class="citation" data-cites="zhang2020bertscore">(<a href="#ref-zhang2020bertscore" role="doc-biblioref"><strong>zhang2020bertscore?</strong></a>)</span> is an evaluation method that proceeds by calculating the similarity of the candidate text with the reference. This similarity is calculated as a sum of cosine similarities token by token. To produce the embeddings this similarity calculation, in the original article, they used the BERT model’s embeddings. However, for our case we will be using the embeddings from the DistilBERT model <span class="citation" data-cites="sanh2020distilbert">(<a href="#ref-sanh2020distilbert" role="doc-biblioref"><strong>sanh2020distilbert?</strong></a>)</span> which achieves 97% of the original BERT model language understanding while only being 40% the size of BERT original model.</p>
 </div>
 </div>
 </div>
@@ -687,7 +687,7 @@ Caution
 })</code></pre>
 </div>
 </div>
-<p>Then, we define the method to fine-tune the model. For this fine-tuning, we will use the popular QLoRA method. QLoRA <span class="citation" data-cites="dettmers2023qlora">(<a href="choosing_paradigm.html#ref-dettmers2023qlora" role="doc-biblioref">Dettmers et al. 2023</a>)</span> is an efficient approach that reduces memory usage during fine-tuning while preserving full fine-tuning task performance.</p>
+<p>Then, we define the method to fine-tune the model. For this fine-tuning, we will use the popular QLoRA method. QLoRA <span class="citation" data-cites="dettmers2023qlora">(<a href="#ref-dettmers2023qlora" role="doc-biblioref">Dettmers et al. 2023</a>)</span> is an efficient approach that reduces memory usage during fine-tuning while preserving full fine-tuning task performance.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Notes about QLoRA configuration">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -702,7 +702,7 @@ Notes about QLoRA configuration
 <div class="callout-body-container callout-body">
 <ul>
 <li><code>load_in_4bit=True</code>: loads the model using the 4-bit quantization.</li>
-<li><code>bnb_4bit_quant_type="nf4"</code>: quantizes following the nf4 method.<span class="citation" data-cites="dettmers20228bit">(<a href="choosing_paradigm.html#ref-dettmers20228bit" role="doc-biblioref">Dettmers et al. 2022</a>)</span></li>
+<li><code>bnb_4bit_quant_type="nf4"</code>: quantizes following the nf4 method.<span class="citation" data-cites="dettmers20228bit">(<a href="#ref-dettmers20228bit" role="doc-biblioref">Dettmers et al. 2022</a>)</span></li>
 <li><code>bnb_4bit_use_double_quant=True</code>: activate nested quantization for 4-bit base models.</li>
 <li><code>bnb_4bit_compute_dtype=torch.bfloat16</code>: Compute dtype for 4-bit base models.</li>
 </ul>
@@ -798,7 +798,7 @@ Notes about the training arguments
 <li><code>per_device_eval_batch_size</code>: batch size for the evaluation.</li>
 </ul></li>
 <li><code>gradient_accumulation_steps</code>: number of accumulated gradients over each batch. <strong>Gradient accumulation</strong> is a technique that simulates a larger batch size and it is very related to the <strong>batch size</strong>, since it also allows reducing the computation time. However, contrary to the <strong>batch size</strong>, during the <strong>gradient accumulation</strong> the weights of the model are not updated during each forward and backward pass, but gradients are accumulated from multiple small batches before performing the update. Thus, setting a higher <code>gradient_accumulation_steps</code> can help to accelerate the training when increasing the <strong>batch size</strong> is not possible due to VRAM impediments.</li>
-<li><code>optim</code>: optimizer used. The main role of the optimizer is to minimize the loss function. The <code>paged_adamw_32bit</code> is the well-known <strong>AdamW</strong> optimizer. <strong>AdamW</strong> optimization is a stochastic gradient descent method.<span class="citation" data-cites="loshchilov2019decoupled">(<a href="choosing_paradigm.html#ref-loshchilov2019decoupled" role="doc-biblioref">Loshchilov and Hutter 2019</a>)</span></li>
+<li><code>optim</code>: optimizer used. The main role of the optimizer is to minimize the loss function. The <code>paged_adamw_32bit</code> is the well-known <strong>AdamW</strong> optimizer. <strong>AdamW</strong> optimization is a stochastic gradient descent method.<span class="citation" data-cites="loshchilov2019decoupled">(<a href="#ref-loshchilov2019decoupled" role="doc-biblioref">Loshchilov and Hutter 2019</a>)</span></li>
 <li><code>num_train_epochs</code>: number of times that the model goes through each sample during the training. A larger number might lead to the best training results or to overfitting. A lower number might give a model that does not work as expected at all.</li>
 <li><code>fp16</code> and <code>bf16</code>: these parameters help to achieve mixed precision training, which is a technique that aims to optimize the computational efficiency of training models by utilizing lower-precision numerical formats for certain variables. However, the choice of both parameters depends on the architecture of the GPUs that are being used during the training.</li>
 <li><code>logging_steps</code>: when the logging is done.</li>
@@ -1788,27 +1788,22 @@ Results for the 1-shot prompt
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
+
+
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Ai_2024" class="csl-entry" role="listitem">
-Ai, Qianxiang, Fanwang Meng, Jiale Shi, Brenden Pelkie, and Connor W.
-Coley. 2024. <span>“Extracting Structured Data from Organic Synthesis
-Procedures Using a Fine-Tuned Large Language Model,”</span> April. <a href="https://doi.org/10.26434/chemrxiv-2024-979fz">https://doi.org/10.26434/chemrxiv-2024-979fz</a>.
+Ai, Qianxiang, Fanwang Meng, Jiale Shi, Brenden Pelkie, and Connor W. Coley. 2024. <span>“Extracting Structured Data from Organic Synthesis Procedures Using a Fine-Tuned Large Language Model,”</span> April. <a href="https://doi.org/10.26434/chemrxiv-2024-979fz">https://doi.org/10.26434/chemrxiv-2024-979fz</a>.
 </div>
 <div id="ref-dettmers20228bit" class="csl-entry" role="listitem">
-Dettmers, Tim, Mike Lewis, Sam Shleifer, and Luke Zettlemoyer. 2022.
-<span>“8-Bit Optimizers via Block-Wise Quantization.”</span> <a href="https://arxiv.org/abs/2110.02861">https://arxiv.org/abs/2110.02861</a>.
+Dettmers, Tim, Mike Lewis, Sam Shleifer, and Luke Zettlemoyer. 2022. <span>“8-Bit Optimizers via Block-Wise Quantization.”</span> <a href="https://arxiv.org/abs/2110.02861">https://arxiv.org/abs/2110.02861</a>.
 </div>
 <div id="ref-dettmers2023qlora" class="csl-entry" role="listitem">
-Dettmers, Tim, Artidoro Pagnoni, Ari Holtzman, and Luke Zettlemoyer.
-2023. <span>“QLoRA: Efficient Finetuning of Quantized LLMs.”</span> <a href="https://arxiv.org/abs/2305.14314">https://arxiv.org/abs/2305.14314</a>.
+Dettmers, Tim, Artidoro Pagnoni, Ari Holtzman, and Luke Zettlemoyer. 2023. <span>“QLoRA: Efficient Finetuning of Quantized LLMs.”</span> <a href="https://arxiv.org/abs/2305.14314">https://arxiv.org/abs/2305.14314</a>.
 </div>
 <div id="ref-loshchilov2019decoupled" class="csl-entry" role="listitem">
-Loshchilov, Ilya, and Frank Hutter. 2019. <span>“Decoupled Weight Decay
-Regularization.”</span> <a href="https://arxiv.org/abs/1711.05101">https://arxiv.org/abs/1711.05101</a>.
+Loshchilov, Ilya, and Frank Hutter. 2019. <span>“Decoupled Weight Decay Regularization.”</span> <a href="https://arxiv.org/abs/1711.05101">https://arxiv.org/abs/1711.05101</a>.
 </div>
 </div>
-
-
 </section>
 
 </main> <!-- /main -->
