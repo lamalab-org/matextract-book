@@ -30,6 +30,8 @@ setup(
         "langchainhub",
         "langchain-community",
         "langchain-openai",
+        "instructor",
+        "pymatgen",
     ],
     long_description="""
 # Style and Imports for the Structured Data Extraction Book
