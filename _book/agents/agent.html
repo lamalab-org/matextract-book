@@ -277,7 +277,7 @@ div.csl-indent {
 </header>
 
 
-<p>This notebook has the objective to show how to build LLM agents and how they work. For this practical application we will focus on trying to extract chemical reactions from an image.</p>
+<p>This notebook aims to demonstrate how to construct LLM agents and explain their functioning. In this practical application, we will focus on extracting chemical reactions from an image.</p>
 <div class="callout callout-style-default callout-caution callout-titled" title="Installing the packages needed">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -333,9 +333,13 @@ pip install torch PubChemPy rdkit-pypi jupyter matplotlib huggingface-hub python
 <div id="cell-8" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> <span class="st">"gpt-4o"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The <em>GPT-4o</em> model by <em>OpenAI</em> as its predecessor, <em>GPT-4 Turbo</em>, are multimodal models meaning that they can work with inputs from different formats such as text and images. Despite these models work quite well for some tasks, they can not perform that well when the data is very field-specific. To demonstrate this, we are going to provide an image describing a chemical reaction asking the model to extract the information describing the reaction.</p>
-<p>For this test, we are using an image from a work by Ogasawara et al.<span class="citation" data-cites="Ogasawara2015">(<a href="#ref-Ogasawara2015" role="doc-biblioref">Ogasawara et al. 2015</a>)</span>.</p>
-<div id="cell-11" class="cell" data-execution_count="5">
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>With the actual configuration of the notebook, i.e.&nbsp;using <code>LiteLLM</code>, if you want to use a model from a different provider you just need to change this cell where the model is defined by the model you want to use. For example, if you want to use one of the <em>Anthropic</em> vision models, you only have to write:</p>
+<p><code>model = "claude-3-opus-20240229"</code></p>
+</div></div><p>The <em>GPT-4o</em> model by <em>OpenAI</em>, like its predecessor, <em>GPT-4 Turbo</em>, is a multimodal model, meaning it can work with multimodal inputs such as text and images. Although these models work quite well for some tasks, they can not perform well when the data is field-specific. To demonstrate this, we are going to provide an image describing a chemical reaction and ask the model to extract the information describing the reaction.</p>
+<p>To do the test, we will work with an image extracted from a work by Ogasawara et al.<span class="citation" data-cites="Ogasawara2015">(<a href="#ref-Ogasawara2015" role="doc-biblioref">Ogasawara et al. 2015</a>)</span>.</p>
+<div id="cell-12" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>image_file <span class="op">=</span> <span class="st">"image.png"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -361,7 +365,7 @@ pip install torch PubChemPy rdkit-pypi jupyter matplotlib huggingface-hub python
 <li><p>Compound number 14: 2-(2-methyl-2-propanyl)phenyl (2S)-2-(4-methylphenyl)butanoate</p></li>
 </ul>
 <p>To pass the image to the model through the prompt, the image needs to be encoded. To do that we use the function that <a href="https://platform.openai.com/docs/guides/vision"><em>OpenAI</em> propose in their vision guidelines</a>.</p>
-<div id="cell-15" class="cell" data-execution_count="6">
+<div id="cell-16" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to encode the image</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> encode_image(image_path):</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">with</span> <span class="bu">open</span>(image_path, <span class="st">"rb"</span>) <span class="im">as</span> image_file:</span>
@@ -371,7 +375,7 @@ pip install torch PubChemPy rdkit-pypi jupyter matplotlib huggingface-hub python
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>base64_image <span class="op">=</span> encode_image(image_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>After that, we generate the prompt using the function just defined to encode the image.</p>
-<div id="cell-17" class="cell" data-execution_count="7">
+<div id="cell-18" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>messages <span class="op">=</span> [</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    {</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"role"</span>: <span class="st">"system"</span>,</span>
@@ -392,7 +396,7 @@ pip install torch PubChemPy rdkit-pypi jupyter matplotlib huggingface-hub python
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And we do the completion using the <em>OpenAI</em> API.</p>
-<div id="cell-19" class="cell" data-execution_count="8">
+<div id="cell-20" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> completion(</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span>model,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  messages<span class="op">=</span>messages,</span>
@@ -401,7 +405,7 @@ pip install torch PubChemPy rdkit-pypi jupyter matplotlib huggingface-hub python
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>Using <code>LiteLLM</code> when doing the completion allow using almost any model. In this demo, we used <em>OpenAI</em> model because this provider’s models together with <em>Claude</em> vision models are the ones that showed the best results overall.</p>
-</div></div><div id="cell-21" class="cell" data-execution_count="9">
+</div></div><div id="cell-22" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>response.choices[<span class="dv">0</span>].message.content</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>'The image shows a chemical reaction involving the following reactants and conditions:\n\nReactants:\n1. Compound 12:\n   - Name: 1-phenyl-2-propyn-1-one\n   - Molecular representation (SMILES): CC(=O)C#Cc1ccccc1\n\n2. Compound 13:\n   - Name: 4-tert-butylphenol\n   - Molecular representation (SMILES): CC(C)(C)c1ccc(CC(O)c2ccccc2)cc1\n\nReaction Conditions:\n- Catalyst: (S)-1 (used in 3 mol%)\n- Solvent: Toluene\n- Temperature: 23°C\n- Time: 2 hours\n\nProduct:\n- (R)-14:\n  - Name: (R)-2-hydroxy-1-phenyl-1-(4-(tert-butyl)phenoxy)-propan-1-one\n  - Molecular representation (SMILES): CC(C)(C)c1ccc(O[C@@H](C(=O)c2ccccc2)C)c2ccccc2'</code></pre>
@@ -409,8 +413,8 @@ pip install torch PubChemPy rdkit-pypi jupyter matplotlib huggingface-hub python
 </div>
 <p>The model can not give the proper name or molecular representation to the molecules. If we go molecule by molecule, for the compound 12 both the name and the SMILES are wrong, and point to different molecules. Impressively, the name for the compound 13 is almost correct. The 4-tert-Butylphenol compound is a positional isomer of the actual compound, the 2-tert-Butylphenol. However, the SMILES is incorrect and does not even correspond to the 4-tert-Butylphenol molecule. As for the products, note that in the query we explicitly ask only about the reactants, so the model can not even correctly reason about what we are asking.</p>
 <p>But luckily, some tools were developed to extract accurately this information from the images.</p>
-<p>One of these tools is <em>RxnScribe</em> developed by Qian et al.<span class="citation" data-cites="RxnScribe">(<a href="#ref-RxnScribe" role="doc-biblioref">Qian et al., n.d.</a>)</span>. This tool can extract chemical reactions from images. So, we will use it as a tool given to an agent that we create bellow. With this and other tools, we will try that the model can extract information such as the IUPAC name and the InChI representation for the reactants involved in the reaction.</p>
-<div id="cell-24" class="cell" data-execution_count="11">
+<p>One of these tools is <em>RxnScribe</em>, which Qian et al. <span class="citation" data-cites="RxnScribe">(<a href="#ref-RxnScribe" role="doc-biblioref">Qian et al., n.d.</a>)</span> developed. This tool can extract chemical reactions from images. So, we will use it as a tool given to an agent that we create below. With this and other tools, we will try to use the model to extract information such as the IUPAC name and the InChI representation for the reactants involved in the reaction.</p>
+<div id="cell-25" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a class to describe the input to the tool</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ExtractionInput(BaseModel):</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    image_path: <span class="bu">str</span> <span class="op">=</span> Field(description<span class="op">=</span><span class="st">"Path to the image-file that contain the reaction"</span>)</span>
@@ -439,12 +443,12 @@ pip install torch PubChemPy rdkit-pypi jupyter matplotlib huggingface-hub python
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p>To create the model we use the <em>LangChain</em> package that allows to create an agent in a few lines of code. However, this is done because it better fits in the purpose of this Notebook. But we point as in the main article, that building an agent without these frameworks is feasible and will offer more clarity and flexibility to the process.</p>
+<p>We use the <em>LangChain</em> package to create an agent in a few lines of code. However, as we point out in the article, building an agent without these frameworks, such as <em>LangChain</em> and <em>LlamaIndex</em>, is feasible and will offer more clarity and flexibility to the process.</p>
 </div><div class="">
-<p>Note that before returning the output from the <em>RxnScribe</em> tool, we “pop” some elements from it. This is simply because those elements are quite big, and since we are not going to need them, we will save some tokens.</p>
+<p>Note that before returning the output from the <em>RxnScribe</em> tool, we “pop” some elements from it. This is simply because those elements are pretty big, and since we will not need them, we will save some tokens.</p>
 </div></div>
 <p>If we print the variable containing the tool, we will be able to see what is going to be passed to the agent.</p>
-<div id="cell-27" class="cell" data-execution_count="12">
+<div id="cell-28" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(image_extractor.name)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(image_extractor.description)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(image_extractor.args)</span>
@@ -456,9 +460,9 @@ Extract chemical reactions information such as reactants, products and catalysts
 False</code></pre>
 </div>
 </div>
-<p>Similarly we can define another tools for helping the agent to go from SMILES to InChI and to IUPAC name.</p>
-<div id="cell-29" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ChemicalTools(BaseModel):</span>
+<p>Similarly, we can define other tools to help the agent convert between SMILES, InChI, and the IUPAC name.</p>
+<div id="cell-30" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ChemicalRepresentation(BaseModel):</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    smiles: <span class="bu">str</span> <span class="op">=</span> Field(description<span class="op">=</span><span class="st">"SMILES representation for the molecule"</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> smiles_to_inchi(smiles:<span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
@@ -503,21 +507,63 @@ False</code></pre>
 <span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>    args_schema<span class="op">=</span>ChemicalTools,</span>
 <span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Once we defined all the tools, we create a list that is going to be passed to the agent indicating which tools are available.</p>
-<div id="cell-31" class="cell" data-execution_count="14">
+<p>Once we have defined all the tools, we create a list that will be passed to the agent indicating which tools it has available.</p>
+<div id="cell-32" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>tools <span class="op">=</span> [image_extractor, smiles_to_inchi_converter, smiles_to_iupac_converter]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>After creating and defining the tools, we can start to construct the agent itself starting by defining the model to use. For the agent we will use the <em>GPT-4o</em> model as well.</p>
-<div id="cell-33" class="cell" data-execution_count="15">
+<p>After creating and defining the tools, we can start constructing the agent itself by specifying the model to use. For the agent, we will use the <em>GPT-4o</em> model.</p>
+<div id="cell-34" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> ChatOpenAI(</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    temperature<span class="op">=</span><span class="dv">0</span>,</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    model_name<span class="op">=</span><span class="st">"gpt-4o"</span>,</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    request_timeout<span class="op">=</span><span class="dv">1000</span>,</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    streaming<span class="op">=</span><span class="st">'False'</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    streaming<span class="op">=</span><span class="st">"False"</span>,</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Then we define the prompt, the agent and what it is called by <em>LangChain</em> as the “chain”.</p>
-<div id="cell-35" class="cell" data-execution_count="16">
+
+<div class="no-row-height column-margin column-container"><div class="">
+<ul>
+<li><code>request_timeout</code> sets the maximum time to wait for the response from the API.</li>
+<li><code>streaming="False"</code> sets that the entire completion of the model is going to be returned only once it is completely generated. If this parameter is set to <code>True</code>, the completion of the model will be sent to you as it is being generated, token by token.</li>
+</ul>
+</div></div><p>Then we define the prompt, the agent and what it is called by <em>LangChain</em> as the “chain”.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Notes about ReAct">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes about ReAct
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Answer the following questions as best you can. You have access to the following tools:</p>
+<p>{tools}</p>
+<p>Use the following format:</p>
+<p>Question: the input question you must answer<br>
+Thought: you should always think about what to do<br>
+Action: the action to take, should be one of [{tool_names}]<br>
+Action Input: the input to the action<br>
+Observation: the result of the action…(this Thought/Action/Action Input/Observation can repeat N times)<br>
+Thought: I now know the final answer<br>
+Final Answer: the final answer to the original input question<br>
+</p>
+<p>Begin!</p>
+<p>Question: {input}<br>
+Thought:{agent_scratchpad}</p>
+<hr>
+<p>What are the variables referred in this prompt?<br>
+- <code>tools</code> include all the tools available with the <code>func</code>, <code>name</code>, <code>description</code> and <code>args_schema</code> detailed when creating the tool so the model know all the details about the tools.<br>
+- <code>tool_names</code> is a list with the names of the tools available.<br>
+- <code>input</code>is the query from the user.<br>
+- <code>agent_scratchpad</code> contains the previous iterations by the agent.<br>
+</p>
+</div>
+</div>
+</div>
+<div id="cell-38" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the ReAct prompt from the hub.</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> hub.pull(<span class="st">"hwchase17/react"</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the ReAct agent</span></span>
@@ -530,11 +576,11 @@ False</code></pre>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The last step before calling the agent is to define the query that we want the agent to solve.</p>
-<div id="cell-37" class="cell" data-execution_count="17">
+<div id="cell-40" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f"I want the IUPAC name, the SMILES and the InChI representations for the reactants of the reaction contained in the image: </span><span class="sc">{</span>image_file<span class="sc">}</span><span class="ss">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And finally we run the agent.</p>
-<div id="cell-39" class="cell" data-execution_count="18">
+<div id="cell-42" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>agent_executor.invoke({<span class="st">"input"</span>: query})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
