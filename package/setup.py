@@ -22,6 +22,12 @@ setup(
         "litellm",
         "numpy",
         "matplotlib",
+        "rxnscribe @ git+https://github.com/thomas0809/RxnScribe.git",
+        "rdkit",
+        "pubchempy",
+        "langchainhub",
+        "langchain-community",
+        "langchain-openai",
     ],
     long_description="""
 # Style and Imports for the Structured Data Extraction Book
