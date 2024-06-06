@@ -6,7 +6,7 @@ Thank you for considering contributing to the book. Feel free to make a pull req
 
 Please use a spell checker and ensure that your text is grammatically correct. We use American English spelling. 
 
-In style we're inspired by [Cormac McCarthy](https://www.nature.com/articles/d41586-019-02918-5):
+In style, we're inspired by [Cormac McCarthy](https://www.nature.com/articles/d41586-019-02918-5):
 
 - Keep sentences short, active, simply constructed and direct.
 - Try to be minimalist - remove extra words or commas whenever you can.
@@ -15,7 +15,7 @@ In style we're inspired by [Cormac McCarthy](https://www.nature.com/articles/d41
 A tool such as Grammarly can be helpful in this regard.
 
 - Use bolding for emphasis. Use it only for very important things.
-- Use `monospace` for code. 
+- Use `monospace` for code. This also includes model names, e.g. `Llama-3`
 - Add a callout box ` {.callout-caution}` that highlights computational requirements for your notebook with they are non-trivial 
 
 
