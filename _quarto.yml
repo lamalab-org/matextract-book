@@ -12,8 +12,11 @@ book:
         - obtaining_data/obtaining_data.qmd          
         - obtaining_data/crossref_search.ipynb
         - obtaining_data/data_mining.ipynb
+        - obtaining_data/annotation.ipynb
         - constrained_decoding/index.ipynb
         - agents/agent.ipynb
+        - document_parsing_and_cleaning/document_parsing_and_cleaning.qmd
+        - beyond_text/beyond_images.ipynb
 
     - part: Case Studies  
       chapters:
