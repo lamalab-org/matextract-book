@@ -15,7 +15,7 @@ In style, we're inspired by [Cormac McCarthy](https://www.nature.com/articles/d4
 A tool such as Grammarly can be helpful in this regard.
 
 - Use bolding for emphasis. Use it only for very important things.
-- Use `monospace` for code. This also includes model names, e.g. `Llama-3`
+- Use `monospace` for code. 
 - Add a callout box ` {.callout-caution}` that highlights computational requirements for your notebook with they are non-trivial 
 
 
