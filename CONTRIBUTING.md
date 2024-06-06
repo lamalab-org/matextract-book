@@ -4,8 +4,20 @@ Thank you for considering contributing to the book. Feel free to make a pull req
 
 ### Style and formatting
 
-Please use a spell checker and ensure that your text is grammatically correct. We use American English spelling.
+Please use a spell checker and ensure that your text is grammatically correct. We use American English spelling. 
+
+In style, we're inspired by [Cormac McCarthy](https://www.nature.com/articles/d41586-019-02918-5):
+
+- Keep sentences short, active, simply constructed and direct.
+- Try to be minimalist - remove extra words or commas whenever you can.
+- Choose concrete language and examples.
+
 A tool such as Grammarly can be helpful in this regard.
+
+- Use bolding for emphasis. Use it only for very important things.
+- Use `monospace` for code. 
+- Add a callout box ` {.callout-caution}` that highlights computational requirements for your notebook with they are non-trivial 
+
 
 ### Code formatting
 
