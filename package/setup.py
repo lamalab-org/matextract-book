@@ -22,6 +22,8 @@ setup(
         "litellm",
         "numpy",
         "matplotlib",
+        "sentence-transformers",
+        "chromadb",
         "rxnscribe @ git+https://github.com/thomas0809/RxnScribe.git",
         "rdkit",
         "pubchempy",
