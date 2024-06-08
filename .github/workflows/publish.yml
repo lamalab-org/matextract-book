@@ -29,7 +29,9 @@ jobs:
           # version: SPECIFIC-QUARTO-VERSION-HERE
       
       # add software dependencies here and any libraries
-      
+      - name: install librsvg
+        run: sudo apt-get install librsvg2-bin
+         
       # From https://github.com/actions/setup-python
       - name: Setup Python
         uses: actions/setup-python@v5

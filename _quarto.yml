@@ -15,7 +15,10 @@ book:
         - obtaining_data/annotation.ipynb
         - context_window/Dealing_with_context_window.ipynb
         - constrained_decoding/index.ipynb
+        - finetune/choosing_paradigm.ipynb
+        - agents/agent.ipynb
         - document_parsing_and_cleaning/document_parsing_and_cleaning.qmd
+        - beyond_text/beyond_images.ipynb
 
     - part: Case Studies
       chapters:
