@@ -31,5 +31,12 @@ format:
   html:
     theme: cosmo
     number-sections: false
+    lightbox: true
   pdf:
     documentclass: scrreprt
+
+
+colab:
+  github-repo: lamalab-org/how-to-extract-structured-data-with-llms
+  branch: main
+  exported-dir: colab/

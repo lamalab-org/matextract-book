@@ -245,3 +245,5 @@ pyrightconfig.json
 
 /.quarto/
 _book/
+_environment
+_build

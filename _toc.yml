@@ -1,0 +1,22 @@
+format: jb-book
+root: index
+parts:
+- caption: A. Structured Extraction Workflow
+  numbered: true
+  chapters:
+    # - file: obtaining_data/
+    #   sections:
+      # - file: obtaining_data/obtaining_data.qmd
+      # - file: obtaining_data/crossref_search.ipynb
+      # - file: obtaining_data/data_mining.ipynb
+      # - file: obtaining_data/annotation.ipynb
+    # - file: context_window/Dealing_with_context_window.ipynb
+    - file: constrained_decoding/index.ipynb
+    # - file: finetune/choosing_paradigm.ipynb
+    # - file: agents/agent.ipynb
+    # - file: document_parsing_and_cleaning/document_parsing_and_cleaning.qmd
+    # - file: beyond_text/beyond_images.ipynb
+# - caption: B. Case Studies
+#   numbered: true
+#   chapters:
+ 
