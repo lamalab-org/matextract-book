@@ -11,7 +11,7 @@ parts:
       # - file: obtaining_data/data_mining.ipynb
       # - file: obtaining_data/annotation.ipynb
     # - file: context_window/Dealing_with_context_window.ipynb
-    - file: constrained_decoding/index.ipynb
+    - file: content/constrained_decoding/index.ipynb
     # - file: finetune/choosing_paradigm.ipynb
     # - file: agents/agent.ipynb
     # - file: document_parsing_and_cleaning/document_parsing_and_cleaning.qmd
