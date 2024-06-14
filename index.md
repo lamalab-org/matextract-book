@@ -12,3 +12,8 @@ This book is based on Jupyter notebooks. That is, beyond simply reading along, y
 ## Table of Contents
 
 ```{tableofcontents}
+```
+
+## Acknowledgment 
+
+The work on this book was supported by the Carl-Zeiss Foundation as well as Intel and Merck via the AWASES programme.
