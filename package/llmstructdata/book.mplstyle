@@ -62,7 +62,7 @@ axes.spines.top: False
 axes.spines.right: False
 axes.axisbelow: True
 
-# colors 
+# colors
 
 text.color: 758D99
 axes.labelcolor: 758D99
@@ -70,4 +70,3 @@ axes.edgecolor: 758D99
 xtick.color: 758D99
 ytick.color: 758D99
 figure.facecolor: white
-

@@ -1,7 +1,9 @@
 import os
 
 
-def convert_pdf_with_nougat(pdf_path, output_dir, model="0.1.0-small", batch_size=1, no_skipping=False):
+def convert_pdf_with_nougat(
+    pdf_path, output_dir, model="0.1.0-small", batch_size=1, no_skipping=False
+):
     """
     Converts a PDF to Markdown using NOUGAT.
 
