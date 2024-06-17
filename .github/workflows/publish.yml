@@ -1,81 +1,60 @@
+name: deploy-book
+
+# Run this when the master or main branch changes
 on:
   push:
     branches:
-      - main
+    - master
+    - main
+    # If your git repository has the Jupyter Book within some-subfolder next to
+    # unrelated files, you can make this run only if a file within that specific
+    # folder has been modified.
+    #
+    # paths:
+    # - some-subfolder/**
 
-name: Render and Publish
-
-# you need these permissions to publish to GitHub pages
-# permissions: 
-#     contents: write
-#     pages: write
-
+# This job installs dependencies, builds the book, and pushes it to `gh-pages`
 jobs:
-  build-deploy:
+  deploy-book:
     runs-on: ubuntu-latest
-    
+    permissions:
+      pages: write
+      id-token: write
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-        
-      - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          # To install LaTeX to build PDF book 
-          tinytex: true 
-          # uncomment below and fill to pin a version
-          # version: SPECIFIC-QUARTO-VERSION-HERE
-      
-      # add software dependencies here and any libraries
-      - name: install librsvg
-        run: sudo apt-get install librsvg2-bin
-         
-      # From https://github.com/actions/setup-python
-      - name: Setup Python
-        uses: actions/setup-python@v5
+    - uses: actions/checkout@v3
 
-      # From https://github.com/r-lib/actions/tree/v2-branch/setup-r
-      # - name: Setup R
-      #   uses: r-lib/actions/setup-r@v2
+    # Install dependencies
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
 
-      # From https://github.com/julia-actions/setup-julia
-      # - name: Setup Julia
-      #   uses: julia-actions/setup-julia@v1
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
 
-      # See more at https://github.com/quarto-dev/quarto-actions/blob/main/examples/example-03-dependencies.md
+    # (optional) Cache your executed notebooks between runs
+    # if you have config:
+    # execute:
+    #   execute_notebooks: cache
+    - name: cache executed notebooks
+      uses: actions/cache@v3
+      with:
+        path: _build/.jupyter_cache
+        key: jupyter-book-cache-${{ hashFiles('requirements.txt') }}
 
-      # To publish to Netlify, RStudio Connect, or GitHub Pages, uncomment
-      # the appropriate block below
-      
-      # - name: Publish to Netlify (and render)
-      #   uses: quarto-dev/quarto-actions/publish@v2
-      #   with:
-      #     target: netlify
-      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        
-      # - name: Publish to RStudio Connect (and render)
-      #   uses: quarto-dev/quarto-actions/publish@v2
-      #   with:
-      #     target: connect
-      #     CONNECT_SERVER: enter-the-server-url-here
-      #     CONNECT_API_KEY: ${{ secrets.CONNECT_API_KEY }} 
+    # Build the book
+    - name: Build the book
+      run: |
+        jupyter-book build .
 
-      # NOTE: If Publishing to GitHub Pages, set the permissions correctly (see top of this yaml)
-      - name: Publish to GitHub Pages (and render) 
-        uses: quarto-dev/quarto-actions/publish@v2
-        with:
-          target: gh-pages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # this secret is always available for github actions
+    # Upload the book's HTML as an artifact
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: "_build/html"
 
-      # - name: Publish to confluence
-      #   uses: quarto-dev/quarto-actions/publish@v2
-      #   with:
-      #     target: confluence
-      #   env: 
-      #     CONFLUENCE_USER_EMAIL: ${{ secrets.CONFLUENCE_USER_EMAIL }}
-      #     CONFLUENCE_AUTH_TOKEN: ${{ secrets.CONFLUENCE_AUTH_TOKEN }}
-      #     CONFLUENCE_DOMAIN: ${{ secrets.CONFLUENCE_DOMAIN }}
-      
+    # Deploy the book's HTML to GitHub Pages
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v2
