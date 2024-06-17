@@ -13,7 +13,7 @@ parts:
     # - file: context_window/Dealing_with_context_window.ipynb
     - file: content/constrained_decoding/index.ipynb
     # - file: finetune/choosing_paradigm.ipynb
-    # - file: agents/agent.ipynb
+    - file: content/agents/agent.ipynb
     # - file: document_parsing_and_cleaning/document_parsing_and_cleaning.qmd
     # - file: beyond_text/beyond_images.ipynb
 # - caption: B. Case Studies

@@ -11,12 +11,30 @@
 p {
   text-align: justify;
 }
-
 div.math {
-  overflow-x: hidden !important;
+    overflow-x: auto !important;
+  }
+  
+  div.output .text_html {
+    overflow-x: auto !important;
+  }
+
+/* Update the fontsize of the margin sidebar class */ 
+
+div.margin {
+    font-size: 0.5em !important;
+  }
+
+div.sidebar {
+    padding: 7px !important;
+    border: unset !important;
+    font-size: 0.5em !important;
+    overflow: visible !important;
 }
 
-
-div.output .text_html {
-  overlfow-x: auto;
+aside.sidebar {
+    padding: 7px !important;
+    font-size: 0.5em !important;
+    border: unset !important;
+    overflow: visible !important;
 }

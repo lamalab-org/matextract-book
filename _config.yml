@@ -13,6 +13,8 @@ html:
   use_edit_page_button      : false  # Whether to add an "edit this page" button to pages. If `true`, repository information in repository: must be filled in
   use_repository_button     : true
   use_issues_button         : true  # Whether to add an "open an issue" button
+  extra_css:
+    - custom.css
 
   # Information about where the book exists on the web
 repository:
@@ -49,6 +51,8 @@ sphinx:
       "twitter:title": "structmatdat.pub 📖"
       "twitter:image": "https://structmatdat.pub/_static/logo.png"
       "twitter:site": "@jablonkagroup"
+    bibtex_reference_style: author_year
+    bibtex_bibfiles: ["references.bib"]
 
 execute:
   #exclude_patterns          : ['livecomj/*', 'dl/pretraining.ipynb', 'applied/*', 'ml/*', 'dl/xai.ipynb', 'NLP.ipynb', 'flows.ipynb',
