@@ -34,6 +34,7 @@ setup(
         "pystow",
         "mendeleev",
         "pymatgen",
+        "nougat-ocr",
     ],
     long_description="""
 # Style and Imports for the Structured Data Extraction Book

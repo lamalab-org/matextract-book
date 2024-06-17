@@ -1,4 +1,5 @@
 import os
+import tempfile
 
 
 def convert_pdf_with_nougat(
@@ -17,3 +18,22 @@ def convert_pdf_with_nougat(
     if no_skipping:
         cmd += " --no-skipping"
     os.system(cmd)
+
+
+def convert_pdf_to_markdown_text(
+    pdf_path, model="0.1.0-small", batch_size=1, no_skipping=False
+):
+    with tempfile.TemporaryDirectory() as output_dir:
+        convert_pdf_with_nougat(pdf_path, output_dir, model, batch_size, no_skipping)
+        markdown_files = [
+            os.path.join(output_dir, f)
+            for f in os.listdir(output_dir)
+            if f.endswith(".md")
+        ]
+        if len(markdown_files) == 0:
+            raise ValueError("No markdown files found in the output directory.")
+
+        with open(markdown_files[0], "r") as f:
+            return f.read()
+
+        raise ValueError("Multiple markdown files found in the output directory.")
