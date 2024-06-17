@@ -31,6 +31,8 @@ setup(
         "langchain-community",
         "langchain-openai",
         "instructor",
+        "pystow",
+        "mendeleev",
         "pymatgen",
     ],
     long_description="""
