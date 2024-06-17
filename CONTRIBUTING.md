@@ -35,15 +35,18 @@ We aim that the book is accessible to a wide audience. A first year undergraduat
 We can add value to the book by providing explanations of the concepts and techniques used in the code. Please provide explanations of the code and the concepts used in the code.
 
 
-### Quarto 
+### Jupyter Book
 
-We use `quarto` to build the book. Consider the documentation for `quarto` to get an overview of the features available.
-In the current setup, you must add your section to the `quarto` configuration file `_quarto.yml` to include it in the book. 
-You can add `.qmd` and `.ipynb` files.
+We use [Jupyter Book](https://jupyterbook.org/en/stable/intro.html#) to build the book. 
+In the current setup, you must add your section to the table of contents configuration file `_toc.yml` to include it in the book. 
+You can add `.md` and `.ipynb` files.
 You can test the book by running: 
+
 ```console
-quarto preview
+jupyter-book build .
 ```
+
+this will generate a folder `_build` that contains `html` files that you can display in your browser.
 
 ## Plotting style 
 

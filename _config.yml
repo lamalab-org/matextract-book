@@ -1,0 +1,72 @@
+# Book settings
+title: Generative structured data extraction using LLMs
+author:  "Mara Wilhelmi, Martiño Rios-Garcia, Sherjeel Shabih, Santiago Miret, Christoph Koch, Pepe Marquez, and Kevin Maik Jablonka"
+logo: _static/images/logo.png
+copyright: "2024"
+
+latex:
+  latex_documents:
+    targetname: book.tex
+
+html:
+  favicon                   : "favicon.png"  # A path to a favicon image
+  use_edit_page_button      : false  # Whether to add an "edit this page" button to pages. If `true`, repository information in repository: must be filled in
+  use_repository_button     : true
+  use_issues_button         : true  # Whether to add an "open an issue" button
+  extra_css:
+    - custom.css
+
+  # Information about where the book exists on the web
+repository:
+  url                       : https://github.com/lamalab-org/how-to-extract-structured-data-with-llms
+
+launch_buttons:
+  colab_url: "https://colab.research.google.com"
+  binderhub_url: ""  # Binder seems to be broken often during link checks?
+
+bibtex_bibfiles:
+  - references.bib
+
+sphinx:
+  extra_extensions:
+   - sphinx.ext.intersphinx
+  config:
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+    intersphinx_mapping:
+      Python 3: ['https://docs.python.org/3/', null]
+      tensorflow: ['https://www.tensorflow.org/api_docs/python', 'https://github.com/mr-ubik/tensorflow-intersphinx/raw/master/tf2_py_objects.inv']
+      matplotlib [stable]: ['https://matplotlib.org/stable/', null]
+      numpy [stable]: ['https://numpy.org/doc/stable/', null]
+      pandas [latest?]: ['https://pandas.pydata.org/docs/', null]
+      scikit-learn [stable]: ['https://scikit-learn.org/stable/', null]
+      scipy [latest]: ['https://docs.scipy.org/doc/scipy/reference/', null]
+      jax [latest]: ['https://jax.readthedocs.io/en/latest/', null]
+      seaborn [stable]: ['https://seaborn.pydata.org/', null]
+      exmol [latest]: ['https://ur-whitelab.github.io/exmol/', null]
+    myst_html_meta:
+      "description lang=en": "Generative structured data extraction using LLMs"
+      "property=og:locale": "en_US"
+      "twitter:card": "summary"
+      "twitter:description": "Generative structured data extraction using LLMs"
+      "twitter:title": "structmatdat.pub 📖"
+      "twitter:image": "https://structmatdat.pub/_static/logo.png"
+      "twitter:site": "@jablonkagroup"
+    bibtex_reference_style: author_year
+    bibtex_bibfiles: ["references.bib"]
+
+execute:
+  #exclude_patterns          : ['livecomj/*', 'dl/pretraining.ipynb', 'applied/*', 'ml/*', 'dl/xai.ipynb', 'NLP.ipynb', 'flows.ipynb',
+  #'dl/Equivariant.ipynb', 'dl/gnn.ipynb', 'dl/data.ipynb', 'VAE.ipynb', 'dl/introduction.ipynb', 'dl/Hyperparameter_tuning.ipynb', 'attention.ipynb', 'layers.ipynb']
+  timeout: -1
+  execute_notebooks: 'off'
+
+#jupyter_execute_notebooks: force
+
+only_build_toc_files: true
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - colon_fence
+    - dollarmath
+    - linkify
+    - substitution
