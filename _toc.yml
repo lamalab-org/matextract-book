@@ -4,9 +4,9 @@ parts:
 - caption: A. Structured Extraction Workflow
   numbered: true
   chapters:
-    # - file: obtaining_data/
-    #   sections:
-      # - file: obtaining_data/obtaining_data.qmd
+    - file: content/obtaining_data/index.md
+      sections:
+        - file: content/obtaining_data/data_mining.ipynb
       # - file: obtaining_data/crossref_search.ipynb
       # - file: obtaining_data/data_mining.ipynb
       # - file: obtaining_data/annotation.ipynb
