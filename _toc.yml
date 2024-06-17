@@ -10,7 +10,7 @@ parts:
       # - file: obtaining_data/crossref_search.ipynb
       # - file: obtaining_data/data_mining.ipynb
       # - file: obtaining_data/annotation.ipynb
-    # - file: context_window/Dealing_with_context_window.ipynb
+    - file: content/context_window/Dealing_with_context_window.ipynb
     - file: content/finetune/choosing_paradigm.ipynb
     - file: content/constrained_decoding/index.ipynb
     - file: content/agents/agent.ipynb
