@@ -15,10 +15,9 @@ parts:
         - file: content/document_parsing_and_cleaning/parsing.ipynb
     - file: content/context_window/Dealing_with_context_window.ipynb
     - file: content/finetune/choosing_paradigm.ipynb
+    - file: content/beyond_text/beyond_images.ipynb
     - file: content/constrained_decoding/index.ipynb
     - file: content/agents/agent.ipynb
-    # - file: document_parsing_and_cleaning/document_parsing_and_cleaning.qmd
-    # - file: beyond_text/beyond_images.ipynb
 # - caption: B. Case Studies
 #   numbered: true
 #   chapters:
