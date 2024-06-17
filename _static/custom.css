@@ -38,3 +38,10 @@ aside.sidebar {
     border: unset !important;
     overflow: visible !important;
 }
+
+
+div.cell_output {
+    overflow-y: scroll !important;
+    max-height: 400px !important;
+  }
+
