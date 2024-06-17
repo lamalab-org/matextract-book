@@ -12,6 +12,7 @@ parts:
     - file: content/document_parsing_and_cleaning/index.md
       sections:
         - file: content/document_parsing_and_cleaning/cleaning.ipynb
+        - file: content/document_parsing_and_cleaning/parsing.ipynb
     - file: content/context_window/Dealing_with_context_window.ipynb
     - file: content/finetune/choosing_paradigm.ipynb
     - file: content/constrained_decoding/index.ipynb
