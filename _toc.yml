@@ -8,9 +8,7 @@ parts:
       sections:
         - file: content/obtaining_data/crossref_search.ipynb
         - file: content/obtaining_data/data_mining.ipynb
-
-      # - file: obtaining_data/data_mining.ipynb
-      # - file: obtaining_data/annotation.ipynb
+        - file: content/obtaining_data/annotation.ipynb
     - file: content/context_window/Dealing_with_context_window.ipynb
     - file: content/finetune/choosing_paradigm.ipynb
     - file: content/constrained_decoding/index.ipynb
