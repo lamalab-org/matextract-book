@@ -22,6 +22,7 @@ setup(
         "litellm",
         "numpy",
         "matplotlib",
+        "seaborn",
         "sentence-transformers",
         "chromadb",
         "rxnscribe @ git+https://github.com/thomas0809/RxnScribe.git",
@@ -34,6 +35,7 @@ setup(
         "pystow",
         "mendeleev",
         "pymatgen",
+        "pymatviz",
         "nougat-ocr",
     ],
     long_description="""
