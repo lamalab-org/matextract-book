@@ -115,7 +115,7 @@ Tiktokenizer
     Here, Kevin Jablonka explains how LLMs work through a practical approach applied to materials science, guiding you on how to build a GPT model that can generate molecules from scratch. It includes a detailed tutorial covering the tokenization process, conversion of tokens into numbers, vector embeddings and positional encoding, as well as model training and evaluation. Through this relatively simple example, you will also learn how the attention mechanism works with an exhaustive implementation of self-attention into the model.
   
 🎥 In this video you can learn how to build a GPT model following the paper "Attention is All You Need":
-    [Andrej Karpathy: *Let's build GPT: from scratch, in code, spelled out*](https://www.youtube.com/watch?v=kCc8FmEb1nY)
+    [*Let's build GPT: from scratch, in code, spelled out*](https://www.youtube.com/watch?v=kCc8FmEb1nY) by Andrej Karpathy.
 
 ### Prompting
 
