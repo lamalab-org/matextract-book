@@ -4,6 +4,7 @@ parts:
 - caption: A. Structured Extraction Workflow
   numbered: true
   chapters:
+    - file: content/background/resources_LLMs.md
     - file: content/obtaining_data/index.md
       sections:
         - file: content/obtaining_data/crossref_search.ipynb
