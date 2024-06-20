@@ -1,6 +1,6 @@
 # Overview on the working principles of LLMs
 
-In this notebook, we have compiled a list of valuable resources to help you understand how Large Language Models (LLMs) work. Here you will find accessible explanations of the fundamental principles behind these models.
+In this notebook, we have compiled a list of valuable resources to help you understand how Large Language Models (LLMs) work. Here, you will find accessible explanations of the fundamental principles behind these models.
 
 ## 💻 Online resources
 
