@@ -6,7 +6,7 @@ In this notebook, we have compiled a list of valuable resources to help you unde
 
 ### Transformers
 
-Transformers have emerged as the leading architecture for addressing natural language processing (NLP) tasks, enabling the development of powerful language models. Introduced in the landmark 2017 paper "Attention Is All You Need" by Google researchers, the Transformer architecture has revolutionized the field. To understand the fundamentals of Transformers, you can explore the resources shown below.
+Transformers have emerged as the leading architecture for addressing natural language processing (NLP) tasks, enabling the development of powerful language models. Introduced in the landmark 2017 paper *"Attention Is All You Need"* by Google researchers, the Transformer architecture has revolutionized the field. To understand the fundamentals of Transformers, you can explore the resources shown below.
 
 <!-- ```{figure} ./transformer.png
 
@@ -114,7 +114,7 @@ Tiktokenizer
   
     Here, Kevin Jablonka explains how LLMs work through a practical approach applied to materials science, guiding you on how to build a GPT model that can generate molecules from scratch. It includes a detailed tutorial covering the tokenization process, conversion of tokens into numbers, vector embeddings and positional encoding, as well as model training and evaluation. Through this relatively simple example, you will also learn how the attention mechanism works with an exhaustive implementation of self-attention into the model.
   
-🎥 In this video you can learn how to build a GPT model following the paper "Attention is All You Need":
+🎥 In this video you can learn how to build a GPT model following the paper *"Attention is All You Need"*:
     [*Let's build GPT: from scratch, in code, spelled out*](https://www.youtube.com/watch?v=kCc8FmEb1nY) by Andrej Karpathy.
 
 ### Prompting
