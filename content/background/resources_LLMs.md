@@ -32,7 +32,7 @@ In this notebook, we have compiled a list of valuable resources to help you unde
 >The attention mechanism is what makes the Transformer architecture unique and distinct from recurrent approaches to language modeling.
 
 * [Understanding the attention mechanism in sequence models](https://www.jeremyjordan.me/attention) In this post, Jeremy Jordan shows a fundamental understanding of the attention mechanism, using numerous helpful diagrams and an accessible language style. You can understand how the attention mechanism enables the decoder to search across the entire input sequence for information at each step during the output sequence generation. This is a key innovation in sequence-to-sequence neural network architectures because it significantly improves model performance.
-* [Attention? Attention!](https://lilianweng.github.io/posts/2018-06-24-attention) This post by Lilian Weng includes detailed explanations and numerous useful diagrams to understand the attention mechanism.
+* [Attention? Attention!](https://lilianweng.github.io/posts/2018-06-24-attention) This post by Lilian Weng also includes detailed explanations and numerous useful diagrams to understand the attention mechanism.
 * [Understanding and Coding the Self-Attention Mechanism of Large Language Models From Scratch](https://sebastianraschka.com/blog/2023/self-attention-from-scratch.html) In this post, Sebastian Raschka explains how self-attention works from scratch by coding it step-by-step.
 
 :movie_camera: You can also find valuable information about the attention mechanism in the following videos:\
