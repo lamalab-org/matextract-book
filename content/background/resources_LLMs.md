@@ -2,11 +2,17 @@
 
 In this notebook, we have compiled a list of valuable resources to help you understand how Large Language Models (LLMs) work. Here you will find accessible explanations of the fundamental principles behind these models.
 
-## 🖥️ Online resources
+## 💻 Online resources
 
 ### Transformers
 
-Transformers have emerged as the leading architecture for addressing natural language processing (NLP) tasks, enabling the development of powerful language models. Introduced in the landmark 2017 paper *"Attention Is All You Need"* by Google researchers, the Transformer architecture has revolutionized the field. To understand the fundamentals of Transformers, you can explore the resources shown below.
+Transformers have emerged as the leading architecture for addressing natural language processing (NLP) tasks, enabling the development of powerful language models. Introduced in the landmark 2017 paper *"Attention Is All You Need"* by Google researchers, the Transformer architecture has revolutionized the field. To understand the fundamentals of Transformers, you can explore the resources shown below. *(Figure - The Transformer, model architecture. Source: ["Attention Is All You Need"](https://arxiv.org/abs/1706.03762) paper)*
+
+
+```{figure} ./transformer.png
+:width: 300px
+:align: right
+```
 
 <!-- ```{figure} ./transformer.png
 
@@ -38,23 +44,18 @@ The Transformer, model architecture. Source: [{cite}`vaswani2023attention`](http
   
     Here, Brendan Bycroft shows an impressive interactive visualization of the LLM algorithm behind some of OpenAI GPT models, allowing you to see the entire process in action.
   
-🎥 You can also find a clear explanation of Transformers in the following video: [The Transformer Architecture](https://www.youtube.com/watch?v=tstbZXNCfLY) by *Sebastian Raschka*.
+🎥 You can also find a clear explanation of Transformers in the following video: [The Transformer Architecture](https://www.youtube.com/watch?v=tstbZXNCfLY) by Sebastian Raschka.
 
 ### Attention
 
-The concept of "attention” in deep learning emerged from the need to improve Recurrent Neural Networks (RNNs) for handling longer sequences or sentences. Working word-by-word is not effective. To overcome this issue, attention mechanisms were introduced to give access to all sequence elements at each time step. The key is to be selective and determine which words are most important in a specific context. The transformer architecture revolutionized this approach by introducing a standalone self-attention mechanism, eliminating the need for RNNs altogether. To understand the attention mechanisms, you can explore the resources shown below.
+The concept of "attention” in deep learning emerged from the need to improve Recurrent Neural Networks (RNNs) for handling longer sequences or sentences. Working word-by-word is not effective. To overcome this issue, attention mechanisms were introduced to give access to all sequence elements at each time step. The key is to be selective and determine which words are most important in a specific context. The transformer architecture revolutionized this approach by introducing a standalone self-attention mechanism, eliminating the need for RNNs altogether. To understand the attention mechanisms, you can explore the resources shown below. *(Figure - Computing the Attention Scores. Source: ["Self-attention from schatch"](https://sebastianraschka.com/blog/2023/self-attention-from-scratch.html) post by S. Raschka)*
+
+<!-- The attention mechanism is what makes the Transformer architecture unique and distinct from recurrent approaches to language modeling.-->
 
 ```{figure} ./attention-scores.png
-
-[Self-attention from schatch post by S. Raschka](https://sebastianraschka.com/blog/2023/self-attention-from-scratch.html) 
-       
+:width: 450px
+:align: right       
 ```
-
-````{warning}
-
-The attention mechanism is what makes the Transformer architecture unique and distinct from recurrent approaches to language modeling.
-
-````
 
 * [Understanding the attention mechanism in sequence models](https://www.jeremyjordan.me/attention)
   
@@ -70,27 +71,26 @@ The attention mechanism is what makes the Transformer architecture unique and di
 
 🎥 You can also find valuable information about the attention mechanism in the following videos:
 
-* *Sebastian Raschka*
+* Sebastian Raschka
   * [Using Attention Without the RNN -- A Basic Form of Self-Attention](https://www.youtube.com/watch?v=i_pfHD4P_wg)
   * [Self-Attention and Scaled Dot-Product Attention](https://www.youtube.com/watch?v=0PjHri8tc1c)
   * [Multi-Head Attention](https://www.youtube.com/watch?v=A1eUVxscNq8)
-* *DeepLearningAI*
+* DeepLearningAI
   * [Attention Model Intuition](https://www.youtube.com/watch?v=SysgYptB198)
   * [Attention Model](https://www.youtube.com/watch?v=quoGRI-1l0A)
 
 ### Tokenization and embeddings
 
-Tokenization and embeddings are two essential steps in the data processing pipeline of LLMs. Tokens are the fundamental units of LLMs. Tokenization is the process of translating text into sequences of tokens and vice versa, breaking down the text into manageable pieces that the model can interpret. Once the text is tokenized, each token is mapped to an embedding vector. These embeddings are dense, low-dimensional, continuous vector representations that capture the semantic and syntactic meanings of tokens, allowing the model to understand the nuances of language. These vectors are learned during the model’s training process. For more information on tokenization and embeddings, you can explore the resources listed below.
+Tokenization and embeddings are two essential steps in the data processing pipeline of LLMs. Tokens are the fundamental units of LLMs. Tokenization is the process of translating text into sequences of tokens and vice versa, breaking down the text into manageable pieces that the model can interpret. Once the text is tokenized, each token is mapped to an embedding vector. These embeddings are dense, low-dimensional, continuous vector representations that capture the semantic and syntactic meanings of tokens, allowing the model to understand the nuances of language. These vectors are learned during the model’s training process. For more information on tokenization and embeddings, you can explore the resources listed below. *(Figure - [Tiktokenizer](https://tiktokenizer.vercel.app/))*
 
 ```{figure} ./tiktokenizer.png
-
-Tiktokenizer
-
+:width: 400px
+:align: right       
 ```
 
 * [The Technical User's Introduction to LLM Tokenization](https://christophergs.com/blog/understanding-llm-tokenization)
   
-    In this post, Christopher Samiullah delves into the mechanics of tokenization in LLMs, referencing [Andrej Karpathy’s YouTube talk: *Let’s build the GPT Tokenizer*](https://www.youtube.com/watch?v=zduSFxRajkE).
+    In this post, Christopher Samiullah delves into the mechanics of tokenization in LLMs, referencing Andrej Karpathy’s YouTube talk: [*Let’s build the GPT Tokenizer*](https://www.youtube.com/watch?v=zduSFxRajkE).
 
 * [Let’s build the GPT Tokenizer](https://www.youtube.com/watch?v=zduSFxRajkE)
   
@@ -115,17 +115,22 @@ Tiktokenizer
     Here, Kevin Jablonka explains how LLMs work through a practical approach applied to materials science, guiding you on how to build a GPT model that can generate molecules from scratch. It includes a detailed tutorial covering the tokenization process, conversion of tokens into numbers, vector embeddings and positional encoding, as well as model training and evaluation. Through this relatively simple example, you will also learn how the attention mechanism works with an exhaustive implementation of self-attention into the model.
   
 🎥 In this video you can learn how to build a GPT model following the paper *"Attention is All You Need"*:
-    [*Let's build GPT: from scratch, in code, spelled out*](https://www.youtube.com/watch?v=kCc8FmEb1nY) by Andrej Karpathy.
+    [Let's build GPT: from scratch, in code, spelled out](https://www.youtube.com/watch?v=kCc8FmEb1nY) by Andrej Karpathy.
 
 ### Prompting
 
-* [Learn to Spell: Prompt Engineering (LLM Bootcamp)](https://www.youtube.com/watch?v=JnBHR_yL2w8)
+🎥 [Learn to Spell: Prompt Engineering (LLM Bootcamp)](https://www.youtube.com/watch?v=JnBHR_yL2w8) This video shows a basic guide for effectively prompting language models by reviewing prompting techniques, like decomposition, reasoning, and reflection (The Full Stack).
 
-## 📚 Books
+## 📘 Books
 
 * [Natural Language Processing with Transformers](https://www.oreilly.com/library/view/natural-language-processing/9781098136789)
+    *(Lewis Tunstall, Leandro von Werra, Thomas Wolf, 2022)*
     <!-- *(Lewis Tunstall, Leandro von Werra, Thomas Wolf (2022) O'Reilly Media, Inc. ISBN: 9781098136796)*\ -->
     While the overall objective of this book is to show you how to build language applications using the 🤗 Hugging Face Transformers library, it explains the Transformer architecture in a clear and detailed way. Chapter 2, *Text Classification*, shows how tokenizers work, whereas Chapter 3, *Transformer Anatomy*, takes a closer look at how transformers work for natural language processing. You will learn about the encoder-decoder architecture, embeddings, and self-attention mechanism. The authors present a hands-on approach making it easy to read and simple to understand the complex Transformer architecture.
 * [Generative Deep Learning](https://www.oreilly.com/library/view/generative-deep-learning/9781098134174)
+    *(David Foster, 2023)*
   <!-- *(David Foster (2023) O'Reilly Media, Inc. ISBN: 9781098134181)*\ -->
     Starting with an introduction to generative modeling and deep learning, this book explores the different techniques to build generative models. In Chapter 9, *Transformers*, it provides an overview of the Transformer model architecture, attention mechanism, and encoder-decoder architectures.
+* [Understanding Deep Learning](https://udlbook.github.io/udlbook/)
+    *(Simon J.D. Prince, 2023)*
+    This book begins by introducing deep learning models and discuss how to train them, measure their performance, and improve this performance. It then presents the architectures that are specialized to images, text, and graph data. Chapter 12, *Transformers*, explains self-attention and the transformer architecture. This is one of the most educational resources on deep learning available today.
