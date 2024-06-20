@@ -94,7 +94,7 @@ Tokenization and embeddings are two essential steps in the data processing pipel
 
 * [Let’s build the GPT Tokenizer](https://www.youtube.com/watch?v=zduSFxRajkE)
   
-    If you want to dive deeper into this topic, check out the mentioned talk by Andrej Karpathy, where he builds from scratch the Tokenizer used in the GPT series from OpenAI, highlighting "weird behaviors" and common issues associated with tokenization. He also created `minbpe`, a [repository](https://github.com/karpathy/minbpe) with code and exercises fur further learning.
+    If you want to dive deeper into this topic, check out the mentioned talk by Andrej Karpathy, where he builds from scratch the Tokenizer used in the GPT series from OpenAI, highlighting "weird behaviors" and common issues associated with tokenization. He also created `minbpe`, a [repository](https://github.com/karpathy/minbpe) with code and exercises for further learning.
 
 * [Tiktokenizer](https://tiktokenizer.vercel.app/)
   
