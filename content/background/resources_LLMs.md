@@ -124,7 +124,7 @@ Tokenization and embeddings are two essential steps in the data processing pipel
 ## 📘 Books
 
 * [Natural Language Processing with Transformers](https://www.oreilly.com/library/view/natural-language-processing/9781098136789)
-    *(Lewis Tunstall, Leandro von Werra, Thomas Wolf, 2022)*\
+    *(Lewis Tunstall, Leandro von Werra, Thomas Wolf, 2022)*
     <!-- *(Lewis Tunstall, Leandro von Werra, Thomas Wolf (2022) O'Reilly Media, Inc. ISBN: 9781098136796)*\ -->
   
     While the overall objective of this book is to show you how to build language applications using the 🤗 Hugging Face Transformers library, it explains the Transformer architecture in a clear and detailed way. Chapter 2, *Text Classification*, shows how tokenizers work, whereas Chapter 3, *Transformer Anatomy*, takes a closer look at how transformers work for natural language processing. You will learn about the encoder-decoder architecture, embeddings, and self-attention mechanism. The authors present a hands-on approach, making it easy to read and simple to understand the Transformer architecture.
