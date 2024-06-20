@@ -6,7 +6,7 @@ In this notebook, we have compiled a list of valuable resources to help you unde
 
 ### Transformers
 
-Transformers have emerged as the leading architecture for addressing natural language processing (NLP) tasks, enabling the development of powerful language models. Introduced in the landmark 2017 paper *"Attention Is All You Need"* by Google researchers, the Transformer architecture has revolutionized the field. To understand the fundamentals of Transformers, you can explore the resources shown below. *(Figure - The Transformer, model architecture. Source: ["Attention Is All You Need"](https://arxiv.org/abs/1706.03762) paper)*
+Transformers have become the leading architecture for solving natural language processing (NLP) tasks, enabling the development of powerful language models. Introduced in the groundbreaking 2017 paper *"Attention Is All You Need"* by Google researchers, the Transformer architecture has transformed the field of NLP. To understand the fundamentals of Transformers, you can explore the resources shown below. *(Figure - The Transformer, model architecture. Source: ["Attention Is All You Need"](https://arxiv.org/abs/1706.03762) paper)*
 
 
 ```{figure} ./transformer.png
