@@ -59,7 +59,7 @@ The concept of "attention” in deep learning emerged from the need to improve R
 
 * [Understanding the attention mechanism in sequence models](https://www.jeremyjordan.me/attention)
   
-    In this post, Jeremy Jordan shows a fundamental understanding of the attention mechanism, using numerous helpful diagrams and an accessible language style. You can understand how the attention mechanism enables the decoder to search across the entire input sequence for information at each step during the output sequence generation. This is a key innovation in sequence-to-sequence neural network architectures because it significantly improves model performance.
+    In this post, Jeremy Jordan explains the attention mechanism using numerous helpful diagrams and an accessible language style. The attention mechanism enables the decoder to search across the entire input sequence for information at each step during the output sequence generation. This is a key innovation in sequence-to-sequence neural network architectures because it significantly improves model performance.
 
 * [Attention? Attention!](https://lilianweng.github.io/posts/2018-06-24-attention)
   
