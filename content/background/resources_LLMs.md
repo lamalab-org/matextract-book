@@ -43,7 +43,8 @@ The Transformer, model architecture. Source: [{cite}`vaswani2023attention`](http
 * [LLM Visualization](https://bbycroft.net/llm)
   
     Here, Brendan Bycroft shows an impressive interactive visualization of the LLM algorithm behind some of OpenAI GPT models, allowing you to see the entire process in action.
-  
+
+
 🎥 You can also find a clear explanation of Transformers in the following video: [The Transformer Architecture](https://www.youtube.com/watch?v=tstbZXNCfLY) by Sebastian Raschka.
 
 ### Attention
