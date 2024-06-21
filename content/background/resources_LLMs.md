@@ -99,7 +99,7 @@ Tokenization and embeddings are two essential steps in the data processing pipel
 
 * [Tiktokenizer](https://tiktokenizer.vercel.app/)
   
-    You should check out this link and try tokenization using the Tiktoken web app. With this tool, tokenization runs live in your web browser, allowing you to easily input some text string on the left and see the tokenized output on the right side in real-time.
+    You should check out this link and try tokenization using the Tiktoken web app. With this tool, tokenization runs live in your web browser, allowing you to easily input some text string on the leftside and see the tokenized output on the right side in real-time.
 
 * [What Are Word and Sentence Embeddings?](https://cohere.com/blog/sentence-word-embeddings)
   
