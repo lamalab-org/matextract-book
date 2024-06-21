@@ -113,7 +113,7 @@ Tokenization and embeddings are two essential steps in the data processing pipel
 
 * [Building a GPT that can generate molecules from scratch](https://kjablonka.com/blog/posts/building_an_llm)
   
-    Here, Kevin Jablonka explains how LLMs work through a practical approach applied to materials science, guiding you on how to build a GPT model that can generate molecules from scratch. It includes a detailed tutorial covering the tokenization process, conversion of tokens into numbers, vector embeddings and positional encoding, as well as model training and evaluation. Through this relatively simple example, you will also learn how the attention mechanism works with an exhaustive implementation of self-attention into the model.
+    Here, Kevin M. Jablonka explains how LLMs work through a practical approach applied to materials science, guiding you on how to build a GPT model that can generate molecules from scratch. It includes a detailed tutorial covering the tokenization process, conversion of tokens into numbers, vector embeddings and positional encoding, as well as model training and evaluation. Through this relatively simple example, you will also learn how the attention mechanism works with an exhaustive implementation of self-attention into the model.
   
 🎥 In this video you can learn how to build a GPT model following the paper *"Attention is All You Need"*:
     [Let's build GPT: from scratch, in code, spelled out](https://www.youtube.com/watch?v=kCc8FmEb1nY) by Andrej Karpathy.
@@ -128,7 +128,7 @@ Tokenization and embeddings are two essential steps in the data processing pipel
     *(Lewis Tunstall, Leandro von Werra, Thomas Wolf, 2022)*
     <!-- *(Lewis Tunstall, Leandro von Werra, Thomas Wolf (2022) O'Reilly Media, Inc. ISBN: 9781098136796)*\ -->
   
-    While the overall objective of this book is to show you how to build language applications using the 🤗 Hugging Face Transformers library, it explains the Transformer architecture in a clear and detailed way. Chapter 2, *Text Classification*, shows how tokenizers work, whereas Chapter 3, *Transformer Anatomy*, takes a closer look at how transformers work for natural language processing. You will learn about the encoder-decoder architecture, embeddings, and self-attention mechanism. The authors present a hands-on approach, making it easy to read and simple to understand the Transformer architecture.
+    While the overall objective of this book is to show you how to build language applications using the Hugging Face 🤗 Transformers library, it explains the Transformer architecture in a clear and detailed way. Chapter 2, *Text Classification*, shows how tokenizers work, whereas Chapter 3, *Transformer Anatomy*, takes a closer look at how transformers work for natural language processing. You will learn about the encoder-decoder architecture, embeddings, and self-attention mechanism. The authors present a hands-on approach, making it easy to read and simple to understand the Transformer architecture.
 * [Generative Deep Learning](https://www.oreilly.com/library/view/generative-deep-learning/9781098134174)
     *(David Foster, 2023)*
   <!-- *(David Foster (2023) O'Reilly Media, Inc. ISBN: 9781098134181)*\ -->
