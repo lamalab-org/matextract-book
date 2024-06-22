@@ -6,8 +6,7 @@ In this notebook, we have compiled a list of valuable resources to help you unde
 
 ### Transformers
 
-Transformers have become the leading architecture for solving natural language processing (NLP) tasks, enabling the development of powerful language models. Introduced in the groundbreaking 2017 paper *"Attention Is All You Need"* by Google researchers, the Transformer architecture has transformed the field of NLP. To understand the fundamentals of Transformers, you can explore the resources shown below. *(Figure - The Transformer, model architecture. Source: ["Attention Is All You Need"](https://arxiv.org/abs/1706.03762) paper)*
-
+Transformers have become the leading architecture for solving natural language processing (NLP) tasks, enabling the development of powerful language models. Introduced in the groundbreaking 2017 paper *"Attention Is All You Need"* by Google researchers, the Transformer architecture has transformed the field of NLP. To understand the fundamentals of Transformers, you can explore the resources shown below. *(Figure - The Transformer, model architecture. Source: ["Attention Is All You Need"](https://arxiv.org/abs/1706.03762))*
 
 ```{figure} ./transformer.png
 :width: 300px
@@ -44,7 +43,6 @@ The Transformer, model architecture. Source: [{cite}`vaswani2023attention`](http
   
     Here, Brendan Bycroft shows an impressive interactive visualization of the LLM algorithm behind some of OpenAI GPT models, allowing you to see the entire process in action.
 
-
 🎥 You can also find a clear explanation of Transformers in the following video: [The Transformer Architecture](https://www.youtube.com/watch?v=tstbZXNCfLY) by Sebastian Raschka.
 
 ### Attention
@@ -79,6 +77,9 @@ The concept of "attention” in deep learning emerged from the need to improve R
 * DeepLearningAI
   * [Attention Model Intuition](https://www.youtube.com/watch?v=SysgYptB198)
   * [Attention Model](https://www.youtube.com/watch?v=quoGRI-1l0A)
+* 3Blue1Brown
+  * [But what is a GPT? Visual intro to transformers](https://www.youtube.com/watch?v=wjZofJX0v4M&vl=es)
+  * [Attention in transformers, visually explained](https://www.youtube.com/watch?v=eMlx5fFNoYc&vl=es)
 
 ### Tokenization and embeddings
 
