@@ -31,7 +31,7 @@ Transformers have become the leading architecture for solving natural language p
   
 * [A walkthrough of transformer architecture code](https://github.com/markriedl/transformer-walkthrough)
   
-    This notebook designed for illustration and didactic purposes, provides a comprehensive walkthrough of the Transformer architecture code. It guides you through a single forward pass, explaining each stage of the architecture with the help of a detailed computation graph.
+    This notebook, designed for illustration and didactic purposes, provides a comprehensive walkthrough of the Transformer architecture code. It guides you through a single forward pass, explaining each stage of the architecture with the help of a detailed computation graph.
   
 * [LLM Visualization](https://bbycroft.net/llm)
   
