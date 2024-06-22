@@ -13,15 +13,9 @@ Transformers have become the leading architecture for solving natural language p
 :align: right
 ```
 
-<!-- ```{figure} ./transformer.png
-
-The Transformer, model architecture. Source: [{cite}`vaswani2023attention`](https://arxiv.org/abs/1706.03762)
-        
-``` -->
-
 * [The Annotated Transformer](https://nlp.seas.harvard.edu/annotated-transformer)
   
-    This post presents an annotated version of the paper *"Attention is All You Need"* from Harvard University in the form of a line-by-line implementation. It reorders and deletes some sections from the original paper and adds comments throughout. Thus, it explains the model architecture (Transformer), model training, and a real-world example. This document is a notebook that allows a completely usable implementation.
+    This post from Harvard University presents an annotated version of the paper *"Attention is All You Need"* in the form of a line-by-line implementation. It reorders and deletes some sections from the original paper and adds comments throughout. Thus, it explains the model architecture (Transformer), model training, and a real-world example. This document is a notebook that allows a completely usable implementation.
 
 * [Understanding the Transformer architecture for neural networks](https://www.jeremyjordan.me/transformer-architecture)
   
@@ -37,19 +31,17 @@ The Transformer, model architecture. Source: [{cite}`vaswani2023attention`](http
   
 * [A walkthrough of transformer architecture code](https://github.com/markriedl/transformer-walkthrough)
   
-    This notebook provides a comprehensive walkthrough of the Transformer architecture code. It guides you through a single forward pass, explaining each stage of the architecture with the help of a detailed computation graph. This resource is designed for illustration and educational purposes.
+    This notebook designed for illustration and didactic purposes, provides a comprehensive walkthrough of the Transformer architecture code. It guides you through a single forward pass, explaining each stage of the architecture with the help of a detailed computation graph.
   
 * [LLM Visualization](https://bbycroft.net/llm)
   
     Here, Brendan Bycroft shows an impressive interactive visualization of the LLM algorithm behind some of OpenAI GPT models, allowing you to see the entire process in action.
 
-🎥 You can also find a clear explanation of Transformers in the following video: [The Transformer Architecture](https://www.youtube.com/watch?v=tstbZXNCfLY) by Sebastian Raschka.
+🎥 You can also find a clear explanation of Transformers in the video *[The Transformer Architecture](https://www.youtube.com/watch?v=tstbZXNCfLY)* by Sebastian Raschka.
 
 ### Attention
 
-The concept of "attention” in deep learning emerged from the need to improve Recurrent Neural Networks (RNNs) for handling longer sequences or sentences. Working word-by-word is not effective. To overcome this issue, attention mechanisms were introduced to give access to all sequence elements at each time step. The key is to be selective and determine which words are most important in a specific context. The transformer architecture uses a autonomous self-attenuation mechanism that solves the problem of accessing the entire sequence in constant time. To understand the attention mechanisms, you can explore the resources shown below. *(Figure - Computing the attention scores to weigh the importance of different elements in an input sequence. Source: ["Self-attention from scratch"](https://sebastianraschka.com/blog/2023/self-attention-from-scratch.html) post by S. Raschka)*
-
-<!-- The attention mechanism is what makes the Transformer architecture unique and distinct from recurrent approaches to language modeling.-->
+The concept of "attention" in deep learning emerged from the need to improve Recurrent Neural Networks (RNNs) for handling longer sequences. Working word-by-word is not effective. To overcome this issue, attention mechanisms were introduced to give access to all sequence elements at each time step. The key is to be select and determine which words are most important in a specific context. The transformer architecture uses an autonomous self-attenuation mechanism that solves the problem of accessing the entire sequence in constant time. To understand the attention mechanisms, you can explore the resources shown below. *(Figure - Computing the attention scores to weigh the importance of different elements in an input sequence. Source: ["Self-attention from scratch"](https://sebastianraschka.com/blog/2023/self-attention-from-scratch.html) post by S. Raschka)*
 
 ```{figure} ./attention-scores.png
 :width: 450px
@@ -58,7 +50,7 @@ The concept of "attention” in deep learning emerged from the need to improve R
 
 * [Understanding the attention mechanism in sequence models](https://www.jeremyjordan.me/attention)
   
-    In this post, Jeremy Jordan explains the attention mechanism using numerous helpful diagrams and an accessible language style. The attention mechanism enables the decoder to search across the entire input sequence for information at each step during the output sequence generation. This is a key innovation in sequence-to-sequence neural network architectures because it significantly improves model performance.
+    Jeremy Jordan explains in this post the attention mechanism using numerous helpful diagrams and an accessible language style. The attention mechanism enables the decoder to search across the entire input sequence for information at each step during the output sequence generation. This is a key innovation in sequence-to-sequence neural network architectures because it significantly improves model performance.
 
 * [Attention? Attention!](https://lilianweng.github.io/posts/2018-06-24-attention)
   
@@ -66,7 +58,7 @@ The concept of "attention” in deep learning emerged from the need to improve R
 
 * [Understanding and Coding the Self-Attention Mechanism of Large Language Models From Scratch](https://sebastianraschka.com/blog/2023/self-attention-from-scratch.html)
   
-    In this post, Sebastian Raschka explains how self-attention works from scratch by coding it step-by-step.
+    Here Sebastian Raschka explains how self-attention works from scratch by coding it step-by-step.
 
 🎥 You can also find valuable information about the attention mechanism in the following videos:
 
@@ -121,20 +113,24 @@ Tokenization and embeddings are two essential steps in the data processing pipel
 
 ### Prompting
 
+* [Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)
+
+    Lilian Weng presents in this blog post everything you need to know about the basics of prompting and some advanced prompt techniques such as Chain of Thought (CoT).
+
 🎥 [Learn to Spell: Prompt Engineering (LLM Bootcamp)](https://www.youtube.com/watch?v=JnBHR_yL2w8) This video shows a basic guide for effectively prompting language models by reviewing prompting techniques, like decomposition, reasoning, and reflection (The Full Stack).
 
 ## 📘 Books
 
 * [Natural Language Processing with Transformers](https://www.oreilly.com/library/view/natural-language-processing/9781098136789)
     *(Lewis Tunstall, Leandro von Werra, Thomas Wolf, 2022)*
-    <!-- *(Lewis Tunstall, Leandro von Werra, Thomas Wolf (2022) O'Reilly Media, Inc. ISBN: 9781098136796)*\ -->
   
     While the overall objective of this book is to show you how to build language applications using the Hugging Face 🤗 Transformers library, it explains the Transformer architecture in a clear and detailed way. Chapter 2, *Text Classification*, shows how tokenizers work, whereas Chapter 3, *Transformer Anatomy*, takes a closer look at how transformers work for natural language processing. You will learn about the encoder-decoder architecture, embeddings, and self-attention mechanism. The authors present a hands-on approach, making it easy to read and simple to understand the Transformer architecture.
+
 * [Generative Deep Learning](https://www.oreilly.com/library/view/generative-deep-learning/9781098134174)
     *(David Foster, 2023)*
-  <!-- *(David Foster (2023) O'Reilly Media, Inc. ISBN: 9781098134181)*\ -->
   
     Starting with an introduction to generative modeling and deep learning, this book explores the different techniques to build generative models. In Chapter 9, *Transformers*, it provides an overview of the Transformer model architecture, attention mechanism, and encoder-decoder architectures.
+
 * [Understanding Deep Learning](https://udlbook.github.io/udlbook/)
     *(Simon J.D. Prince, 2023)*
   
