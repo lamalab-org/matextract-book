@@ -84,7 +84,7 @@ Tokenization and embeddings are two essential steps in the data processing pipel
 
 * [The Technical User's Introduction to LLM Tokenization](https://christophergs.com/blog/understanding-llm-tokenization)
   
-    In this post, Christopher Samiullah delves into the mechanics of tokenization in LLMs, referencing Andrej Karpathy’s YouTube talk: [*Let’s build the GPT Tokenizer*](https://www.youtube.com/watch?v=zduSFxRajkE).
+    In this post, Christopher Samiullah delves into the mechanics of tokenization in LLMs, referencing Andrej Karpathy’s YouTube talk [*Let’s build the GPT Tokenizer*](https://www.youtube.com/watch?v=zduSFxRajkE).
 
 * [Let’s build the GPT Tokenizer](https://www.youtube.com/watch?v=zduSFxRajkE)
   
