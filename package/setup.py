@@ -23,6 +23,7 @@ setup(
         "numpy",
         "matplotlib",
         "seaborn",
+        "mendeleev",
         "sentence-transformers",
         "chromadb",
         "rxnscribe @ git+https://github.com/thomas0809/RxnScribe.git",
