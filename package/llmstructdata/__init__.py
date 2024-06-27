@@ -1,11 +1,16 @@
+
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+from dotenv import load_dotenv
 import warnings
-import pystow
+import litellm
+from litellm.caching import Cache
+
+litellm.cache = Cache()
 
 url = "https://raw.githubusercontent.com/lamalab-org/plotutils/main/kevin.mplstyle"
 path = pystow.ensure("matstructdata", "plotsettings", url=url)
 
-mpl.style.use(path)
+load_dotenv("../../.env", override=True)
 
 warnings.filterwarnings("ignore")
