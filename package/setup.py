@@ -9,6 +9,8 @@ setup(
     license="MIT",
     packages=["llmstructdata"],
     install_requires=[
+        "bert-score",
+        "jupyter",
         "pandas",
         "transformers",
         "datasets",
