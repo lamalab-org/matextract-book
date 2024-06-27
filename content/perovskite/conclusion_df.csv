@@ -9,6 +9,9 @@ bandgap,formula,Type
 2.14,SrZrS3,Constrained
 2.32,SrHfS3,Constrained
 2.41,SrHfS3,Constrained
+1.76,BaZrS3,Constrained
+1.63,BaZrS3,Constrained
+1.51,BaZrS3,Constrained
 3.0,YScS3,Constrained
 1.75,BaZrS3,Unconstrained
 1.82,BaZrS3,Unconstrained
@@ -20,12 +23,10 @@ bandgap,formula,Type
 2.14,SrZrS3,Unconstrained
 2.32,SrHfS3,Unconstrained
 2.41,SrHfS3,Unconstrained
-1.76,BaZr(S1-xSex)3,Unconstrained
-1.63,Ba(Zr1-xTix)S3,Unconstrained
-1.51,Ba(Zr1-xTix)S3,Unconstrained
+1.76,BaZrS3,Unconstrained
+1.63,BaZrS3,Unconstrained
+1.51,BaZrS3,Unconstrained
 3.0,YScS3,Unconstrained
-1.33,Ba2ZrS4,Unconstrained
-1.28,Ba3Zr2S7,Unconstrained
 1.75,BaZrS3,Validated
 1.82,BaZrS3,Validated
 1.89,BaZrS3,Validated
