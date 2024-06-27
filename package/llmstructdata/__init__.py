@@ -8,7 +8,8 @@ from litellm.caching import Cache
 
 litellm.cache = Cache()
 
-mpl.style.use("book.mplstyle")
+url = "https://raw.githubusercontent.com/lamalab-org/plotutils/main/kevin.mplstyle"
+path = pystow.ensure("matstructdata", "plotsettings", url=url)
 
 load_dotenv("../../.env", override=True)
 
