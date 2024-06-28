@@ -70,20 +70,20 @@ Q.</given-names>
 of Basic Science, College of Agriculture</institution>, <institution-wrap>
                   <institution-id institution-id-type="Ringgold" specific-use="source:pplus">362363</institution-id>
                   <institution>University of Kirkuk</institution>
-               </institution-wrap>, <postal-code>00964</postal-code> 
+               </institution-wrap>, <postal-code>00964</postal-code>
                <city>Kirkuk</city>, <country>Iraq</country>
             </aff>
             <aff id="aff2">
                <label>‡</label>
                <institution content-type="dept">Department
 of Chemistry, College of Science</institution>, <institution>University
-of Kirkuk</institution>, <postal-code>009641</postal-code> 
+of Kirkuk</institution>, <postal-code>009641</postal-code>
                <city>Kirkuk</city>, <country>Iraq</country>
             </aff>
             <aff id="aff3">
                <label>§</label>
                <institution content-type="dept">College
-of Pharmacy</institution>, <institution>University of Kirkuk</institution>, <postal-code>009641</postal-code> 
+of Pharmacy</institution>, <institution>University of Kirkuk</institution>, <postal-code>009641</postal-code>
                <city>Kirkuk</city>, <country>Iraq</country>
             </aff>
          </contrib-group>
@@ -1221,7 +1221,7 @@ tests.</p>
                   </string-name>; <string-name>
                      <surname>Elsabee</surname>, <given-names>M. Z.</given-names>
                   </string-name>
-               </person-group> 
+               </person-group>
                <source>Synthesis, Characterization
 and Antimicrobial Activity of a Novel Chitosan Schiff Bases Based
 on Heterocyclic Moieties</source>; <publisher-name>Elsevier B.V.</publisher-name>, <year>2020</year>; Vol. <volume>153</volume>.</mixed-citation>

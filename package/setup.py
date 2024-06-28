@@ -24,6 +24,8 @@ setup(
         "litellm",
         "numpy",
         "matplotlib",
+        "seaborn",
+        "mendeleev",
         "sentence-transformers",
         "chromadb",
         "rxnscribe @ git+https://github.com/thomas0809/RxnScribe.git",
@@ -32,6 +34,12 @@ setup(
         "langchainhub",
         "langchain-community",
         "langchain-openai",
+        "instructor",
+        "pystow",
+        "mendeleev",
+        "pymatgen",
+        "pymatviz",
+        # "nougat-ocr",
     ],
     long_description="""
 # Style and Imports for the Structured Data Extraction Book
