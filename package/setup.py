@@ -31,6 +31,8 @@ setup(
         "langchain-community",
         "langchain-openai",
         "pydantic",
+        "instructor",
+        "scikit-learn",
     ],
     long_description="""
 # Style and Imports for the Structured Data Extraction Book
