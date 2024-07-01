@@ -30,6 +30,7 @@ setup(
         "langchainhub",
         "langchain-community",
         "langchain-openai",
+        "pydantic",
     ],
     long_description="""
 # Style and Imports for the Structured Data Extraction Book
