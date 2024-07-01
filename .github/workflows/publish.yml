@@ -31,7 +31,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt
+        cd package & pip install -e . && cd ..
+        pip install jupyterbook
 
     # (optional) Cache your executed notebooks between runs
     # if you have config:
