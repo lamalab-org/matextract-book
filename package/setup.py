@@ -9,6 +9,9 @@ setup(
     license="MIT",
     packages=["llmstructdata"],
     install_requires=[
+        "bert-score",
+        "pystow",
+        "jupyter",
         "pandas",
         "transformers",
         "datasets",
@@ -22,6 +25,8 @@ setup(
         "litellm",
         "numpy",
         "matplotlib",
+        "seaborn",
+        "mendeleev",
         "sentence-transformers",
         "chromadb",
         "rxnscribe @ git+https://github.com/thomas0809/RxnScribe.git",
@@ -33,6 +38,12 @@ setup(
         "pydantic",
         "instructor",
         "scikit-learn",
+        "instructor",
+        "pystow",
+        "mendeleev",
+        "pymatgen",
+        "pymatviz",
+        # "nougat-ocr",
     ],
     long_description="""
 # Style and Imports for the Structured Data Extraction Book

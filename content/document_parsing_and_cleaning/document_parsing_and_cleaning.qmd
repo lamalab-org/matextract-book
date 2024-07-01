@@ -7,6 +7,3 @@ title: 2 | Document parsing and cleaning
 As a second step of the data extraction one should process the obtained data to:
 1. obtain a format like markup language that can be used as input for text-based models ([Parsing with NOUAGAT](./parsing.ipynb))
 2. remove irrelevant information from the raw data to make the system more robust and cheaper ([Data cleaning](./cleaning.ipynb))
-
-
-

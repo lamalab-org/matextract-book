@@ -14,12 +14,12 @@ p {
 div.math {
     overflow-x: auto !important;
   }
-  
+
   div.output .text_html {
     overflow-x: auto !important;
   }
 
-/* Update the fontsize of the margin sidebar class */ 
+/* Update the fontsize of the margin sidebar class */
 
 div.margin {
     font-size: 0.5em !important;
@@ -44,4 +44,3 @@ div.cell_output {
     overflow-y: scroll !important;
     max-height: 400px !important;
   }
-
