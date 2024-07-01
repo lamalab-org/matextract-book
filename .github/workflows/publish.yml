@@ -12,6 +12,9 @@ on:
     #
     # paths:
     # - some-subfolder/**
+  pull_request:
+  workflow_dispatch:
+
 
 # This job installs dependencies, builds the book, and pushes it to `gh-pages`
 jobs:
