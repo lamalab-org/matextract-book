@@ -1,0 +1,26 @@
+name: deploy-book
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  check-build-book:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: s-weigand/setup-conda@v1
+      with:
+        python-version: 3.11
+    - name: Install dependencies
+      run: |
+        cd package && python -m pip  --no-cache-dir install . && cd ..
+        pip install jupyter-book
+    - name: Build the book
+      run: jupyter-book build -n .
+    - name: Deploy Jupyter book to GitHub pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: _build/html
+        force_orphan: true
