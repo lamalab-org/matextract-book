@@ -4,7 +4,7 @@ setup(
     name="llmstructdata",
     version="0.1.1",
     description="Style and Imports for the Structured Data Extraction Book",
-    author="Mara Wilhelmi, Sherjeel Shabih, Martino Rıos Garcıa, Santiago Miret,Christoph Koch, Pepe Marquez, and Kevin Maik Jablonka",
+    author="Mara Wilhelmi, Sherjeel Shabih, Martino Rios Garcia, Maria Victoria Gil Matellanes, Santiago Miret, Christoph Koch, Pepe Marquez, and Kevin Maik Jablonka",
     author_email="mail@kjablonka.com",
     license="MIT",
     packages=["llmstructdata"],
