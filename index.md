@@ -18,9 +18,17 @@ In addition to hardware, you will also need some software. All relevant dependen
 
 Overall, you will need to run through the following steps:
 
-0. (Optional, but recommended) Create a [conda environment](https://docs.anaconda.com/miniconda/) with `jupyter` installed `conda create -n dataextract python=3.11 jupyterlab`. Then activate the environment `conda activate dataextract`
-1. Clone the repository `git clone https://github.com/lamalab-org/how-to-extract-structured-data-with-llms.git`
-2. Install dependencies `cd package && pip install . `
+0. (Optional, but recommended) Create a [conda environment](https://docs.anaconda.com/miniconda/) with `jupyter` installed
+
+   `conda create -n dataextract python=3.11 jupyterlab`. Then activate the environment `conda activate dataextract`
+
+1. Clone the repository
+
+    `git clone https://github.com/lamalab-org/how-to-extract-structured-data-with-llms.git`
+
+2. Install dependencies
+
+    `cd package && pip install . `
 
 
 ## Table of Contents
