@@ -40,6 +40,7 @@ setup(
         "mendeleev",
         "pymatgen",
         "pymatviz",
+        "python-doctr",
         # "nougat-ocr",
     ],
     long_description="""
