@@ -1,6 +1,5 @@
-
-import matplotlib as mpl
-import matplotlib.pyplot as plt
+import matplotlib as mpl  # noqa:F401
+import matplotlib.pyplot as plt  # noqa:F401
 from dotenv import load_dotenv
 import warnings
 import litellm
