@@ -20,7 +20,11 @@ Overall, you will need to run through the following steps:
 
 0. (Optional, but recommended) Create a [conda environment](https://docs.anaconda.com/miniconda/) with `jupyter` installed
 
-   `conda create -n dataextract python=3.11 jupyterlab`. Then activate the environment `conda activate dataextract`
+   `conda create -n dataextract python=3.11 jupyterlab`.
+
+   Then activate the environment
+
+   `conda activate dataextract`
 
 1. Clone the repository
 
