@@ -58,7 +58,7 @@ The concept of "attention" in deep learning emerged from the need to improve Rec
 
 * [Understanding and Coding the Self-Attention Mechanism of Large Language Models From Scratch](https://sebastianraschka.com/blog/2023/self-attention-from-scratch.html)
 
-    Here Sebastian Raschka explains how self-attention works from scratch by coding it step-by-step.
+    Here, Sebastian Raschka explains how self-attention works from scratch by coding it step-by-step.
 
 🎥 You can also find valuable information about the attention mechanism in the following videos:
 
