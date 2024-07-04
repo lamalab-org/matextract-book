@@ -41,6 +41,7 @@ setup(
         "pymatgen",
         "pymatviz",
         "python-doctr",
+        "unstructured",
         # "nougat-ocr",
     ],
     long_description="""

@@ -55,8 +55,6 @@ sphinx:
     bibtex_bibfiles: ["references.bib"]
 
 execute:
-  #exclude_patterns          : ['livecomj/*', 'dl/pretraining.ipynb', 'applied/*', 'ml/*', 'dl/xai.ipynb', 'NLP.ipynb', 'flows.ipynb',
-  #'dl/Equivariant.ipynb', 'dl/gnn.ipynb', 'dl/data.ipynb', 'VAE.ipynb', 'dl/introduction.ipynb', 'dl/Hyperparameter_tuning.ipynb', 'attention.ipynb', 'layers.ipynb']
   timeout: -1
   execute_notebooks: 'off'
 
