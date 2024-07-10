@@ -1,0 +1,92 @@
+[
+    {
+        "name": "DZC-600-2",
+        "pretreatment_process_method": null,
+        "pretreatment_activation_chemical_agent": "ZnCl2",
+        "activation_temperature": 600,
+        "activation_temperature_units": "ºC",
+        "co2_uptake_amount": 104.7,
+        "co2_uptake_units": "mg/g"
+    },
+    {
+        "name": "BKC-600-2",
+        "pretreatment_process_method": "bio-pretreatment",
+        "pretreatment_activation_chemical_agent": "ZnCl3",
+        "activation_temperature": 600,
+        "activation_temperature_units": "ºC",
+        "co2_uptake_amount": 80,
+        "co2_uptake_units": "mg/g"
+    },
+    {
+        "name": "HKC-600-2",
+        "pretreatment_process_method": "hydrothermal",
+        "pretreatment_activation_chemical_agent": "ZnCl4",
+        "activation_temperature": 600,
+        "activation_temperature_units": "ºC",
+        "co2_uptake_amount": 90.3,
+        "co2_uptake_units": "mg/g"
+    },
+    {
+        "name": "DKC-600-2",
+        "pretreatment_process_method": null,
+        "pretreatment_activation_chemical_agent": "KOH",
+        "activation_temperature": 600,
+        "activation_temperature_units": "ºC",
+        "co2_uptake_amount": 88.5,
+        "co2_uptake_units": "mg/g"
+    },
+    {
+        "name": "BKC-600-2",
+        "pretreatment_process_method": "bio-pretreatment",
+        "pretreatment_activation_chemical_agent": "KOH",
+        "activation_temperature": 600,
+        "activation_temperature_units": "ºC",
+        "co2_uptake_amount": 116,
+        "co2_uptake_units": "mg/g"
+    },
+    {
+        "name": "HKC-600-2",
+        "pretreatment_process_method": "hydrothermal",
+        "pretreatment_activation_chemical_agent": "KOH",
+        "activation_temperature": 600,
+        "activation_temperature_units": "ºC",
+        "co2_uptake_amount": 161.1,
+        "co2_uptake_units": "mg/g"
+    },
+    {
+        "name": "HKC-700-2",
+        "pretreatment_process_method": "hydrothermal",
+        "pretreatment_activation_chemical_agent": "KOH",
+        "activation_temperature": 700,
+        "activation_temperature_units": "ºC",
+        "co2_uptake_amount": 124.5,
+        "co2_uptake_units": "mg/g"
+    },
+    {
+        "name": "HKC-800-2",
+        "pretreatment_process_method": "hydrothermal",
+        "pretreatment_activation_chemical_agent": "KOH",
+        "activation_temperature": 800,
+        "activation_temperature_units": "ºC",
+        "co2_uptake_amount": 151.6,
+        "co2_uptake_units": "mg/g"
+    },
+    {
+        "name": "HKC-600-1",
+        "pretreatment_process_method": "hydrothermal",
+        "pretreatment_activation_chemical_agent": "KOH",
+        "activation_temperature": 600,
+        "activation_temperature_units": "ºC",
+        "co2_uptake_amount": 146.5,
+        "co2_uptake_units": "mg/g"
+    },
+    {
+        "name": "HKC-800-1",
+        "pretreatment_process_method": "hydrothermal",
+        "pretreatment_activation_chemical_agent": "KOH",
+        "activation_temperature": 800,
+        "activation_temperature_units": "ºC",
+        "co2_uptake_amount": 217,
+        "co2_uptake_units": "mg/g"
+    }
+]
