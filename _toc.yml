@@ -26,3 +26,4 @@ parts:
   numbered: true
   chapters:
     - file: content/perovskite/constrained_formulas.ipynb
+    - file: content/reaction_case/reaction.ipynb
