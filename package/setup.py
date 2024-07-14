@@ -56,6 +56,7 @@ setup(
         "pymatviz",
         "python-doctr",
         "unstructured",
+        "marker",
         # "nougat-ocr",
     ],
     long_description="""
