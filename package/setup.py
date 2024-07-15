@@ -55,6 +55,7 @@ setup(
         "pandas<=2.0.0",  # https://github.com/rdkit/rdkit/issues/7159
         "python-doctr",
         "unstructured",
+        "plotly",
         # "nougat-ocr",
     ],
     long_description="""
