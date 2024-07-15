@@ -41,7 +41,7 @@ Transformers have become the leading architecture for solving natural language p
 
 ### Attention
 
-The concept of "attention" in deep learning emerged from the need to improve Recurrent Neural Networks (RNNs) for handling longer sequences. Working word-by-word is not effective. To overcome this issue, attention mechanisms were introduced to give access to all sequence elements at each time step. The key is to select and determine which words are most important in a specific context. The transformer architecture uses an autonomous self-attenuation mechanism that solves the problem of accessing the entire sequence in constant time. To understand the attention mechanisms, you can explore the resources shown below. *(Figure - Computing the attention scores to weigh the importance of different elements in an input sequence. Source: ["Self-attention from scratch"](https://sebastianraschka.com/blog/2023/self-attention-from-scratch.html) post by S. Raschka)*
+The concept of "attention" in deep learning emerged from the need to improve recurrent neural networks (RNNs) for handling longer sequences. Working word-by-word is not effective. To overcome this issue, attention mechanisms were introduced to give access to all sequence elements at each time step. The key is to select and determine which words are most important in a specific context. The transformer architecture uses an autonomous self-attenuation mechanism that solves the problem of accessing the entire sequence in constant time. To understand the attention mechanisms, you can explore the resources shown below. *(Figure - Computing the attention scores to weigh the importance of different elements in an input sequence. Source: ["Self-attention from scratch"](https://sebastianraschka.com/blog/2023/self-attention-from-scratch.html) post by S. Raschka)*
 
 ```{figure} ./attention-scores.png
 :width: 450px
@@ -58,7 +58,7 @@ The concept of "attention" in deep learning emerged from the need to improve Rec
 
 * [Understanding and Coding the Self-Attention Mechanism of Large Language Models From Scratch](https://sebastianraschka.com/blog/2023/self-attention-from-scratch.html)
 
-    Here Sebastian Raschka explains how self-attention works from scratch by coding it step-by-step.
+    Here, Sebastian Raschka explains how self-attention works from scratch by coding it step-by-step.
 
 🎥 You can also find valuable information about the attention mechanism in the following videos:
 
