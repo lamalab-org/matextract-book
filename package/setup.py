@@ -14,6 +14,7 @@ setup(
         "datasets",
         "evaluate",
         "accelerate",
+        "diskcache",
         "peft",
         "trl",
         "bitsandbytes",
@@ -37,6 +38,7 @@ setup(
         "mendeleev",
         "pymatgen",
         "pymatviz",
+        "pandas<=2.0.0",  # https://github.com/rdkit/rdkit/issues/7159
         # "nougat-ocr",
     ],
     long_description="""

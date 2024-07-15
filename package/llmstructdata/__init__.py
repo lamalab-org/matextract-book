@@ -14,3 +14,5 @@ path = pystow.ensure("matstructdata", "plotsettings", url=url)
 load_dotenv("../../.env", override=True)
 
 warnings.filterwarnings("ignore")
+
+__all__ = ["mpl", "plt", "path"]
