@@ -23,6 +23,7 @@ setup(
         "pillow",
         "crossrefapi == 1.0.3",
         "accelerate",
+        "diskcache",
         "huggingface-hub",
         "peft",
         "trl",
@@ -51,8 +52,10 @@ setup(
         "mendeleev",
         "pymatgen",
         "pymatviz",
+        "pandas<=2.0.0",  # https://github.com/rdkit/rdkit/issues/7159
         "python-doctr",
         "unstructured",
+        "plotly",
         # "nougat-ocr",
     ],
     long_description="""

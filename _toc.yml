@@ -25,4 +25,6 @@ parts:
 - caption: B. Case Studies
   numbered: true
   chapters:
+    - file: content/intro_figure/figure1_intro_notebook.ipynb
     - file: content/perovskite/constrained_formulas.ipynb
+    - file: content/reaction_case/reaction.ipynb
