@@ -117,6 +117,10 @@ Tokenization and embeddings are two essential steps in the data processing pipel
 
     Lilian Weng presents in this blog post everything you need to know about the basics of prompting and some advanced prompt techniques such as Chain of Thought (CoT).
 
+* [Learn Prompting](https://learnprompting.org/)
+
+    Learn prompting webpage has multiple updated resources and one free course on how to prompt GPT models.
+
 🎥 [Learn to Spell: Prompt Engineering (LLM Bootcamp)](https://www.youtube.com/watch?v=JnBHR_yL2w8) This video shows a basic guide for effectively prompting language models by reviewing prompting techniques, like decomposition, reasoning, and reflection (The Full Stack).
 
 ## 📘 Books
