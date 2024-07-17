@@ -19,6 +19,7 @@ parts:
         - file: content/document_parsing_and_cleaning/cleaning.ipynb
     - file: content/context_window/Dealing_with_context_window.ipynb
     - file: content/finetune/choosing_paradigm.ipynb
+    - file: content/evaluations/evaluations.ipynb
     - file: content/beyond_text/beyond_images.ipynb
     - file: content/agents/agent.ipynb
     - file: content/constrained_decoding/index.ipynb
