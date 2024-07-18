@@ -18,7 +18,7 @@ In addition to hardware, you will also need some software. All relevant dependen
 
 Overall, you will need to run through the following steps.
 
-0. Use Python 3.9 (the code might also work on other versions, but we only tested 3.9)
+0. Use Python 3.11 (the code might also work on other versions, but we only tested 3.11)
 
 1. (Optional, but recommended) Create a [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/): `python3 -m venv .venv`
 

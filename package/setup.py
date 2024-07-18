@@ -10,7 +10,7 @@ setup(
     author_email="mail@kjablonka.com",
     license="MIT",
     packages=["matextract"],
-    python_requires="3.9",
+    python_requires=">=3.9,<3.12",
     install_requires=required,
     long_description="""
 # Style and Imports for the Structured Data Extraction Book

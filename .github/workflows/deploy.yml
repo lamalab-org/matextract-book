@@ -4,14 +4,19 @@ on:
   push:
     branches: [ main ]
 
+
 jobs:
+  strategy:
+    runs-on: ubuntu-latest
+    matrix:
+      python-version: ["3.9", "3.10", "3.11"]
   check-build-book:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v5
       with:
-        python-version: '3.9'
+        python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
         cd package && python -m pip  --no-cache-dir install . && cd ..
