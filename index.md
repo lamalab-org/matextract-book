@@ -50,9 +50,10 @@ Running the commands above will install a package called `matextract`. We will i
 
 ## Acknowledgment
 
-The work was supported by:
-- [Carl-Zeiss Foundation](https://www.carl-zeiss-stiftung.de) (Mara Schilling-Wilhelmi, Kevin Maik Jablonka)
-- Intel and Merck (via AWASES programme, Mara Schilling-Wilhelmi, Kevin Maik Jablonka)
-- [FAIRmat](https://www.fairmat-nfdi.eu/fairmat/) (Sherjeel Shabih, Christoph Koch, Pepe Marquez, and Kevin Maik Jablonka)
-- [Spanish Agencia Estatal de Investigacion](https://www.aei.gob.es) (AEI, Martiño Rios-Garcia, and María Victoria Gil)
-- [i-LINK 2023](https://www.csic.es/sites/default/files/2023-08/call_i-link_2023_english.pdf) (Martiño Rios-Garcia, and María Victoria Gil)
+This work was supported by:
+
+- [Carl-Zeiss Foundation](https://www.carl-zeiss-stiftung.de/) (Mara Schilling-Wilhelmi, and Kevin Maik Jablonka)
+- Intel and Merck (via AWASES programme, Mara Schilling-Wilhelmi, and Kevin Maik Jablonka)
+- [FAIRmat](https://www.fairmat-nfdi.eu/fairmat/) (Sherjeel Shabih, Christoph T. Koch, José A. Márquez, and Kevin Maik Jablonka)
+- [Spanish AEI](https://www.aei.gob.es/) (Martiño Ríos-García, and María Victoria Gil)
+- [CSIC](https://www.csic.es/) (Martiño Ríos-García, and María Victoria Gil)
