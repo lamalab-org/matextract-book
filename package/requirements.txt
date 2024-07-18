@@ -1049,7 +1049,7 @@ pexpect==4.9.0
     # via
     #   matextract (setup.py)
     #   ipython
-pillow==9.5.0
+pillow==10.4.0
     # via
     #   matextract (setup.py)
     #   easyocr
