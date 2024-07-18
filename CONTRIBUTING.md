@@ -28,6 +28,10 @@ To install the pre-commit hook, run the following command in the root directory 
 pre-commit install
 ```
 
+### Dependencies
+
+Update the `requirements.txt` file from time to time. For example, by running the `pip-compile` workflow (e.g. using [uv](https://github.com/astral-sh/uv)).
+
 ### Explanations
 
 We aim that the book is accessible to a wide audience. A first year undergraduate student should be able to understand the content. Please keep this in mind when writing your section.

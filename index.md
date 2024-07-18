@@ -16,21 +16,19 @@ Note, however, that certain notebooks will need to be run on GPUs. Those noteboo
 
 In addition to hardware, you will also need some software. All relevant dependencies can be installed via the package for this online book.
 
-Overall, you will need to run through the following steps:
+Overall, you will need to run through the following steps, ensure that you run a recent version of Python (3.9--3.11)
 
-0. (Optional, but recommended) Create a [conda environment](https://docs.anaconda.com/miniconda/) with `jupyter` installed
-
-   `conda create -n matextract python=3.9 jupyterlab`.
+1. (Optional, but recommended) Create a [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/): `python3 -m venv .venv`
 
    Then activate the environment
 
-   `conda activate matextract`
+   `source .venv/bin/activate`
 
-1. Clone the repository
+2. Clone the repository
 
     `git clone https://github.com/lamalab-org/matextract-book.git`
 
-2. Install dependencies
+3. Install dependencies
 
     `cd package && pip install . `
 
