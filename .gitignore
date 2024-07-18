@@ -247,3 +247,4 @@ pyrightconfig.json
 _book/
 _environment
 _build
+cache/
