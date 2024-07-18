@@ -746,7 +746,7 @@ mmh3==4.1.0
     # via
     #   matextract (setup.py)
     #   chromadb
-molscribe @ git+https://github.com/thomas0809/MolScribe.git@97acee57d10bd719f4dc1cfd30d09f142b7dc65f#egg=MolScribe
+molscribe @ git+https://github.com/thomas0809/MolScribe.git@main#egg=MolScribe
     # via
     #   matextract (setup.py)
     #   rxnscribe
