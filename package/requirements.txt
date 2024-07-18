@@ -825,7 +825,7 @@ notebook-shim==0.2.4
     #   matextract (setup.py)
     #   jupyterlab
     #   notebook
-numpy==1.26.4
+numpy==2.0.0
     # via
     #   matextract (setup.py)
     #   accelerate
