@@ -1,4 +1,4 @@
-name: deploy-book
+name: test-book
 
 on:
   push:
@@ -6,12 +6,11 @@ on:
 
 
 jobs:
-  strategy:
-    runs-on: ubuntu-latest
-    matrix:
-      python-version: ["3.9", "3.10", "3.11"]
   check-build-book:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v5
