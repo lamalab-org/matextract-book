@@ -33,6 +33,14 @@ Overall, you will need to run through the following steps, ensure that you run a
     `cd package && pip install . `
 
 
+### `matextract` package
+
+Running the commands above will install a package called `matextract`. We will import it in all notebooks as it sets some plotting styles, but also useful defaults:
+
+- we turn on caching - [a very effective way to save money if you use LLMs](https://www.oreilly.com/radar/what-we-learned-from-a-year-of-building-with-llms-part-i/)
+- we load some environment variables, such as API keys that you can edit in the `.env` file
+
+
 ## Table of Contents
 
 ```{tableofcontents}
