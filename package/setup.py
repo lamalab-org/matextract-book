@@ -1,13 +1,13 @@
 from setuptools import setup
 
 setup(
-    name="llmstructdata",
+    name="matextract",
     version="0.1.1",
     description="Style and Imports for the Structured Data Extraction Book",
     author="Mara Wilhelmi, Martino Rios Garcia, Sherjeel Shabih, Maria Victoria Gil Matellanes, Santiago Miret, Christoph Koch, Pepe Marquez, and Kevin Maik Jablonka",
     author_email="mail@kjablonka.com",
     license="MIT",
-    packages=["llmstructdata"],
+    packages=["matextract"],
     install_requires=[
         "accelerate",
         "bert-score",
