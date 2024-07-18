@@ -20,7 +20,7 @@ Overall, you will need to run through the following steps:
 
 0. (Optional, but recommended) Create a [conda environment](https://docs.anaconda.com/miniconda/) with `jupyter` installed
 
-   `conda create -n matextract python=3.11 jupyterlab`.
+   `conda create -n matextract python=3.9 jupyterlab`.
 
    Then activate the environment
 

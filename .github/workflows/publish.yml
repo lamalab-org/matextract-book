@@ -13,10 +13,12 @@ jobs:
     - uses: actions/checkout@v4
     - uses: s-weigand/setup-conda@v1
       with:
-        python-version: 3.11
+        python-version: 3.9
     - name: Install dependencies
       run: |
-        cd package && python -m pip  --no-cache-dir install . && cd ..
+        cd package
+        python -m pip  --no-cache-dir install .
+        cd ..
         pip install jupyter-book
     - name: Check pre-commit
       run: |
