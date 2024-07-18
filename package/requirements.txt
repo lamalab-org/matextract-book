@@ -464,7 +464,7 @@ impact-factor==1.1.0
     # via
     #   matextract (setup.py)
     #   paperscraper
-importlib-metadata==7.1.0
+importlib-metadata==8.0.0
     # via
     #   matextract (setup.py)
     #   litellm
