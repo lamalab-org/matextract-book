@@ -32,9 +32,3 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       with:
           args: --verbose --exclude --max-redirects 100 --no-progress  _build/html**/*.html
-    - name: Deploy Jupyter book to GitHub pages
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: _build/html
-        force_orphan: true

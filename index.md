@@ -42,4 +42,4 @@ Overall, you will need to run through the following steps:
 
 ## Acknowledgment
 
-The work on this book was supported by the Carl-Zeiss Foundation as well as Intel and Merck via the AWASES programme.
+The work on this book was supported by the [Carl-Zeiss Foundation](https://www.carl-zeiss-stiftung.de) as well as Intel and Merck via the AWASES programme.
