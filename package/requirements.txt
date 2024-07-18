@@ -1018,7 +1018,7 @@ palettable==3.3.3
     # via
     #   matextract (setup.py)
     #   pymatgen
-pandas==2.0.0
+pandas==2.2.2
     # via
     #   matextract (setup.py)
     #   bert-score
