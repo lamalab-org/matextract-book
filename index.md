@@ -16,7 +16,9 @@ Note, however, that certain notebooks will need to be run on GPUs. Those noteboo
 
 In addition to hardware, you will also need some software. All relevant dependencies can be installed via the package for this online book.
 
-Overall, you will need to run through the following steps, ensure that you run a recent version of Python (3.9--3.11)
+Overall, you will need to run through the following steps.
+
+0. Use Python 3.9 (the code might also work on other versions, but we only tested 3.9)
 
 1. (Optional, but recommended) Create a [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/): `python3 -m venv .venv`
 
