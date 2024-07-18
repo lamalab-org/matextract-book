@@ -1,4 +1,4 @@
-# Generative structured data extraction using LLMs
+# From Text to Insight: Large Language Models for Materials Science Data Extraction
 
 ## About this book
 
