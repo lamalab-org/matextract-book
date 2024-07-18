@@ -12,7 +12,7 @@ You have different options to do so.
 
 ### Running it on your own machine
 If you have a reasonably modern computer you will be able to run many of the notebooks on your own hardware.
-Note, however, that certain notebooks will need to be run on GPUs. Those notebooks have a notebook about this on the top of the notebook.
+Note, however, that certain notebooks will need to be run on GPUs. Those notebooks have a note about this on the top of the notebook.
 
 In addition to hardware, you will also need some software. All relevant dependencies can be installed via the package for this online book.
 
@@ -20,7 +20,9 @@ Overall, you will need to run through the following steps.
 
 0. Use Python 3.11 (the code might also work on other versions, but we only tested 3.11)
 
-1. (Optional, but recommended) Create a [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/): `python3 -m venv .venv`
+1. (Optional, but recommended) Create a [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/):
+
+  `python3 -m venv .venv`
 
    Then activate the environment
 
