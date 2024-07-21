@@ -1240,8 +1240,6 @@ pysocks==1.7.1
     #   urllib3
 pystow==0.5.4
     # via matextract (setup.py)
-pytesseract==0.3.10
-    # via matextract (setup.py)
 pytest==8.2.2
     # via
     #   matextract (setup.py)
