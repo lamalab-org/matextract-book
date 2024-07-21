@@ -1,28 +1,24 @@
 {
     "molecules": [
         {
-            "molecule": "1-(N,N-diphenylamino)pyrene",
-            "nmr_spectra": "\u03b4 H (CDCl3) 6.92\u20137.23 (10H, m, Ar-H) and 7.90\u20138.37 (9H, m, Py-H)"
+            "molecule": "1,1'-bis(diphenylphosphino)ferrocene",
+            "nmr_spectra": "H NMR (CDCl3, 500MHz): 8.36-8.33 (m, 1H), 7.40-7.30 (m, 10H), 7.23-7.19 (m, 2H), 7.02-6.99 (m, 1H), 2.12-2.07 (m, 2H), 1.94 (m, 1H), 1.56-1.53 (m, 1H), 1.49 (s, 3H), 1.43-1.40 (m, 6H), 1.33 (d, J=112.4 Hz, 3H)."
         },
         {
-            "molecule": "1-[N,N-di(4-methylphenyl)amino]pyrene",
-            "nmr_spectra": "\u03b4 H (CDCl3) 2.28 (6H, s, Me), 6.94 (4H, d, J =8.7Hz, Ar-H), 7.00 (4H, d, J =8.7Hz, Ar-H) and 7.78\u20138.16 (9H, m, Py-H)"
+            "molecule": "1,1'-bis(dicyclohexylphosphino)ferrocene",
+            "nmr_spectra": "H NMR (CDCl3, 300MHz): 8.36-8.31 (m, 1H), 7.59 (m, 1H), 7.40-7.36 (m, 2H), 2.42-2.36 (m, 1H), 2.20-1.87 (m, 4H), 1.46-1.36 (m, 13H), 1.24 (d, J=111.3Hz), 22.9 (m), 20.7-19.8 (m), 18.0."
         },
         {
-            "molecule": "isomer of 1,6- and 1,8-bis-(N,N-diphenylamino)pyrene",
-            "nmr_spectra": "\u03b4 H (CDCl3) 6.89\u20137.24 (20H, m, Ar-H) and 7.79\u20138.16 (8H, m, Py-H)"
+            "molecule": "1,1'-bis(diisopropylphosphino)ferrocene",
+            "nmr_spectra": "H NMR (CDCl3, 500MHz): 8.35-8.33 (m, 1H), 7.68 (broad s, 1H), 7.42-7.40 (m, 2H), 2.19-1.09 (m, 38H)."
         },
         {
-            "molecule": "isomer of 1,6- and 1,8-bis-[N,N-di(4-methylphenyl)amino]pyrene",
-            "nmr_spectra": "\u03b4 H (CDCl3) 2.26, 2.28 (12H, s, Me), 6.88\u20137.02 (16H, m, Ar-H) and 7.74\u20138.12 (8H, m, Py-H)"
+            "molecule": "1,1'-bis(di-tert-butylphosphino)ferrocene",
+            "nmr_spectra": "H NMR (300.1 MHz, CDCl3): 8.29 (d, J=7.7, 1H), 7.66-7.64 (m, 1H), 7.37 (apparent t, J=7.5Hz, 1H), 7.25 (apparent t, J=7.6Hz, 1H), 2.14 (m, 1H), 2.02-1.89 (m, 2H), 1.55-1.44 (m, 13H)."
         },
         {
-            "molecule": "1,3,6,8-tetrakis-(N,N-diphenylamino)pyrene",
-            "nmr_spectra": "\u03b4 H (CDCl3) 6.89\u20137.17 (40H, m, Ar-H), 7.66 (2H, s, Py-H a) and 7.97 (4H, s, Py-H b)"
-        },
-        {
-            "molecule": "1,3,6,8-tetrakis-[N,N-di(4-methylphenyl)amino]pyrene",
-            "nmr_spectra": "\u03b4 H (CDCl3) 2.35 (24H, s, Me), 6.85 (16H, d, J =8.7Hz, Ar-H), 6.93 (16H, d, J =8.7Hz, Ar-H), 7.57 (2H, s, Py-H a) and 7.93 (4H, s, Py-H b)"
+            "molecule": "1,1'-bis(di-o-tolylphosphino)ferrocene",
+            "nmr_spectra": "H NMR (CDCl3, 500MHz): 8.74 (m, 1H), 7.59-7.09 (m, 10H), 6.86-6.67 (m, 5H), 3.33-2.59 (m, 9H), 1.98-1.93 (m, 1H), 1.59-1.53 (m, 6H), 1.42 (s, 3H), 1.10-0.92 (s, 6H)."
         }
     ]
 }
