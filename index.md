@@ -11,6 +11,7 @@ This book is based on Jupyter notebooks. That is, beyond simply reading along, y
 You have different options to do so.
 
 ### Running it on your own machine
+
 If you have a reasonably modern computer you will be able to run many of the notebooks on your own hardware.
 Note, however, that certain notebooks will need to be run on GPUs. Those notebooks have a note about this on the top of the notebook.
 
@@ -22,11 +23,11 @@ Overall, you will need to run through the following steps.
 
 1. (Optional, but recommended) Create a [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/):
 
-  `python3 -m venv .venv`
+    `python3 -m venv .venv`
 
-   Then activate the environment
+    Then activate the environment
 
-   `source .venv/bin/activate`
+    `source .venv/bin/activate`
 
 2. Clone the repository
 
@@ -34,8 +35,7 @@ Overall, you will need to run through the following steps.
 
 3. Install dependencies
 
-    `cd package && pip install . `
-
+    `cd package && pip install .`
 
 ### `matextract` package
 
@@ -43,7 +43,6 @@ Running the commands above will install a package called `matextract`. We will i
 
 - we turn on caching - [a very effective way to save money if you use LLMs](https://www.oreilly.com/radar/what-we-learned-from-a-year-of-building-with-llms-part-i/)
 - we load some environment variables, such as API keys that you can edit in the `.env` file
-
 
 ## Table of Contents
 
