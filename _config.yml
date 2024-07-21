@@ -1,6 +1,6 @@
 # Book settings
-title: Generative structured data extraction using LLMs
-author:  "Mara Wilhelmi, Martiño Rios-Garcia, Sherjeel Shabih, María Victoria Gil, Santiago Miret, Christoph Koch, Pepe Marquez, and Kevin Maik Jablonka"
+title: "From Text to Insight: Large Language Models for Materials Science Data Extraction"
+author:  "Mara Wilhelmi, Martiño Ríos-García, Sherjeel Shabih, María Victoria Gil, Santiago Miret, Christoph Koch, Pepe Márquez, and Kevin Maik Jablonka"
 logo: _static/images/logo.png
 copyright: "2024"
 
@@ -44,10 +44,10 @@ sphinx:
       seaborn [stable]: ['https://seaborn.pydata.org/', null]
       exmol [latest]: ['https://ur-whitelab.github.io/exmol/', null]
     myst_html_meta:
-      "description lang=en": "Generative structured data extraction using LLMs"
+      "description lang=en": "From Text to Insight: Large Language Models for Materials Science Data Extraction"
       "property=og:locale": "en_US"
       "twitter:card": "summary"
-      "twitter:description": "Generative structured data extraction using LLMs"
+      "twitter:description": "From Text to Insight: Large Language Models for Materials Science Data Extraction"
       "twitter:title": "structmatdat.pub 📖"
       "twitter:image": "https://structmatdat.pub/_static/logo.png"
       "twitter:site": "@jablonkagroup"
