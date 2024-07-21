@@ -389,6 +389,9 @@ googleapis-common-protos==1.63.2
     # via
     #   matextract (setup.py)
     #   opentelemetry-exporter-otlp-proto-grpc
+groq==0.9.0
+    # via
+    #   matextract (setup.py)
 grpcio==1.65.1
     # via
     #   matextract (setup.py)
@@ -1045,6 +1048,9 @@ pdf2image==1.17.0
     # via matextract (setup.py)
 peft==0.11.1
     # via matextract (setup.py)
+periodictable==1.7.1
+    # via
+    #   matextract (setup.py)
 pexpect==4.9.0
     # via
     #   matextract (setup.py)
@@ -1233,8 +1239,6 @@ pysocks==1.7.1
     #   requests
     #   urllib3
 pystow==0.5.4
-    # via matextract (setup.py)
-pytesseract==0.3.10
     # via matextract (setup.py)
 pytest==8.2.2
     # via
