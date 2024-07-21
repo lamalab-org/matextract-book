@@ -1,28 +1,60 @@
 {
     "molecules": [
         {
-            "molecule": "1-(N,N-diphenylamino)pyrene",
-            "nmr_spectra": "\u03b4 H (CDCl3) 6.92\u20137.23 (10H, m, Ar-H) and 7.90\u20138.37 (9H, m, Py-H)"
+            "molecule": "4-methoxy-3,5-bis(trifluoromethyl)aniline",
+            "nmr_spectra": "1H NMR (400 MHz, CDCl3): \u03b4 3.66 (s, 3H, OMe), 5.66 (br s, 1H, NH), 6.75-6.79 (m, 2H, Ar), 6.93-6.97 (m, 2H, Ar), 7.00 (s, 2H, Ar), 7.07 (s, 1H, Ar)."
         },
         {
-            "molecule": "1-[N,N-di(4-methylphenyl)amino]pyrene",
-            "nmr_spectra": "\u03b4 H (CDCl3) 2.28 (6H, s, Me), 6.94 (4H, d, J =8.7Hz, Ar-H), 7.00 (4H, d, J =8.7Hz, Ar-H) and 7.78\u20138.16 (9H, m, Py-H)"
+            "molecule": "4-methyl-3,5-bis(trifluoromethyl)aniline",
+            "nmr_spectra": "1H NMR (400 MHz, CDCl3): \u03b4 2.40 (s, 3H, Me), 5.89 (br s, 1H, NH), 7.09 (d, J = 8.1 Hz, 2H, Ar), 7.23 (d, J = 8.0 Hz, 2H, Ar), 7.32 (s, 3H, Ar)."
         },
         {
-            "molecule": "isomer of 1,6- and 1,8-bis-(N,N-diphenylamino)pyrene",
-            "nmr_spectra": "\u03b4 H (CDCl3) 6.89\u20137.24 (20H, m, Ar-H) and 7.79\u20138.16 (8H, m, Py-H)"
+            "molecule": "4-methyl-N-phenyl-3,5-bis(trifluoromethyl)aniline",
+            "nmr_spectra": "1H NMR (400 MHz, CDCl3): \u03b4 3.37 (s, 3H, NMe), 7.14 (s, 2H, Ar), 7.18-7.20 (m, 2H, Ar), 7.22-7.26 (m, 2H, Ar), 7.40-7.46 (m, 2H, Ar)."
         },
         {
-            "molecule": "isomer of 1,6- and 1,8-bis-[N,N-di(4-methylphenyl)amino]pyrene",
-            "nmr_spectra": "\u03b4 H (CDCl3) 2.26, 2.28 (12H, s, Me), 6.88\u20137.02 (16H, m, Ar-H) and 7.74\u20138.12 (8H, m, Py-H)"
+            "molecule": "N-benzyl-3,5-bis(trifluoromethyl)aniline",
+            "nmr_spectra": "1H NMR (400 MHz, CDCl3): \u03b4 4.38-4.46 (m, 3H, CH2/NH), 6.99 (d, J = 8.1 Hz, 2H, Ar), 7.19 (s, 1H, Ar), 7.32-7.42 (m, 5H, Ar)."
         },
         {
-            "molecule": "1,3,6,8-tetrakis-(N,N-diphenylamino)pyrene",
-            "nmr_spectra": "\u03b4 H (CDCl3) 6.89\u20137.17 (40H, m, Ar-H), 7.66 (2H, s, Py-H a) and 7.97 (4H, s, Py-H b)"
+            "molecule": "3-(3,5-bis(trifluoromethyl)phenyl)-1H-indole",
+            "nmr_spectra": "1H NMR (400 MHz, CDCl3): \u03b4 6.80 (d, J = 3.4 Hz, 1H, Ar), 7.25-7.29 (m, 1H, Ar), 7.30-7.38 (m, 2H, Ar), 7.58 (d, J = 8.2 Hz, 1H, Ar), 7.74 (s, 1H, Ar)."
         },
         {
-            "molecule": "1,3,6,8-tetrakis-[N,N-di(4-methylphenyl)amino]pyrene",
-            "nmr_spectra": "\u03b4 H (CDCl3) 2.35 (24H, s, Me), 6.85 (16H, d, J =8.7Hz, Ar-H), 6.93 (16H, d, J =8.7Hz, Ar-H), 7.57 (2H, s, Py-H a) and 7.93 (4H, s, Py-H b)"
+            "molecule": "3-(3,5-bis(trifluoromethyl)phenyl)-1H-pyrrole",
+            "nmr_spectra": "1H NMR (400 MHz, CDCl3): \u03b4 6.44-6.45 (m, 2H, pyrrole), 7.15-7.16 (m, 2H, pyrrole), 7.76 (s, 1H, Ar), 7.82 (s, 2H, Ar)."
+        },
+        {
+            "molecule": "4-methyl-3,5-bis(trifluoromethyl)phenol",
+            "nmr_spectra": "1H NMR (400 MHz, CDCl3): \u03b4 2.40 (s, 3H, Me), 6.96-7.00 (m, 2H, Ar), 7.23-7.26 (m, 2H, Ar), 7.38 (s, 2H, Ar)."
+        },
+        {
+            "molecule": "4-methyl-N-phenylaniline",
+            "nmr_spectra": "1H NMR (400 MHz, CDCl3): \u03b4 2.43 (s, 6H, 2xMe), 5.54 (br s, 1H, NH), 7.06-7.09 (m, 4H, Ar), 7.18-7.21 (m, 4H, Ar)."
+        },
+        {
+            "molecule": "4-methyl-N-phenylaniline",
+            "nmr_spectra": "1H NMR (400 MHz, CDCl3): \u03b4 2.45 (s, 3H, Me), 5.66 (br s, 1H, NH), 7.00-7.04 (m, 1H, Ar), 7.10-7.14 (m, 4H, Ar), 7.22 (d, J = 8.1 Hz, 2H, Ar)."
+        },
+        {
+            "molecule": "4-methyl-N-phenylaniline",
+            "nmr_spectra": "1H NMR (400 MHz, CDCl3): \u03b4 2.44 (s, 3H, Me), 5.78 (br s, 1H, NH), 7.16-7.18 (m, 2H, Ar), 7.47-7.51 (m, 1H, Ar), 7.71 (d, J = 8.2 Hz, 1H, Ar), 7.81 (t, J = 8.9 Hz, 2H, Ar)."
+        },
+        {
+            "molecule": "4-methyl-N-phenylaniline",
+            "nmr_spectra": "1H NMR (400 MHz, CDCl3): \u03b4 2.43 (s, 3H, Me), 5.85 (br s, 1H, NH), 7.02 (d, J = 8.5 Hz, 2H, Ar), 7.11-7.13 (m, 2H, Ar)."
+        },
+        {
+            "molecule": "4-methyl-N-phenylaniline",
+            "nmr_spectra": "1H NMR (400 MHz, CDCl3): \u03b4 2.40 (s, 3H, Me), 5.77 (br s, 1H, NH), 7.06-7.13 (m, 3H, Ar), 7.20-7.22 (m, 2H, Ar), 7.25-7.33 (m, 2H, Ar), 7.39-7.40 (m, 1H, Ar)."
+        },
+        {
+            "molecule": "4-methyl-N-phenylaniline",
+            "nmr_spectra": "1H NMR (400 MHz, CDCl3): \u03b4 2.35 (s, 3H, Me), 5.66 (br s, 1H, NH), 6.70 (dd, J = 3.1, 1.5 Hz, 1H, thiophene), 6.92-6.97 (m, 3H, Ar/thiophene), 7.13 (d, J = 8.1 Hz, 2H, Ar), 7.29-7.34 (m, 1H, Ar), 7.56 (d, J = 7.9 Hz, 1H, Ar), 7.67 (d, J = 8.0 Hz, 1H, Ar)."
+        },
+        {
+            "molecule": "4-methyl-N-phenylaniline",
+            "nmr_spectra": "1H NMR (400 MHz, CDCl3): \u03b4 2.35 (s, 3H, Me), 5.91 (br s, 1H, NH), 6.76 (s, 1H, Ar), 7.04-7.07 (m, 2H, Ar), 7.14 (d, J = 8.1 Hz, 2H, Ar), 7.20-7.25 (m, 2H, Ar), 7.43 (d, J = 2.3 Hz, 1H, Ar)."
         }
     ]
 }
