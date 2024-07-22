@@ -805,7 +805,7 @@ nest-asyncio==1.6.0
     # via
     #   matextract (setup.py)
     #   ipykernel
-networkx==3.2.1
+networkx==3.3
     # via
     #   matextract (setup.py)
     #   pymatgen
