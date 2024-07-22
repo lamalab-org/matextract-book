@@ -1784,7 +1784,7 @@ types-python-dateutil==2.9.0.20240316
     # via
     #   matextract (setup.py)
     #   arrow
-types-requests==2.31.0.6
+types-requests==2.32.0.20240712
     # via
     #   matextract (setup.py)
     #   langchainhub
