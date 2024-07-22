@@ -1609,7 +1609,7 @@ starlette==0.37.2
     # via
     #   matextract (setup.py)
     #   fastapi
-sympy==1.13.0
+sympy==1.13.1
     # via
     #   matextract (setup.py)
     #   onnxruntime
