@@ -680,7 +680,7 @@ lightning-utilities==0.11.5
     #   matextract (setup.py)
     #   pytorch-lightning
     #   torchmetrics
-litellm==1.41.24
+litellm==1.41.25
     # via matextract (setup.py)
 lxml==5.2.2
     # via
@@ -1609,7 +1609,7 @@ starlette==0.37.2
     # via
     #   matextract (setup.py)
     #   fastapi
-sympy==1.13.0
+sympy==1.13.1
     # via
     #   matextract (setup.py)
     #   onnxruntime
