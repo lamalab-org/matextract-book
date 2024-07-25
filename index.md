@@ -60,3 +60,19 @@ This work was supported by:
 - [FAIRmat](https://www.fairmat-nfdi.eu/fairmat/) (Sherjeel Shabih, Christoph T. Koch, José A. Márquez, and Kevin Maik Jablonka)
 - [Spanish AEI](https://www.aei.gob.es/) (Martiño Ríos-García, and María Victoria Gil)
 - [CSIC](https://www.csic.es/) (Martiño Ríos-García, and María Victoria Gil)
+
+## Citation
+
+If you use this book in your research, please cite it as follows:
+
+```bibtex
+@misc{schillingwilhelmi2024textinsightlargelanguage,
+      title={From Text to Insight: Large Language Models for Materials Science Data Extraction},
+      author={Mara Schilling-Wilhelmi and Martiño Ríos-García and Sherjeel Shabih and María Victoria Gil and Santiago Miret and Christoph T. Koch and José A. Márquez and Kevin Maik Jablonka},
+      year={2024},
+      eprint={2407.16867},
+      archivePrefix={arXiv},
+      primaryClass={cond-mat.mtrl-sci},
+      url={https://arxiv.org/abs/2407.16867},
+}
+```
