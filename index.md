@@ -5,6 +5,8 @@
 Structured data is at the heart of machine learning. LLMs offer a convenient way to generate structured data based on unstructured inputs.
 This book gives hands-on examples of the different steps in the extraction workflow using LLMs.
 
+You can find more background on the topics covered in this book in our [review article](https://arxiv.org/abs/2407.16867).
+
 ## How to use this book?
 
 This book is based on Jupyter notebooks. That is, beyond simply reading along, you can also run the notebooks yourself.
