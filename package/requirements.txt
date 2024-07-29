@@ -610,7 +610,7 @@ jupyter-server-terminals==0.5.3
     # via
     #   matextract (setup.py)
     #   jupyter-server
-jupyterlab==4.2.3
+jupyterlab==4.2.4
     # via
     #   matextract (setup.py)
     #   notebook
