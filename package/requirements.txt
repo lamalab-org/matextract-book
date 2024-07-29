@@ -1463,7 +1463,7 @@ seaborn==0.13.2
     # via
     #   matextract (setup.py)
     #   paperscraper
-selenium==4.22.0
+selenium==4.23.1
     # via
     #   matextract (setup.py)
     #   scholarly
