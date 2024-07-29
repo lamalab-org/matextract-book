@@ -1244,7 +1244,7 @@ pytest==8.2.2
     # via
     #   matextract (setup.py)
     #   paperscraper
-python-bidi==0.4.2
+python-bidi==0.5.1
     # via
     #   matextract (setup.py)
     #   easyocr
