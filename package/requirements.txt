@@ -1839,7 +1839,7 @@ unidecode==1.3.8
     # via
     #   matextract (setup.py)
     #   python-doctr
-unstructured==0.14.10
+unstructured==0.15.0
     # via matextract (setup.py)
 unstructured-client==0.8.1
     # via
