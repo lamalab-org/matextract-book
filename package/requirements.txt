@@ -1956,15 +1956,6 @@ urllib3==1.26.16
     #   requests
     #   selenium
     #   unstructured-client
-uvicorn==0.30.1
-    # via
-    #   matextract (setup.py)
-    #   chromadb
-    #   fastapi
-uvloop==0.19.0
-    # via
-    #   matextract (setup.py)
-    #   uvicorn
 waitress==3.0.0
     # via
     #   matextract (setup.py)
