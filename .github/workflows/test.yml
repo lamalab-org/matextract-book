@@ -2,7 +2,7 @@ name: test-book
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened, reopened, edited]
   workflow_dispatch:
 
 
