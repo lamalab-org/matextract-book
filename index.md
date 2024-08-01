@@ -19,7 +19,8 @@ Note, however, that certain notebooks will need to be run on GPUs. Those noteboo
 
 In addition to hardware, you will also need some software. All relevant dependencies can be installed via the package for this online book.
 
-Overall, you will need to run through the following steps.
+Overall, you will need to run through the following steps. Note that we currently only support Linux and Mac. If you want to run the notebooks on Windows,
+we recommend that you [install WSL](https://learn.microsoft.com/en-us/windows/wsl/install) and then run the notebooks from the Linux environment.
 
 0. Use Python 3.11 (the code might also work on other versions, but we only tested 3.11)
 
