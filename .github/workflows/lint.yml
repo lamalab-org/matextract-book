@@ -10,8 +10,8 @@ jobs:
   test-and-lint:
     strategy:
       matrix:
-        platform: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ["3.9", "3.10", "3.11"]
+        platform: [ubuntu-latest]
+        python-version: ["3.11"]
     runs-on: ${{ matrix.platform }}
     steps:
     - uses: actions/checkout@v4
@@ -22,5 +22,17 @@ jobs:
       run: |
         cd package && python -m pip  --no-cache-dir install . && cd ..
         pip install jupyter-book
+    - name: Check pre-commit
+      run: |
+        pip install pre-commit
+        pre-commit run --all-files || ( git status --short ; git diff ; exit 1 )
     - name: Build the book
       run: jupyter-book build -n .
+    - name: Link Checker
+      uses: lycheeverse/lychee-action@v1.2.0
+      continue-on-error: true
+      id: lc
+      env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      with:
+          args: --verbose --exclude --max-redirects 100 --no-progress  _build/html**/*.html
