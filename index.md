@@ -19,11 +19,20 @@ Note, however, that certain notebooks will need to be run on GPUs. Those noteboo
 
 In addition to hardware, you will also need some software. All relevant dependencies can be installed via the package for this online book.
 
-Overall, you will need to run through the following steps.
+Overall, you will need to run through the following steps. Note that we currently only support Linux and Mac. If you want to run the notebooks on Windows,
+we recommend that you [install WSL](https://learn.microsoft.com/en-us/windows/wsl/install) and then run the notebooks from the Linux environment.
 
 0. Use Python 3.11 (the code might also work on other versions, but we only tested 3.11)
 
-1. (Optional, but recommended) Create a [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/):
+1. Clone the repository
+
+    `git clone https://github.com/lamalab-org/matextract-book.git`
+
+    Then, go into the folder
+
+    `cd matextract-book`
+
+2. (Optional, but recommended) Create a [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/):
 
     `python3 -m venv .venv`
 
@@ -31,9 +40,6 @@ Overall, you will need to run through the following steps.
 
     `source .venv/bin/activate`
 
-2. Clone the repository
-
-    `git clone https://github.com/lamalab-org/matextract-book.git`
 
 3. Install dependencies
 

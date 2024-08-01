@@ -17,7 +17,6 @@ jobs:
         cd package
         python -m pip  --no-cache-dir install .
         cd ..
-        pip install jupyter-book
     - name: Build the book
       run: jupyter-book build -n .
     - name: Deploy Jupyter book to GitHub pages
