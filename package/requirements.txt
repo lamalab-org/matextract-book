@@ -665,7 +665,7 @@ langchain==0.2.9
     # via
     #   matextract (setup.py)
     #   langchain-community
-langchain-community==0.2.7
+langchain-community==0.2.11
     # via matextract (setup.py)
 langchain-core==0.2.21
     # via
