@@ -1636,7 +1636,7 @@ sphinx-comments==0.0.3
     # via jupyter-book
 sphinx-copybutton==0.5.2
     # via jupyter-book
-sphinx-design==0.6.0
+sphinx-design==0.6.1
     # via jupyter-book
 sphinx-external-toc==1.0.1
     # via jupyter-book
