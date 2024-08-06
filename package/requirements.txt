@@ -1714,7 +1714,7 @@ tabulate==0.9.0
     #   jupyter-cache
     #   pymatgen
     #   unstructured
-tenacity==9.0.0
+tenacity==8.5.0
     # via
     #   matextract (setup.py)
     #   chromadb
