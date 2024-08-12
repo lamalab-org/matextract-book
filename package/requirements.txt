@@ -971,7 +971,7 @@ opentelemetry-exporter-otlp-proto-common==1.25.0
     # via
     #   matextract (setup.py)
     #   opentelemetry-exporter-otlp-proto-grpc
-opentelemetry-exporter-otlp-proto-grpc==1.25.0
+opentelemetry-exporter-otlp-proto-grpc==1.26.0
     # via
     #   matextract (setup.py)
     #   chromadb
