@@ -1,4 +1,4 @@
-# From Text to Insight: Large Language Models for Materials Science Data Extraction
+# From Text to Insight: Large Language Models for Chemical Data Extraction
 
 ## About this book
 
