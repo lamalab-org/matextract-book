@@ -2003,7 +2003,7 @@ werkzeug==3.0.3
     #   matextract (setup.py)
     #   flask
     #   tensorboard
-wheel==0.43.0
+wheel==0.44.0
     # via sphinx-togglebutton
 widgetsnbextension==4.0.11
     # via
