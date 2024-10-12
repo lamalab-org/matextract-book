@@ -1658,7 +1658,7 @@ sphinxcontrib-applehelp==1.0.8
     #   sphinx
 sphinxcontrib-bibtex==2.6.2
     # via jupyter-book
-sphinxcontrib-devhelp==1.0.6
+sphinxcontrib-devhelp==2.0.0
     # via
     #   matextract (setup.py)
     #   sphinx
