@@ -1,0 +1,35 @@
+# Use NVIDIA CUDA base image
+FROM nvidia/cuda:11.8.0-runtime-ubuntu22.04
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Install Python and system dependencies
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install PyTorch with CUDA support
+RUN pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# Copy the current directory contents into the container at /app
+COPY . /app
+
+# Install any needed packages specified in requirements.txt
+RUN pip3 install --no-cache-dir -r package/requirements.txt
+
+# Install the local package
+RUN pip3 install -e package
+
+# Make port 8888 available to the world outside this container
+EXPOSE 8888
+
+# Create a non-root user and switch to it
+RUN useradd -m jupyter
+USER jupyter
+
+# Run Jupyter when the container launches
+CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
