@@ -50,7 +50,7 @@ we recommend that you [install WSL](https://learn.microsoft.com/en-us/windows/ws
 Running the commands above will install a package called `matextract`. We will import it in all notebooks as it sets some plotting styles, but also useful defaults:
 
 - we turn on caching - [a very effective way to save money if you use LLMs](https://www.oreilly.com/radar/what-we-learned-from-a-year-of-building-with-llms-part-i/)
-- we load some environment variables, such as API keys that you can edit in the `.env` file
+- we load some environment variables, such as API keys that you can edit in the `.env` file. This `.env` file needs to be in the root directory of the repository - i.e., where the `.env.example` file is placed. If you want to know more on how and why to use environment variables and `.env` files, you can check [this article](https://medium.com/@sujathamudadla1213/what-is-the-use-of-env-8d6b3eb94843).
 
 ## Table of Contents
 
