@@ -1810,7 +1810,7 @@ tornado==6.4.1
     #   jupyterlab
     #   notebook
     #   terminado
-tqdm==4.66.4
+tqdm==4.66.6
     # via
     #   matextract (setup.py)
     #   bert-score
