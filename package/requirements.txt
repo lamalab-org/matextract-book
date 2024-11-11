@@ -1140,7 +1140,7 @@ prometheus-client==0.20.0
     # via
     #   matextract (setup.py)
     #   jupyter-server
-prompt-toolkit==3.0.47
+prompt-toolkit==3.0.48
     # via
     #   matextract (setup.py)
     #   ipython
