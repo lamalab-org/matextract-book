@@ -20,7 +20,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        cd package && python -m pip  --no-cache-dir install . && cd ..
+        pip install -e .
         pip install jupyter-book
     - name: Build the book
       run: jupyter-book build -n .
