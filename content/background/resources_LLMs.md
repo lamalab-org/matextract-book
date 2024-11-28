@@ -72,6 +72,7 @@ The concept of "attention" in deep learning emerged from the need to improve rec
 * 3Blue1Brown
   * [But what is a GPT? Visual intro to transformers](https://www.youtube.com/watch?v=wjZofJX0v4M&vl=es)
   * [Attention in transformers, visually explained](https://www.youtube.com/watch?v=eMlx5fFNoYc&vl=es)
+  * [How might LLMs store facts](https://www.youtube.com/watch?v=9-Jl0dxWQs8).
 
 ### Tokenization and embeddings
 
