@@ -793,7 +793,7 @@ monty==2024.7.12
     # via
     #   matextract (setup.py)
     #   pymatgen
-mplcursors==0.5.3
+mplcursors==0.6
     # via
     #   matextract (setup.py)
     #   python-doctr
