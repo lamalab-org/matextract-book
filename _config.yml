@@ -15,9 +15,6 @@ html:
   use_issues_button         : true  # Whether to add an "open an issue" button
   extra_css:
     - custom.css
-  logo:
-    dark: _static/images/logo_white.png
-    light: _static/images/logo.png
 
   # Information about where the book exists on the web
 repository:
