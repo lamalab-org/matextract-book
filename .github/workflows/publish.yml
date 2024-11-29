@@ -15,7 +15,6 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -e .
-        pip install jupyter-book
     - name: Build the book
       run: jupyter-book build -n .
     - name: Deploy Jupyter book to GitHub pages
