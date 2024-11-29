@@ -7,7 +7,7 @@ name = "matextract"
 version = "0.1.1"
 description = "Style and Imports for the Structured Data Extraction Book"
 readme = "README.md"
-requires-python = ">=3.8,<3.12"
+requires-python = ">=3.9,<3.12"
 license = {text = "MIT"}
 authors = [
     {name = "Mara Wilhelmi"},
