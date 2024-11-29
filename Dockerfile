@@ -15,7 +15,7 @@ COPY --from=ghcr.io/astral-sh/uv:0.5.5 /uv /uvx /bin/
 ENV UV_SYSTEM_PYTHON=1
 
 # Install PyTorch with CUDA support
-RUN uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+RUN uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 
 # Copy the current directory contents into the container at /app
 COPY . /app
