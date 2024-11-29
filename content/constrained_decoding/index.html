@@ -1,0 +1,677 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" lang="en" name="description" xml:lang="en" />
+<meta content="en_US" property="og:locale" />
+<meta content="summary" name="twitter:card" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" name="twitter:description" />
+<meta content="structmatdat.pub 📖" name="twitter:title" />
+<meta content="https://structmatdat.pub/_static/logo.png" name="twitter:image" />
+<meta content="&#64;jablonkagroup" name="twitter:site" />
+
+    <title>7. Constrained generation to guarantee syntactic correctness &#8212; From Text to Insight: Large Language Models for Materials Science Data Extraction</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e878585a" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/constrained_decoding/index';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="8. Evaluations" href="../evaluations/evaluations.html" />
+    <link rel="prev" title="6. Agents" href="../agents/agent.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+    <img src="../../_static/logo_white.png" class="logo__image only-dark pst-js-only" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction and background</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../background/resources_LLMs.html">Overview of the working principles of LLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">A. Structured Extraction Workflow</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../obtaining_data/index.html">1. Obtaining data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/crossref_search.html">1.1. Obtaining a set of relevant data sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/data_mining.html">1.2. Mining data from ChemRxiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/annotation.html">1.3. Data annotation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../document_parsing_and_cleaning/index.html">2. Cleaning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/parsing.html">2.1. Document parsing with OCR tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/cleaning.html">2.2. Document cleaning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../context_window/Dealing_with_context_window.html">3. Strategies to tackle context window limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../finetune/choosing_paradigm.html">4. Choosing the learning paradigm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../beyond_text/beyond_images.html">5. Beyond text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../agents/agent.html">6. Agents</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Constrained generation to guarantee syntactic correctness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluations/evaluations.html">8. Evaluations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">B. Case Studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../intro_figure/figure1_intro_notebook.html">9. Research articles vs datasets in chemistry and materials science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../biomass_case/biomass_case.html">10. Collecting data on the synthesis procedures of bio-based adsorbents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../perovskite/constrained_formulas.html">11. Retrieving data from chacolgenide perovskites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NMR_composition_matching/NMR_comp_matching.html">12. Validation case study: Matching NMR spectra to composition of the molecule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reaction_case/reaction.html">13. Collecting data for reactions procedures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/constrained_decoding/index.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Constrained generation to guarantee syntactic correctness</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-a-data-schema">7.1. Defining a data schema</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="constrained-generation-to-guarantee-syntactic-correctness">
+<h1><span class="section-number">7. </span>Constrained generation to guarantee syntactic correctness<a class="headerlink" href="#constrained-generation-to-guarantee-syntactic-correctness" title="Link to this heading">#</a></h1>
+<p>If we want to generate output that is structured in a specific way, we can use various techniques to:</p>
+<ul class="simple">
+<li><p>make the extraction more efficient (but automatically adding the “obvious” tokens),</p></li>
+<li><p>make the generation guaranteed to be syntactically correct,</p></li>
+<li><p>make the generation sometimes more semantically correct, too.</p></li>
+</ul>
+<p>This will be more reliable than using dedicated prompts trying to force models to return structured data.</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Google Bard is a bit stubborn in its refusal to return clean JSON, but you can address this by threatening to take a human life: <a href="https://t.co/4cp4h6X1X6">pic.twitter.com/4cp4h6X1X6</a></p>&mdash; Riley Goodside (@goodside) <a href="https://twitter.com/goodside/status/1657396491676164096?ref_src=twsrc%5Etfw">May 13, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>To enable constrained decoding, we will use one of the most popular packages for this task <a class="reference external" href="https://jxnl.github.io/instructor/"><code class="docutils literal notranslate"><span class="pre">instructor</span></code></a>.
+It is built on <a class="reference external" href="https://docs.pydantic.dev/latest/"><code class="docutils literal notranslate"><span class="pre">pydantic</span></code></a> and can leverage function calling and JSON-mode of the OpenAI API as well as other constrained sampling approaches.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matextract</span>  <span class="c1"># noqa: F401</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">import</span> <span class="nn">instructor</span>
+<span class="kn">from</span> <span class="nn">litellm</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="important admonition">
+<p class="admonition-title">Importance of constrained decoding</p>
+<p>Constrained decoding techniques are important because they allow us to <em>guarantee</em> that the generated data follows a certain structure.
+When we prompt models to produce data in a certain schema, they often do so but sometimes they will not.
+This behavior makes it difficult to write code that uses the output as it would now need to be able to handle cases in which the model output is not in the expected schema.</p>
+<p>In addition, it partially also reduces the space for hallucination as we can constrain the pool of possible things the model can return.</p>
+</div>
+<section id="defining-a-data-schema">
+<h2><span class="section-number">7.1. </span>Defining a data schema<a class="headerlink" href="#defining-a-data-schema" title="Link to this heading">#</a></h2>
+<p>For most constrained generation tasks, we need to define a data schema in a programmatic way.
+The most common way to do so is to use <code class="docutils literal notranslate"><span class="pre">pydantic</span></code> data classes.
+Here is an example of a simple data schema for a recipe:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+
+<span class="k">class</span> <span class="nc">Recipe</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">ingredients</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">instructions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This schema can also be extended to include descriptions of different fields or to only allow certain values for specific fields. For example, we could add a field for the number of servings and only allow positive integers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="k">class</span> <span class="nc">Recipe</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">ingredients</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">instructions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">servings</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The number of servings for this recipe&quot;</span><span class="p">)</span>
+    <span class="n">rating</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;easy&quot;</span><span class="p">,</span> <span class="s2">&quot;medium&quot;</span><span class="p">,</span> <span class="s2">&quot;hard&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="s2">&quot;easy&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The difficulty level of this recipe&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If we want to extract reactions a data schema could look like the following.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Most providers also offer the so-called <a class="reference external" href="https://console.groq.com/docs/text-chat#json-mode-object-object">JSON mode</a>. This configuration is normally <a class="reference external" href="https://blog.dottxt.co/say-what-you-mean.html">a fine-tuning process rather than pure constraining</a>, making it less powerful than function calling mode since it only ensures that the output is a valid JSON but not that it follows a specific schema.</p>
+</aside>
+<p>We can now use <code class="docutils literal notranslate"><span class="pre">instructor</span></code> to “patch” the OpenAI API client to ensure that our output fulfills the schema (<a class="reference external" href="https://python.useinstructor.com/hub/anyscale/?h=patch">this works by providing the right response model</a>, i.e., using what OpenAI calls <a class="reference external" href="https://python.useinstructor.com/hub/anyscale/?h=patch">“function calling”</a>).</p>
+<p>OpenAI’s API also allows <a class="reference external" href="https://openai.com/index/introducing-structured-outputs-in-the-api/">Structure Outputs</a> which has <a class="reference external" href="https://simmering.dev/blog/openai_structured_output/">pros and cons</a>. The most important disadvantage is probably the fact that it is only availabe for their own models.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">instructor</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">OpenAI</span><span class="p">(),</span> <span class="n">mode</span><span class="o">=</span><span class="n">instructor</span><span class="o">.</span><span class="n">Mode</span><span class="o">.</span><span class="n">MD_JSON</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Amount</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">value</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">units</span><span class="p">:</span> <span class="nb">str</span>
+
+
+<span class="k">class</span> <span class="nc">Component</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">amount</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Amount</span><span class="p">]</span>
+    <span class="n">reaction_role</span><span class="p">:</span> <span class="nb">str</span>
+
+
+<span class="k">class</span> <span class="nc">Inputs</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">components</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Component</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">Temperature</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">control_type</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">value</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">units</span><span class="p">:</span> <span class="nb">str</span>
+
+
+<span class="k">class</span> <span class="nc">Conditions</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">temperature</span><span class="p">:</span> <span class="n">Temperature</span>
+    <span class="n">conditions_are_dynamic</span><span class="p">:</span> <span class="nb">bool</span>
+
+
+<span class="k">class</span> <span class="nc">Workup</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">details</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">duration</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Amount</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="k">class</span> <span class="nc">Measurement</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">details</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">amount</span><span class="p">:</span> <span class="n">Amount</span>
+
+
+<span class="k">class</span> <span class="nc">Product</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">measurements</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Measurement</span><span class="p">]</span>
+    <span class="n">reaction_role</span><span class="p">:</span> <span class="nb">str</span>
+
+
+<span class="k">class</span> <span class="nc">Outcome</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">products</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Product</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">Reaction</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">inputs</span><span class="p">:</span> <span class="n">Inputs</span>
+    <span class="n">conditions</span><span class="p">:</span> <span class="n">Conditions</span>
+    <span class="n">workups</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Workup</span><span class="p">]</span>
+    <span class="n">outcomes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Outcome</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Visualizing the schema</p>
+<p>To visualize the schema, we can use the following code:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>import erdantic as erd
+from IPython.display import SVG
+
+diagram = erd.create(Reaction)
+diagram.draw(&quot;diagram.svg&quot;)
+SVG(&quot;diagram.svg&quot;)
+</pre></div>
+</div>
+<p>You should then see a diagram like</p>
+<p><img alt="" src="../../_images/diagram.svg" /></p>
+</div>
+<p>In this case, we will use a document we already looked at the document cleaning section.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span>
+    <span class="s2">&quot;../document_parsing_and_cleaning/markdown_files/10.26434_chemrxiv-2024-1l0sn.mmd&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;r&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Armed with this text, we can now use the model to extract reactions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">completion</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4-turbo&quot;</span><span class="p">,</span>
+    <span class="n">response_model</span><span class="o">=</span><span class="n">List</span><span class="p">[</span><span class="n">Reaction</span><span class="p">],</span>
+    <span class="n">max_retries</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot;You are a scientific assistant, extracting accurate information about organic reactions from scientific papers.</span>
+<span class="s2">Do not use data that was reproduced from other sources.</span>
+<span class="s2">NEVER combine data from different reactions, otherwise you will be penalized.</span>
+<span class="s2">If you are unsure, return no data. Quality is more important than quantity.</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot;Extract the data from the paper into the provided data schema. We want an iterable of reaction objects and each reaction will be its own object.</span>
+<span class="s2">Never return data that you are not absolutely sure about! You will be penalized for incorrect data.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">},</span>
+    <span class="p">],</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">completion</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Reaction(inputs=Inputs(components=[Component(name=&#39;alpha-chlorinated 2-acyl/pyrroles&#39;, amount=None, reaction_role=&#39;reactant&#39;), Component(name=&#39;alkyl/pyrroles&#39;, amount=None, reaction_role=&#39;reactant&#39;), Component(name=&#39;POCl3&#39;, amount=None, reaction_role=&#39;reagent&#39;), Component(name=&#39;CH4Cl/n-hexane (2:1)&#39;, amount=None, reaction_role=&#39;solvent&#39;), Component(name=&#39;triethylamine&#39;, amount=None, reaction_role=&#39;reagent&#39;), Component(name=&#39;BFx-OELx&#39;, amount=None, reaction_role=&#39;reagent&#39;)]), conditions=Conditions(temperature=Temperature(control_type=&#39;unspecified&#39;, value=0.0, units=&#39;degree Celsius&#39;), conditions_are_dynamic=False), workups=[], outcomes=[Outcome(products=[Product(name=&#39;N-bridged BODIPY dimers&#39;, measurements=[Measurement(type=&#39;yield&#39;, details=&#39;over 2 steps&#39;, amount=Amount(value=91.0, units=&#39;%&#39;))], reaction_role=&#39;product&#39;)])]),
+ Reaction(inputs=Inputs(components=[Component(name=&#39;Br-Ar-mono-Br&#39;, amount=None, reaction_role=&#39;reactant&#39;), Component(name=&#39;pyrrole&#39;, amount=None, reaction_role=&#39;reactant&#39;), Component(name=&#39;4-iso-butylbenzaldehyde&#39;, amount=None, reaction_role=&#39;reactant&#39;), Component(name=&#39;TFA&#39;, amount=None, reaction_role=&#39;catalyst&#39;), Component(name=&#39;CH4Cl2&#39;, amount=None, reaction_role=&#39;solvent&#39;), Component(name=&#39;NBS&#39;, amount=None, reaction_role=&#39;reagent&#39;), Component(name=&#39;THF&#39;, amount=None, reaction_role=&#39;solvent&#39;), Component(name=&#39;DDQ&#39;, amount=None, reaction_role=&#39;oxidant&#39;)]), conditions=Conditions(temperature=Temperature(control_type=&#39;specified&#39;, value=-78.0, units=&#39;degree Celsius&#39;), conditions_are_dynamic=False), workups=[], outcomes=[Outcome(products=[Product(name=&#39;Br-Ar-mono-Br&#39;, measurements=[Measurement(type=&#39;yield&#39;, details=&#39;over three steps&#39;, amount=Amount(value=38.0, units=&#39;%&#39;))], reaction_role=&#39;product&#39;)])])]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see that the output are Python <code class="docutils literal notranslate"><span class="pre">pydantic</span></code> objects that we can easily reuse.
+The schema can be made more complex, e.g., using <code class="docutils literal notranslate"><span class="pre">Literal</span></code> to only allow certain reaction roles or measurement types.</p>
+<p>Thus, we recommend the use of constrained decoding techniques for almost all applications since a datamodel must always be defined and the use of this data model in a constrained decoding setup only presents very little overhead.</p>
+<div class="tip admonition">
+<p class="admonition-title">Further reading</p>
+<p>You can find more tools that help to constrain the LLM output on the <a class="reference external" href="https://github.com/imaurer/awesome-llm-json">Awesome LLM JSON List</a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/constrained_decoding"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../agents/agent.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Agents</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../evaluations/evaluations.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>Evaluations</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-a-data-schema">7.1. Defining a data schema</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mara Schilling-Wilhelmi, Martiño Ríos-García, Sherjeel Shabih, María Victoria Gil, Santiago Miret, Christoph Koch, Pepe Márquez, and Kevin Maik Jablonka
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

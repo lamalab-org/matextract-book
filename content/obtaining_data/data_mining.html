@@ -1,0 +1,511 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" lang="en" name="description" xml:lang="en" />
+<meta content="en_US" property="og:locale" />
+<meta content="summary" name="twitter:card" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" name="twitter:description" />
+<meta content="structmatdat.pub 📖" name="twitter:title" />
+<meta content="https://structmatdat.pub/_static/logo.png" name="twitter:image" />
+<meta content="&#64;jablonkagroup" name="twitter:site" />
+
+    <title>1.2. Mining data from ChemRxiv &#8212; From Text to Insight: Large Language Models for Materials Science Data Extraction</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e878585a" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/obtaining_data/data_mining';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="1.3. Data annotation" href="annotation.html" />
+    <link rel="prev" title="1.1. Obtaining a set of relevant data sources" href="crossref_search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+    <img src="../../_static/logo_white.png" class="logo__image only-dark pst-js-only" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction and background</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../background/resources_LLMs.html">Overview of the working principles of LLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">A. Structured Extraction Workflow</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">1. Obtaining data</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="crossref_search.html">1.1. Obtaining a set of relevant data sources</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.2. Mining data from ChemRxiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="annotation.html">1.3. Data annotation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../document_parsing_and_cleaning/index.html">2. Cleaning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/parsing.html">2.1. Document parsing with OCR tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/cleaning.html">2.2. Document cleaning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../context_window/Dealing_with_context_window.html">3. Strategies to tackle context window limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../finetune/choosing_paradigm.html">4. Choosing the learning paradigm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../beyond_text/beyond_images.html">5. Beyond text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../agents/agent.html">6. Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../constrained_decoding/index.html">7. Constrained generation to guarantee syntactic correctness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluations/evaluations.html">8. Evaluations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">B. Case Studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../intro_figure/figure1_intro_notebook.html">9. Research articles vs datasets in chemistry and materials science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../biomass_case/biomass_case.html">10. Collecting data on the synthesis procedures of bio-based adsorbents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../perovskite/constrained_formulas.html">11. Retrieving data from chacolgenide perovskites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NMR_composition_matching/NMR_comp_matching.html">12. Validation case study: Matching NMR spectra to composition of the molecule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reaction_case/reaction.html">13. Collecting data for reactions procedures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/obtaining_data/data_mining.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Mining data from ChemRxiv</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="mining-data-from-chemrxiv">
+<h1><span class="section-number">1.2. </span>Mining data from ChemRxiv<a class="headerlink" href="#mining-data-from-chemrxiv" title="Link to this heading">#</a></h1>
+<p>There are multiple datasets available which are open for data mining.<br />
+To download full text documents from open access databases the <a class="reference external" href="https://github.com/jannisborn/paperscraper">paperscraper</a> tool can be used.</p>
+<p>As an example, here we download full text articles from ChemRxiv on the topic of ‘buchwald-hartwig coupling’, but this tool allows to download any open-source articles.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Downloading the whole Chemrxiv paper dump could take some time.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matextract</span>  <span class="c1"># noqa: F401</span>
+
+<span class="kn">from</span> <span class="nn">paperscraper.get_dumps</span> <span class="kn">import</span> <span class="n">chemrxiv</span>
+
+<span class="c1"># Download of the ChemRxiv paper dump</span>
+<span class="n">chemrxiv</span><span class="p">(</span><span class="n">save_path</span><span class="o">=</span><span class="s2">&quot;chemrxiv_2020-11-10.jsonl&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Depending on the keywords one could find many or even none articles. In order to find some articles one maybe has to redefine those keywords to more general ones.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">paperscraper.xrxiv.xrxiv_query</span> <span class="kn">import</span> <span class="n">XRXivQuery</span>
+<span class="kn">from</span> <span class="nn">paperscraper.pdf</span> <span class="kn">import</span> <span class="n">save_pdf_from_dump</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="s2">&quot;./chemrxiv_2020-11-10.jsonl&quot;</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># define keywords for the paper search</span>
+<span class="n">synthesis</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;synthesis&quot;</span><span class="p">]</span>
+<span class="n">reaction</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;buchwald-hartwig&quot;</span><span class="p">]</span>
+
+<span class="c1"># combine keywords using &quot;AND&quot; logic, i.e. search for papers that contain both keywords</span>
+<span class="n">query</span> <span class="o">=</span> <span class="p">[</span><span class="n">synthesis</span><span class="p">,</span> <span class="n">reaction</span><span class="p">]</span>
+
+<span class="c1"># start searching for relevant papers in the ChemRxiv dump</span>
+<span class="n">querier</span> <span class="o">=</span> <span class="n">XRXivQuery</span><span class="p">(</span><span class="s2">&quot;./chemrxiv_2020-11-10.jsonl&quot;</span><span class="p">)</span>
+<span class="n">querier</span><span class="o">.</span><span class="n">search_keywords</span><span class="p">(</span>
+    <span class="n">query</span><span class="p">,</span> <span class="n">output_filepath</span><span class="o">=</span><span class="s2">&quot;buchwald-hartwig_coupling_ChemRxiv.jsonl&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Save PDFs in current folder and name the files by their DOI</span>
+<span class="n">save_pdf_from_dump</span><span class="p">(</span>
+    <span class="s2">&quot;./buchwald-hartwig_coupling_ChemRxiv.jsonl&quot;</span><span class="p">,</span> <span class="n">pdf_path</span><span class="o">=</span><span class="s2">&quot;./PDFs&quot;</span><span class="p">,</span> <span class="n">key_to_save</span><span class="o">=</span><span class="s2">&quot;doi&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Data annotation is inevitable!</p>
+<p>To evaluate the data extraction and find the best hyperparameters one must have a test and validation set. Annotating at least a small part of the obtained article dataset is crucial.</p>
+</div>
+<p>For further steps in the data extraction process, annotated data is needed to evaluate the extraction pipeline. For this, one could use an annotation tool like doccano, which is shown in the following <a class="reference internal" href="annotation.html"><span class="std std-doc">data annotation notebook</span></a>.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/obtaining_data"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="crossref_search.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1.1. </span>Obtaining a set of relevant data sources</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="annotation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">1.3. </span>Data annotation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mara Schilling-Wilhelmi, Martiño Ríos-García, Sherjeel Shabih, María Victoria Gil, Santiago Miret, Christoph Koch, Pepe Márquez, and Kevin Maik Jablonka
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

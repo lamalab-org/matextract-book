@@ -1,0 +1,594 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" lang="en" name="description" xml:lang="en" />
+<meta content="en_US" property="og:locale" />
+<meta content="summary" name="twitter:card" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" name="twitter:description" />
+<meta content="structmatdat.pub 📖" name="twitter:title" />
+<meta content="https://structmatdat.pub/_static/logo.png" name="twitter:image" />
+<meta content="&#64;jablonkagroup" name="twitter:site" />
+
+    <title>From Text to Insight: Large Language Models for Chemical Data Extraction &#8212; From Text to Insight: Large Language Models for Materials Science Data Extraction</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=e878585a" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Overview of the working principles of LLMs" href="content/background/resources_LLMs.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+    <img src="_static/logo_white.png" class="logo__image only-dark pst-js-only" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction and background</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="content/background/resources_LLMs.html">Overview of the working principles of LLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">A. Structured Extraction Workflow</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="content/obtaining_data/index.html">1. Obtaining data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="content/obtaining_data/crossref_search.html">1.1. Obtaining a set of relevant data sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="content/obtaining_data/data_mining.html">1.2. Mining data from ChemRxiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="content/obtaining_data/annotation.html">1.3. Data annotation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="content/document_parsing_and_cleaning/index.html">2. Cleaning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="content/document_parsing_and_cleaning/parsing.html">2.1. Document parsing with OCR tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="content/document_parsing_and_cleaning/cleaning.html">2.2. Document cleaning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="content/context_window/Dealing_with_context_window.html">3. Strategies to tackle context window limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/finetune/choosing_paradigm.html">4. Choosing the learning paradigm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/beyond_text/beyond_images.html">5. Beyond text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/agents/agent.html">6. Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/constrained_decoding/index.html">7. Constrained generation to guarantee syntactic correctness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/evaluations/evaluations.html">8. Evaluations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">B. Case Studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="content/intro_figure/figure1_intro_notebook.html">9. Research articles vs datasets in chemistry and materials science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/biomass_case/biomass_case.html">10. Collecting data on the synthesis procedures of bio-based adsorbents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/perovskite/constrained_formulas.html">11. Retrieving data from chacolgenide perovskites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/NMR_composition_matching/NMR_comp_matching.html">12. Validation case study: Matching NMR spectra to composition of the molecule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/reaction_case/reaction.html">13. Collecting data for reactions procedures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/index.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>From Text to Insight: Large Language Models for Chemical Data Extraction</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#about-this-book">About this book</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-use-this-book">How to use this book?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-it-on-your-own-machine">Running it on your own machine</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matextract-package"><code class="docutils literal notranslate"><span class="pre">matextract</span></code> package</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a><ul class="nav section-nav flex-column">
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgment">Acknowledgment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citation">Citation</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="from-text-to-insight-large-language-models-for-chemical-data-extraction">
+<h1>From Text to Insight: Large Language Models for Chemical Data Extraction<a class="headerlink" href="#from-text-to-insight-large-language-models-for-chemical-data-extraction" title="Link to this heading">#</a></h1>
+<section id="about-this-book">
+<h2>About this book<a class="headerlink" href="#about-this-book" title="Link to this heading">#</a></h2>
+<p>Structured data is at the heart of machine learning. LLMs offer a convenient way to generate structured data based on unstructured inputs.
+This book gives hands-on examples of the different steps in the extraction workflow using LLMs.</p>
+<p>You can find more background on the topics covered in this book in our <a class="reference external" href="https://arxiv.org/abs/2407.16867">review article</a>.</p>
+</section>
+<section id="how-to-use-this-book">
+<h2>How to use this book?<a class="headerlink" href="#how-to-use-this-book" title="Link to this heading">#</a></h2>
+<p>This book is based on Jupyter notebooks. That is, beyond simply reading along, you can also run the notebooks yourself.
+You have different options to do so.</p>
+<section id="running-it-on-your-own-machine">
+<h3>Running it on your own machine<a class="headerlink" href="#running-it-on-your-own-machine" title="Link to this heading">#</a></h3>
+<p>If you have a reasonably modern computer you will be able to run many of the notebooks on your own hardware.
+Note, however, that certain notebooks will need to be run on GPUs. Those notebooks have a note about this on the top of the notebook.</p>
+<p>In addition to hardware, you will also need some software. All relevant dependencies can be installed via the package for this online book.</p>
+<p>Overall, you will need to run through the following steps. Note that we currently only support Linux and Mac. If you want to run the notebooks on Windows,
+we recommend that you <a class="reference external" href="https://learn.microsoft.com/en-us/windows/wsl/install">install WSL</a> and then run the notebooks from the Linux environment.</p>
+<ol class="arabic" start="0">
+<li><p>Use Python 3.11 (the code might also work on other versions, but we only tested 3.11)</p></li>
+<li><p>Clone the repository</p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/lamalab-org/matextract-book.git</span></code></p>
+<p>Then, go into the folder</p>
+<p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">matextract-book</span></code></p>
+</li>
+<li><p>(Optional, but recommended) Create a <a class="reference external" href="https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/">virtual environment</a>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">venv</span> <span class="pre">.venv</span></code></p>
+<p>Then activate the environment</p>
+<p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">.venv/bin/activate</span></code></p>
+</li>
+<li><p>Install dependencies</p>
+<p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">package</span> <span class="pre">&amp;&amp;</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.</span></code></p>
+</li>
+</ol>
+</section>
+<section id="matextract-package">
+<h3><code class="docutils literal notranslate"><span class="pre">matextract</span></code> package<a class="headerlink" href="#matextract-package" title="Link to this heading">#</a></h3>
+<p>Running the commands above will install a package called <code class="docutils literal notranslate"><span class="pre">matextract</span></code>. We will import it in all notebooks as it sets some plotting styles, but also useful defaults:</p>
+<ul class="simple">
+<li><p>we turn on caching - <a class="reference external" href="https://www.oreilly.com/radar/what-we-learned-from-a-year-of-building-with-llms-part-i/">a very effective way to save money if you use LLMs</a></p></li>
+<li><p>we load some environment variables, such as API keys that you can edit in the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file. This <code class="docutils literal notranslate"><span class="pre">.env</span></code> file needs to be in the root directory of the repository - i.e., where the <code class="docutils literal notranslate"><span class="pre">.env.example</span></code> file is placed. If you want to know more on how and why to use environment variables and <code class="docutils literal notranslate"><span class="pre">.env</span></code> files, you can check <a class="reference external" href="https://medium.com/&#64;sujathamudadla1213/what-is-the-use-of-env-8d6b3eb94843">this article</a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction and background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/background/resources_LLMs.html">Overview of the working principles of LLMs</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">A. Structured Extraction Workflow</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/obtaining_data/index.html">1. Obtaining data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/document_parsing_and_cleaning/index.html">2. Cleaning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/context_window/Dealing_with_context_window.html">3. Strategies to tackle context window limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/finetune/choosing_paradigm.html">4. Choosing the learning paradigm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/beyond_text/beyond_images.html">5. Beyond text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/agents/agent.html">6. Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/constrained_decoding/index.html">7. Constrained generation to guarantee syntactic correctness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/evaluations/evaluations.html">8. Evaluations</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">B. Case Studies</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/intro_figure/figure1_intro_notebook.html">9. Research articles vs datasets in chemistry and materials science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/biomass_case/biomass_case.html">10. Collecting data on the synthesis procedures of bio-based adsorbents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/perovskite/constrained_formulas.html">11. Retrieving data from chacolgenide perovskites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/NMR_composition_matching/NMR_comp_matching.html">12. Validation case study: Matching NMR spectra to composition of the molecule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/reaction_case/reaction.html">13. Collecting data for reactions procedures</a></li>
+</ul>
+</div>
+</section>
+<section id="acknowledgment">
+<h2>Acknowledgment<a class="headerlink" href="#acknowledgment" title="Link to this heading">#</a></h2>
+<p>This work was supported by:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.carl-zeiss-stiftung.de/">Carl-Zeiss Foundation</a> (Mara Schilling-Wilhelmi, and Kevin Maik Jablonka)</p></li>
+<li><p>Intel and Merck (via AWASES programme, Mara Schilling-Wilhelmi, and Kevin Maik Jablonka)</p></li>
+<li><p><a class="reference external" href="https://www.fairmat-nfdi.eu/fairmat/">FAIRmat</a> (Sherjeel Shabih, Christoph T. Koch, José A. Márquez, and Kevin Maik Jablonka)</p></li>
+<li><p><a class="reference external" href="https://www.aei.gob.es/">Spanish AEI</a> (Martiño Ríos-García, and María Victoria Gil)</p></li>
+<li><p><a class="reference external" href="https://www.csic.es/">CSIC</a> (Martiño Ríos-García, and María Victoria Gil)</p></li>
+</ul>
+</section>
+<section id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Link to this heading">#</a></h2>
+<p>If you use this book in your research, please cite it as follows:</p>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@misc</span><span class="p">{</span><span class="nl">schillingwilhelmi2024textinsightlargelanguage</span><span class="p">,</span>
+<span class="w">      </span><span class="na">title</span><span class="p">=</span><span class="s">{From Text to Insight: Large Language Models for Materials Science Data Extraction}</span><span class="p">,</span>
+<span class="w">      </span><span class="na">author</span><span class="p">=</span><span class="s">{Mara Schilling-Wilhelmi and Martiño Ríos-García and Sherjeel Shabih and María Victoria Gil and Santiago Miret and Christoph T. Koch and José A. Márquez and Kevin Maik Jablonka}</span><span class="p">,</span>
+<span class="w">      </span><span class="na">year</span><span class="p">=</span><span class="s">{2024}</span><span class="p">,</span>
+<span class="w">      </span><span class="na">eprint</span><span class="p">=</span><span class="s">{2407.16867}</span><span class="p">,</span>
+<span class="w">      </span><span class="na">archivePrefix</span><span class="p">=</span><span class="s">{arXiv}</span><span class="p">,</span>
+<span class="w">      </span><span class="na">primaryClass</span><span class="p">=</span><span class="s">{cond-mat.mtrl-sci}</span><span class="p">,</span>
+<span class="w">      </span><span class="na">url</span><span class="p">=</span><span class="s">{https://arxiv.org/abs/2407.16867}</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="content/background/resources_LLMs.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Overview of the working principles of LLMs</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#about-this-book">About this book</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-use-this-book">How to use this book?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-it-on-your-own-machine">Running it on your own machine</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matextract-package"><code class="docutils literal notranslate"><span class="pre">matextract</span></code> package</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a><ul class="nav section-nav flex-column">
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgment">Acknowledgment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citation">Citation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mara Schilling-Wilhelmi, Martiño Ríos-García, Sherjeel Shabih, María Victoria Gil, Santiago Miret, Christoph Koch, Pepe Márquez, and Kevin Maik Jablonka
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

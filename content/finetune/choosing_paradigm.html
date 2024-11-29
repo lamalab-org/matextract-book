@@ -1,0 +1,2110 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" lang="en" name="description" xml:lang="en" />
+<meta content="en_US" property="og:locale" />
+<meta content="summary" name="twitter:card" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" name="twitter:description" />
+<meta content="structmatdat.pub 📖" name="twitter:title" />
+<meta content="https://structmatdat.pub/_static/logo.png" name="twitter:image" />
+<meta content="&#64;jablonkagroup" name="twitter:site" />
+
+    <title>4. Choosing the learning paradigm &#8212; From Text to Insight: Large Language Models for Materials Science Data Extraction</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e878585a" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/finetune/choosing_paradigm';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5. Beyond text" href="../beyond_text/beyond_images.html" />
+    <link rel="prev" title="3. Strategies to tackle context window limitations" href="../context_window/Dealing_with_context_window.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+    <img src="../../_static/logo_white.png" class="logo__image only-dark pst-js-only" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction and background</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../background/resources_LLMs.html">Overview of the working principles of LLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">A. Structured Extraction Workflow</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../obtaining_data/index.html">1. Obtaining data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/crossref_search.html">1.1. Obtaining a set of relevant data sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/data_mining.html">1.2. Mining data from ChemRxiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/annotation.html">1.3. Data annotation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../document_parsing_and_cleaning/index.html">2. Cleaning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/parsing.html">2.1. Document parsing with OCR tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/cleaning.html">2.2. Document cleaning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../context_window/Dealing_with_context_window.html">3. Strategies to tackle context window limitations</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Choosing the learning paradigm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../beyond_text/beyond_images.html">5. Beyond text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../agents/agent.html">6. Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../constrained_decoding/index.html">7. Constrained generation to guarantee syntactic correctness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluations/evaluations.html">8. Evaluations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">B. Case Studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../intro_figure/figure1_intro_notebook.html">9. Research articles vs datasets in chemistry and materials science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../biomass_case/biomass_case.html">10. Collecting data on the synthesis procedures of bio-based adsorbents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../perovskite/constrained_formulas.html">11. Retrieving data from chacolgenide perovskites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NMR_composition_matching/NMR_comp_matching.html">12. Validation case study: Matching NMR spectra to composition of the molecule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reaction_case/reaction.html">13. Collecting data for reactions procedures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/finetune/choosing_paradigm.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Choosing the learning paradigm</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-steps">4.1. First steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-model-and-dataset">4.2. First model and dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-and-inference">4.3. Prompt and inference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#another-model-closed-source-this-time">4.4. Another model, closed-source this time</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning">4.5. Fine-tuning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-of-the-results">4.6. Visualization of the results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">4.7. References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="choosing-the-learning-paradigm">
+<h1><span class="section-number">4. </span>Choosing the learning paradigm<a class="headerlink" href="#choosing-the-learning-paradigm" title="Link to this heading">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This <a class="reference external" href="https://blog.scottlogic.com/2023/11/24/llm-mem.html">blog post by Scott Login</a> will help you better understand the memory requirements.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>To run this notebook, you will need access to at least one GPU. The results that are printed were obtained using a single A100 graphic card with 80 GB of memory. Note that even using such a powerful GPU took the notebook more than 10 hours to complete.</p>
+</div>
+<p>This book aims to illustrate with a practical example how to decide which learning paradigm is better for each application. To demonstrate the process, we will extract some information about chemical reactions from paragraphs of text.</p>
+<section id="first-steps">
+<h2><span class="section-number">4.1. </span>First steps<a class="headerlink" href="#first-steps" title="Link to this heading">#</a></h2>
+<p>Choosing the learning paradigm should begin by trying some leading general-purpose LLM. For this practical case, the first model to test is the recent Llama-3 8B model with zero and one-shot prompts.</p>
+<p>We will start by importing all the packages needed.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matextract</span>  <span class="c1"># noqa: F401</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">load_dataset</span><span class="p">,</span>
+    <span class="n">Dataset</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AutoModelForCausalLM</span><span class="p">,</span>
+    <span class="n">AutoTokenizer</span><span class="p">,</span>
+    <span class="n">BitsAndBytesConfig</span><span class="p">,</span>
+    <span class="n">TrainingArguments</span><span class="p">,</span>
+    <span class="n">pipeline</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">transformers.pipelines.pt_utils</span> <span class="kn">import</span> <span class="n">KeyDataset</span>
+<span class="kn">from</span> <span class="nn">peft</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">LoraConfig</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">trl</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">SFTTrainer</span><span class="p">,</span>
+    <span class="n">DataCollatorForCompletionOnlyLM</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">evaluate</span> <span class="kn">import</span> <span class="n">load</span>
+<span class="kn">from</span> <span class="nn">litellm</span> <span class="kn">import</span> <span class="n">completion</span>
+<span class="kn">from</span> <span class="nn">statistics</span> <span class="kn">import</span> <span class="n">mean</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To continue, we will allow <code class="docutils literal notranslate"><span class="pre">LiteLLM</span></code> to cache requests made to LLM-APIs. Additionally, we will import all environment variables.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Note that using the environment variables is the safest way of keeping personal API keys secret.</p>
+</aside>
+</section>
+<section id="first-model-and-dataset">
+<h2><span class="section-number">4.2. </span>First model and dataset<a class="headerlink" href="#first-model-and-dataset" title="Link to this heading">#</a></h2>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Groq provides some of the most popular open-source models, such as Llama or Mixtral models, with a high inference speed. To use the Groq API, the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file must also contain the <code class="docutils literal notranslate"><span class="pre">GROQ_API_KEY</span></code>.</p>
+</aside>
+<p>As starting model, we will try the Llama-3 8B model. We will call this model through the Groq API, which allows performing fast inference with several open-source models.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_model</span> <span class="o">=</span> <span class="s2">&quot;groq/llama3-8b-8192&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><strong>ORD</strong> stands for Open Reaction Database, a comprehensive data structure specially designed to describe all the elements involved in chemical reactions.</p>
+</aside>
+<p>The dataset used in this tutorial is the one used in <span id="id1">Ai <em>et al.</em> [<a class="reference internal" href="../reaction_case/reaction.html#id3" title="Qianxiang Ai, Fanwang Meng, Jiale Shi, Brenden Pelkie, and Connor W. Coley. Extracting structured data from organic synthesis procedures using a fine-tuned large language model. ChemRxiv, 2024. doi:10.26434/chemrxiv-2024-979fz.">2024</a>]</span> recent work, which contains data about chemical reactions text-mined from United States patents. The dataset, the so-called <a class="reference external" href="https://figshare.com/articles/dataset/Chemical_reactions_from_US_patents_1976-Sep2016_/5104873">USPTO-ORD-100K dataset</a>, contains 100K reaction procedure-<a class="reference external" href="https://docs.open-reaction-database.org/en/latest/schema.html">ORD schema pairs</a>. To make easier the download of the data, we created a <a class="reference external" href="https://huggingface.co/datasets/MrtinoRG/USPTO-ORD-100K">Hugging Face dataset</a>, that will be used here, as well in the case study about <a class="reference internal" href="../reaction_case/reaction.html"><span class="std std-doc">Collecting data for reactions procedures</span></a>.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Note that we only selected 100 samples from the test set. This will be enough for the demo shown here.</p>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span>
+    <span class="s2">&quot;MrtinoRG/USPTO-ORD-100K&quot;</span><span class="p">,</span> <span class="n">data_files</span><span class="o">=</span><span class="s2">&quot;test.json&quot;</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;train&quot;</span>
+<span class="p">)</span>
+<span class="n">test_dataset</span> <span class="o">=</span> <span class="n">test_dataset</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+<span class="n">test_dataset</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading readme: 100%|██████████| 24.0/24.0 [00:00&lt;00:00, 35.2kB/s]
+Downloading data: 100%|██████████| 29.8M/29.8M [00:02&lt;00:00, 14.0MB/s]
+Generating train split: 10000 examples [00:00, 33384.31 examples/s]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dataset({
+    features: [&#39;instruction&#39;, &#39;output&#39;],
+    num_rows: 100
+})
+</pre></div>
+</div>
+</div>
+</div>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Note that the output comes in JSON format. For this simple example, we will not constrain the output to JSON format. However, to ensure good results, this constraining must be done. The chapter <a class="reference internal" href="../constrained_decoding/index.html"><span class="std std-doc">constrain decoding</span></a> provides explanations and examples about the options and how to constrain the output.</p>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;instruction&#39;: &#39;Below is a description of an organic reaction. Extract information from it to an ORD JSON record.\n\n### Procedure:\nThe procedure of Example 1a) was repeated, except that 743 mg of 4-nitrobenzyl (1R,3R,5R,6S)-6-((1R)-1-hydroxyethyl)-1-methyl-2-oxo-1-carbapenam-3-carboxylate and 1.06 g 2-(tri-n-butylstannyl)-7-trifluoromethylthioimidazo[5,1-b]thiazole were used as the starting compounds. Thus, 172 mg of 4-nitrobenzyl (1S,5R,6S)-6-((1R)-1-hydroxyethyl)-1-methyl-2-(7-trifluoromethylthioimidazo[5,1-b]thiazol-2-yl)-1-carbapen-2-em-3-carboxylate was prepared.\n\n### ORD JSON:\n&#39;,
+ &#39;output&#39;: &#39;{&quot;inputs&quot;: {&quot;m1&quot;: {&quot;components&quot;: [{&quot;identifiers&quot;: [{&quot;type&quot;: &quot;NAME&quot;, &quot;value&quot;: &quot;4-nitrobenzyl (1R,3R,5R,6S)-6-((1R)-1-hydroxyethyl)-1-methyl-2-oxo-1-carbapenam-3-carboxylate&quot;}], &quot;amount&quot;: {&quot;mass&quot;: {&quot;value&quot;: 743.0, &quot;units&quot;: &quot;MILLIGRAM&quot;}}, &quot;reaction_role&quot;: &quot;REACTANT&quot;}]}, &quot;m2&quot;: {&quot;components&quot;: [{&quot;identifiers&quot;: [{&quot;type&quot;: &quot;NAME&quot;, &quot;value&quot;: &quot;2-(tri-n-butylstannyl)-7-trifluoromethylthioimidazo[5,1-b]thiazole&quot;}], &quot;amount&quot;: {&quot;mass&quot;: {&quot;value&quot;: 1.06, &quot;units&quot;: &quot;GRAM&quot;}}, &quot;reaction_role&quot;: &quot;REACTANT&quot;}]}}, &quot;conditions&quot;: {&quot;conditions_are_dynamic&quot;: true}, &quot;outcomes&quot;: [{&quot;products&quot;: [{&quot;identifiers&quot;: [{&quot;type&quot;: &quot;NAME&quot;, &quot;value&quot;: &quot;4-nitrobenzyl (1S,5R,6S)-6-((1R)-1-hydroxyethyl)-1-methyl-2-(7-trifluoromethylthioimidazo[5,1-b]thiazol-2-yl)-1-carbapen-2-em-3-carboxylate&quot;}], &quot;measurements&quot;: [{&quot;type&quot;: &quot;AMOUNT&quot;, &quot;details&quot;: &quot;MASS&quot;, &quot;amount&quot;: {&quot;mass&quot;: {&quot;value&quot;: 172.0, &quot;units&quot;: &quot;MILLIGRAM&quot;}}}], &quot;reaction_role&quot;: &quot;PRODUCT&quot;}]}]}&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<p>This dataset is very big. Therefore, we will only take 100 samples from the test set used in the article mentioned above for our test set.</p>
+</section>
+<section id="prompt-and-inference">
+<h2><span class="section-number">4.3. </span>Prompt and inference<a class="headerlink" href="#prompt-and-inference" title="Link to this heading">#</a></h2>
+<p>We define a simple prompt template. The prompt contains a simple system part (named <strong>PREFIX</strong>) where the role and task of the model are defined, as well as the example used only for the one-shot prompt. Additionally, the prompt has a <em>user</em> prompt where the reaction instruction will be provided.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><strong>PREFIX</strong> is supposed to be the content of the system prompt.
+<strong>SUFFIX</strong> is the user prompt.
+<strong>SHOT</strong> is the 1-shot prompt that will be added to the system prompt when used.</p>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PREFIX</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;You are a helpful scientific assistant. Your task is to extract information about organic reactions. </span><span class="si">{shot}</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="n">SUFFIX</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\n\n</span><span class="si">{sample}</span><span class="se">\n\n</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="n">SHOT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">One example is provided to you to show how to perform the task:</span>
+
+<span class="s2">### Procedure:</span><span class="se">\n</span><span class="s2">A suspension of 8 g of the product of Example 7 and 0.4 g of DABCO in 90 ml of xylenes were heated under N2 at 130</span><span class="se">\u00b0</span><span class="s2">-135</span><span class="se">\u00b0</span><span class="s2"> C. while 1.8 ml of phosgene was added portionwise at a rate to maintain a reflux temperature of about 130</span><span class="se">\u00b0</span><span class="s2">-135</span><span class="se">\u00b0</span><span class="s2"> C. The mixture was refluxed an additional two hours, cooled under N2 to room temperature, filtered, and the filtrate was concentrated in vacuo to yield 6.9 g of the subject compound as a crude oil.</span><span class="se">\n\n</span>
+<span class="s2">### ORD JSON:</span><span class="se">\n</span><span class="s2">{</span><span class="se">\&quot;</span><span class="s2">inputs</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">m1_m2_m4</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">components</span><span class="se">\&quot;</span><span class="s2">: [{</span><span class="se">\&quot;</span><span class="s2">identifiers</span><span class="se">\&quot;</span><span class="s2">: [{</span><span class="se">\&quot;</span><span class="s2">type</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">NAME</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">value</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">product</span><span class="se">\&quot;</span><span class="s2">}], </span><span class="se">\&quot;</span><span class="s2">amount</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">mass</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">value</span><span class="se">\&quot;</span><span class="s2">: 8.0, </span><span class="se">\&quot;</span><span class="s2">units</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">GRAM</span><span class="se">\&quot;</span><span class="s2">}}, </span><span class="se">\&quot;</span><span class="s2">reaction_role</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">REACTANT</span><span class="se">\&quot;</span><span class="s2">}, {</span><span class="se">\&quot;</span><span class="s2">identifiers</span><span class="se">\&quot;</span><span class="s2">: [{</span><span class="se">\&quot;</span><span class="s2">type</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">NAME</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">value</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">DABCO</span><span class="se">\&quot;</span><span class="s2">}], </span><span class="se">\&quot;</span><span class="s2">amount</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">mass</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">value</span><span class="se">\&quot;</span><span class="s2">: 0.4, </span><span class="se">\&quot;</span><span class="s2">units</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">GRAM</span><span class="se">\&quot;</span><span class="s2">}}, </span><span class="se">\&quot;</span><span class="s2">reaction_role</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">REACTANT</span><span class="se">\&quot;</span><span class="s2">}, {</span><span class="se">\&quot;</span><span class="s2">identifiers</span><span class="se">\&quot;</span><span class="s2">: [{</span><span class="se">\&quot;</span><span class="s2">type</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">NAME</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">value</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">xylenes</span><span class="se">\&quot;</span><span class="s2">}], </span><span class="se">\&quot;</span><span class="s2">amount</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">volume</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">value</span><span class="se">\&quot;</span><span class="s2">: 90.0, </span><span class="se">\&quot;</span><span class="s2">units</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">MILLILITER</span><span class="se">\&quot;</span><span class="s2">}}, </span><span class="se">\&quot;</span><span class="s2">reaction_role</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">SOLVENT</span><span class="se">\&quot;</span><span class="s2">}]}, </span><span class="se">\&quot;</span><span class="s2">m3</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">components</span><span class="se">\&quot;</span><span class="s2">: [{</span><span class="se">\&quot;</span><span class="s2">identifiers</span><span class="se">\&quot;</span><span class="s2">: [{</span><span class="se">\&quot;</span><span class="s2">type</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">NAME</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">value</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">phosgene</span><span class="se">\&quot;</span><span class="s2">}], </span><span class="se">\&quot;</span><span class="s2">amount</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">volume</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">value</span><span class="se">\&quot;</span><span class="s2">: 1.8, </span><span class="se">\&quot;</span><span class="s2">units</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">MILLILITER</span><span class="se">\&quot;</span><span class="s2">}}, </span><span class="se">\&quot;</span><span class="s2">reaction_role</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">REACTANT</span><span class="se">\&quot;</span><span class="s2">}]}}, </span><span class="se">\&quot;</span><span class="s2">conditions</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">temperature</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">control</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">type</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">AMBIENT</span><span class="se">\&quot;</span><span class="s2">}}, </span><span class="se">\&quot;</span><span class="s2">conditions_are_dynamic</span><span class="se">\&quot;</span><span class="s2">: true}, </span><span class="se">\&quot;</span><span class="s2">workups</span><span class="se">\&quot;</span><span class="s2">: [{</span><span class="se">\&quot;</span><span class="s2">type</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">ADDITION</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">details</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">was added portionwise at a rate</span><span class="se">\&quot;</span><span class="s2">}, {</span><span class="se">\&quot;</span><span class="s2">type</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">TEMPERATURE</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">details</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">to maintain a reflux temperature of about 130</span><span class="se">\\</span><span class="s2">u00b0-135</span><span class="se">\\</span><span class="s2">u00b0 C</span><span class="se">\&quot;</span><span class="s2">}, {</span><span class="se">\&quot;</span><span class="s2">type</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">TEMPERATURE</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">details</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">The mixture was refluxed an additional two hours</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">duration</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">value</span><span class="se">\&quot;</span><span class="s2">: 2.0, </span><span class="se">\&quot;</span><span class="s2">units</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">HOUR</span><span class="se">\&quot;</span><span class="s2">}}, {</span><span class="se">\&quot;</span><span class="s2">type</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">FILTRATION</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">details</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">filtered</span><span class="se">\&quot;</span><span class="s2">}, {</span><span class="se">\&quot;</span><span class="s2">type</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">CONCENTRATION</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">details</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">the filtrate was concentrated in vacuo</span><span class="se">\&quot;</span><span class="s2">}], </span><span class="se">\&quot;</span><span class="s2">outcomes</span><span class="se">\&quot;</span><span class="s2">: [{</span><span class="se">\&quot;</span><span class="s2">products</span><span class="se">\&quot;</span><span class="s2">: [{</span><span class="se">\&quot;</span><span class="s2">identifiers</span><span class="se">\&quot;</span><span class="s2">: [{</span><span class="se">\&quot;</span><span class="s2">type</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">NAME</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">value</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">subject compound</span><span class="se">\&quot;</span><span class="s2">}], </span><span class="se">\&quot;</span><span class="s2">measurements</span><span class="se">\&quot;</span><span class="s2">: [{</span><span class="se">\&quot;</span><span class="s2">type</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">AMOUNT</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">details</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">MASS</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">amount</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">mass</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">value</span><span class="se">\&quot;</span><span class="s2">: 6.9, </span><span class="se">\&quot;</span><span class="s2">units</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">GRAM</span><span class="se">\&quot;</span><span class="s2">}}}], </span><span class="se">\&quot;</span><span class="s2">reaction_role</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="s2">PRODUCT</span><span class="se">\&quot;</span><span class="s2">}]}]}</span>
+<span class="se">\n</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To continue, we loop all over the dataset two times, one for each type of prompt (zero- and one-shot). For each dataset sample, we format the prompt to include the procedure-output schema pairs using the template defined in the previous cell. In addition, we also predict using the model and store those predictions for future evaluation.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>The beauty of <code class="docutils literal notranslate"><span class="pre">LiteLLM</span></code> is that it allows obtaining completions from models by different providers using the <a class="reference external" href="https://platform.openai.com/docs/api-reference/chat/create">OpenAI prompt completions’ schema</a> for all providers:</p>
+<p><code class="docutils literal notranslate"><span class="pre">{&quot;role&quot;:</span> <span class="pre">&quot;system&quot;,</span> <span class="pre">&quot;content&quot;:</span> <span class="pre">system_message},</span> <span class="pre">{&quot;role&quot;:</span> <span class="pre">&quot;user&quot;,</span> <span class="pre">&quot;content&quot;:</span> <span class="pre">user_message}</span></code></p>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shots</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;0-shot&quot;</span><span class="p">,</span> <span class="s2">&quot;1-shot&quot;</span><span class="p">]</span>
+<span class="n">results_llama</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1"># Start by looping over the shots</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shots</span><span class="p">:</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">references</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Loop over all the samples of the dataset</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">test_dataset</span><span class="p">:</span>
+        <span class="n">instruction</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="s2">&quot;instruction&quot;</span><span class="p">]</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">]</span>
+        <span class="c1"># Format the prompt</span>
+        <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="s2">&quot;0-shot&quot;</span><span class="p">:</span>
+            <span class="n">shot</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">shot</span> <span class="o">=</span> <span class="n">SHOT</span>
+        <span class="n">system</span> <span class="o">=</span> <span class="n">PREFIX</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shot</span><span class="o">=</span><span class="n">shot</span><span class="p">)</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">SUFFIX</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sample</span><span class="o">=</span><span class="n">instruction</span><span class="p">)</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">system</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">user</span><span class="p">},</span>
+        <span class="p">]</span>
+        <span class="c1"># Do the completion using Groq API through LiteLLM</span>
+        <span class="n">pred</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">completion</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">=</span><span class="n">base_model</span><span class="p">,</span>
+                <span class="n">messages</span><span class="o">=</span><span class="n">prompt</span><span class="p">,</span>
+                <span class="n">caching</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
+        <span class="p">)</span>
+        <span class="c1"># Save the predictions and the references for later evaluation</span>
+        <span class="n">references</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+        <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+
+    <span class="n">results_llama</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;predictions&quot;</span><span class="p">:</span> <span class="n">predictions</span><span class="p">,</span>
+        <span class="s2">&quot;references&quot;</span><span class="p">:</span> <span class="n">references</span><span class="p">,</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>After generating the predictions, it’s essential to evaluate them. We will initially use the BERTScore for a simple evaluation, as it provides precision, recall, and F<span class="math notranslate nohighlight">\(_1\)</span> scores based on similarity measures. However, for a complex schema like the one we are predicting, more robust <a class="reference internal" href="../evaluations/evaluations.html"><span class="std std-doc">evaluation methods should be utilized</span></a>.</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Notes about BERTScore</p>
+<p>BERTScore <span id="id2">[<a class="reference internal" href="#id17" title="Tianyi Zhang, Varsha Kishore, Felix Wu, Kilian Q. Weinberger, and Yoav Artzi. Bertscore: evaluating text generation with bert. 2020. arXiv:1904.09675.">Zhang <em>et al.</em>, 2020</a>]</span> is an evaluation method that proceeds by calculating the similarity of the candidate text with the reference. This similarity is calculated as a sum of cosine similarities token by token. To produce the embeddings for this similarity calculation, in the original article, they used the BERT model’s embeddings. However, for our case we will be using the embeddings from the DistilBERT model <span id="id3">[<a class="reference internal" href="#id19" title="Victor Sanh, Lysandre Debut, Julien Chaumond, and Thomas Wolf. Distilbert, a distilled version of bert: smaller, faster, cheaper and lighter. 2020. arXiv:1910.01108.">Sanh <em>et al.</em>, 2020</a>]</span>, which achieves 97% of the original BERT model language understanding while only being 40% the size of BERT original model.</p>
+</div>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bertscore</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="s2">&quot;bertscore&quot;</span><span class="p">)</span>
+<span class="n">shots</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;0-shot&quot;</span><span class="p">,</span> <span class="s2">&quot;1-shot&quot;</span><span class="p">]</span>
+
+<span class="c1"># Start by looping over the shots</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shots</span><span class="p">:</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">results_llama</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="s2">&quot;predictions&quot;</span><span class="p">]</span>
+    <span class="n">references</span> <span class="o">=</span> <span class="n">results_llama</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="s2">&quot;references&quot;</span><span class="p">]</span>
+
+    <span class="n">results_</span> <span class="o">=</span> <span class="n">bertscore</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span>
+        <span class="n">predictions</span><span class="o">=</span><span class="n">predictions</span><span class="p">,</span>
+        <span class="n">references</span><span class="o">=</span><span class="n">references</span><span class="p">,</span>
+        <span class="n">model_type</span><span class="o">=</span><span class="s2">&quot;distilbert-base-uncased&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">results_llama</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;precision&quot;</span><span class="p">:</span> <span class="n">mean</span><span class="p">(</span><span class="n">results_</span><span class="p">[</span><span class="s2">&quot;precision&quot;</span><span class="p">]),</span>
+            <span class="s2">&quot;recall&quot;</span><span class="p">:</span> <span class="n">mean</span><span class="p">(</span><span class="n">results_</span><span class="p">[</span><span class="s2">&quot;recall&quot;</span><span class="p">]),</span>
+            <span class="s2">&quot;f1_scores&quot;</span><span class="p">:</span> <span class="n">mean</span><span class="p">(</span><span class="n">results_</span><span class="p">[</span><span class="s2">&quot;f1&quot;</span><span class="p">]),</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Results for the 0-shot prompt
+	Precision: 0.865
+	Recall: 0.8918
+	F1-Score: 0.8781
+
+Results for the 1-shot prompt
+	Precision: 0.9392
+	Recall: 0.9553
+	F1-Score: 0.9471
+</pre></div>
+</div>
+</div>
+</div>
+<p>The results are very good, especially with the one-shot prompt. However, we are going to try a different model, a closed-source model, to compare.</p>
+</section>
+<section id="another-model-closed-source-this-time">
+<span id="choosing-paradigm-openai-results"></span><h2><span class="section-number">4.4. </span>Another model, closed-source this time<a class="headerlink" href="#another-model-closed-source-this-time" title="Link to this heading">#</a></h2>
+<p>The second model we will use is the newer OpenAI, GPT-4o. Doing this allows us to compare open- and closed-source models.</p>
+<p>The procedure and code are exactly the same as for the previous case; the only difference is to define a different model.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>OpenAI models are also supported by the <code class="docutils literal notranslate"><span class="pre">LiteLLM</span></code> package.</p>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_model</span> <span class="o">=</span> <span class="s2">&quot;gpt-4o&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And we obtain the completions using both prompts for all the test samples.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_openai</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">shots</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;0-shot&quot;</span><span class="p">,</span> <span class="s2">&quot;1-shot&quot;</span><span class="p">]</span>
+
+<span class="c1"># Start by looping over the shots</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shots</span><span class="p">:</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">references</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Loop over all the samples of the dataset</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">test_dataset</span><span class="p">:</span>
+        <span class="n">instruction</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="s2">&quot;instruction&quot;</span><span class="p">]</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">]</span>
+        <span class="c1"># Format the prompt following OpenAI&#39;s prompting guidelines</span>
+        <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="s2">&quot;0-shot&quot;</span><span class="p">:</span>
+            <span class="n">shot</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">shot</span> <span class="o">=</span> <span class="n">SHOT</span>
+        <span class="n">system</span> <span class="o">=</span> <span class="n">PREFIX</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shot</span><span class="o">=</span><span class="n">shot</span><span class="p">)</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">SUFFIX</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sample</span><span class="o">=</span><span class="n">instruction</span><span class="p">)</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">system</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">user</span><span class="p">},</span>
+        <span class="p">]</span>
+        <span class="c1"># Do the completion using Groq API through LiteLLM</span>
+        <span class="n">pred</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">completion</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">=</span><span class="n">base_model</span><span class="p">,</span>
+                <span class="n">messages</span><span class="o">=</span><span class="n">prompt</span><span class="p">,</span>
+                <span class="n">caching</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
+        <span class="p">)</span>
+        <span class="c1"># Remove some residual stuff in the json output by the model.</span>
+        <span class="k">if</span> <span class="s2">&quot;```json&quot;</span> <span class="ow">in</span> <span class="n">pred</span><span class="p">:</span>
+            <span class="n">pred</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;```json</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">pred</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;```&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Save the predictions and the references for later evaluation</span>
+        <span class="n">references</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+        <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+
+    <span class="n">results_openai</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;predictions&quot;</span><span class="p">:</span> <span class="n">predictions</span><span class="p">,</span>
+        <span class="s2">&quot;references&quot;</span><span class="p">:</span> <span class="n">references</span><span class="p">,</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, we evaluate again using BERTScore.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shots</span><span class="p">:</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">results_openai</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="s2">&quot;predictions&quot;</span><span class="p">]</span>
+    <span class="n">references</span> <span class="o">=</span> <span class="n">results_openai</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="s2">&quot;references&quot;</span><span class="p">]</span>
+
+    <span class="n">results_</span> <span class="o">=</span> <span class="n">bertscore</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span>
+        <span class="n">predictions</span><span class="o">=</span><span class="n">predictions</span><span class="p">,</span>
+        <span class="n">references</span><span class="o">=</span><span class="n">references</span><span class="p">,</span>
+        <span class="n">model_type</span><span class="o">=</span><span class="s2">&quot;distilbert-base-uncased&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">results_openai</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;precision&quot;</span><span class="p">:</span> <span class="n">mean</span><span class="p">(</span><span class="n">results_</span><span class="p">[</span><span class="s2">&quot;precision&quot;</span><span class="p">]),</span>
+            <span class="s2">&quot;recall&quot;</span><span class="p">:</span> <span class="n">mean</span><span class="p">(</span><span class="n">results_</span><span class="p">[</span><span class="s2">&quot;recall&quot;</span><span class="p">]),</span>
+            <span class="s2">&quot;f1_scores&quot;</span><span class="p">:</span> <span class="n">mean</span><span class="p">(</span><span class="n">results_</span><span class="p">[</span><span class="s2">&quot;f1&quot;</span><span class="p">]),</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Results for the 0-shot prompt
+	Precision: 0.8949
+	Recall: 0.9093
+	F1-Score: 0.9019
+
+Results for the 1-shot prompt
+	Precision: 0.9545
+	Recall: 0.9619
+	F1-Score: 0.9581
+</pre></div>
+</div>
+</div>
+</div>
+<p>The results with this GPT-4o model are excellent, improving slightly on the ones obtained with the Llama-3 8B base model. However, we are going to try to improve these results further by fine-tuning the Llama-3 8B model.</p>
+<div class="tip admonition">
+<p class="admonition-title">Self-verification</p>
+<p>For specific cases, self-correction or self-verification seems to be a plausible option to improve results.<span id="id4">[<a class="reference internal" href="#id40" title="Kaya Stechly, Karthik Valmeekam, and Subbarao Kambhampati. On the self-verification limitations of large language models on reasoning and planning tasks. 2024. URL: https://arxiv.org/abs/2402.08115, arXiv:2402.08115.">Stechly <em>et al.</em>, 2024</a>]</span> This technique consists of iteratively prompting the model to verify the correctness of its response. However, this technique is not always applicable, and the results are not always improved.<span id="id5">[<a class="reference internal" href="#id39" title="Subbarao Kambhampati, Karthik Valmeekam, Lin Guan, Mudit Verma, Kaya Stechly, Siddhant Bhambri, Lucas Saldyt, and Anil Murthy. Llms can't plan, but can help planning in llm-modulo frameworks. 2024. URL: https://arxiv.org/abs/2402.01817, arXiv:2402.01817.">Kambhampati <em>et al.</em>, 2024</a>]</span></p>
+</div>
+</section>
+<section id="fine-tuning">
+<h2><span class="section-number">4.5. </span>Fine-tuning<a class="headerlink" href="#fine-tuning" title="Link to this heading">#</a></h2>
+<p>As the final step, we will fine-tune the Llama-3 8B using data similar to the one we used above.</p>
+<p>We will use packages built by <a class="reference external" href="https://huggingface.co/">HuggingFace</a> to do the fine-tuning.</p>
+<p>First, we define the base model we will use and the path of the dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Model</span>
+<span class="n">base_model</span> <span class="o">=</span> <span class="s2">&quot;meta-llama/Meta-Llama-3-8B-Instruct&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>It is important to include the <code class="docutils literal notranslate"><span class="pre">HF_token</span></code> in the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file. When we created this notebook, the model we will fine-tune (Llama3-8B) was only available after an access request.</p>
+</div>
+<p>The next step is to load the dataset for the fine-tuning. For that, similar to the testing of the previous models, we will use the dataset used by <span id="id6">Ai <em>et al.</em> [<a class="reference internal" href="../reaction_case/reaction.html#id3" title="Qianxiang Ai, Fanwang Meng, Jiale Shi, Brenden Pelkie, and Connor W. Coley. Extracting structured data from organic synthesis procedures using a fine-tuned large language model. ChemRxiv, 2024. doi:10.26434/chemrxiv-2024-979fz.">2024</a>]</span>, but for this case, we will use their train dataset. Since this is a quick demonstration, we will only take 5000 samples.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span>
+    <span class="s2">&quot;MrtinoRG/USPTO-ORD-100K&quot;</span><span class="p">,</span> <span class="n">data_files</span><span class="o">=</span><span class="s2">&quot;train.json&quot;</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;train&quot;</span>
+<span class="p">)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+    <span class="nb">range</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
+<span class="p">)</span>  <span class="c1"># Only use 5000 samples for quick demo</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>  <span class="c1"># We define 90-10 % training-evaluation splits.</span>
+<span class="n">dataset</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading data: 100%|██████████| 239M/239M [00:07&lt;00:00, 33.3MB/s] 
+Generating train split: 80000 examples [00:02, 32150.28 examples/s]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DatasetDict({
+    train: Dataset({
+        features: [&#39;instruction&#39;, &#39;output&#39;],
+        num_rows: 4500
+    })
+    test: Dataset({
+        features: [&#39;instruction&#39;, &#39;output&#39;],
+        num_rows: 500
+    })
+})
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then, we define the method to fine-tune the model. For this fine-tuning, we will use the popular QLoRA method. QLoRA <span id="id7">[<a class="reference internal" href="#id16" title="Tim Dettmers, Artidoro Pagnoni, Ari Holtzman, and Luke Zettlemoyer. Qlora: efficient finetuning of quantized llms. 2023. arXiv:2305.14314.">Dettmers <em>et al.</em>, 2023</a>]</span> is an efficient approach that reduces memory usage during fine-tuning while preserving full fine-tuning task performance.</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Notes about QLoRA configuration</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">load_in_4bit=True</span></code>: loads the model using the 4-bit quantization.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bnb_4bit_quant_type=&quot;nf4&quot;</span></code>: quantizes following the nf4 method, using a novel datatype <code class="docutils literal notranslate"><span class="pre">nf4</span></code> (4-bit Normal Float) that is optimized for normally distributed data <span id="id8">[<a class="reference internal" href="#id14" title="Tim Dettmers, Mike Lewis, Sam Shleifer, and Luke Zettlemoyer. 8-bit optimizers via block-wise quantization. 2022. arXiv:2110.02861.">Dettmers <em>et al.</em>, 2022</a>]</span>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bnb_4bit_use_double_quant=True</span></code>: activate nested quantization for 4-bit base models.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bnb_4bit_compute_dtype=torch.bfloat16</span></code>: Compute dtype for 4-bit base models.</p></li>
+</ul>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># QLoRA configuration</span>
+<span class="n">bnb_config</span> <span class="o">=</span> <span class="n">BitsAndBytesConfig</span><span class="p">(</span>
+    <span class="n">load_in_4bit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">bnb_4bit_quant_type</span><span class="o">=</span><span class="s2">&quot;nf4&quot;</span><span class="p">,</span>  <span class="c1"># fp4 or nf4</span>
+    <span class="n">bnb_4bit_use_double_quant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">bnb_4bit_compute_dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Notes about LoRA configuration</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">r</span></code>: The rank of the updated matrices, expressed as integer, meaning that the adaptor that is build in top of the model to improved will be made by matrices of rank 32. Lower rank results in smaller update matrices with fewer trainable parameters that can not be enough to capture the diverse data during the training. On the other hand, higher ranks may lead to overfitting. This rank is a hyperparameter that needs to be optimized.</p>
+<figure class="align-default" id="id41">
+<img alt="../../_images/lora_rank.jpg" src="../../_images/lora_rank.jpg" />
+<figcaption>
+<p><span class="caption-number">Fig. 4.1 </span><span class="caption-text">Figure illustrating LoRA rank extracted from a <a class="reference external" href="https://magazine.sebastianraschka.com/p/practical-tips-for-finetuning-llms">blog post by Sebastian Raschka</a>. Note that lower is the rank, lower is the dimension of the AB matrix multiplication, thus reducing the cost.</span><a class="headerlink" href="#id41" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lora_alpha</span></code>: LoRA scaling factor. It changes how the adaptation layer’s weights affect the base model’s.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lora_dropout</span></code>: Dropout is a regularization technique where a proportion of neurons (or parameters) are randomly “dropped out” or turned off during training to prevent overfitting.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bias</span></code>: Specifies if the bias parameters should be trained. Can be ‘none’, ‘all’ or ‘lora_only’.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">task_type</span></code>: Task to perform, “Causal LM”: Causal language modeling.</p></li>
+</ul>
+<p>The <a class="reference external" href="https://docs.unsloth.ai/basics/lora-parameters-encyclopedia">Unsloth documentation</a> provides a detailed description of the LoRA parameters and how each impacts the training.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">peft_config</span> <span class="o">=</span> <span class="n">LoraConfig</span><span class="p">(</span>
+    <span class="n">r</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">lora_alpha</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+    <span class="n">lora_dropout</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">bias</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+    <span class="n">task_type</span><span class="o">=</span><span class="s2">&quot;CAUSAL_LM&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Before training, we define the tokenizer and the model for fine-tuning, set the training arguments, and initialize the trainer.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">pad_token</span></code> is a special token used to make arrays of tokens the same size for batching purpose. The typical is to use the <code class="docutils literal notranslate"><span class="pre">eos_token</span></code> which is a special token representing the end of a sentence.</p>
+</aside>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load tokenizer</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">base_model</span><span class="p">)</span>  <span class="c1"># Define the tokenizer</span>
+<span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token</span>
+<span class="n">tokenizer</span><span class="o">.</span><span class="n">padding_side</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span>  <span class="c1"># Where the &quot;pad_token&quot; is placed</span>
+
+<span class="c1"># Model config</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+    <span class="n">base_model</span><span class="p">,</span>  <span class="c1"># Model that we are going to fine-tune</span>
+    <span class="n">quantization_config</span><span class="o">=</span><span class="n">bnb_config</span><span class="p">,</span>  <span class="c1"># QLoRA config defined above</span>
+    <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>  <span class="c1"># Where the model is trained, set device_map=&quot;auto&quot; loads a model onto available GPUs first.</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">Caution with the tokenizer</p>
+<p>If strange behavior is observed during the fine-tuning, it can be helpful to decode the inference data just before it is passed to the model. <a class="reference external" href="https://hamel.dev/notes/llm/finetuning/05_tokenizer_gotchas.html">Maybe some unexpected tokens are being produced.</a></p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Notes about the training arguments</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">learning_rate</span></code>: the learning rate is a hyperparameter that sets how the training algorithm updates the values of the weights.</p></li>
+<li><p><strong>Batch size</strong>: it is the number of samples used in one forward and backward pass through the network. Ideally, we would like to increase this number so the fine-tuning will be faster. The problem is that for higher batch number, more GPU memory is needed. For example, for training the model used in this demonstration using the exact same configuration but with a default token length (1024 tokens), with 40 GB VRAM GPU, the maximum batch number is 2. Using 80 GB VRAM GPU, the batch size can be increased to 4.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">per_device_train_batch_size</span></code>: batch size for the training.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">per_device_eval_batch_size</span></code>: batch size for the evaluation.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gradient_accumulation_steps</span></code>: number of accumulated gradients over each batch. <strong>Gradient accumulation</strong> is a technique that simulates a larger batch size and it is very related to the <strong>batch size</strong>, since it also allows reducing the computation time. However, contrary to the <strong>batch size</strong>, during the <strong>gradient accumulation</strong> the weights of the model are not updated during each forward and backward pass, but gradients are accumulated from multiple small batches before performing the update. Thus, setting a higher <code class="docutils literal notranslate"><span class="pre">gradient_accumulation_steps</span></code> can help to accelerate the training when increasing the <strong>batch size</strong> is not possible due to VRAM impediments.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">optim</span></code>: optimizer used. The main role of the optimizer is to minimize the loss function. The <code class="docutils literal notranslate"><span class="pre">paged_adamw_32bit</span></code> is the well-known <strong>AdamW</strong> optimizer. <strong>AdamW</strong> optimization is a stochastic gradient descent method <span id="id9">[<a class="reference internal" href="#id15" title="Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization. 2019. arXiv:1711.05101.">Loshchilov and Hutter, 2019</a>]</span>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_train_epochs</span></code>: number of times that the model goes through each sample during the training. A larger number might lead to the best training results or to overfitting. A lower number might give a model that does not work as expected at all.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fp16</span></code> and <code class="docutils literal notranslate"><span class="pre">bf16</span></code>: these parameters help to achieve mixed precision training, which is a technique that aims to optimize the computational efficiency of training models by utilizing lower-precision numerical formats for certain variables. For fine-tuning, the choice of both parameters depends mainly on the configuration used during the training, i.e. <a class="reference external" href="https://huggingface.co/docs/transformers/main/model_doc/llama3#usage-tips">Llama3 models were trained using <code class="docutils literal notranslate"><span class="pre">bf16</span></code></a> so using the same precision configuration for fine-tuning is recommended. In addition to the Hugging Face documentation, there are some <a class="reference external" href="https://docs.google.com/spreadsheets/d/14vbBbuRMEHoqeuMHkTfw3uiZVmyXNuoSp8s-aHvfvZk/edit?gid=0#gid=0">compiled spreadsheets with detailed information about the training configuration for some of the open source models</a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">logging_steps</span></code>: when the logging is done.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">evaluation_strategy</span></code>: the evaluation strategy to adopt during training. The most used is ‘steps’ meaning that the evaluation is done after a certain number of training steps.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">eval_steps</span></code>: define in which steps the evaluation is done.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_grad_norm</span></code>: maximum gradient norm (for gradient clipping). Gradient clipping is a method where the error derivative is changed or clipped to a threshold during backward propagation through the network, and using the clipped gradients to update the weights.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">warmup_steps</span></code>: number of steps used for a linear warm-up from 0 to <code class="docutils literal notranslate"><span class="pre">learning_rate</span></code>. The warm-up helps to stabilize the optimization process and prevent divergence.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">warmup_ratio</span></code>: ratio of total training steps used for the linear warm-up.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">group_by_length</span></code>: whether to group together samples of roughly the same length in the training dataset (to minimize padding applied and be more efficient). Only useful if applying dynamic padding.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lr_scheduler_type</span></code>: describes the decay of the learning rate during the training.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">output_dir</span></code>: directory to safe the report of the training process.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">save_strategy</span></code>: what we want to save during the training. Set it to “no” to only safe the final model.</p>
+<figure class="align-default" id="id42">
+<img alt="../../_images/cosine.svg" src="../../_images/cosine.svg" />
+<figcaption>
+<p><span class="caption-number">Fig. 4.2 </span><span class="caption-text">Shape of the “cosine” <code class="docutils literal notranslate"><span class="pre">lr_scheduler_type</span></code> option.</span><a class="headerlink" href="#id42" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+</ul>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the different hyperparameters and arguments for the fine-tuning</span>
+<span class="n">training_arguments</span> <span class="o">=</span> <span class="n">TrainingArguments</span><span class="p">(</span>
+    <span class="n">learning_rate</span><span class="o">=</span><span class="mf">6e-5</span><span class="p">,</span>
+    <span class="n">per_device_train_batch_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">per_device_eval_batch_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">gradient_accumulation_steps</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="n">optim</span><span class="o">=</span><span class="s2">&quot;paged_adamw_32bit&quot;</span><span class="p">,</span>
+    <span class="n">num_train_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">fp16</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">bf16</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># bf16 to True with an A100, False otherwise</span>
+    <span class="n">logging_steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Logging is done every step.</span>
+    <span class="n">evaluation_strategy</span><span class="o">=</span><span class="s2">&quot;steps&quot;</span><span class="p">,</span>
+    <span class="n">eval_steps</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+    <span class="n">max_grad_norm</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+    <span class="n">warmup_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">warmup_ratio</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span>
+    <span class="n">group_by_length</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">lr_scheduler_type</span><span class="o">=</span><span class="s2">&quot;cosine&quot;</span><span class="p">,</span>
+    <span class="n">output_dir</span><span class="o">=</span><span class="s2">&quot;./results/&quot;</span><span class="p">,</span>
+    <span class="n">save_strategy</span><span class="o">=</span><span class="s2">&quot;no&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>We set a very small <code class="docutils literal notranslate"><span class="pre">eval_steps</span></code> variable such that the training has a lot of evals, which will lead to more detailed loss curves. Typically, that many eval steps are not needed and will make the training process slower.</p>
+</div>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><strong>Data collators</strong> are objects that will form a batch by using a list of dataset elements as input. There is one data collator for each task, here we use the one for completion-only.</p>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response_template</span> <span class="o">=</span> <span class="s2">&quot; ### Answer:&quot;</span>
+<span class="n">collator</span> <span class="o">=</span> <span class="n">DataCollatorForCompletionOnlyLM</span><span class="p">(</span><span class="n">response_template</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Notes about the Completion-only training</p>
+<p>The <strong>completion-only training</strong> instead of training the model on the whole input (prompt + answer) make the training more efficient by training only the model on completion. This has been proved to <a class="reference external" href="https://yonigottesman.github.io/2024/05/13/mask-user-tokens.html">increase the performance</a> <span id="id10">[<a class="reference internal" href="#id16" title="Tim Dettmers, Artidoro Pagnoni, Ari Holtzman, and Luke Zettlemoyer. Qlora: efficient finetuning of quantized llms. 2023. arXiv:2305.14314.">Dettmers <em>et al.</em>, 2023</a>]</span> (MLNU), especially for situations like ours in which we want to use the model only for completions, and not to generate further instructions <span id="id11">[<a class="reference internal" href="#id22" title="Zhengyan Shi, Adam X. Yang, Bin Wu, Laurence Aitchison, Emine Yilmaz, and Aldo Lipani. Instruction tuning with loss over instructions. 2024. arXiv:2405.14394.">Shi <em>et al.</em>, 2024</a>]</span> (several datasets).</p>
+</div>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>The <strong>formatting function</strong> is intended for cases where the prompt is constructed from more than one feature of the dataset. Using the formatting functions allows us to join them optimally.</p>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">formatting_prompts_func</span><span class="p">(</span><span class="n">example</span><span class="p">):</span>
+    <span class="n">output_texts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">example</span><span class="p">[</span><span class="s2">&quot;instruction&quot;</span><span class="p">])):</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;### Question: </span><span class="si">{</span><span class="n">example</span><span class="p">[</span><span class="s1">&#39;instruction&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2"> ### Answer: </span><span class="si">{</span><span class="n">example</span><span class="p">[</span><span class="s1">&#39;output&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">output_texts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">output_texts</span>
+</pre></div>
+</div>
+</div>
+</div>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Some of the prompts used are bigger than the default value of 1024 tokens, so we must set a <code class="docutils literal notranslate"><span class="pre">max_seq_length</span></code> bigger than that.</p>
+</aside>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>When packing is set to <code class="docutils literal notranslate"><span class="pre">True</span></code> during training, multiple short examples fill in the input sequence length instead of padding them to increase training efficiency. However, when using a collator, it must be <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</aside>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">SFTTrainer</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>  <span class="c1"># Model to fine-tune</span>
+    <span class="n">max_seq_length</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span>  <span class="c1"># Max number of tokens of the completion</span>
+    <span class="n">args</span><span class="o">=</span><span class="n">training_arguments</span><span class="p">,</span>  <span class="c1"># Training arguments to use</span>
+    <span class="n">train_dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">],</span>  <span class="c1"># Set of the dataset used for the training</span>
+    <span class="n">eval_dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">],</span>  <span class="c1"># Set of the dataset used for the evaluations</span>
+    <span class="n">peft_config</span><span class="o">=</span><span class="n">peft_config</span><span class="p">,</span>  <span class="c1"># Configuration and PEFT method to use</span>
+    <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">,</span>  <span class="c1"># Tokenizer used</span>
+    <span class="n">packing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">formatting_func</span><span class="o">=</span><span class="n">formatting_prompts_func</span><span class="p">,</span>  <span class="c1"># Prompt formatting function</span>
+    <span class="n">data_collator</span><span class="o">=</span><span class="n">collator</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And finally when everything is ready we train the model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+    <div>
+      
+      <progress value='2810' max='2810' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      [2810/2810 6:14:03, Epoch 9/10]
+    </div>
+    <table border="1" class="dataframe">
+  <thead>
+ <tr style="text-align: left;">
+      <th>Step</th>
+      <th>Training Loss</th>
+      <th>Validation Loss</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>29</td>
+      <td>0.613900</td>
+      <td>0.576660</td>
+    </tr>
+    <tr>
+      <td>58</td>
+      <td>0.257200</td>
+      <td>0.258947</td>
+    </tr>
+    <tr>
+      <td>87</td>
+      <td>0.093200</td>
+      <td>0.087167</td>
+    </tr>
+    <tr>
+      <td>116</td>
+      <td>0.074300</td>
+      <td>0.071152</td>
+    </tr>
+    <tr>
+      <td>145</td>
+      <td>0.069000</td>
+      <td>0.065445</td>
+    </tr>
+    <tr>
+      <td>174</td>
+      <td>0.052400</td>
+      <td>0.054982</td>
+    </tr>
+    <tr>
+      <td>203</td>
+      <td>0.062800</td>
+      <td>0.054369</td>
+    </tr>
+    <tr>
+      <td>232</td>
+      <td>0.045100</td>
+      <td>0.048308</td>
+    </tr>
+    <tr>
+      <td>261</td>
+      <td>0.045700</td>
+      <td>0.048467</td>
+    </tr>
+    <tr>
+      <td>290</td>
+      <td>0.040500</td>
+      <td>0.048283</td>
+    </tr>
+    <tr>
+      <td>319</td>
+      <td>0.042300</td>
+      <td>0.042285</td>
+    </tr>
+    <tr>
+      <td>348</td>
+      <td>0.039700</td>
+      <td>0.040929</td>
+    </tr>
+    <tr>
+      <td>377</td>
+      <td>0.041500</td>
+      <td>0.042049</td>
+    </tr>
+    <tr>
+      <td>406</td>
+      <td>0.035700</td>
+      <td>0.038472</td>
+    </tr>
+    <tr>
+      <td>435</td>
+      <td>0.042900</td>
+      <td>0.040496</td>
+    </tr>
+    <tr>
+      <td>464</td>
+      <td>0.038000</td>
+      <td>0.036910</td>
+    </tr>
+    <tr>
+      <td>493</td>
+      <td>0.045300</td>
+      <td>0.037651</td>
+    </tr>
+    <tr>
+      <td>522</td>
+      <td>0.034300</td>
+      <td>0.035222</td>
+    </tr>
+    <tr>
+      <td>551</td>
+      <td>0.035200</td>
+      <td>0.034365</td>
+    </tr>
+    <tr>
+      <td>580</td>
+      <td>0.019200</td>
+      <td>0.033527</td>
+    </tr>
+    <tr>
+      <td>609</td>
+      <td>0.024000</td>
+      <td>0.035203</td>
+    </tr>
+    <tr>
+      <td>638</td>
+      <td>0.021700</td>
+      <td>0.032431</td>
+    </tr>
+    <tr>
+      <td>667</td>
+      <td>0.034100</td>
+      <td>0.034691</td>
+    </tr>
+    <tr>
+      <td>696</td>
+      <td>0.029700</td>
+      <td>0.031238</td>
+    </tr>
+    <tr>
+      <td>725</td>
+      <td>0.023900</td>
+      <td>0.032660</td>
+    </tr>
+    <tr>
+      <td>754</td>
+      <td>0.026400</td>
+      <td>0.031357</td>
+    </tr>
+    <tr>
+      <td>783</td>
+      <td>0.034200</td>
+      <td>0.031545</td>
+    </tr>
+    <tr>
+      <td>812</td>
+      <td>0.021100</td>
+      <td>0.031958</td>
+    </tr>
+    <tr>
+      <td>841</td>
+      <td>0.029400</td>
+      <td>0.031248</td>
+    </tr>
+    <tr>
+      <td>870</td>
+      <td>0.022200</td>
+      <td>0.029931</td>
+    </tr>
+    <tr>
+      <td>899</td>
+      <td>0.024900</td>
+      <td>0.030034</td>
+    </tr>
+    <tr>
+      <td>928</td>
+      <td>0.014900</td>
+      <td>0.029397</td>
+    </tr>
+    <tr>
+      <td>957</td>
+      <td>0.021100</td>
+      <td>0.030200</td>
+    </tr>
+    <tr>
+      <td>986</td>
+      <td>0.023400</td>
+      <td>0.028960</td>
+    </tr>
+    <tr>
+      <td>1015</td>
+      <td>0.016300</td>
+      <td>0.028752</td>
+    </tr>
+    <tr>
+      <td>1044</td>
+      <td>0.019600</td>
+      <td>0.033364</td>
+    </tr>
+    <tr>
+      <td>1073</td>
+      <td>0.023000</td>
+      <td>0.027862</td>
+    </tr>
+    <tr>
+      <td>1102</td>
+      <td>0.022900</td>
+      <td>0.029268</td>
+    </tr>
+    <tr>
+      <td>1131</td>
+      <td>0.020100</td>
+      <td>0.028194</td>
+    </tr>
+    <tr>
+      <td>1160</td>
+      <td>0.014800</td>
+      <td>0.027338</td>
+    </tr>
+    <tr>
+      <td>1189</td>
+      <td>0.022700</td>
+      <td>0.028320</td>
+    </tr>
+    <tr>
+      <td>1218</td>
+      <td>0.024300</td>
+      <td>0.027609</td>
+    </tr>
+    <tr>
+      <td>1247</td>
+      <td>0.014400</td>
+      <td>0.026542</td>
+    </tr>
+    <tr>
+      <td>1276</td>
+      <td>0.031000</td>
+      <td>0.028503</td>
+    </tr>
+    <tr>
+      <td>1305</td>
+      <td>0.018200</td>
+      <td>0.026615</td>
+    </tr>
+    <tr>
+      <td>1334</td>
+      <td>0.027700</td>
+      <td>0.027018</td>
+    </tr>
+    <tr>
+      <td>1363</td>
+      <td>0.018400</td>
+      <td>0.026256</td>
+    </tr>
+    <tr>
+      <td>1392</td>
+      <td>0.013600</td>
+      <td>0.026408</td>
+    </tr>
+    <tr>
+      <td>1421</td>
+      <td>0.014000</td>
+      <td>0.027171</td>
+    </tr>
+    <tr>
+      <td>1450</td>
+      <td>0.011300</td>
+      <td>0.026970</td>
+    </tr>
+    <tr>
+      <td>1479</td>
+      <td>0.015900</td>
+      <td>0.027176</td>
+    </tr>
+    <tr>
+      <td>1508</td>
+      <td>0.023700</td>
+      <td>0.027830</td>
+    </tr>
+    <tr>
+      <td>1537</td>
+      <td>0.012800</td>
+      <td>0.026238</td>
+    </tr>
+    <tr>
+      <td>1566</td>
+      <td>0.018600</td>
+      <td>0.026877</td>
+    </tr>
+    <tr>
+      <td>1595</td>
+      <td>0.015100</td>
+      <td>0.025897</td>
+    </tr>
+    <tr>
+      <td>1624</td>
+      <td>0.020500</td>
+      <td>0.026923</td>
+    </tr>
+    <tr>
+      <td>1653</td>
+      <td>0.008500</td>
+      <td>0.026322</td>
+    </tr>
+    <tr>
+      <td>1682</td>
+      <td>0.015200</td>
+      <td>0.025440</td>
+    </tr>
+    <tr>
+      <td>1711</td>
+      <td>0.017500</td>
+      <td>0.026258</td>
+    </tr>
+    <tr>
+      <td>1740</td>
+      <td>0.018400</td>
+      <td>0.027441</td>
+    </tr>
+    <tr>
+      <td>1769</td>
+      <td>0.012500</td>
+      <td>0.025472</td>
+    </tr>
+    <tr>
+      <td>1798</td>
+      <td>0.017800</td>
+      <td>0.027335</td>
+    </tr>
+    <tr>
+      <td>1827</td>
+      <td>0.010700</td>
+      <td>0.026398</td>
+    </tr>
+    <tr>
+      <td>1856</td>
+      <td>0.016300</td>
+      <td>0.025894</td>
+    </tr>
+    <tr>
+      <td>1885</td>
+      <td>0.012200</td>
+      <td>0.026894</td>
+    </tr>
+    <tr>
+      <td>1914</td>
+      <td>0.012500</td>
+      <td>0.025450</td>
+    </tr>
+    <tr>
+      <td>1943</td>
+      <td>0.016200</td>
+      <td>0.026897</td>
+    </tr>
+    <tr>
+      <td>1972</td>
+      <td>0.012700</td>
+      <td>0.025808</td>
+    </tr>
+    <tr>
+      <td>2001</td>
+      <td>0.010200</td>
+      <td>0.026950</td>
+    </tr>
+    <tr>
+      <td>2030</td>
+      <td>0.015100</td>
+      <td>0.027876</td>
+    </tr>
+    <tr>
+      <td>2059</td>
+      <td>0.012900</td>
+      <td>0.027523</td>
+    </tr>
+    <tr>
+      <td>2088</td>
+      <td>0.016500</td>
+      <td>0.026673</td>
+    </tr>
+    <tr>
+      <td>2117</td>
+      <td>0.005200</td>
+      <td>0.027565</td>
+    </tr>
+    <tr>
+      <td>2146</td>
+      <td>0.012200</td>
+      <td>0.027196</td>
+    </tr>
+    <tr>
+      <td>2175</td>
+      <td>0.016800</td>
+      <td>0.026830</td>
+    </tr>
+    <tr>
+      <td>2204</td>
+      <td>0.011200</td>
+      <td>0.026876</td>
+    </tr>
+    <tr>
+      <td>2233</td>
+      <td>0.014500</td>
+      <td>0.026611</td>
+    </tr>
+    <tr>
+      <td>2262</td>
+      <td>0.014600</td>
+      <td>0.026983</td>
+    </tr>
+    <tr>
+      <td>2291</td>
+      <td>0.009700</td>
+      <td>0.027868</td>
+    </tr>
+    <tr>
+      <td>2320</td>
+      <td>0.011200</td>
+      <td>0.027703</td>
+    </tr>
+    <tr>
+      <td>2349</td>
+      <td>0.003000</td>
+      <td>0.027652</td>
+    </tr>
+    <tr>
+      <td>2378</td>
+      <td>0.007200</td>
+      <td>0.027984</td>
+    </tr>
+    <tr>
+      <td>2407</td>
+      <td>0.019200</td>
+      <td>0.028454</td>
+    </tr>
+    <tr>
+      <td>2436</td>
+      <td>0.008800</td>
+      <td>0.027351</td>
+    </tr>
+    <tr>
+      <td>2465</td>
+      <td>0.009600</td>
+      <td>0.027858</td>
+    </tr>
+    <tr>
+      <td>2494</td>
+      <td>0.005000</td>
+      <td>0.028215</td>
+    </tr>
+    <tr>
+      <td>2523</td>
+      <td>0.006900</td>
+      <td>0.028119</td>
+    </tr>
+    <tr>
+      <td>2552</td>
+      <td>0.009700</td>
+      <td>0.028277</td>
+    </tr>
+    <tr>
+      <td>2581</td>
+      <td>0.002200</td>
+      <td>0.028349</td>
+    </tr>
+    <tr>
+      <td>2610</td>
+      <td>0.011400</td>
+      <td>0.028359</td>
+    </tr>
+    <tr>
+      <td>2639</td>
+      <td>0.013300</td>
+      <td>0.028641</td>
+    </tr>
+    <tr>
+      <td>2668</td>
+      <td>0.011600</td>
+      <td>0.028560</td>
+    </tr>
+    <tr>
+      <td>2697</td>
+      <td>0.014800</td>
+      <td>0.028548</td>
+    </tr>
+    <tr>
+      <td>2726</td>
+      <td>0.007600</td>
+      <td>0.028561</td>
+    </tr>
+    <tr>
+      <td>2755</td>
+      <td>0.012100</td>
+      <td>0.028545</td>
+    </tr>
+    <tr>
+      <td>2784</td>
+      <td>0.017800</td>
+      <td>0.028572</td>
+    </tr>
+  </tbody>
+</table><p></div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TrainOutput(global_step=2810, training_loss=0.03383642607044347, metrics={&#39;train_runtime&#39;: 22456.3022, &#39;train_samples_per_second&#39;: 2.004, &#39;train_steps_per_second&#39;: 0.125, &#39;total_flos&#39;: 1.8010605645245645e+18, &#39;train_loss&#39;: 0.03383642607044347, &#39;epoch&#39;: 9.991111111111111})
+</pre></div>
+</div>
+</div>
+</div>
+<p>To better visualize how the fine-tuning went, the best option is to plot the loss curves for the training and for the evaluation. The ideal loss curve depicts the model’s loss values over time. At first, the loss is high, but it gradually declines, meaning that the model’s performance is improving.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>The loss curves shown here were automatically created by reporting the training to <a class="reference external" href="https://wandb.ai/site">WandB</a>. This is a helpful possibility to easily obtain the loss curves for the fine-tuning.</p>
+</aside>
+<figure class="align-default" id="id43">
+<img alt="../../_images/train.svg" src="../../_images/train.svg" />
+<figcaption>
+<p><span class="caption-number">Fig. 4.3 </span><span class="caption-text">Training loss curve.</span><a class="headerlink" href="#id43" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id44">
+<img alt="../../_images/eval.svg" src="../../_images/eval.svg" />
+<figcaption>
+<p><span class="caption-number">Fig. 4.4 </span><span class="caption-text">Evaluation loss curve.</span><a class="headerlink" href="#id44" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The loss curves produced during the fine-tuning of our model are not far from the ideal behavior, meaning that the training proceeded correctly.</p>
+<p>The easiest way to evaluate the fine-tuned model and perform inference is to use the trained model directly. To do that, we have to define a pipeline for text generation, do the inference using that pipeline, and evaluate similarly as for the previous models.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>The temperature defines the degrees of freedom that are allowed to the model when it predicts the next word. For data extraction, the best value is 0 because the model do not need to make up the data, only to extract it from the corresponding text. This is because at temperature equal to 0, the model will always choose the most probable token.</p>
+</aside>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the pipeline that will do the inference</span>
+<span class="n">sft_pipe</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span>
+    <span class="s2">&quot;text-generation&quot;</span><span class="p">,</span>
+    <span class="n">do_sample</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># This allows to set Temperature to 0 (or None for this case)</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">trainer</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>  <span class="c1"># We do the inference with the trained model.</span>
+    <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the 0 and 1-shot prompts.</span>
+<span class="n">results_sft</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">prompts_</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">shots</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;0-shot&quot;</span><span class="p">,</span> <span class="s2">&quot;1-shot&quot;</span><span class="p">]</span>
+
+<span class="c1"># Start by looping over the shots</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shots</span><span class="p">:</span>
+    <span class="n">references</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">prompts</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Loop over all the samples of the dataset</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">test_dataset</span><span class="p">:</span>
+        <span class="n">instruction</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="s2">&quot;instruction&quot;</span><span class="p">]</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">]</span>
+        <span class="n">references</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="s2">&quot;0-shot&quot;</span><span class="p">:</span>
+            <span class="n">shot</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">shot</span> <span class="o">=</span> <span class="n">SHOT</span>
+        <span class="c1"># Format the prompt</span>
+        <span class="n">system</span> <span class="o">=</span> <span class="n">PREFIX</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shot</span><span class="o">=</span><span class="n">shot</span><span class="p">)</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">SUFFIX</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sample</span><span class="o">=</span><span class="n">instruction</span><span class="p">)</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="n">system</span> <span class="o">+</span> <span class="n">user</span>
+        <span class="n">prompts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+
+    <span class="c1"># Save the prompts and the references.</span>
+    <span class="n">prompts_</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;prompts&quot;</span><span class="p">:</span> <span class="n">prompts</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">results_sft</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;references&quot;</span><span class="p">:</span> <span class="n">references</span><span class="p">,</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Note that we do not use <code class="docutils literal notranslate"><span class="pre">LiteLLM</span></code> for this particular case. This is because this package does not yet support completion-only tasks with HuggingFace models. Thus, the prompt is not written according to the OpenAI completions guide.</p>
+</aside>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>We perform the inference using the <code class="docutils literal notranslate"><span class="pre">torch.cuda.amp.autocast</span></code> function. This allows us to avoid errors related with different data types.  This is relevant here because <a class="reference external" href="https://pytorch.org/torchtune/0.1/tutorials/qlora_finetune.html">different parts of our model (e.g., backbone and adapters) are in different datatypes when using QLoRA</a>.</p>
+</aside>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Note that after completion, we replace the prompt with an empty string. We do this because the model was always instructed to complete the instructions with the prompt at the beginning. Above, for the case where we used this same Llama model, this was not done because the API already provided the completion without the prompt.</p>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Do the inference using batching.</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shots</span><span class="p">:</span>
+    <span class="c1"># Create a tmp dataset to make easier the batching</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">prompts_</span><span class="p">[</span><span class="n">s</span><span class="p">])</span>
+    <span class="n">predictions_sft</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Inference time!</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">amp</span><span class="o">.</span><span class="n">autocast</span><span class="p">():</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">sft_pipe</span><span class="p">(</span><span class="n">KeyDataset</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="s2">&quot;prompts&quot;</span><span class="p">),</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+        <span class="c1"># Clean the output.</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sample</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">out</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">in_sample</span> <span class="ow">in</span> <span class="n">sample</span><span class="p">:</span>
+                <span class="n">in_sample</span><span class="p">[</span><span class="s2">&quot;generated_text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">in_sample</span><span class="p">[</span><span class="s2">&quot;generated_text&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                    <span class="n">prompts_</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="s2">&quot;prompts&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;&quot;</span>
+                <span class="p">)</span>
+                <span class="n">predictions_sft</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">in_sample</span><span class="p">[</span><span class="s2">&quot;generated_text&quot;</span><span class="p">])</span>
+
+    <span class="c1"># Save the results.</span>
+    <span class="n">results_sft</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;predictions&quot;</span><span class="p">:</span> <span class="n">predictions_sft</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The limiting factor for the inference when batching is the GPU memory. This is because during inference the GPU will contain not only the model but an amount of prompts equals to the batch size.</p>
+<p>Finally, we calculate the metrics to evaluate this last model’s results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bertscore</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="s2">&quot;bertscore&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shots</span><span class="p">:</span>
+    <span class="n">predictions_sft</span> <span class="o">=</span> <span class="n">results_sft</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="s2">&quot;predictions&quot;</span><span class="p">]</span>
+    <span class="n">references</span> <span class="o">=</span> <span class="n">results_sft</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="s2">&quot;references&quot;</span><span class="p">]</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="n">bertscore</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span>
+        <span class="n">predictions</span><span class="o">=</span><span class="n">predictions_sft</span><span class="p">,</span>
+        <span class="n">references</span><span class="o">=</span><span class="n">references</span><span class="p">,</span>
+        <span class="n">model_type</span><span class="o">=</span><span class="s2">&quot;distilbert-base-uncased&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">results_sft</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;precision&quot;</span><span class="p">:</span> <span class="n">mean</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;precision&quot;</span><span class="p">]),</span>
+            <span class="s2">&quot;recall&quot;</span><span class="p">:</span> <span class="n">mean</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;recall&quot;</span><span class="p">]),</span>
+            <span class="s2">&quot;f1_scores&quot;</span><span class="p">:</span> <span class="n">mean</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;f1&quot;</span><span class="p">]),</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Results for the 0-shot prompt
+	Precision: 0.9591
+	Recall: 0.9722
+	F1-Score: 0.9654
+
+Results for the 1-shot prompt
+	Precision: 0.9529
+	Recall: 0.9687
+	F1-Score: 0.9604
+</pre></div>
+</div>
+</div>
+</div>
+<p>The results using the zero-shot prompt are much better than for the other models.</p>
+<p>On the other hand, for this fine-tuned model, the one-shot results do not show an improvement as great as for the other models. This is because when fine-tuning is done, the model gets used to a very robust prompt-completion format, that for the case of the one-shot prompt is broken, resulting in worse results than expected.</p>
+</section>
+<section id="visualization-of-the-results">
+<h2><span class="section-number">4.6. </span>Visualization of the results<a class="headerlink" href="#visualization-of-the-results" title="Link to this heading">#</a></h2>
+<p>To study the results more graphically, we can plot all the results in several bar plots.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Organize the results for easy plotting</span>
+
+<span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;llama&quot;</span><span class="p">,</span> <span class="s2">&quot;sft&quot;</span><span class="p">,</span> <span class="s2">&quot;openai&quot;</span><span class="p">]</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;precision&quot;</span><span class="p">,</span> <span class="s2">&quot;recall&quot;</span><span class="p">,</span> <span class="s2">&quot;f1_scores&quot;</span><span class="p">]</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="n">results</span><span class="p">[</span><span class="s2">&quot;llama_results&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results_llama</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">&quot;openai_results&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results_openai</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">&quot;sft_results&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results_sft</span>
+
+<span class="n">metrics_0_shot</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">metrics_1_shot</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="p">:</span>
+    <span class="n">tmp_0</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tmp_1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">:</span>
+        <span class="n">tmp_0</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">model</span> <span class="o">+</span> <span class="s2">&quot;_results&quot;</span><span class="p">][</span><span class="s2">&quot;0-shot&quot;</span><span class="p">][</span><span class="n">metric</span><span class="p">])</span>
+        <span class="n">tmp_1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">model</span> <span class="o">+</span> <span class="s2">&quot;_results&quot;</span><span class="p">][</span><span class="s2">&quot;1-shot&quot;</span><span class="p">][</span><span class="n">metric</span><span class="p">])</span>
+    <span class="n">metrics_0_shot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_0</span><span class="p">)</span>
+    <span class="n">metrics_1_shot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_1</span><span class="p">)</span>
+
+<span class="c1"># set width of bar</span>
+<span class="n">barWidth</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">plt_models</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Llama3-8B&quot;</span><span class="p">,</span> <span class="s2">&quot;Llama3-8B Fine-tuned&quot;</span><span class="p">,</span> <span class="s2">&quot;GPT-4o&quot;</span><span class="p">]</span>
+<span class="n">plt_metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Precision&quot;</span><span class="p">,</span> <span class="s2">&quot;Recall&quot;</span><span class="p">,</span> <span class="s2">&quot;F1-Score&quot;</span><span class="p">]</span>
+<span class="n">plt_data</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">plt_models</span><span class="p">):</span>
+    <span class="n">plt_data</span><span class="p">[</span><span class="n">model</span><span class="p">]</span> <span class="o">=</span> <span class="n">metrics_0_shot</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+<span class="c1"># Set position of bar on X axis</span>
+<span class="n">br1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">metrics_0_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="n">br2</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="n">barWidth</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">br1</span><span class="p">]</span>
+<span class="n">br3</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="n">barWidth</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">br2</span><span class="p">]</span>
+
+<span class="c1"># Make the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">br1</span><span class="p">,</span>
+    <span class="n">metrics_0_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">barWidth</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="n">plt_models</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">br2</span><span class="p">,</span>
+    <span class="n">metrics_0_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;skyblue&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">barWidth</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="n">plt_models</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">br3</span><span class="p">,</span>
+    <span class="n">metrics_0_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;mediumseagreen&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">barWidth</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="n">plt_models</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># Adding Xticks</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Metric&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span>
+    <span class="s2">&quot;Results&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="n">r</span> <span class="o">+</span> <span class="n">barWidth</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">metrics_0_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">]))],</span> <span class="n">plt_metrics</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Different metrics with 0 shot prompt for the models&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">))</span>
+<span class="c1"># plt.savefig(&quot;bars0.png&quot;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="../../_images/65c5b4adcb48aec79727757a5e258a9145df2dd06c8fd2053e4c4690dd7afdff.png" src="../../_images/65c5b4adcb48aec79727757a5e258a9145df2dd06c8fd2053e4c4690dd7afdff.png" />
+</div>
+</div>
+<p>For the zero-shot prompt is possible to see that the best results for all the metrics are the ones obtained when using the fine-tuned model. This is something expected since the fine-tuned model was specifically fine-tuned for this task.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set width of bar</span>
+<span class="n">barWidth</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">plt_data</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">plt_models</span><span class="p">):</span>
+    <span class="n">plt_data</span><span class="p">[</span><span class="n">model</span><span class="p">]</span> <span class="o">=</span> <span class="n">metrics_1_shot</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+<span class="c1"># Set position of bar on X axis</span>
+<span class="n">br1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">metrics_1_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="n">br2</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="n">barWidth</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">br1</span><span class="p">]</span>
+<span class="n">br3</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="n">barWidth</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">br2</span><span class="p">]</span>
+
+<span class="c1"># Make the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">br1</span><span class="p">,</span>
+    <span class="n">metrics_1_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">barWidth</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="n">plt_models</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">br2</span><span class="p">,</span>
+    <span class="n">metrics_1_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;skyblue&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">barWidth</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="n">plt_models</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">br3</span><span class="p">,</span>
+    <span class="n">metrics_1_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;mediumseagreen&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">barWidth</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="n">plt_models</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># Adding Xticks</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Metric&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Results&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="n">r</span> <span class="o">+</span> <span class="n">barWidth</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">metrics_1_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">]))],</span> <span class="n">plt_metrics</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Different metrics with 1-shot prompt for the models&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">))</span>
+<span class="c1"># plt.savefig(&quot;bars1.png&quot;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="../../_images/c268dab11e96b5acbef32b57f433cea0a65cbfdd80ecf47ccf244f8618ffa1ee.png" src="../../_images/c268dab11e96b5acbef32b57f433cea0a65cbfdd80ecf47ccf244f8618ffa1ee.png" />
+</div>
+</div>
+<p>When using the one-shot prompt it is possible to see that the results are slightly better for the closed-source model and for the fine-tuned model.</p>
+<p>As pointed above, the fact that the fine-tuned model do not improve the other models is because the fine-tuned model is seeing a format that is not the one that saw during training. Because of that, and having these results to prove it, we recommend avoiding the use of few-shot prompts with fine-tuned models.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Organize the results for easy plotting</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="n">results</span><span class="p">[</span><span class="s2">&quot;llama_results&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results_llama</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">&quot;openai_results&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results_openai</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">&quot;sft_results&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results_sft</span>
+
+<span class="n">metrics_</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="p">:</span>
+    <span class="n">tmp_0</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tmp_1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">:</span>
+        <span class="n">tmp_0</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">model</span> <span class="o">+</span> <span class="s2">&quot;_results&quot;</span><span class="p">][</span><span class="s2">&quot;0-shot&quot;</span><span class="p">][</span><span class="n">metric</span><span class="p">])</span>
+        <span class="n">tmp_1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">model</span> <span class="o">+</span> <span class="s2">&quot;_results&quot;</span><span class="p">][</span><span class="s2">&quot;1-shot&quot;</span><span class="p">][</span><span class="n">metric</span><span class="p">])</span>
+    <span class="n">metrics_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_0</span><span class="p">)</span>
+    <span class="n">metrics_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_1</span><span class="p">)</span>
+
+<span class="c1"># set width of bar</span>
+<span class="n">barWidth</span> <span class="o">=</span> <span class="mf">0.15</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">plt_models</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Llama3-8B 0-shot&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Llama3-8B 1-shot&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Llama3-8B Fine-tuned 0-shot&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Llama3-8B Fine-tuned 1-shot&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GPT-4o 0-shot&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GPT-4o 1-shot&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">plt_metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Precision&quot;</span><span class="p">,</span> <span class="s2">&quot;Recall&quot;</span><span class="p">,</span> <span class="s2">&quot;F1-Score&quot;</span><span class="p">]</span>
+<span class="n">plt_data</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">plt_models</span><span class="p">):</span>
+    <span class="n">plt_data</span><span class="p">[</span><span class="n">model</span><span class="p">]</span> <span class="o">=</span> <span class="n">metrics_</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+<span class="c1"># Set position of bar on X axis</span>
+<span class="n">br1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">metrics_</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="n">br2</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="n">barWidth</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">br1</span><span class="p">]</span>
+<span class="n">br3</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="n">barWidth</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">br2</span><span class="p">]</span>
+<span class="n">br4</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="n">barWidth</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">br3</span><span class="p">]</span>
+<span class="n">br5</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="n">barWidth</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">br4</span><span class="p">]</span>
+<span class="n">br6</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="n">barWidth</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">br5</span><span class="p">]</span>
+
+<span class="c1"># Make the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">br1</span><span class="p">,</span>
+    <span class="n">metrics_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">barWidth</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="n">plt_models</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">br2</span><span class="p">,</span>
+    <span class="n">metrics_</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;darkblue&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">barWidth</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="n">plt_models</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">br3</span><span class="p">,</span>
+    <span class="n">metrics_</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightskyblue&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">barWidth</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="n">plt_models</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">br4</span><span class="p">,</span>
+    <span class="n">metrics_</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;deepskyblue&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">barWidth</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="n">plt_models</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">br5</span><span class="p">,</span>
+    <span class="n">metrics_</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;springgreen&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">barWidth</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="n">plt_models</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">br6</span><span class="p">,</span>
+    <span class="n">metrics_</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;seagreen&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">barWidth</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="n">plt_models</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># Adding Xticks</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Metric&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Results&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="n">r</span> <span class="o">+</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="n">barWidth</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">metrics_</span><span class="p">[</span><span class="mi">0</span><span class="p">]))],</span> <span class="n">plt_metrics</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Different metrics using both prompts for the models&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">))</span>
+
+<span class="c1"># plt.savefig(&quot;another.png&quot;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="../../_images/f67081def58a559d0253dcb5c0f036c221408a0df9d20c6f749a946de3f2651b.png" src="../../_images/f67081def58a559d0253dcb5c0f036c221408a0df9d20c6f749a946de3f2651b.png" />
+</div>
+</div>
+<p>When comparing all the results, it can be clearly seen that the zero-shot fine-tuned model gives the best results overall, with an F<span class="math notranslate nohighlight">\(_1\)</span>-score exceeding 0.95.</p>
+<p>Additionally, it is evident that the one-shot prompt yields better results for the not fine-tuned models compared to the zero-shot prompt.</p>
+<p>It is also important to highlight the underwhelming results of the fine-tuned model when using the one-shot prompt. This is due to the fact that during the fine-tuning process, the model becomes highly adapted to a specific format, which is disrupted when using the one-shot prompt. Typically, few-shot prompts are not used with the fine-tuned model for this reason.</p>
+<p>Lastly, it is crucial to acknowledge that the small differences observed may be attributed to the evaluation method. The BERTScore method measures token-by-token similarity, which may not be very reliable when applied to a JSON schema containing numerous curly brackets and other schema-related tokens. For more reliable evaluations, please refer to the <a class="reference internal" href="../evaluations/evaluations.html"><span class="std std-doc">evaluations notebook</span></a>.</p>
+</section>
+<section id="references">
+<h2><span class="section-number">4.7. </span>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<div class="docutils container" id="id12">
+<div role="list" class="citation-list">
+<div class="citation" id="id13" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>AMS+24<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id6">2</a>)</span>
+<p>Qianxiang Ai, Fanwang Meng, Jiale Shi, Brenden Pelkie, and Connor W. Coley. Extracting structured data from organic synthesis procedures using a fine-tuned large language model. <em>ChemRxiv</em>, 2024. <a class="reference external" href="https://doi.org/10.26434/chemrxiv-2024-979fz">doi:10.26434/chemrxiv-2024-979fz</a>.</p>
+</div>
+<div class="citation" id="id14" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">DLSZ22</a><span class="fn-bracket">]</span></span>
+<p>Tim Dettmers, Mike Lewis, Sam Shleifer, and Luke Zettlemoyer. 8-bit optimizers via block-wise quantization. 2022. <a class="reference external" href="https://arxiv.org/abs/2110.02861">arXiv:2110.02861</a>.</p>
+</div>
+<div class="citation" id="id16" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>DPHZ23<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id7">1</a>,<a role="doc-backlink" href="#id10">2</a>)</span>
+<p>Tim Dettmers, Artidoro Pagnoni, Ari Holtzman, and Luke Zettlemoyer. Qlora: efficient finetuning of quantized llms. 2023. <a class="reference external" href="https://arxiv.org/abs/2305.14314">arXiv:2305.14314</a>.</p>
+</div>
+<div class="citation" id="id39" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">KVG+24</a><span class="fn-bracket">]</span></span>
+<p>Subbarao Kambhampati, Karthik Valmeekam, Lin Guan, Mudit Verma, Kaya Stechly, Siddhant Bhambri, Lucas Saldyt, and Anil Murthy. Llms can't plan, but can help planning in llm-modulo frameworks. 2024. URL: <a class="reference external" href="https://arxiv.org/abs/2402.01817">https://arxiv.org/abs/2402.01817</a>, <a class="reference external" href="https://arxiv.org/abs/2402.01817">arXiv:2402.01817</a>.</p>
+</div>
+<div class="citation" id="id15" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">LH19</a><span class="fn-bracket">]</span></span>
+<p>Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization. 2019. <a class="reference external" href="https://arxiv.org/abs/1711.05101">arXiv:1711.05101</a>.</p>
+</div>
+<div class="citation" id="id19" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">SDCW20</a><span class="fn-bracket">]</span></span>
+<p>Victor Sanh, Lysandre Debut, Julien Chaumond, and Thomas Wolf. Distilbert, a distilled version of bert: smaller, faster, cheaper and lighter. 2020. <a class="reference external" href="https://arxiv.org/abs/1910.01108">arXiv:1910.01108</a>.</p>
+</div>
+<div class="citation" id="id22" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">SYW+24</a><span class="fn-bracket">]</span></span>
+<p>Zhengyan Shi, Adam X. Yang, Bin Wu, Laurence Aitchison, Emine Yilmaz, and Aldo Lipani. Instruction tuning with loss over instructions. 2024. <a class="reference external" href="https://arxiv.org/abs/2405.14394">arXiv:2405.14394</a>.</p>
+</div>
+<div class="citation" id="id40" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">SVK24</a><span class="fn-bracket">]</span></span>
+<p>Kaya Stechly, Karthik Valmeekam, and Subbarao Kambhampati. On the self-verification limitations of large language models on reasoning and planning tasks. 2024. URL: <a class="reference external" href="https://arxiv.org/abs/2402.08115">https://arxiv.org/abs/2402.08115</a>, <a class="reference external" href="https://arxiv.org/abs/2402.08115">arXiv:2402.08115</a>.</p>
+</div>
+<div class="citation" id="id17" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">ZKW+20</a><span class="fn-bracket">]</span></span>
+<p>Tianyi Zhang, Varsha Kishore, Felix Wu, Kilian Q. Weinberger, and Yoav Artzi. Bertscore: evaluating text generation with bert. 2020. <a class="reference external" href="https://arxiv.org/abs/1904.09675">arXiv:1904.09675</a>.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/finetune"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../context_window/Dealing_with_context_window.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Strategies to tackle context window limitations</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../beyond_text/beyond_images.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Beyond text</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-steps">4.1. First steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-model-and-dataset">4.2. First model and dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-and-inference">4.3. Prompt and inference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#another-model-closed-source-this-time">4.4. Another model, closed-source this time</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning">4.5. Fine-tuning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-of-the-results">4.6. Visualization of the results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">4.7. References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mara Schilling-Wilhelmi, Martiño Ríos-García, Sherjeel Shabih, María Victoria Gil, Santiago Miret, Christoph Koch, Pepe Márquez, and Kevin Maik Jablonka
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

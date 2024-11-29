@@ -1,0 +1,664 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" lang="en" name="description" xml:lang="en" />
+<meta content="en_US" property="og:locale" />
+<meta content="summary" name="twitter:card" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" name="twitter:description" />
+<meta content="structmatdat.pub 📖" name="twitter:title" />
+<meta content="https://structmatdat.pub/_static/logo.png" name="twitter:image" />
+<meta content="&#64;jablonkagroup" name="twitter:site" />
+
+    <title>3. Strategies to tackle context window limitations &#8212; From Text to Insight: Large Language Models for Materials Science Data Extraction</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e878585a" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/context_window/Dealing_with_context_window';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4. Choosing the learning paradigm" href="../finetune/choosing_paradigm.html" />
+    <link rel="prev" title="2.2. Document cleaning" href="../document_parsing_and_cleaning/cleaning.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+    <img src="../../_static/logo_white.png" class="logo__image only-dark pst-js-only" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction and background</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../background/resources_LLMs.html">Overview of the working principles of LLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">A. Structured Extraction Workflow</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../obtaining_data/index.html">1. Obtaining data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/crossref_search.html">1.1. Obtaining a set of relevant data sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/data_mining.html">1.2. Mining data from ChemRxiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/annotation.html">1.3. Data annotation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../document_parsing_and_cleaning/index.html">2. Cleaning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/parsing.html">2.1. Document parsing with OCR tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/cleaning.html">2.2. Document cleaning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Strategies to tackle context window limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../finetune/choosing_paradigm.html">4. Choosing the learning paradigm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../beyond_text/beyond_images.html">5. Beyond text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../agents/agent.html">6. Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../constrained_decoding/index.html">7. Constrained generation to guarantee syntactic correctness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluations/evaluations.html">8. Evaluations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">B. Case Studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../intro_figure/figure1_intro_notebook.html">9. Research articles vs datasets in chemistry and materials science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../biomass_case/biomass_case.html">10. Collecting data on the synthesis procedures of bio-based adsorbents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../perovskite/constrained_formulas.html">11. Retrieving data from chacolgenide perovskites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NMR_composition_matching/NMR_comp_matching.html">12. Validation case study: Matching NMR spectra to composition of the molecule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reaction_case/reaction.html">13. Collecting data for reactions procedures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/context_window/Dealing_with_context_window.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Strategies to tackle context window limitations</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fixed-size-chunking">3.1. Fixed size chunking</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-based-on-special-characters">3.2. Splitting based on special characters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overlap-between-chunks">3.3. Overlap between chunks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embeddings-vectors-rag">3.4. Embeddings, vectors, RAG</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="strategies-to-tackle-context-window-limitations">
+<h1><span class="section-number">3. </span>Strategies to tackle context window limitations<a class="headerlink" href="#strategies-to-tackle-context-window-limitations" title="Link to this heading">#</a></h1>
+<p>Models always have a context window, which is the number of tokens they can process at a given time. This is an issue when we want to process any text that doesn’t fit in this context window. We can break the text into chunks that fit. In this notebook, we demonstrate a number of techniques to tackle this issue.</p>
+<div class="tip admonition">
+<p class="admonition-title">Text from data mining</p>
+<p>The text here is the same one used in the <a class="reference internal" href="../obtaining_data/data_mining.html"><span class="std std-doc">data mining section</span></a>.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matextract</span>  <span class="c1"># noqa: F401</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;As a fundamental problem in organic chemistry, synthesis planning aims at designing energy and cost-efficient reaction pathways for target compounds. In synthesis planning, it is crucial to understand regioselectivity, or the preference of a reaction over competing reaction sites. Precisely predicting regioselectivity enables early exclusion of unproductive reactions and paves the way to designing high-yielding synthetic routes with minimal separation and material costs. However, it is still at emerging state to combine chemical knowledge and data-driven methods to make practical predictions for regioselectivity. At the same time, metal-catalyzed cross-coupling reactions have profoundly transformed medicinal chemistry, and thus become one of the most frequently encountered types of reactions in synthesis planning. In this work, we for the first time introduce a chemical knowledge informed message passing neural network(MPNN) framework that directly identifies the intrinsic major products for metal-catalyzed cross-coupling reactions with regioselective ambiguity. Integrating both first principle methods and data-driven methods, our model achieves an overall accuracy of 95.24</span><span class="se">\\</span><span class="si">% o</span><span class="s2">n the test set of eight typical metal-catalyzed cross-coupling reaction types, including Suzuki-Miyaura, Stille, Sonogashira, Buchwald-Hartwig, Hiyama, Kumada, Negishi, and Heck reactions, outperforming other commonly used model types. To integrate electronic effects with steric effects in regioselectivity prediction, we propose a quantitative method to measure the steric hindrance effect. Our steric hindrance checker can successfully identify regioselectivity induced solely by steric hindrance. Notably under practical scenarios, our model outperforms 6 experimental organic chemists with an average working experience of over 10 years in the organic synthesis industry in terms of predicting major products in regioselective cases. We have also exemplified the practical usage of our model by fixing routes designed by open-access synthesis planning software and improving reactions by identifying low-cost starting materials. To assist general chemists in making prompt decisions about regioselectivity, we have developed a free web-based AI-empowered tool.&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="fixed-size-chunking">
+<h2><span class="section-number">3.1. </span>Fixed size chunking<a class="headerlink" href="#fixed-size-chunking" title="Link to this heading">#</a></h2>
+<p>The simplest approach is to make chunks that fit in your context window without worrying about where it cuts the text. This, as you can see in the example below, is not ideal. Some words get chopped, and when the LLM sees these chunks separately, it likely will struggle to infer information correctly.</p>
+<div class="tip admonition">
+<p class="admonition-title">Choosing a chunk size</p>
+<p>The context window (🪟) needs to fit the chunk (🍕), query (❓), and output (🧰). \</p>
+<p>Example: 🪟 (512) = 🍕 (100) + ❓(50) +  🧰 (388)</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chunk_size</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="p">[</span><span class="n">text</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">chunk_size</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">),</span> <span class="n">chunk_size</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;As a fundamental problem in organic chemistry, synthesis planning aims at designing energy and cost-&#39;,
+ &#39;efficient reaction pathways for target compounds. In synthesis planning, it is crucial to understand&#39;,
+ &#39; regioselectivity, or the preference of a reaction over competing reaction sites. Precisely predicti&#39;,
+ &#39;ng regioselectivity enables early exclusion of unproductive reactions and paves the way to designing&#39;,
+ &#39; high-yielding synthetic routes with minimal separation and material costs. However, it is still at &#39;,
+ &#39;emerging state to combine chemical knowledge and data-driven methods to make practical predictions f&#39;,
+ &#39;or regioselectivity. At the same time, metal-catalyzed cross-coupling reactions have profoundly tran&#39;,
+ &#39;sformed medicinal chemistry, and thus become one of the most frequently encountered types of reactio&#39;,
+ &#39;ns in synthesis planning. In this work, we for the first time introduce a chemical knowledge informe&#39;,
+ &#39;d message passing neural network(MPNN) framework that directly identifies the intrinsic major produc&#39;,
+ &#39;ts for metal-catalyzed cross-coupling reactions with regioselective ambiguity. Integrating both firs&#39;,
+ &#39;t principle methods and data-driven methods, our model achieves an overall accuracy of 95.24\\% on th&#39;,
+ &#39;e test set of eight typical metal-catalyzed cross-coupling reaction types, including Suzuki-Miyaura,&#39;,
+ &#39; Stille, Sonogashira, Buchwald-Hartwig, Hiyama, Kumada, Negishi, and Heck reactions, outperforming o&#39;,
+ &#39;ther commonly used model types. To integrate electronic effects with steric effects in regioselectiv&#39;,
+ &#39;ity prediction, we propose a quantitative method to measure the steric hindrance effect. Our steric &#39;,
+ &#39;hindrance checker can successfully identify regioselectivity induced solely by steric hindrance. Not&#39;,
+ &#39;ably under practical scenarios, our model outperforms 6 experimental organic chemists with an averag&#39;,
+ &#39;e working experience of over 10 years in the organic synthesis industry in terms of predicting major&#39;,
+ &#39; products in regioselective cases. We have also exemplified the practical usage of our model by fixi&#39;,
+ &#39;ng routes designed by open-access synthesis planning software and improving reactions by identifying&#39;,
+ &#39; low-cost starting materials. To assist general chemists in making prompt decisions about regioselec&#39;,
+ &#39;tivity, we have developed a free web-based AI-empowered tool.&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="splitting-based-on-special-characters">
+<h2><span class="section-number">3.2. </span>Splitting based on special characters<a class="headerlink" href="#splitting-based-on-special-characters" title="Link to this heading">#</a></h2>
+<p>We can improve on this and start splitting by special characters such as <code class="docutils literal notranslate"><span class="pre">.</span></code> or <code class="docutils literal notranslate"><span class="pre">\n</span></code>. This keeps most semantic information in the same chunk. But of course, there can be cases where some information is lost in a previous chunk when we split by “.”.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;As a fundamental problem in organic chemistry, synthesis planning aims at designing energy and cost-efficient reaction pathways for target compounds&#39;,
+ &#39; In synthesis planning, it is crucial to understand regioselectivity, or the preference of a reaction over competing reaction sites&#39;,
+ &#39; Precisely predicting regioselectivity enables early exclusion of unproductive reactions and paves the way to designing high-yielding synthetic routes with minimal separation and material costs&#39;,
+ &#39; However, it is still at emerging state to combine chemical knowledge and data-driven methods to make practical predictions for regioselectivity&#39;,
+ &#39; At the same time, metal-catalyzed cross-coupling reactions have profoundly transformed medicinal chemistry, and thus become one of the most frequently encountered types of reactions in synthesis planning&#39;,
+ &#39; In this work, we for the first time introduce a chemical knowledge informed message passing neural network(MPNN) framework that directly identifies the intrinsic major products for metal-catalyzed cross-coupling reactions with regioselective ambiguity&#39;,
+ &#39; Integrating both first principle methods and data-driven methods, our model achieves an overall accuracy of 95&#39;,
+ &#39;24\\% on the test set of eight typical metal-catalyzed cross-coupling reaction types, including Suzuki-Miyaura, Stille, Sonogashira, Buchwald-Hartwig, Hiyama, Kumada, Negishi, and Heck reactions, outperforming other commonly used model types&#39;,
+ &#39; To integrate electronic effects with steric effects in regioselectivity prediction, we propose a quantitative method to measure the steric hindrance effect&#39;,
+ &#39; Our steric hindrance checker can successfully identify regioselectivity induced solely by steric hindrance&#39;,
+ &#39; Notably under practical scenarios, our model outperforms 6 experimental organic chemists with an average working experience of over 10 years in the organic synthesis industry in terms of predicting major products in regioselective cases&#39;,
+ &#39; We have also exemplified the practical usage of our model by fixing routes designed by open-access synthesis planning software and improving reactions by identifying low-cost starting materials&#39;,
+ &#39; To assist general chemists in making prompt decisions about regioselectivity, we have developed a free web-based AI-empowered tool&#39;,
+ &#39;&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="overlap-between-chunks">
+<h2><span class="section-number">3.3. </span>Overlap between chunks<a class="headerlink" href="#overlap-between-chunks" title="Link to this heading">#</a></h2>
+<p>To try to not lose this semantic information too much, we can add some overlap between chunks. This way some information is trickled in from the previous chunk and some from the next. Imagine this as reading the last two lines of the last paragraph and the first two of the next alongside the current paragraph you are reading.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chunked_sentences</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+<span class="n">overlap</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="p">[</span>
+    <span class="n">chunked_sentences</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="n">overlap</span><span class="p">:]</span>
+    <span class="o">+</span> <span class="n">chunked_sentences</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="o">+</span> <span class="n">chunked_sentences</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][:</span><span class="mi">5</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunked_sentences</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;As a fundamental problem in organic chemistry, synthesis planning aims at designing energy and cost-efficient reaction pathways for target compounds In s&#39;,
+ &#39;arget compounds In synthesis planning, it is crucial to understand regioselectivity, or the preference of a reaction over competing reaction sites Prec&#39;,
+ &#39; reaction sites Precisely predicting regioselectivity enables early exclusion of unproductive reactions and paves the way to designing high-yielding synthetic routes with minimal separation and material costs Howe&#39;,
+ &#39; material costs However, it is still at emerging state to combine chemical knowledge and data-driven methods to make practical predictions for regioselectivity At t&#39;,
+ &#39;egioselectivity At the same time, metal-catalyzed cross-coupling reactions have profoundly transformed medicinal chemistry, and thus become one of the most frequently encountered types of reactions in synthesis planning In t&#39;,
+ &#39;thesis planning In this work, we for the first time introduce a chemical knowledge informed message passing neural network(MPNN) framework that directly identifies the intrinsic major products for metal-catalyzed cross-coupling reactions with regioselective ambiguity Inte&#39;,
+ &#39;ctive ambiguity Integrating both first principle methods and data-driven methods, our model achieves an overall accuracy of 9524\\% &#39;,
+ &#39; accuracy of 9524\\% on the test set of eight typical metal-catalyzed cross-coupling reaction types, including Suzuki-Miyaura, Stille, Sonogashira, Buchwald-Hartwig, Hiyama, Kumada, Negishi, and Heck reactions, outperforming other commonly used model types To i&#39;,
+ &#39;sed model types To integrate electronic effects with steric effects in regioselectivity prediction, we propose a quantitative method to measure the steric hindrance effect Our &#39;,
+ &#39;indrance effect Our steric hindrance checker can successfully identify regioselectivity induced solely by steric hindrance Nota&#39;,
+ &#39;teric hindrance Notably under practical scenarios, our model outperforms 6 experimental organic chemists with an average working experience of over 10 years in the organic synthesis industry in terms of predicting major products in regioselective cases We h&#39;,
+ &#39;selective cases We have also exemplified the practical usage of our model by fixing routes designed by open-access synthesis planning software and improving reactions by identifying low-cost starting materials To a&#39;,
+ &#39;rting materials To assist general chemists in making prompt decisions about regioselectivity, we have developed a free web-based AI-empowered tool&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="embeddings-vectors-rag">
+<h2><span class="section-number">3.4. </span>Embeddings, vectors, RAG<a class="headerlink" href="#embeddings-vectors-rag" title="Link to this heading">#</a></h2>
+<p>If there are too many chunks to process all of them every time a query is made, a RAG, Retrieval Augmented Generation, approach can be used. This is usually used with a vector database to do a similarity search to find relevant chunks before querying the LLM.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Embedding models are designed to store semantic information from a given text as vectors. The distance between two such vectors represents the semantic closeness between two original texts.</p>
+</aside>
+<p>We can use an embedding model to find suitable vectors to represent our vocabulary whether it is words or sentences. These vectors are then stored in a vector database for retrieval later.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sentence_transformers</span> <span class="kn">import</span> <span class="n">SentenceTransformer</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;all-MiniLM-L6-v2&quot;</span><span class="p">)</span>
+<span class="n">sentences</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
+<span class="n">text_embeddings</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">chunked_sentences</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text_embeddings</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>ChromaDB is an Open Source Vector Database that we can use for our RAG application to query before the request is sent to the LLM. ChromaDB as default uses the same Sentence Embedding model we used above, “all-MiniLM-L6-v2”.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Vector Databases are useful when you have many texts/chunks that you would like to use in your workflow. If the number of texts can be fit into a simpler look-up <code class="docutils literal notranslate"><span class="pre">np.array</span></code> and can be filtered by looping over a <code class="docutils literal notranslate"><span class="pre">np.array</span></code>, it’s better to skip using a vectorDB. If there are many semantically different texts, a vectorDB will help with looking up similar ones.</p>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">chromadb</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">chromadb</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
+<span class="n">collection</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">create_collection</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;MySentenceStore&quot;</span><span class="p">)</span>
+<span class="n">collection</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">documents</span><span class="o">=</span><span class="n">chunked_sentences</span><span class="p">,</span>
+    <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunked_sentences</span><span class="p">))],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Before we send our query to the LLM, we find a relevant chunk from our vector database. In this example, it will give us the sentence most relevant to our question.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query_results</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
+    <span class="n">query_texts</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;What has transformed medicinal chemistry?&quot;</span><span class="p">],</span> <span class="n">n_results</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">query_results</span><span class="p">[</span><span class="s2">&quot;documents&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&#39; At the same time, metal-catalyzed cross-coupling reactions have profoundly transformed medicinal chemistry, and thus become one of the most frequently encountered types of reactions in synthesis planning&#39;]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python",
+            path: "./content/context_window"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../document_parsing_and_cleaning/cleaning.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">2.2. </span>Document cleaning</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../finetune/choosing_paradigm.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Choosing the learning paradigm</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fixed-size-chunking">3.1. Fixed size chunking</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-based-on-special-characters">3.2. Splitting based on special characters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overlap-between-chunks">3.3. Overlap between chunks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embeddings-vectors-rag">3.4. Embeddings, vectors, RAG</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mara Schilling-Wilhelmi, Martiño Ríos-García, Sherjeel Shabih, María Victoria Gil, Santiago Miret, Christoph Koch, Pepe Márquez, and Kevin Maik Jablonka
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

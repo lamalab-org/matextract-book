@@ -1,0 +1,796 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" lang="en" name="description" xml:lang="en" />
+<meta content="en_US" property="og:locale" />
+<meta content="summary" name="twitter:card" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" name="twitter:description" />
+<meta content="structmatdat.pub 📖" name="twitter:title" />
+<meta content="https://structmatdat.pub/_static/logo.png" name="twitter:image" />
+<meta content="&#64;jablonkagroup" name="twitter:site" />
+
+    <title>13. Collecting data for reactions procedures &#8212; From Text to Insight: Large Language Models for Materials Science Data Extraction</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e878585a" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/reaction_case/reaction';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="12. Validation case study: Matching NMR spectra to composition of the molecule" href="../NMR_composition_matching/NMR_comp_matching.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+    <img src="../../_static/logo_white.png" class="logo__image only-dark pst-js-only" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction and background</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../background/resources_LLMs.html">Overview of the working principles of LLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">A. Structured Extraction Workflow</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../obtaining_data/index.html">1. Obtaining data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/crossref_search.html">1.1. Obtaining a set of relevant data sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/data_mining.html">1.2. Mining data from ChemRxiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/annotation.html">1.3. Data annotation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../document_parsing_and_cleaning/index.html">2. Cleaning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/parsing.html">2.1. Document parsing with OCR tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/cleaning.html">2.2. Document cleaning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../context_window/Dealing_with_context_window.html">3. Strategies to tackle context window limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../finetune/choosing_paradigm.html">4. Choosing the learning paradigm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../beyond_text/beyond_images.html">5. Beyond text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../agents/agent.html">6. Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../constrained_decoding/index.html">7. Constrained generation to guarantee syntactic correctness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluations/evaluations.html">8. Evaluations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">B. Case Studies</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../intro_figure/figure1_intro_notebook.html">9. Research articles vs datasets in chemistry and materials science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../biomass_case/biomass_case.html">10. Collecting data on the synthesis procedures of bio-based adsorbents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../perovskite/constrained_formulas.html">11. Retrieving data from chacolgenide perovskites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NMR_composition_matching/NMR_comp_matching.html">12. Validation case study: Matching NMR spectra to composition of the molecule</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">13. Collecting data for reactions procedures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/reaction_case/reaction.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Collecting data for reactions procedures</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-steps">13.1. First steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompting-and-extracting">13.2. Prompting and extracting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bibliography">13.3. Bibliography</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="collecting-data-for-reactions-procedures">
+<h1><span class="section-number">13. </span>Collecting data for reactions procedures<a class="headerlink" href="#collecting-data-for-reactions-procedures" title="Link to this heading">#</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This notebook can be run with any computer, no special requirements are needed since the completions are done using API calls.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Motivation</p>
+<p>In this notebook, we aim to illustrate a simple demo of extracting the different species involved in an organic reaction. The main aim is to develop a method to check if the data extracted by the model has the correct number of atoms in both sides of the reaction. We have extracted three reactions from the USPTO-ORD-100K dataset to show the process. <span id="id1">[<a class="reference internal" href="#id3" title="Qianxiang Ai, Fanwang Meng, Jiale Shi, Brenden Pelkie, and Connor W. Coley. Extracting structured data from organic synthesis procedures using a fine-tuned large language model. ChemRxiv, 2024. doi:10.26434/chemrxiv-2024-979fz.">Ai <em>et al.</em>, 2024</a>]</span></p>
+<p>To this end, we developed a simple <code class="docutils literal notranslate"><span class="pre">pydantic</span></code> class that we use to constrain the model’s output by using the package <code class="docutils literal notranslate"><span class="pre">instructor</span></code>. Then, using the tools of the <code class="docutils literal notranslate"><span class="pre">rdkit</span></code> package, we will count the atoms from the SMILES and check if the condition is fulfilled.</p>
+</div>
+<section id="first-steps">
+<h2><span class="section-number">13.1. </span>First steps<a class="headerlink" href="#first-steps" title="Link to this heading">#</a></h2>
+<p>We begin by importing all the packages needed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matextract</span>  <span class="c1"># noqa: F401</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">litellm</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+<span class="kn">import</span> <span class="nn">instructor</span>
+
+<span class="kn">from</span> <span class="nn">rdkit</span> <span class="kn">import</span> <span class="n">Chem</span>
+<span class="kn">from</span> <span class="nn">rdkit.Chem.rdmolops</span> <span class="kn">import</span> <span class="n">GetFormalCharge</span>
+<span class="kn">import</span> <span class="nn">periodictable</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we load the data with the reaction’s procedure.</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Download data</p>
+<p>The complete dataset can be easily download by running the following commands:</p>
+<p><code class="docutils literal notranslate"><span class="pre">reactions</span> <span class="pre">=</span> <span class="pre">load_dataset(&quot;MrtinoRG/USPTO-ORD-100K&quot;,</span> <span class="pre">data_files=&quot;USPTO-n100k-t2048_exp1-COT.json&quot;,</span> <span class="pre">split=&quot;train&quot;)</span></code></p>
+</div>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>The studied reactions were selected by hand from the dataset. The only requirement followed when choosing the reactions here studied was that the reactions must contain the name of the product. This is because some reactions from the USPTO-ORD-100K dataset describe the main product of the reaction as “the title compound”, which is not ideal to our case.</p>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Replace &#39;your_file_path.json&#39; with the path to your JSON file</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;reactions.json&quot;</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To constrain the output of the model, we create a simple <code class="docutils literal notranslate"><span class="pre">pydantic</span></code> class in which we define three subclasses: reactants, solvent and products. For reactants and products we also include the amount as mass or volume, and the units for the amount.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Reactant</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">amount</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Amount as mass or volume of the reactant&quot;</span>
+    <span class="p">)</span>
+    <span class="n">amount_units</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">Product</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">amount</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Amount as mass or volume of the product&quot;</span>
+    <span class="p">)</span>
+    <span class="n">amount_units</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">Solvent</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="o">...</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Name of the specie. If another is contained in it, definitely it is the solvent&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">ReactionSpecies</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">reactant</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Reactant</span><span class="p">]</span>
+    <span class="n">product</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Product</span><span class="p">]</span>
+    <span class="n">solvent</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Solvent</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We also need a converter from IUPAC names to SMILES. This is needed since the reaction procedures from the dataset use IUPAC, traditional or commercial names to refer to molecules, while <code class="docutils literal notranslate"><span class="pre">rdkit</span></code> works preferentially with SMILES.</p>
+<p>We defined such a utility using the <a class="reference external" href="https://cactus.nci.nih.gov/chemical/structure">Chemical Identifier Resolver</a> in the package.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matextract.utils</span> <span class="kn">import</span> <span class="n">name_to_smiles</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The last function that we need is to count the number atoms of each element in the molecules.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>The function <code class="docutils literal notranslate"><span class="pre">composition</span></code> is a modification from one presented in <a class="reference external" href="https://github.com/rdkit/rdkit/discussions/5339"><code class="docutils literal notranslate"><span class="pre">rdkit</span></code> GitHub repository discussion</a>.</p>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">composition</span><span class="p">(</span><span class="n">molecule</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the composition of an RDKit molecule:</span>
+<span class="sd">    Atomic counts, including hydrogen atoms, and any charge.</span>
+<span class="sd">    For example, fluoride ion (chemical formula F-, SMILES string [F-])</span>
+<span class="sd">    returns {9: 1, 0: -1}.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        molecule: RDKit molecule</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: Atomic composition</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Add hydrogen atoms--RDKit excludes them by default</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">molecule</span><span class="p">)</span>
+    <span class="n">molecule_with_Hs</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">comp</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Get atom counts</span>
+    <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">molecule_with_Hs</span><span class="o">.</span><span class="n">GetAtoms</span><span class="p">():</span>
+        <span class="n">comp</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">GetAtomicNum</span><span class="p">()]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1"># If charged, add charge as &quot;atomic number&quot; 0</span>
+    <span class="n">charge</span> <span class="o">=</span> <span class="n">GetFormalCharge</span><span class="p">(</span><span class="n">molecule_with_Hs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">charge</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">comp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">charge</span>
+    <span class="k">return</span> <span class="n">comp</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="prompting-and-extracting">
+<h2><span class="section-number">13.2. </span>Prompting and extracting<a class="headerlink" href="#prompting-and-extracting" title="Link to this heading">#</a></h2>
+<p>To extract the data, we are going to prompt the model with a two-shot prompt.
+In addition, the prompt will contain the reaction procedure to extract from.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">system_prompt</span> <span class="o">=</span> <span class="s2">&quot;You are an expert in organic chemistry. Your task is to extract information about reactants and products from a given reaction procedure.&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">user_prompt</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Two examples are provided in order to help you:</span>
+
+<span class="s2">Example 1:</span>
+
+<span class="s2">Reaction procedure: </span><span class="si">{reaction1}</span>
+<span class="s2">Answer: </span><span class="si">{answer1}</span>
+
+<span class="s2">Example 2:</span>
+
+<span class="s2">Reaction procedure: </span><span class="si">{reaction1}</span>
+<span class="s2">Answer: </span><span class="si">{answer2}</span>
+
+<span class="s2">The reaction procedure is the following:</span>
+
+<span class="si">{reaction_procedure}</span>
+
+<span class="s2">Now extract the data from it according to the schema.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>The two shots used were prepared using two reaction procedures from the USPTO-ORD-100K dataset, and extracting the data by hand to formulate the answers.</p>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reaction1</span> <span class="o">=</span> <span class="s2">&quot;1-(3,4-dichlorobenzyl)-3-(4-(iodomethyl)thiazol-2-yl)urea (Intermediate 6) was taken up in tetrahydrofuran and an excess of the 2,4-dimethoxy-benzylamine (20 eq.) was added. The reaction was allowed to stir overnight at room temperature. The volatiles were removed in vacuo. Resulting oil triturated with water to give a gooey solid. Water was decanted off and resulting residue was purified by column chromatography using 0-8</span><span class="si">% g</span><span class="s2">radient of 7 N ammonia/MeOH and DCM to give 1-(3,4-Dichloro-benzyl)-3-{4-[(2,4-dimethoxy-benzylamino)-methyl]-thiazol-2-yl}-urea.&quot;</span>
+<span class="n">answer1</span> <span class="o">=</span> <span class="s2">&quot;reactant=[Reactant(name=&#39;1-(3,4-dichlorobenzyl)-3-(4-(iodomethyl)thiazol-2-yl)urea&#39;, amount=None, amount_units=None), Reactant(name=&#39;2,4-dimethoxy-benzylamine&#39;, amount=20.0, amount_units=None)] product=[Product(name=&#39;1-(3,4-Dichloro-benzyl)-3-{4-[(2,4-dimethoxy-benzylamino)-methyl]-thiazol-2-yl}-urea&#39;, amount=None, amount_units=None)] solvent=[Solvent(name=&#39;water&#39;), Solvent(name=&#39;tetrahydrofuran&#39;)]&quot;</span>
+
+<span class="n">reaction2</span> <span class="o">=</span> <span class="s2">&quot;To a solution of (+)-trans-3-hydroxymethyl-4-phenylcyclopentan-1-one from Example 8, Step F (3.3 g, 16 mmol) in methylene chloride (100 mL) was added t-butyldimethylsilyl chloride (11 g, 49 mmol) and DIPEA (22 mL, 74 mmol). The reaction was stirred at rt for 16 h, poured into dilute aq. hydrochloric acid and extracted twice with ether. The organic layers were washed with brine, dried over sodium sulfate, a combined and concentrated. The residue was purified by FC (5</span><span class="si">% e</span><span class="s2">thyl acetate in hexanes) to afford of (+)-trans-1-t-butyldimethylsilyloxymethyl-4-oxo-2-phenylcyclopentane (6.3 g) as a oil.&quot;</span>
+<span class="n">answer2</span> <span class="o">=</span> <span class="s2">&quot;reactant=[Reactant(name=&#39;(+)-trans-3-hydroxymethyl-4-phenylcyclopentan-1-one&#39;, amount=3.3, amount_units=&#39;g&#39;), Reactant(name=&#39;t-butyldimethylsilyl chloride&#39;, amount=11, amount_units=&#39;g&#39;), Reactant(name=&#39;DIPEA&#39;, amount=22, amount_units=&#39;mL&#39;)] solvent=[Solvent(name=&#39;methylene chloride&#39;)] product=[Product(name=&#39;(+)-trans-1-t-butyldimethylsilyloxymethyl-4-oxo-2-phenylcyclopentane&#39;, amount=6.3, amount_units=g)]&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, we perform the extraction for each of the reactions considered.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">instructor</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">OpenAI</span><span class="p">(),</span> <span class="n">mode</span><span class="o">=</span><span class="n">instructor</span><span class="o">.</span><span class="n">Mode</span><span class="o">.</span><span class="n">MD_JSON</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">reaction</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">reaction_procedure</span> <span class="o">=</span> <span class="n">reaction</span><span class="p">[</span><span class="s2">&quot;procedure_text&quot;</span><span class="p">]</span>
+    <span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">system_prompt</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">user_prompt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">reaction1</span><span class="o">=</span><span class="n">reaction1</span><span class="p">,</span>
+                <span class="n">answer1</span><span class="o">=</span><span class="n">answer1</span><span class="p">,</span>
+                <span class="n">reaction2</span><span class="o">=</span><span class="n">reaction2</span><span class="p">,</span>
+                <span class="n">answer2</span><span class="o">=</span><span class="n">answer2</span><span class="p">,</span>
+                <span class="n">reaction_procedure</span><span class="o">=</span><span class="n">reaction_procedure</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">},</span>
+    <span class="p">]</span>
+
+    <span class="n">completion</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4&quot;</span><span class="p">,</span>
+        <span class="n">response_model</span><span class="o">=</span><span class="n">ReactionSpecies</span><span class="p">,</span>
+        <span class="n">max_retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+        <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">reactant_smiles</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">name_to_smiles</span><span class="p">(</span><span class="n">reactant</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">reactant</span> <span class="ow">in</span> <span class="n">completion</span><span class="o">.</span><span class="n">reactant</span>
+    <span class="p">]</span>
+    <span class="n">product_smiles</span> <span class="o">=</span> <span class="p">[</span><span class="n">name_to_smiles</span><span class="p">(</span><span class="n">product</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">completion</span><span class="o">.</span><span class="n">product</span><span class="p">]</span>
+
+    <span class="c1"># Extract the atoms number for reactants and products</span>
+    <span class="n">reactants_atoms</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">reactant</span> <span class="ow">in</span> <span class="n">reactant_smiles</span><span class="p">:</span>
+        <span class="n">reactants_atoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">composition</span><span class="p">(</span><span class="n">reactant</span><span class="p">))</span>
+
+    <span class="n">products_atoms</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">product_smiles</span><span class="p">:</span>
+        <span class="n">products_atoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">composition</span><span class="p">(</span><span class="n">product</span><span class="p">))</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reaction </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">reaction_procedure</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">completion</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Atom counting:&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Summing up values for reactant_smiles</span>
+    <span class="n">sum_reactant_smiles</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">reactants_atoms</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">sum_reactant_smiles</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="n">value</span>
+
+    <span class="c1"># Summing up values for product_smiles</span>
+    <span class="n">sum_product_smiles</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">products_atoms</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">sum_product_smiles</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="n">value</span>
+
+    <span class="c1"># Comparing the summed values of equal keys</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">sum_reactant_smiles</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">sum_product_smiles</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">periodictable</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="si">}</span><span class="s2">: Reactant = </span><span class="si">{</span><span class="n">sum_reactant_smiles</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="si">}</span><span class="s2">, Product = </span><span class="si">{</span><span class="n">sum_product_smiles</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">periodictable</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="si">}</span><span class="s2"> not present in Products&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reaction 1
+
+A solution of 0.55 g (1.6 mmol) (S)-7-amino-5-(4-methoxy-benzyl)-5H,7H-dibenzo[b,d]azepin-6-one, 3.74 ml (50 mmol) trifluoroacetic acid and 1.4 ml (16 mmol) trifluormethane sulfonic acid in 38 ml dichloromethane was stirred at room temperature for 4 hours. The solvent was distilled off and extraction with aqueous sodium bicarbonate solution/ethyl acetate followed by chromatography on silicagel with ethylacetate/methanol (100-95/0-5) yielded 0.35 g (96%) (S)-7-amino-5H,7H-dibenzo[b,d]azepin-6-one as orange solid; MS: m/e: 225.4 (M+H+).
+reactant=[Reactant(name=&#39;(S)-7-amino-5-(4-methoxy-benzyl)-5H,7H-dibenzo[b,d]azepin-6-one&#39;, amount=0.55, amount_units=None), Reactant(name=&#39;trifluoroacetic acid&#39;, amount=3.74, amount_units=None), Reactant(name=&#39;trifluormethane sulfonic acid&#39;, amount=1.4, amount_units=None)] product=[Product(name=&#39;(S)-7-amino-5H,7H-dibenzo[b,d]azepin-6-one&#39;, amount=0.35, amount_units=None)] solvent=[Solvent(name=&#39;dichloromethane&#39;), Solvent(name=&#39;aqueous sodium bicarbonate solution&#39;), Solvent(name=&#39;ethyl acetate&#39;), Solvent(name=&#39;ethylacetate/methanol&#39;)]
+
+
+Atom counting:
+C: Reactant = 25, Product = 14
+O: Reactant = 7, Product = 1
+N: Reactant = 2, Product = 2
+H: Reactant = 22, Product = 12
+F not present in Products
+S not present in Products
+
+
+
+Reaction 2
+
+A solution of but-3-ynyl 4-methylbenzenesulfonate (2.0 mL) and piperazine (2.0 g) in EtOH (6 mL) was heated to reflux for 30 min. The mixture was concentrated, diluted with NaOH 2 M (8 mL) and extracted with Et2O (50 mL). Evaporation of the organic layer gave a 2:1 mixture of mono and bis-alkylated piperazine (450 mg) which was discarded. The aqueous layer was further extracted with DCM (100 mL) to give of 1-(but-3-ynyl)piperazine (640 mg).
+reactant=[Reactant(name=&#39;but-3-ynyl 4-methylbenzenesulfonate&#39;, amount=2.0, amount_units=None), Reactant(name=&#39;piperazine&#39;, amount=2.0, amount_units=None)] product=[Product(name=&#39;1-(but-3-ynyl)piperazine&#39;, amount=640.0, amount_units=None)] solvent=[Solvent(name=&#39;EtOH&#39;), Solvent(name=&#39;NaOH 2 M&#39;), Solvent(name=&#39;Et2O&#39;), Solvent(name=&#39;DCM&#39;)]
+
+
+Atom counting:
+C: Reactant = 15, Product = 8
+S not present in Products
+O not present in Products
+H: Reactant = 22, Product = 14
+N: Reactant = 2, Product = 2
+
+
+
+Reaction 3
+
+A mixture of 5.6 g of 1-(6-iodohexyl)-2,3-bis(phenylmethoxy) benzene, 2.1 g of 3-chloro-4-hydroxybenzoic acid methyl ester and 5.0 g of potassium carbonate in 50 mL of acetone was stirred at reflux for 20 hours. Workup as in Example 16, chromatography on 100 g of silica gel using 15% ethyl acetate-hexane and crystallization from ethyl acetate-hexane gave 3.7 g (59% yield), mp 68°-69°, 3-chloro-4-[6-[2,3-bis(phenylmethoxy)phenyl]hexyloxy]benzoic acid methyl ester.
+reactant=[Reactant(name=&#39;1-(6-iodohexyl)-2,3-bis(phenylmethoxy) benzene&#39;, amount=5.6, amount_units=None), Reactant(name=&#39;3-chloro-4-hydroxybenzoic acid methyl ester&#39;, amount=2.1, amount_units=None), Reactant(name=&#39;potassium carbonate&#39;, amount=5.0, amount_units=None)] product=[Product(name=&#39;3-chloro-4-[6-[2,3-bis(phenylmethoxy)phenyl]hexyloxy]benzoic acid methyl ester&#39;, amount=3.7, amount_units=None)] solvent=[Solvent(name=&#39;acetone&#39;), Solvent(name=&#39;ethyl acetate-hexane&#39;)]
+
+
+Atom counting:
+I not present in Products
+C: Reactant = 35, Product = 34
+O: Reactant = 8, Product = 5
+H: Reactant = 36, Product = 35
+Cl: Reactant = 1, Product = 1
+K not present in Products
+</pre></div>
+</div>
+</div>
+</div>
+<p>The extraction is effective for identifying species names, but struggles with identifying solvents. The model accurately identifies reactants and products in three reactions, but includes some species used for separation and purification as solvents.
+It also has difficulty identifying the units of amount, especially for volume measurements. Despite successful extraction, the atom count is not accurate for any of the reactions. This is because the reaction procedure only includes the final desired product and omits other products. To address this issue, one solution could be to incorporate an agent environment that retrieves all species from a reaction database. Alternatively, a simpler approach could be to limit the check to a subset of element types.</p>
+</section>
+<section id="bibliography">
+<h2><span class="section-number">13.3. </span>Bibliography<a class="headerlink" href="#bibliography" title="Link to this heading">#</a></h2>
+<div class="docutils container" id="id2">
+<div role="list" class="citation-list">
+<div class="citation" id="id3" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">AMS+24</a><span class="fn-bracket">]</span></span>
+<p>Qianxiang Ai, Fanwang Meng, Jiale Shi, Brenden Pelkie, and Connor W. Coley. Extracting structured data from organic synthesis procedures using a fine-tuned large language model. <em>ChemRxiv</em>, 2024. <a class="reference external" href="https://doi.org/10.26434/chemrxiv-2024-979fz">doi:10.26434/chemrxiv-2024-979fz</a>.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/reaction_case"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../NMR_composition_matching/NMR_comp_matching.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">12. </span>Validation case study: Matching NMR spectra to composition of the molecule</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-steps">13.1. First steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompting-and-extracting">13.2. Prompting and extracting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bibliography">13.3. Bibliography</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mara Schilling-Wilhelmi, Martiño Ríos-García, Sherjeel Shabih, María Victoria Gil, Santiago Miret, Christoph Koch, Pepe Márquez, and Kevin Maik Jablonka
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

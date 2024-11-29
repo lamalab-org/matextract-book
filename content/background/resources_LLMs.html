@@ -1,0 +1,631 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" lang="en" name="description" xml:lang="en" />
+<meta content="en_US" property="og:locale" />
+<meta content="summary" name="twitter:card" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" name="twitter:description" />
+<meta content="structmatdat.pub 📖" name="twitter:title" />
+<meta content="https://structmatdat.pub/_static/logo.png" name="twitter:image" />
+<meta content="&#64;jablonkagroup" name="twitter:site" />
+
+    <title>Overview of the working principles of LLMs &#8212; From Text to Insight: Large Language Models for Materials Science Data Extraction</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e878585a" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/background/resources_LLMs';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="1. Obtaining data" href="../obtaining_data/index.html" />
+    <link rel="prev" title="From Text to Insight: Large Language Models for Chemical Data Extraction" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+    <img src="../../_static/logo_white.png" class="logo__image only-dark pst-js-only" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction and background</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Overview of the working principles of LLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">A. Structured Extraction Workflow</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../obtaining_data/index.html">1. Obtaining data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/crossref_search.html">1.1. Obtaining a set of relevant data sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/data_mining.html">1.2. Mining data from ChemRxiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/annotation.html">1.3. Data annotation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../document_parsing_and_cleaning/index.html">2. Cleaning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/parsing.html">2.1. Document parsing with OCR tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/cleaning.html">2.2. Document cleaning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../context_window/Dealing_with_context_window.html">3. Strategies to tackle context window limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../finetune/choosing_paradigm.html">4. Choosing the learning paradigm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../beyond_text/beyond_images.html">5. Beyond text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../agents/agent.html">6. Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../constrained_decoding/index.html">7. Constrained generation to guarantee syntactic correctness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluations/evaluations.html">8. Evaluations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">B. Case Studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../intro_figure/figure1_intro_notebook.html">9. Research articles vs datasets in chemistry and materials science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../biomass_case/biomass_case.html">10. Collecting data on the synthesis procedures of bio-based adsorbents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../perovskite/constrained_formulas.html">11. Retrieving data from chacolgenide perovskites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NMR_composition_matching/NMR_comp_matching.html">12. Validation case study: Matching NMR spectra to composition of the molecule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reaction_case/reaction.html">13. Collecting data for reactions procedures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/background/resources_LLMs.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Overview of the working principles of LLMs</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#online-resources">💻 Online resources</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transformers">Transformers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attention">Attention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenization-and-embeddings">Tokenization and embeddings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-training">Model training</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompting">Prompting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#books">📘 Books</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="overview-of-the-working-principles-of-llms">
+<h1>Overview of the working principles of LLMs<a class="headerlink" href="#overview-of-the-working-principles-of-llms" title="Link to this heading">#</a></h1>
+<p>In this notebook, we have compiled a list of valuable resources to help you understand how Large Language Models (LLMs) work. Here, you will find accessible explanations of the fundamental principles behind these models.</p>
+<section id="online-resources">
+<h2>💻 Online resources<a class="headerlink" href="#online-resources" title="Link to this heading">#</a></h2>
+<section id="transformers">
+<h3>Transformers<a class="headerlink" href="#transformers" title="Link to this heading">#</a></h3>
+<p>Transformers have become the leading architecture for solving natural language processing (NLP) tasks, enabling the development of powerful language models. Introduced in the groundbreaking 2017 paper <em>“Attention Is All You Need”</em> by Google researchers, the Transformer architecture has transformed the field of NLP. To understand the fundamentals of Transformers, you can explore the resources shown below. <em>(Figure - The Transformer, model architecture. Source: <a class="reference external" href="https://arxiv.org/abs/1706.03762">“Attention Is All You Need”</a> paper)</em></p>
+<figure class="align-right">
+<a class="reference internal image-reference" href="../../_images/transformer.png"><img alt="../../_images/transformer.png" src="../../_images/transformer.png" style="width: 300px;" /></a>
+</figure>
+<ul>
+<li><p><a class="reference external" href="https://nlp.seas.harvard.edu/annotated-transformer">The Annotated Transformer</a></p>
+<p>This post from Harvard University presents an annotated version of the paper <em>“Attention is All You Need”</em> in the form of a line-by-line implementation. It reorders and deletes some sections from the original paper and adds comments throughout. Thus, it explains the model architecture (Transformer), model training, and a real-world example. This document is a notebook that allows a completely usable implementation.</p>
+</li>
+<li><p><a class="reference external" href="https://www.jeremyjordan.me/transformer-architecture">Understanding the Transformer architecture for neural networks</a></p>
+<p>In this article, Jeremy Jordan explains the Transformer architecture with a focus on the attention mechanism, encoder, decoder, and embeddings. His didactic approach is enriched with many explanatory schemas, making the concepts easy to understand.</p>
+</li>
+<li><p><a class="reference external" href="https://jalammar.github.io/illustrated-transformer">The Illustrated Transformer</a></p>
+<p>In this post, Jay Alammar demystifies how Transformers work. He simplifies complex concepts like encoders, decoders, embeddings, self-attention mechanisms, and model training by explaining each one individually, using numerous schemas to enhance understanding.</p>
+</li>
+<li><p><a class="reference external" href="https://bea.stollnitz.com/blog/gpt-transformer/">The Transformer architecture of GPT models</a></p>
+<p>This article by Bea Stollnitz explains the architecture of GPT models, which are built using a subset of the original Transformer architecture. It shows a GPT-like version of the code that can be compared with the original Transformer to understand the differences.</p>
+</li>
+<li><p><a class="reference external" href="https://github.com/markriedl/transformer-walkthrough">A walkthrough of transformer architecture code</a></p>
+<p>This notebook, designed for illustration and didactic purposes, provides a comprehensive walkthrough of the Transformer architecture code. It guides you through a single forward pass, explaining each stage of the architecture with the help of a detailed computation graph.</p>
+</li>
+<li><p><a class="reference external" href="https://bbycroft.net/llm">LLM Visualization</a></p>
+<p>Here, Brendan Bycroft shows an impressive interactive visualization of the LLM algorithm behind some of OpenAI GPT models, allowing you to see the entire process in action.</p>
+</li>
+</ul>
+<p>🎥 You can also find a clear explanation of Transformers in the video <a class="reference external" href="https://www.youtube.com/watch?v=tstbZXNCfLY">The Transformer Architecture</a> by Sebastian Raschka.</p>
+</section>
+<section id="attention">
+<h3>Attention<a class="headerlink" href="#attention" title="Link to this heading">#</a></h3>
+<p>The concept of “attention” in deep learning emerged from the need to improve recurrent neural networks (RNNs) for handling longer sequences. Working word-by-word is not effective. To overcome this issue, attention mechanisms were introduced to give access to all sequence elements at each time step. The key is to select and determine which words are most important in a specific context. The transformer architecture uses an autonomous self-attenuation mechanism that solves the problem of accessing the entire sequence in constant time. To understand the attention mechanisms, you can explore the resources shown below. <em>(Figure - Computing the attention scores to weigh the importance of different elements in an input sequence. Source: <a class="reference external" href="https://sebastianraschka.com/blog/2023/self-attention-from-scratch.html">“Understanding and Coding the Self-Attention Mechanism of Large Language Models From Scratch”</a> post by S. Raschka)</em></p>
+<figure class="align-right">
+<a class="reference internal image-reference" href="../../_images/attention-scores.png"><img alt="../../_images/attention-scores.png" src="../../_images/attention-scores.png" style="width: 450px;" /></a>
+</figure>
+<ul>
+<li><p><a class="reference external" href="https://www.jeremyjordan.me/attention">Understanding the attention mechanism in sequence models</a></p>
+<p>Jeremy Jordan explains in this post the attention mechanism using numerous helpful diagrams and an accessible language style. The attention mechanism enables the decoder to search across the entire input sequence for information at each step during the output sequence generation. This is a key innovation in sequence-to-sequence neural network architectures because it significantly improves model performance.</p>
+</li>
+<li><p><a class="reference external" href="https://lilianweng.github.io/posts/2018-06-24-attention">Attention? Attention!</a></p>
+<p>This post by Lilian Weng also includes detailed explanations and numerous useful diagrams to understand the attention mechanism.</p>
+</li>
+<li><p><a class="reference external" href="https://sebastianraschka.com/blog/2023/self-attention-from-scratch.html">Understanding and Coding the Self-Attention Mechanism of Large Language Models From Scratch</a></p>
+<p>Here, Sebastian Raschka explains how self-attention works from scratch by coding it step-by-step.</p>
+</li>
+</ul>
+<p>🎥 You can also find valuable information about the attention mechanism in the following videos:</p>
+<ul class="simple">
+<li><p>Sebastian Raschka</p>
+<ul>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=i_pfHD4P_wg">Using Attention Without the RNN – A Basic Form of Self-Attention</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=0PjHri8tc1c">Self-Attention and Scaled Dot-Product Attention</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=A1eUVxscNq8">Multi-Head Attention</a></p></li>
+</ul>
+</li>
+<li><p>DeepLearningAI</p>
+<ul>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=SysgYptB198">Attention Model Intuition</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=quoGRI-1l0A">Attention Model</a></p></li>
+</ul>
+</li>
+<li><p>3Blue1Brown</p>
+<ul>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=wjZofJX0v4M&amp;amp;vl=es">But what is a GPT? Visual intro to transformers</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=eMlx5fFNoYc&amp;amp;vl=es">Attention in transformers, visually explained</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=9-Jl0dxWQs8">How might LLMs store facts</a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="tokenization-and-embeddings">
+<h3>Tokenization and embeddings<a class="headerlink" href="#tokenization-and-embeddings" title="Link to this heading">#</a></h3>
+<p>Tokenization and embeddings are two essential steps in the data processing pipeline of LLMs. Tokens are the fundamental units of LLMs. Tokenization is the process of translating text into sequences of tokens and vice versa, breaking down the text into manageable pieces that the model can interpret. Once the text is tokenized, each token is mapped to an embedding vector. These embeddings are dense, low-dimensional, continuous vector representations that capture the semantic and syntactic meanings of tokens, allowing the model to understand the nuances of language. These vectors are learned during the model’s training process. For more information on tokenization and embeddings, you can explore the resources listed below. <em>(Figure - <a class="reference external" href="https://tiktokenizer.vercel.app/">Tiktokenizer</a>)</em></p>
+<figure class="align-right">
+<a class="reference internal image-reference" href="../../_images/tiktokenizer.png"><img alt="../../_images/tiktokenizer.png" src="../../_images/tiktokenizer.png" style="width: 400px;" /></a>
+</figure>
+<ul>
+<li><p><a class="reference external" href="https://christophergs.com/blog/understanding-llm-tokenization">The Technical User’s Introduction to LLM Tokenization</a></p>
+<p>In this post, Christopher Samiullah delves into the mechanics of tokenization in LLMs, referencing Andrej Karpathy’s YouTube talk <a class="reference external" href="https://www.youtube.com/watch?v=zduSFxRajkE"><em>Let’s build the GPT Tokenizer</em></a>.</p>
+</li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=zduSFxRajkE">Let’s build the GPT Tokenizer</a></p>
+<p>If you want to dive deeper into this topic, check out the mentioned talk by Andrej Karpathy, where he builds from scratch the Tokenizer used in the GPT series from OpenAI, highlighting “weird behaviors” and common issues associated with tokenization. He also created <code class="docutils literal notranslate"><span class="pre">minbpe</span></code>, a <a class="reference external" href="https://github.com/karpathy/minbpe">repository</a> with code and exercises for further learning.</p>
+</li>
+<li><p><a class="reference external" href="https://tiktokenizer.vercel.app/">Tiktokenizer</a></p>
+<p>You should check out this link and try tokenization using the Tiktoken web app. With this tool, tokenization runs live in your web browser, allowing you to easily input some text string on the left side and see the tokenized output on the right side in real-time.</p>
+</li>
+<li><p><a class="reference external" href="https://cohere.com/blog/sentence-word-embeddings">What Are Word and Sentence Embeddings?</a></p>
+<p>In this post, Luis Serrano (Cohere) provides a straightforward introduction to embeddings using practical examples.</p>
+</li>
+</ul>
+</section>
+<section id="model-training">
+<h3>Model training<a class="headerlink" href="#model-training" title="Link to this heading">#</a></h3>
+<ul>
+<li><p><a class="reference external" href="https://github.com/karpathy/nanoGPT/">nanoGPT</a></p>
+<p>The simplest, fastest repository for training/finetuning medium-sized GPTs by Andrej Karpathy. It includes a minimal code implementation of a generative language model for educational purposes.</p>
+</li>
+<li><p><a class="reference external" href="https://kjablonka.com/blog/posts/building_an_llm">Building a GPT that can generate molecules from scratch</a></p>
+<p>Here, Kevin M. Jablonka explains how LLMs work through a practical approach applied to chemistry, guiding you on how to build a GPT model that can generate molecules from scratch. It includes a detailed tutorial covering the tokenization process, conversion of tokens into numbers, vector embeddings and positional encoding, as well as model training and evaluation. Through this relatively simple example, you will also learn how the attention mechanism works with an exhaustive implementation of self-attention into the model.</p>
+</li>
+</ul>
+<p>🎥 In this video you can learn how to build a GPT model following the paper <em>“Attention is All You Need”</em>:
+<a class="reference external" href="https://www.youtube.com/watch?v=kCc8FmEb1nY">Let’s build GPT: from scratch, in code, spelled out</a> by Andrej Karpathy.</p>
+</section>
+<section id="prompting">
+<h3>Prompting<a class="headerlink" href="#prompting" title="Link to this heading">#</a></h3>
+<ul>
+<li><p><a class="reference external" href="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/">Prompt Engineering</a></p>
+<p>Lilian Weng presents in this blog post everything you need to know about the basics of prompting and some advanced prompt techniques such as Chain of Thought (CoT).</p>
+</li>
+<li><p><a class="reference external" href="https://learnprompting.org/">Learn Prompting</a></p>
+<p>Learn prompting webpage has multiple updated resources and one free course on how to prompt GPT models.</p>
+</li>
+</ul>
+<p>🎥 <a class="reference external" href="https://www.youtube.com/watch?v=JnBHR_yL2w8">Learn to Spell: Prompt Engineering (LLM Bootcamp)</a> This video shows a basic guide for effectively prompting language models by reviewing prompting techniques, like decomposition, reasoning, and reflection (The Full Stack).</p>
+</section>
+</section>
+<section id="books">
+<h2>📘 Books<a class="headerlink" href="#books" title="Link to this heading">#</a></h2>
+<ul>
+<li><p><a class="reference external" href="https://www.oreilly.com/library/view/natural-language-processing/9781098136789">Natural Language Processing with Transformers</a>
+<em>(Lewis Tunstall, Leandro von Werra, Thomas Wolf, 2022)</em></p>
+<p>While the overall objective of this book is to show you how to build language applications using the Hugging Face 🤗 Transformers library, it explains the Transformer architecture in a clear and detailed way. Chapter 2, <em>Text Classification</em>, shows how tokenizers work, whereas Chapter 3, <em>Transformer Anatomy</em>, takes a closer look at how transformers work for natural language processing. You will learn about the encoder-decoder architecture, embeddings, and self-attention mechanism. The authors present a hands-on approach, making it easy to read and simple to understand the Transformer architecture.</p>
+</li>
+<li><p><a class="reference external" href="https://www.oreilly.com/library/view/generative-deep-learning/9781098134174">Generative Deep Learning</a>
+<em>(David Foster, 2023)</em></p>
+<p>Starting with an introduction to generative modeling and deep learning, this book explores the different techniques to build generative models. In Chapter 9, <em>Transformers</em>, it provides an overview of the Transformer model architecture, attention mechanism, and encoder-decoder architectures.</p>
+</li>
+<li><p><a class="reference external" href="https://udlbook.github.io/udlbook/">Understanding Deep Learning</a>
+<em>(Simon J.D. Prince, 2023)</em></p>
+<p>This book begins by introducing deep learning models and discuss how to train them, measure their performance, and improve this performance. It then presents the architectures that are specialized to images, text, and graph data. Chapter 12, <em>Transformers</em>, explains self-attention and the transformer architecture. This is one of the most educational resources on deep learning available today.</p>
+</li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/background"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">From Text to Insight: Large Language Models for Chemical Data Extraction</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../obtaining_data/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Obtaining data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#online-resources">💻 Online resources</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transformers">Transformers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attention">Attention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenization-and-embeddings">Tokenization and embeddings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-training">Model training</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompting">Prompting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#books">📘 Books</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mara Schilling-Wilhelmi, Martiño Ríos-García, Sherjeel Shabih, María Victoria Gil, Santiago Miret, Christoph Koch, Pepe Márquez, and Kevin Maik Jablonka
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

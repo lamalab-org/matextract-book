@@ -1,0 +1,1194 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" lang="en" name="description" xml:lang="en" />
+<meta content="en_US" property="og:locale" />
+<meta content="summary" name="twitter:card" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" name="twitter:description" />
+<meta content="structmatdat.pub 📖" name="twitter:title" />
+<meta content="https://structmatdat.pub/_static/logo.png" name="twitter:image" />
+<meta content="&#64;jablonkagroup" name="twitter:site" />
+
+    <title>2.1. Document parsing with OCR tools &#8212; From Text to Insight: Large Language Models for Materials Science Data Extraction</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e878585a" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/document_parsing_and_cleaning/parsing';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="2.2. Document cleaning" href="cleaning.html" />
+    <link rel="prev" title="2. Cleaning" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+    <img src="../../_static/logo_white.png" class="logo__image only-dark pst-js-only" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction and background</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../background/resources_LLMs.html">Overview of the working principles of LLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">A. Structured Extraction Workflow</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../obtaining_data/index.html">1. Obtaining data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/crossref_search.html">1.1. Obtaining a set of relevant data sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/data_mining.html">1.2. Mining data from ChemRxiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/annotation.html">1.3. Data annotation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">2. Cleaning</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.1. Document parsing with OCR tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cleaning.html">2.2. Document cleaning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../context_window/Dealing_with_context_window.html">3. Strategies to tackle context window limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../finetune/choosing_paradigm.html">4. Choosing the learning paradigm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../beyond_text/beyond_images.html">5. Beyond text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../agents/agent.html">6. Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../constrained_decoding/index.html">7. Constrained generation to guarantee syntactic correctness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluations/evaluations.html">8. Evaluations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">B. Case Studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../intro_figure/figure1_intro_notebook.html">9. Research articles vs datasets in chemistry and materials science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../biomass_case/biomass_case.html">10. Collecting data on the synthesis procedures of bio-based adsorbents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../perovskite/constrained_formulas.html">11. Retrieving data from chacolgenide perovskites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NMR_composition_matching/NMR_comp_matching.html">12. Validation case study: Matching NMR spectra to composition of the molecule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reaction_case/reaction.html">13. Collecting data for reactions procedures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/document_parsing_and_cleaning/parsing.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Document parsing with OCR tools</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="document-parsing-with-ocr-tools">
+<h1><span class="section-number">2.1. </span>Document parsing with OCR tools<a class="headerlink" href="#document-parsing-with-ocr-tools" title="Link to this heading">#</a></h1>
+<p>An important part of data extraction pipelines is often converting inputs into a form that the text-based pipelines can use.</p>
+<p>In many cases, this conversion involves that image inputs (e.g., scans of a paper) must be converted into text.
+This involves multiple steps:</p>
+<ul class="simple">
+<li><p>characters must be recognized, this is known as <a class="reference external" href="https://en.wikipedia.org/wiki/Optical_character_recognition">OCR</a> (Optical Character Recognition),</p></li>
+<li><p>the layout and reading order must be understood,</p></li>
+<li><p>relevant blocks of text must be extracted, cleaned and combined.</p></li>
+</ul>
+<p>In the past, this was often done using tools specialized for each of these steps (e.g., <a class="reference external" href="https://github.com/tesseract-ocr/tesseract"><code class="docutils literal notranslate"><span class="pre">tesseract</span></code></a>, <a class="reference external" href="https://github.com/Layout-Parser/layout-parser"><code class="docutils literal notranslate"><span class="pre">LayoutParser</span></code></a>). New tools such as <a class="reference external" href="https://github.com/facebookresearch/nougat"><code class="docutils literal notranslate"><span class="pre">nougat</span></code></a> or <a class="reference external" href="https://github.com/VikParuchuri/marker"><code class="docutils literal notranslate"><span class="pre">marker</span></code></a>, however, allow to perform the entire process end-to-end.</p>
+<p>As an example we will demonstrate the conversion of a PDF to plain text that can be sent to an LLM using the <a class="reference external" href="https://github.com/mindee/doctr"><code class="docutils literal notranslate"><span class="pre">docTR</span></code></a> tool.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matextract</span>  <span class="c1"># noqa: F401</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">doctr.io</span> <span class="kn">import</span> <span class="n">DocumentFile</span>
+<span class="kn">from</span> <span class="nn">doctr.models</span> <span class="kn">import</span> <span class="n">ocr_predictor</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a class="reference external" href="https://mindee.github.io/doctr/latest/using_doctr/using_models.html"><code class="docutils literal notranslate"><span class="pre">docTR</span></code></a> internally uses different modules for text detection (identifying sequences of characters) and then text recognition (converting the detected elements to text).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">convert_pdf_with_doctr</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">,</span> <span class="n">det_arch</span><span class="o">=</span><span class="s2">&quot;db_resnet50&quot;</span><span class="p">,</span> <span class="n">reco_arch</span><span class="o">=</span><span class="s2">&quot;crnn_vgg16_bn&quot;</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ocr_predictor</span><span class="p">(</span><span class="n">det_arch</span><span class="o">=</span><span class="n">det_arch</span><span class="p">,</span> <span class="n">reco_arch</span><span class="o">=</span><span class="n">reco_arch</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ocr_predictor</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># PDF</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">DocumentFile</span><span class="o">.</span><span class="n">from_pdf</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">)</span>
+    <span class="c1"># Analyze</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As an example, the PDF downloaded in the <a class="reference internal" href="../obtaining_data/data_mining.html"><span class="std std-doc">data mining notebook</span></a> was converted into markdown files.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">pdf_dir</span> <span class="o">=</span> <span class="s2">&quot;../obtaining_data/PDFs&quot;</span>
+<span class="n">specific_pdf_file</span> <span class="o">=</span> <span class="s2">&quot;10.26434_chemrxiv-2024-1l0sn.pdf&quot;</span>
+
+
+<span class="c1"># Check if the specific file exists in the directory</span>
+<span class="n">pdf_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pdf_dir</span><span class="p">,</span> <span class="n">specific_pdf_file</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">convert_pdf_with_doctr</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Linear Amine-Linked Oligo-BODIPYS: Convergent Access via
+Sebastian H. Rôttger, [a] Lukas J. Patalag,o) Felix Hasenmaile,a Lukas Milbrandt,o) Burkhard
+
+Buchwald-Hartwig Coupling
+Butschke,cl Peter G. Jonesld] and Daniel B. Werz*la)
+[a] S.H. Rôttger, Dr. F. Hasenmaile, Prof. Dr. D.B. Werz
+Institute of Organic Chemistry
+AlbertstraBe 21, 79104 Freiburg (Breisgau), Germany
+E-mail: daniel. wer@chemeunltelbupde
+[b] Dr. L. J. Patalag, L. Milbrandt
+Technische Universitât Braunschweig
+Institute of Organic Chemistry
+Hagenring 30, 38106 Braunschweig, Germany
+[c] Dr. B. Butschke
+Abert.ludwgsUnkerstat Freiburg
+Institute of Inorganic and Analytical Chemistry
+AlbertstraBe 21, 79104 Freiburg (Breisgau), Germany
+[d] Prof. Dr. P. G. Jones
+Technische Universitât Braunschweig
+Institute of Inorganic and. Analytical Chemistry
+Hagenring 30, 38106 Braunschweig, Germany
+
+DFG Cluster of Excellence livMats @FIT and Aber.uowgsUnversiat Freiburg
+
+Abstract: A convergent route towards nitrogen-bridged BODIPY
+oligomers has been developed. The synthetic key step is a
+Buchwald-Hartwig cross-coupling reaction of an a-amino-
+synthesis provide control of the oligomer size, but the facile
+preparative procedure also enables easy access to this type of
+dyes. Furthermore, functionalized examples were accessible via
+
+Various BODIPY oligomer
+pocbolag
+
+BODIPY and the
+brominated derivatives.
+Introduction
+
+halide.
+
+respective
+
+Not only does the selective
+
+- -  - EN
+
+cooe
+
+The family of BODIPY dyes, first reported in 1968 by Treibs and
+Kreuzer,&quot;l has gained major interest in research in the past
+decades because of their fairly simple preparative access, their
+flexibility in terms of possible modifications and their useful
+properties such as outstanding attenuation coefficients and also
+high fluorescence quantum yields.2) Hence, they are already
+widely applied for imaging, e.g. as biomarkers for medical
+purposes, and have also proven to be applicable in other fields,
+for instance as various types of photosensitizers and organic light-
+emitting diodes (OLEDs).3) Various types of oligo-BODIPYS have
+already shown the capability to enhance such desirable
+properties and thus have been the focus of much recent
+preparative chemistry. Alkylene bridged or directly connected
+
+BThiswork
+
+symmetric &amp; unsymmetric dimers
+and
+functionalized examples
+
+BODIPYS have been known for several years (Figure 1A (top).141 Figure 1. A) Various C-C bridged (top) and heteroatom bridged (bottom)
+
+BODIPY oligomers. B) Linearly amine-linked BODIPY oligomers (this work).
+Residual substituents of the BODIPY core were omitted for clarity.
+
+1
+
+yuSASN cyTAN Content notp peer-reviewed by ChemRxiv. License: CCE BY-NC4.0
+
+
+
+These types of connectivity have also been converted to extended ANomenclature
+m-systems by oxidative follow-up reactions, allowing a higher level
+of conjugation and hence strong bathochromic shifts.5) The
+installation of heteroatoms has however been a challenge for
+some time. In 2014, Shinokubo et al. presented linearly connect a: Pyrrole substitution pattern
+monomers through an azo-bridge at the B-position (Figure 1A Br:
+(d).61 Linear connectivity at the a-position using heteroatoms DM (24-Dimethy-yrole): R&#39;= R3= Me,R2= H Ar 4-BuPh:
+such as sulfur has been achieved through a similarly iterative EDM GEny*24-dimelhypymol; R&#39; R3 Me, R2=E Et
+process by the groups of Hao and Jiao (Figure 1A (e).7
+Furthermore, cyclic amine-linked oligo-BODIPYS have already tri: Trimer tet: Tetramer
+been synthesized in a one-pot reaction in 2022 by Song et al., DPecurorsynlaess
+utilizing Buchwald-Hartwig conditions (Figure 1A (0).181
+We present a novel type of BODIPY oligomers, connected
+via N-bridges in a linear fashion (Figure 1B). Utilizing both
+symmetric and unsymmetric BODIPY monomers as building
+blocks has paved the way to selectively synthesize oligomers with
+various chain lengths. Both symmetric and unsymmetric dimers
+were synthesized starting from unsymmetric mondfunctionalized
+monomer units. Additionally, the chain length of these oligo-
+BODIPYS was extended using the functionalized monomer Br-Ar-
+
+R3
+R2
+31
+F
+a-b-c-d
+
+b(monomers &amp; dimers):
+d (monomers only):
+Substituent x
+
+R Br, R2 R3= H meso-substitution (R&quot;)
+
+T
+
+c: Grade of oligomerization
+mono: Monomer di; Dimer
+
+1)n-BuLi, 2,6-dimethyl-
+aniline, benzaldehyde 4-iso-butyl
+Et0,rt,5h
+HN. 2)imidazole, TBSCI
+CH2Clz. r, 1h
+TFA, 4-iso-butyl-
+benzaldehyde CH2Cl.rt,24h
+
+H IN
+7: 68%
+1)NBS, THF, -78 &quot;C, 1h
+2)DDQ, .-78 C thenr rt, 1h
+3)PfNEt, BFxOEL2
+CH2Cl. rt, 30min
+
+o
+NCS o
+HN. THF, rt,3-7d HN
+2: 529/R&quot;- Ar)
+1) M
+R2
+Me
+5; R2=H H
+6: R2=Et, POCI3
+CH,Clyln-hexane (2:1)
+0°Ct thenrt, 16h
+2)NEls. BF,-OEl2
+0°Ct then rt, 1h
+Me
+R2.
+Me
+DM-Me-mono-Ct 49%
+DM-Ar-mono-CH EDM-Ar-mono-CH: 83% 91%
+Pd(OAc),
+(E)-BINAP Cs,CO3
+PhMe, 80 &quot;C,3-22h
+
+3:559( (R&quot; Me)
+4: 56%(R&quot; Ar)
+
+mono-Br and the dimer Br-Ar-di
+Results and Discussion
+
+(Scheme 1).
+
+In contrast to the aforementioned cyclic amine-linked examples, [8]
+we have focused on selectively synthesizing open-chained
+oligomers and addressing their specific properties. Variation of
+the BODIPY core has been shown to have a considerable impact
+on the respective reaction times and yields. To dimerize Br-Ar-mono-Br
+selectively when forming the nitrogen bridge, monofunctionalized
+a-chlorinated BODIPY monomers were used. The key step in
+obtaining such unsymmetric BODIPYS (in contrast to the usual
+mirror plane through the meso position and boron center) was a
+Bischler-Napieralski type reaction of the respective chlorinated
+acylpyrrole and alkylpyrrole, following an established procedure
+developed by Dehaen and coworkers.9 Converting the a-chloro- C)Oligomerization
+BODIPY into the respective amine and performing a Buchwald-
+Hartwig coupling of both led to N-bridged BODIPY dimers, in
+which alkylpyrroles such as 2,4-dimethylpyrrole (5) and
+cryptopyrrole (6) serve as capping units on the BODIPY core.
+Terminal a-brominated examples provide an option for further
+versatile functionalization. During the investigation of meso
+substitution patterns, the 4-iso-buty/phenyl moiety has been
+shown to overcome solubility issues, while maintaining
+crystallizability (albeit sometimes with disorder problems),
+whereas dimer syntheses are made easier by an increasing level
+of alkyl-substitution on the pyrrole motif. For a simplified overview
+of the BODIPY scope, compounds are labeled according to the
+systematic nomenclature shown in Scheme 1A.
+The synthetic strategy began with pyrrole (1) for both kinds
+of monomers. To obtain monochlorinated BODIPYs, it was first
+converted into the respective 2-benzoylpyrrole 2 for the meso aryl
+examples.10 TBS protection of the benzyl alcohol by- product in
+the crude simplified the purification later on.1) This species and
+2-acetylpyrrole were then chlorinated using NCS in THF at room
+temperature to obtain a-chlorinated 2- -acylpyrroles 3 and 4.!12]
+
+NH3(7 N in! MeOH)
+60-C, 30r min- 7 d
+R3 R&quot;
+R2. N
+R&#39; F B F NH2
+DM-Me-mono-NH, 47%
+DM-Ar-mono-NH, EDM-Ar-mono-NH, 58% 58%
+Br-Ar-mono-NH, quant.
+EDM-Ar-
+mono-NH2 or
+Br-Ar-
+mono-NHz
+Pd(OAc),
+(H)-BINAP
+PhMe, Cs,COs 80 *C,1-5h
+
+38%
+
+R&quot;
+R3
+B. F
+R
+R1
+DM-MelAr-di DM-Me-di: 30% 25%
+Br-Ar- DM-Ar-di: EDM-Ar-di: 40% 68%
+mono- Br
+-Br-Ar-di: 44%
+F-B
+Ar
+F
+R3
+R&#39;
+EDM-tri: Br-tri: 82% 5%
+NH
+ d 0
+Ar
+8
+I E e
+R3
+Aminated dilutedi in BODIPYS CH2Clz
+- -
+
+R
+
+Ar.
+
+Ar
+HN
+
+Br-tet: EDM-tet: 1.4% 55%
+
+Scheme 1. A) Nomenclature for BODIPYS. B) Synthetic route towards
+monomers. C) Oligomerization to dimers, trimers and tetramers.
+
+2
+
+yuSASN ORCID: parpmpNnaR Content notp peer-reviewed by ChemRxiv. License: CCE BY-NC4 4.0
+
+
+
+We preferred chlorination over the analogous bromination since thus causing one of the peripheral cores to be tilted by as much
+the by-products were easier to separate from the desired as 29° with regard to the plane of the residual two units. Moreover,
+products. To arrive finally at the monofunctionalized BODIPY one molecule of CH2Cl2 is adjacent to the cavity, indicating
+monomers, acylpyrroles 3 and 4 were then converted with the hydrogen bonding to the BF2 units. Furthermore, the C-N-C bond
+respective alkylpyrroles 5 and 6 in the presence of POCI3 in angles of the N-bridges range between 123° and 127°, showing
+CHaCln-hexane (2:1), followed by the established procedure for deviation from the theoretical value of 120° for sp?-hybridized
+BODIPY syntheses from the in situ formed dipyrrin using nitrogen. Within the resulting cavity, the minimum distance
+triethylamine and BF3*OEt2, with yields up to 91% over 2 steps. between fluorine and the bridging nitrogen atom amounts to 2.9 A
+To obtain higher oligomers, bisfunctionalized monomers had to and 3.4 A for the opposing BF2 units for the dimer. The trimer in
+be synthesized prior to amination. For symmetrically comparison shows larger distances of the two closest fluorine
+bisfunctionalized monomer Br-Ar-mono-Br, an excess of pyrrole atoms of two different BF2 groups (3.9 A) and as much as 5.2À
+(1) was converted into dipyrromethane 7 using 4-iso- for the two peripheral BODIPY units (Figure 2C). For more details
+
+butylbenzaldhyde with catalytic amounts of TFA in CH2Cl2 in 68% see the Supporting Information.
+
+yield.13) Stepwise addition of NBS in small portions to a solution
+of 7 in THF at -78 C for selective bromination, followed by A)
+oxidation with DDQ, gave the crude dipyrrin, which was used in
+the following step after filtration. The actual BODIPY synthesis
+was subsequently conducted in a similar manner as for the
+unsymmetric monomers. However, Pr2NEt was found to give
+higher yields for less substituted dipyrrins. Thus, using this tertiary C)
+amine base, in lieu of triethylamine, together with BF3-OEtz gave
+Br-Ar-mono-Br in 38% yield over three steps. Bromination was
+necessary in this case because the corresponding chlorinated
+derivative of an a-amino-BODIPY showed no oligomerization
+beyond the dimer under the same conditions. Additionally,
+purification was not an obstacle, in contrast to the aforementioned
+brominated acylpyrroles. Preparative details of the chlorinated
+amino-BODIPY are given in the Supporting Information. The
+respective d-amino-BODIPYS were then synthesized by stirring
+halogenated BODIPYS in an ammonia solution in MeOH (7 N) in
+a sealed tube at 60 oC to furnish the target compounds in up to
+58% yieldf for chlorinated derivatives and even in quantitative yield
+for the brominated example (Scheme 1B). For Buchwald- Hartwig
+coupling of a-chloro- and a-amino-BODIPYS, one equivalent of D)
+each was converted with Pd(OAc)2, (+)-BINAP and Cs2CO3 in
+PhMe at 80 C.1141 Interestingly, the reaction times and yields
+showed a trend of improvement with increasing level of
+substitution of the BODIPY core with up to 68% yields. While
+these dimer syntheses were straightforward by simply stirring all
+of the components together, synthesis of Br-Ar-di required slow
+addition of Br-Ar-mono-NH2 to a heated solution of the remaining
+starting material was recovered. As for the dimers synthesized via
+manner with the respective bromides (Br-Ar-di for EDM-
+
+B)
+
+)
+
+reagents. Such a procedure ensured selectivity by maintaining an Figure 2. Molecular structures of DM-Me-di A) front view, B) top view andl EDM-
+excess of Br-Ar-mono-Br to avoid further oligomerization. The tri C) front view and D) top view. Hydrogen atoms were omitted for clarity.
+the chlorides, synthesis of trimers and tetramers was achieved in The photophysical behavior of the dimers shows a strong
+tet), with a remarkable decrease of the reaction time. Throughout respective monomers (from AA max = 510 nm to 659 nm for the
+the reaction of Br-Ar-mono-Br with EDM-Ar-mono-Bir, formation EDM examples) and also significantly increased attenuation
+of the respective intermediate dimer was observed within coefficients 6 (Figure 3). An excerpt of the respective data is given
+30 minutes, while full conversion took an additional 60 minutes. below (Table 1). The presence of a second absorption region at
+It was possible to obtain crystals from the dimers and from approximately 500 nm (S2 state) indicates a Davydov splitting as
+EDM-tri. For all dimers, the BODIPY cores are mutually slightly a result of an excitonic coupling process. The unusual double-
+twisted (-12°, see Figure 2B). The small twist angle, however, peak shape may suggest some conformational instabilities. In this
+implies a certain amount of conjugation through the central context, the absorption profile is expanded to three absorption
+nitrogen atom. In contrast, EDM-tri shows a stronger deviation events at the trimer, corresponding to three excitonic states
+from planarity, which is probably attributable to steric hindrance, excited at 752 nm (S1), 562 nm (S2), and 470 nm (S3),
+
+reaction yielded 44% of the functionalized dimer, while 45% of the Ellipsoids correspond to 50% probability levels.
+
+bathochromic shift of the main
+
+same
+
+band
+absorption
+
+compared to the
+
+respectively. Notably, the S2 state exhibits the highest oscillator
+
+3
+
+VSeSN ORCID: parpmpNnaR Content notp peer-reviewed by ChemRxiv. License: CCE BY-NC4 4.0
+
+
+
+strength, attributed to the significant geometrical deviation from Table 1. Absorption and emission data of EDM- -BODIPYS.al
+
+linearity, gradually leading to a helical superstructure for higher
+homologs (Figure 4). This trend is accentuated for the tetramers,
+where the absorption signature becomes intricate. However, the
+intensified coiling in this case, where the terminal BODIPY units
+start overlapping and thus forming a looped superstructure,
+results in an exceptionally weak Si+-So excitation at 820 nm. The
+remaining states of the exciton manifold are hardly assignable
+because of the amount and overlap of absorption bands, yet they mono-NH2
+are responsible for the absorptions at 633 nm and 521 nm. The
+simulated through TDDFT computations and accurately mirrors
+the experimentally observed absorption band intensities for all
+oligomer species (Figure 4). The emission strength decreases
+gradually along the oligomeric series. While the monomers exhibit
+fluorescence quantum yields @F of up to 0.53 in CH2Cl2, these
+tetramers, emission is hardly detectable (CPF &lt;&lt; 0.01).
+
+Compound AAmax AFmax 4PIcm-1 s[103 M- @
+
+[nm] [nm]
+510
+534
+881
+525
+539
+495
+659
+
+cm-&quot;&#39;l
+121
+59
+
+EDM-Ar-
+mono-CI
+EDM-Ar-
+
+0.04
+0.01
+
+oscillator strength distribution of the exciton manifold was EDM-Ar-di 482, 510, 671
+
+271 47,40, 134 0.01
+
+EDM-tri 562, 757 778 357lb)
+EDM-tet 521,633 n.d.Icl
+
+97, 76
+111,114
+
+0.01
+
+values decrease to QF &lt; 0.01 for the dimer and trimer. For the [a] Absorption and emission spectra were recorded in solutions of CH2Cl2 at
+
+room temperature. [b] AAmax is not responsible for AFmax. Stokes shift 40 was
+calcd. using the respective 2Amax2. [c] Not detecteddetermined. Further
+spectroscopic data is given in the Supporting Information.
+The frontier orbitals of the oligomeric series integrate the lobe
+patterns found for the monomeric building blocks. All BODIPY
+units are characterized by an electron-depleted meso position at
+the HOMO and also by the cyanine-like relocalization of electron
+density to this position during excitation (Figure 4).
+Cyclic voltammograms of amine-linked oligomers and the
+respective monomers for the EDM-series are shown below
+(Figure 5). In general, the larger the molecules, the easier the
+oxidation; however, most of them are oxidized irreversibly. The
+monomeric primary amine and the trimer show irreversible
+oxidation, unlike the respective chloride and the dimer. However,
+the chlorinated monomer has only one reversible reduction
+potential at -1.28 V, whereas the dimer shows two reduction
+
+150 - Absorption
+EDM EDM- -Ar -Ar -mono-NH, mono-cI
+EDMr EDM Ar-di
+EDM- tet
+100
+50
+
+Emissien
+EDM EDM- -Ar-mono-NH, Ar mono-CI
+EDM-Ar-di EDM-tri
+
+450 500 550 600 650 700 750 800 850
+
+Wavelength. AInm]
+
+Figure 3. Absorption and emission spectra of EDM- BODIPYS. Absorption and potentials, at -1.25 V and at -1.64 V.
+
+emission spectra were recorded in solutions of CH2Cl2 at room temperature.
+
+Dimer
+&amp;
+HOMO (-6.07 ev)
+&amp;
+CDD S1
+
+Trimer
+
+Tetramer
+
+LUMO (-2.04e evy
+
+HOMO (5.85€ ev)
+
+LUMO
+(2.15ev]
+
+HOMO (-5.71ev)
+
+LUMO (2.20ev]
+
+CDD S2
+
+S1: 2.20eV(516nm) /f=1.11 S2: 3.046 ev (407 nm)/f=0.54
+
+CDD_S2
+(S1: 2154V57mm/F-02
+
+CDD_ S3
+
+CDD S2
+S1:1 1.94eV/(641 inmy/f-0.080
+
+CDD_
+
+S2:2.75ev (451nm)/f=1.45 $3:3.07e ev (403nm)/f-0.34 S2: 2.45eV (508nm)/t-1.12 S3: 2.89eV (430nm)/f-1.55
+
+Figure 4. Frontier orbitals and minimum energy structures of oligomeric series. Geometrical optimizations at the DFT level M052X-D3De2TZVP) in vacuo.
+Oscillator strengths (fvalues) obtained from corresponding TDDFT computations (0B97XD/De121ZVP)- The input structures were truncated at the meso phenyl
+
+residues (iso-butyl groups).
+
+4
+
+yuSASN ORCID: panym.pNnaR Content notp peer-reviewed by ChemRxiv. License: CCE BY-NC4.0
+
+
+
+Thei trimer shows almost irreversible oxidation potentials at 0.69 V Acknowledgements
+
+and 1.33 V and also reduction at -1.69 V. EDM-tet, however,
+
+shows several oxidation and reduction potentials within the range We thank the Deutsche Forschungsgemeinschat (DFG, German
+of t 2.00 V, which are mostly irreversible (Figure 5). Attempts to Research Foundation, WE2932/14-1) and livMats Cluster of
+oxidize the obtained oligomers did not provide quinodiimine Excellence under Germany&#39;s Excellence Strategy (EXC-2193/1-
+
+analogs as for the cyclic derivates.8)
+
+390951807) for funding. S.H.R. thanks Adrian Bauschke and
+Susanne Klein (both TU Braunschweig) for their support and
+Boumahdi Benkmil (University of Freiburg) for X-ray diffraction
+analysis as well as Dr. Ulrich Papke (TU Braunschweig) for the
+HRMS measurements and discussions thereof.
+Keywords: BODIPY . dyes amines . oligomers Buchwald-
+1] A. Treibs, F.-H. Kreuzer, Justus Liebigs Ann. Chem. 1968, 718, 208.
+EDM-Ar-di [2] a) A. Loudet, K. Burgess, Chem. Rev. 2007, 107, 4891-4932;b) G. Ulrich,
+R. Ziessel, A. Harriman, Angew. Chem. Int. Ed. 2008, 47, 1184-1201; c)
+V. Lakshmi, M. R. Rao, M. Ravikanth, Org. Biomol. Chem. 2015, 13,
+2501-2517; d) N. Boens, B. Verbelen, M. J. Ortiz, L. Jiao, W. Dehaen,
+Coord. Chem. Rev. 2019, 399, 213024; e) A. Orte, E. Debroye, M. J.
+Ruedas-Rama, E. Garcia-Femandez, D. Robinson, L. Crovetto, E. M.
+Talavera, J. M. Alvarez-Pez, V. Leen, B. Verbelen, L. Cunha Dias de
+Rezende, W. Dehaen, J. Hofkens, M. van der Auweraer, N. Boens, RSC
+Adv. 2016, 6, 102899-102913; f) R. L. Gapare, A. Thompson, Chem.
+Comm. 2022, 58, 7351-7359;9): Z. Liu, Z.Jiang, M. Yan, X. Wang, Front.
+Chem. 2019, 7,712;h)A. M. Gomez,J. C.Lopez, Pure Appl. Chem. 2019,
+91, 1073-1083;1) Y. A. Volkova, B. Brizet,P. D. Harvey, A. D. Averin, C.
+Goze, F. Denat, Eur. J. Org. Chem. 2013, 2013, 4270-4279; j) L. J.
+Patalag, J. Hoche, R. Mitric, D. B. Werz, B. L. Feringa, Angew. Chem. Int.
+[3] a)_M. R. Rao, S. M. Mobin, M. Ravikanth, Tetrahedron 2010, 66, 1728-
+1734; b) T. Koczorowski, A. Giowacka-Sobotta, S.
+Mlynarczyk, R. Lesyk, T. Goslinski, L. Sobotta, Appl. Sci. 2022, 12, 7815;
+C)J. M. Franke, B. K. Raliski, S. C. Boggess, D. V. Natesan, E.T. Koretsky,
+P.Zhang. R. U. Kulkarni, P. E. Deal, E. W. Miller, J. Am. Chem. Soc. 2019,
+141, 12824-12831; d) J. C. Er, C. Leong, C. L. Teoh, Q. Yuan, P.
+Merchant, M. Dunn, D. Sulzer, D. Sames, A. Bhinge, D. Kim, S.-M. Kim,
+M.-H. Yoon, L. W. Stanton, S. H. Je, S.-W. Yun, Y.-T. Chang, Angew.
+Chem. Int. Ed.2015,5 54, 2442-2446;e) G.Li,X. Zhang, W. Zhao, W. Zhao,
+F. Li, K. Xiao, Q.Yu, S. Liu, Q. Zhao, ACS Appl. Mater. Interfaces 2020,
+12, 20180-20190; f) A. Blazquez-Moraleja, L. Maierhofer, E. Mann, R.
+Prieto-Montero, A. Oliden- Sânchez, L. Celada, V. Martinez-Martinez, M.-
+D. Chiara, J. L. Chiara, Org. Chem. Front. 2022, 9, 5774-5789; g) LA.O.
+Bozzi, L. A. Machado, E. B. T. Diogo, F. G. Delolo, L. O.F. Barros, G.A.
+P. Graça, M. H. Araujo, F. T. Martins, L.F. Pedrosa, L. C. Da Luz, E. S.
+Moraes, F. S. Rodembusch, J. S. F. Guimarâes, A. G. Oliveira, S. H.
+Rôttger, D. B. Werz, C. P. Souza, F. Fantuzzi, J. Han, T. B. Marder, H.
+Braunschweig, E.N. Da Silva Junior, Chem. Eur. J.: 2023, e202303883;h)
+L.J. Patalag, S. Ahadi, O. Lashchuk, P. G. Jones, S. Ebbinghaus, D. B.
+Werz, Angew. Chem. Int. Ed. 2021, 60, 8766-8771.
+[4] a)Y. Hayashi, S. Yamaguchi, W. Y. Cha, D. Kim, H. Shinokubo, Org. Lett.
+2011, 13, 2992-2995; b)T. Sakida, S. Yamaguchi, H. Shinokubo, Angew.
+Chem. Int. Ed. 2011,50, 2280-2283; c)J. Ahrens, B. Cordes, R. Wicht,B B.
+Wolfram, M. Brôring, Chem. Eur. J. 2016, 22, 10320-10325; d) Q. Wu, Z.
+Kang, Q. Gong, X. Guo, H. Wang, D. Wang, L. Jiao, E. Hao, Org. Lett.
+2020, 22, 7513-7517; e) W. Wu, H. Guo, W. Wu, S.Ji, J. Zhao, J. Org.
+Chem. 2011, 76, 7056-7064; f) J. Ahrens, B. Haberlag, A. Scheja, M.
+Tamm, M. Broring, Chem. Eur. J. 2014, 20, 2901-2912; g) L. J. Patalag,
+L.P. Ho, P. G.Jones, D. B. Werz, J. Am. Chem. Soc. 2017, 139, 15104-
+15113; h) N. J. Hestand, F. C. Spano, Chem. Rev. 2018, 118, 7069-7163;
+i)D. Wang, Q. Wu, X. Zhang, W. Wang, E. Hao, L.. Jiao, Org. Lett. 2020,
+[5] a)_A. Wakamiya, T. Murakami, S. Yamaguchi, Chem. Sci. 2013, 4, 1002-
+1007; b) M. Nakamura, H. Tahara, K. Takahashi, T. Nagata, H. Uoyama,
+D. Kuzuhara, S. Mori, T. Okujima,H. Yamada, H. Uno, Org. Biomol. Chem.
+2012, 10, 6840-6849; c) H. Yokoi, N. Wachi, S. Hiroto, H. Shinokubo,
+Chem. Comm. 2014, 50, 2715-2717:d)J. Wang, Q. Wu, S. Wang, C. Yu,
+J. Li, E.Hao, Y. Wei, X. Mu, L.Jiao, Org. Lett. 2015, 17, 5360-5363; e) A.
+Patra, L.J. Patalag, P. G.Jones, D. B. Werz, Angew. Chem. Int. Ed. 2021,
+60, 747-752; f) Y. Ni, S. Lee, M. Son, N. Aratani, M. Ishida, A. Samanta,
+H. Yamada, Y-T. Chang, H. Furuta, D. Kim,J. Wu, Angew. Chem. Int. Ed.
+2016, 55, 2815-2819; g) Q. Wu, G.Jia, B. X. Guo, H. Wu, C. Yu, E.
+Hao, L.Jiao, Org. Lett. 2020, 22, 9239-9243; h)Q. Gong, Q. Wu,X. Guo,
+H. Li, W. Li, C. Yu, E. Hao, L. Jiao, Org. Lett. 2021, 23, 7661-7665; i) H.
+F.vonk Kôller, F.J. Geffers, P. Kalvani,A. Foraita, P.-E.J. LoB,B. Butschke,
+P.G. Jones, D.B. Werz, Chem. Comm. 2023, 59, 14697-14700: C.Yu,
+Y. Sun,Q. Wu, Y. Shi, L.Jiao,J. Wang, X. Guo, J. Li, J. Li, E. Hao, J. Org.
+[6] H. Yokoi, S. Hiroto, H. Shinokubo, Org. Lett. 2014, 16, 3004-3007.
+
+-3
+-2
+-1
+0
+1
+2
+3
+EDM-tet
+EDM-tri
+
+Hartwig coupling
+
+EDM-Ar-
+mono- NH,
+EDM-Ar-
+mono-CI
+1
+2
+3
+
+-3
+-2
+-1
+Potential [VI vs. SCE
+5.
+
+Ed.: 2022, 61, e2021168.
+
+D. T.
+Sysak,
+
+Figure Cyclic voltammograms. Cyclic voltammetry (IUPAC convention) was
+measured of 4 mM solutions in CH2Cl2 with TBAPF6 (0.4 M) in reference to a
+saturated calomel electrode (SCE) with a scan rate of 200 mV/s (clockwise,
+starting from 0 V) in steps of 1 mV at room temperature.
+
+Conclusion
+
+Ins summary, we have successfully developed a method to access
+linearly amine-linked BODIPYS using Buchwald-Hartwig
+conditions. Terminal Br substituents allowed elongation of the
+chain by two further BODIPY subunits. X-ray structure analyses
+revealed conjugation of the various subunits via the linking
+nitrogen atom. Absorption spectra show significantly increased
+attenuation coefficients for the oligomers in comparison to the
+respective monomers, and also strong bathochromic shifts. DFT
+calculations provided an insight into the electronic properties and
+showed a decreasing HOMO/LUMO gap as well as increasing
+oscillator strengths (fvalues) of the excited states with increasing
+level of oligomerization. The computed orbital energies are also
+closely consistent with cyclovoltammetric investigations,
+demonstrating a more facile oxidation and reduction with
+
+22, 7694-7698.
+
+increasing chain length.
+Supporting Information
+The Supporting
+
+Information
+
+Tang,
+
+is available free of charge and
+
+contains detailed experimental procedures, analytical, X-ray
+crystallographic and absorption and emission data, and &#39;H, 13C,
+19F and 11B NMR spectra of all new compounds.
+
+Chem. 2023, 88, 14368-14376.
+
+5
+
+yuSASN ORCID: parpmpNnaR Content notp peer-reviewed by ChemRxiv. License: CCE BY-NC4 4.0
+
+
+
+[71 Q. Gong, Q. Wu, X. Guo, W.Li, L. Wang, E. Hao, L. Jiao, Org. Lett. 2021,
+[8] Y. Rao, L. Xu, M. Zhou, B. Yin, A. Osuka, J. Song, Angew. Chem. Int. Ed.
+[9] V. Leen, E. Braeken, K. Luckermans, C.. Jackers, M. van der Auweraer, N.
+Boens, W. Dehaen, Chem. Comm. 2009, 4515-4517.
+[10] Z. Guo, X. Wei, Y. Hua, J. Chao, D. Liu, Tetrahedron Lett. 2015, 56, 3919-
+[11] Y.-Z.Ke, R.-J.Ji,T.-C. Wei, S.-L. Lee, S.-L. Huang, M.-J. Huang, C. Chen,
+T.-Y. Luh, Macromolecules: 2013, 46, 6712-6722.
+[12] G. Duran-Sampedro, A. R. Agarrabeitia, I. Garcia- Moreno, A. Costela, J.
+Banuelos, T. Arbeloa, I. L6pez Arbeloa, J. L. Chiara, M. J. Ortiz, Eur. J.
+Org. Chem. 2012, 2012, 6335-6350.
+[13] B.J. Littler, M. A. Miller, C.-H. Hung, R. W. Wagner, D.F. O&#39;Shea, P. D.
+Boyle, J.S S. Lindsey, J. Org. Chem. 1999, 64, 1391-1396.
+[14] J. Yang, Z. Du, CN106565762A, 2017.
+
+23, 7220-7225.
+2022, 134, e202206899.
+3922.
+
+6
+
+yuSASN ORCID: parpmpNnaR Content notp peer-reviewed by ChemRxiv. License: CCE BY-NC4 4.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;raw_text.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>To review the quality and accuracy of the conversion at least partially afterward is crucial.
+If the OCR-tool is not able to convert the relevant parts correctly, one should think about using a different method.</p>
+</div>
+<p>The obtained text contains some errors.  Most obvious one is that the text still contains page numbers of other characters that are not relevant for the main text.</p>
+<p>More advanced approaches such as <a class="reference external" href="https://facebookresearch.github.io/nougat/"><code class="docutils literal notranslate"><span class="pre">nougat</span></code></a>, <a class="reference external" href="https://docs.cloud.llamaindex.ai/llamaparse/getting_started/python"><code class="docutils literal notranslate"><span class="pre">llamaparser</span></code></a> or <a class="reference external" href="https://github.com/VikParuchuri/marker"><code class="docutils literal notranslate"><span class="pre">marker</span></code></a> minimize those errors. In addition, <a class="reference external" href="https://ds4sd.github.io/">Deep Search by IBM</a> allows converting from PDF into JSON files.</p>
+<div class="dropdown note admonition">
+<p class="admonition-title">Conversion of PDF to Markdown using Nougat</p>
+<p>Converting PDFs to Markdown using <code class="docutils literal notranslate"><span class="pre">nougat</span></code> is not much more difficult and can be accomplished by installing <code class="docutils literal notranslate"><span class="pre">nougat</span></code> with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">nougat-ocr</span></code>.</p>
+<p>After that, a conversion can be performed directly on the command line using</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>nougat path/to/file.pdf -o output_directory
+</pre></div>
+</div>
+<p>In the output directory, the converted files will be stored as Markdown files with the extension <code class="docutils literal notranslate"><span class="pre">mmd</span></code>.</p>
+</div>
+<p>However, even those more advanced techniques will still make mistake and will struggle to handle very old tables.
+To deal with those cases, one could use a <a class="reference internal" href="../beyond_text/beyond_images.html"><span class="std std-doc">vision model</span></a> or an <a class="reference internal" href="../agents/agent.html"><span class="std std-doc">agentic approach</span></a> to minimize those errors.</p>
+<p>Afterward the received files should be cleaned, as shown in the <a class="reference internal" href="cleaning.html"><span class="std std-doc">document cleaning notebook</span></a>.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/document_parsing_and_cleaning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>Cleaning</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="cleaning.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">2.2. </span>Document cleaning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mara Schilling-Wilhelmi, Martiño Ríos-García, Sherjeel Shabih, María Victoria Gil, Santiago Miret, Christoph Koch, Pepe Márquez, and Kevin Maik Jablonka
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

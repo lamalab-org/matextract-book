@@ -1,0 +1,911 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" lang="en" name="description" xml:lang="en" />
+<meta content="en_US" property="og:locale" />
+<meta content="summary" name="twitter:card" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" name="twitter:description" />
+<meta content="structmatdat.pub 📖" name="twitter:title" />
+<meta content="https://structmatdat.pub/_static/logo.png" name="twitter:image" />
+<meta content="&#64;jablonkagroup" name="twitter:site" />
+
+    <title>6. Agents &#8212; From Text to Insight: Large Language Models for Materials Science Data Extraction</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e878585a" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/agents/agent';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="7. Constrained generation to guarantee syntactic correctness" href="../constrained_decoding/index.html" />
+    <link rel="prev" title="5. Beyond text" href="../beyond_text/beyond_images.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+    <img src="../../_static/logo_white.png" class="logo__image only-dark pst-js-only" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction and background</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../background/resources_LLMs.html">Overview of the working principles of LLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">A. Structured Extraction Workflow</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../obtaining_data/index.html">1. Obtaining data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/crossref_search.html">1.1. Obtaining a set of relevant data sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/data_mining.html">1.2. Mining data from ChemRxiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/annotation.html">1.3. Data annotation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../document_parsing_and_cleaning/index.html">2. Cleaning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/parsing.html">2.1. Document parsing with OCR tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/cleaning.html">2.2. Document cleaning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../context_window/Dealing_with_context_window.html">3. Strategies to tackle context window limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../finetune/choosing_paradigm.html">4. Choosing the learning paradigm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../beyond_text/beyond_images.html">5. Beyond text</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../constrained_decoding/index.html">7. Constrained generation to guarantee syntactic correctness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluations/evaluations.html">8. Evaluations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">B. Case Studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../intro_figure/figure1_intro_notebook.html">9. Research articles vs datasets in chemistry and materials science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../biomass_case/biomass_case.html">10. Collecting data on the synthesis procedures of bio-based adsorbents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../perovskite/constrained_formulas.html">11. Retrieving data from chacolgenide perovskites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NMR_composition_matching/NMR_comp_matching.html">12. Validation case study: Matching NMR spectra to composition of the molecule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reaction_case/reaction.html">13. Collecting data for reactions procedures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/agents/agent.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Agents</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">6.1. References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="agents">
+<h1><span class="section-number">6. </span>Agents<a class="headerlink" href="#agents" title="Link to this heading">#</a></h1>
+<p>This notebook aims to demonstrate how to construct LLM agents and explain their functioning. In this practical application, we will focus on extracting chemical reactions from an image.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matextract</span>  <span class="c1"># noqa: F401</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">pubchempy</span> <span class="k">as</span> <span class="nn">pcp</span>
+<span class="kn">from</span> <span class="nn">rxnscribe</span> <span class="kn">import</span> <span class="n">RxnScribe</span>
+<span class="kn">from</span> <span class="nn">rdkit</span> <span class="kn">import</span> <span class="n">Chem</span>
+
+<span class="kn">from</span> <span class="nn">huggingface_hub</span> <span class="kn">import</span> <span class="n">hf_hub_download</span>
+
+<span class="kn">from</span> <span class="nn">langchain</span> <span class="kn">import</span> <span class="n">hub</span>
+<span class="kn">from</span> <span class="nn">langchain.pydantic_v1</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+<span class="kn">from</span> <span class="nn">langchain.agents</span> <span class="kn">import</span> <span class="n">AgentExecutor</span>
+<span class="kn">from</span> <span class="nn">langchain.tools</span> <span class="kn">import</span> <span class="n">StructuredTool</span>
+<span class="kn">from</span> <span class="nn">langchain.agents.react.agent</span> <span class="kn">import</span> <span class="n">create_react_agent</span>
+<span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+
+<span class="kn">from</span> <span class="nn">litellm</span> <span class="kn">import</span> <span class="n">completion</span>
+</pre></div>
+</div>
+</div>
+</div>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">.env</span></code> needs to contain your personal OpenAI key if you want to run the exact same example as ours. We insist that using the environment variables is the safest way of keeping personal API keys secret.</p>
+</aside>
+<p>For this small demonstration we will use OpenAI newest model: GPT-4o.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Since we use <code class="docutils literal notranslate"><span class="pre">LiteLLM</span></code>, you just need to change this cell where the model is defined to the one you want to use if you want to use a model from a different provider. For example, if you want to use one of the Anthropic vision models, you only have to substitute the line by:</p>
+<p><code class="docutils literal notranslate"><span class="pre">model</span> <span class="pre">=</span> <span class="pre">&quot;claude-3-opus-20240229&quot;</span></code></p>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;gpt-4o&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The GPT-4o model by OpenAI, like its predecessor, GPT-4 Turbo, is a multimodal model, meaning it can work with multimodal inputs such as text and images. Although these models work quite well for some tasks, they can not perform well when the data is field-specific. To demonstrate this, we are going to provide an image describing a chemical reaction and ask the model to extract the information describing the reaction.</p>
+<p>To do the test, we will work with an image extracted from a work by <span id="id1">Deem <em>et al.</em> [<a class="reference internal" href="#id10" title="Madeleine C. Deem, Joshua S. Derasp, Thomas C. Malig, Kea Legard, Curtis P. Berlinguette, and Jason E. Hein. Ring walking as a regioselectivity control element in pd-catalyzed c-n cross-coupling. Nature Communications, May 2022. URL: http://dx.doi.org/10.1038/s41467-022-30255-1, doi:10.1038/s41467-022-30255-1.">2022</a>]</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">image_file</span> <span class="o">=</span> <span class="s2">&quot;image.png&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="id33">
+<img alt="../../_images/image.png" src="../../_images/image.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 6.1 </span><span class="caption-text">Figure taken and cropped from <span id="id2">Deem <em>et al.</em> [<a class="reference internal" href="#id10" title="Madeleine C. Deem, Joshua S. Derasp, Thomas C. Malig, Kea Legard, Curtis P. Berlinguette, and Jason E. Hein. Ring walking as a regioselectivity control element in pd-catalyzed c-n cross-coupling. Nature Communications, May 2022. URL: http://dx.doi.org/10.1038/s41467-022-30255-1, doi:10.1038/s41467-022-30255-1.">2022</a>]</span>. It was cropped to contain only the reaction itself, without all the other information that the original figure contains.</span><a class="headerlink" href="#id33" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>For the record we know:</p>
+<ul class="simple">
+<li><p>Reactant 1: 2-bromo-9,9-dimethyl-9H-fluorene with an R-chain bonded to the carbon 7</p></li>
+<li><p>Reactant 2: 4,4′-Dimethoxydiphenylamine</p></li>
+<li><p>Catalysts:</p>
+<ul>
+<li><p>PEPPSI-IPr catalyst: commercial Pd catalyst</p></li>
+<li><p>Lithium bis(trimethylsilyl)amide (LiHMDS): is primarily used as a strong non-nucleophilic base and as a ligand</p></li>
+<li><p>Byphenyl</p></li>
+</ul>
+</li>
+<li><p>Solvent: 2-methyltetrahydrofuran</p></li>
+<li><p>Product: 2,7-N,N-di(PMP)amino-9,9-dimethylfluoren or 2,7-N,N-dipolymethylpenteneamino-9,9-dimethylfluoren</p></li>
+</ul>
+<p>To pass the image to the model through the prompt, the image needs to be encoded. To do that we use the function that <a class="reference external" href="https://platform.openai.com/docs/guides/vision">OpenAI propose in their vision guidelines</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Function to encode the image</span>
+<span class="k">def</span> <span class="nf">encode_image</span><span class="p">(</span><span class="n">image_path</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">image_file</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">image_file</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># Getting the base64 string</span>
+<span class="n">base64_image</span> <span class="o">=</span> <span class="n">encode_image</span><span class="p">(</span><span class="n">image_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>After that, we generate the prompt using the function just defined to encode the image.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;You are a chemistry expert assistant, and your task is to extract information about chemical reactions from images.&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Please extract all the information from the next image containing a chemical reaction. For the reactants that you find, give the name or some molecular representation, such as SMILES.&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;image_url&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;image_url&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;data:image/jpeg;base64,</span><span class="si">{</span><span class="n">base64_image</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">],</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And we do the completion using the OpenAI API.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">LiteLLM</span></code> makes it easy to use different models. In this demo, we used OpenAI model because this provider’s models together with Claude vision models are the ones that showed the best results overall.</p>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="n">completion</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;The given image illustrates a chemical reaction involving an aryl bromide and another reactant (labeled 2) under specific conditions to produce a product (labeled 9). Here is the detailed information extracted from the image:\n\n### Reactants:\n1. **Aryl Bromide (40 mM)**:\n   - Structure: Contains two benzene rings fused together with one of the benzene rings bonded to a bromine (Br) atom. There is a methyl (Me) group attached to each benzene ring and an R group (possibly a variable substituent) on one of the benzene rings.\n  \n2. **Reactant 2 (90 mM)**:\n   - Structure: Contains a biphenyl system with each phenyl ring having a methoxy group (MeO) attached. One of the phenyl rings is connected to an NH group.\n\n### Catalysts/Reagents:\n1. **PEPPSI-iPr (2 mM)** - a common ligand for facilitating palladium-catalyzed reactions.\n2. **LiHMDS (100 mM)** - Lithium hexamethyldisilazide, a strong non-nucleophilic base.\n\n### Solvent and Conditions:\n1. **Solvent**: 2-Methyltetrahydrofuran (2-MeTHF)\n2. **Temperature**: 60°C\n3. **Biphenyl (40 mM)**: Used perhaps as an additional reagent or co-catalyst component.\n\n### Product:\n- Labelled as compound 9.\n- Structure: Contains a biphenyl core similar to the reactant but with additional groups—two (PMP)₂N groups attached to the biphenyl system.\n\n### Molecular Representations:\n1. **Aryl Bromide**:\n   - (SMILES): [c1cc2cc(c1)c(c(c2)C)Br]\n2. **Reactant 2**:\n   - (SMILES): COc1ccc(cc1)Nc2cc(OC)ccc2 \n3. **Product 9**:\n   - (SMILES, approximate): Perhaps a complex structure involving: c(biphenyl core with two (PMP)2N groups attached)\n\nThe reaction involves the conversion of an aryl bromide with a secondary amine biphenyl derivative in the presence of a palladium catalyst (PEPPSI-iPr) and a strong base (LiHMDS) under specific conditions to produce the target product (compound 9).&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>The model can not give the proper name or molecular representation to the molecules. However, it can identify some functional groups and substituents of the molecules. In addition, it can surprisingly identify the solvent and all the catalysts involved in the reaction.</p>
+<p>But luckily, some tools were developed to extract accurately this information from the images.</p>
+<p>One of these tools is RxnScribe, which <span id="id3">Qian <em>et al.</em> [<a class="reference internal" href="#id13" title="Yujie Qian, Jiang Guo, Zhengkai Tu, Connor W. Coley, and Regina Barzilay. Rxnscribe: a sequence generation model for reaction diagram parsing. Journal of Chemical Information and Modeling, 63(13):4030–4041, June 2023. URL: http://dx.doi.org/10.1021/acs.jcim.3c00439, doi:10.1021/acs.jcim.3c00439.">2023</a>]</span> developed. This tool can extract chemical reactions from images. So, we will use it as a tool given to an agent that we create below. With this and other tools, we will try to use the model to extract information such as the IUPAC name and the InChI representation for the reactants involved in the reaction.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>We use the LangChain package to create an agent in a few lines of code. However, as we point out in the article, building an agent without these frameworks, such as LangChain and LlamaIndex, <a class="reference external" href="https://kjablonka.com/blog/posts/building_an_llm_agent/">is feasible and will offer more clarity and flexibility to the process</a>.</p>
+</aside>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Note that before returning the output from the RxnScribe tool, we “pop” some elements from it. This is simply because those elements are pretty big, and since we will not need them, we will save some tokens.</p>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a class to describe the input to the tool</span>
+<span class="k">class</span> <span class="nc">ExtractionInput</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">image_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Path to the image-file that contain the reaction&quot;</span>
+    <span class="p">)</span>
+
+
+<span class="c1"># Define the function that will do the reaction extraction.</span>
+<span class="k">def</span> <span class="nf">extractor</span><span class="p">(</span><span class="n">image_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="n">ckpt_path</span> <span class="o">=</span> <span class="n">hf_hub_download</span><span class="p">(</span><span class="s2">&quot;yujieq/RxnScribe&quot;</span><span class="p">,</span> <span class="s2">&quot;pix2seq_reaction_full.ckpt&quot;</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">RxnScribe</span><span class="p">(</span><span class="n">ckpt_path</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">))</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_image_file</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">molscribe</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ocr</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Clean the output to reduce the number of tokens</span>
+    <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">&quot;molfile&quot;</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+                    <span class="n">v</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;molfile&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">results</span>
+
+
+<span class="c1"># Describe the tool for the model</span>
+<span class="n">image_extractor</span> <span class="o">=</span> <span class="n">StructuredTool</span><span class="o">.</span><span class="n">from_function</span><span class="p">(</span>
+    <span class="n">func</span><span class="o">=</span><span class="n">extractor</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Reaction extractor&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Extract chemical reactions information such as reactants, products and catalysts from images&quot;</span><span class="p">,</span>
+    <span class="n">args_schema</span><span class="o">=</span><span class="n">ExtractionInput</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we print the variable containing the tool, we will be able to see what is going to be passed to the agent.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reaction extractor
+Extract chemical reactions information such as reactants, products and catalysts from images
+{&#39;image_path&#39;: {&#39;title&#39;: &#39;Image Path&#39;, &#39;description&#39;: &#39;Path to the image-file that contain the reaction&#39;, &#39;type&#39;: &#39;string&#39;}}
+False
+</pre></div>
+</div>
+</div>
+</div>
+<p>Similarly, we can define other tools to help the agent convert between SMILES, InChI, and the IUPAC name.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ChemicalRepresentation</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">smiles</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;SMILES representation for the molecule&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">smiles_to_inchi</span><span class="p">(</span><span class="n">smiles</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">molecule</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">smiles</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Chem</span><span class="o">.</span><span class="n">MolToInchi</span><span class="p">(</span><span class="n">molecule</span><span class="p">)</span>
+
+
+<span class="n">CACTUS</span> <span class="o">=</span> <span class="s2">&quot;https://cactus.nci.nih.gov/chemical/structure/</span><span class="si">{0}</span><span class="s2">/</span><span class="si">{1}</span><span class="s2">&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">smiles_to_iupac</span><span class="p">(</span><span class="n">smiles</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Use the chemical name resolver https://cactus.nci.nih.gov/chemical/structure.</span>
+<span class="sd">    If this does not work, use pubchem.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>
+        <span class="n">rep</span> <span class="o">=</span> <span class="s2">&quot;iupac_name&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">CACTUS</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">smiles</span><span class="p">,</span> <span class="n">rep</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">if</span> <span class="s2">&quot;html&quot;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">name</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">compound</span> <span class="o">=</span> <span class="n">pcp</span><span class="o">.</span><span class="n">get_compounds</span><span class="p">(</span><span class="n">smiles</span><span class="p">,</span> <span class="s2">&quot;smiles&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">compound</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">iupac_name</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="n">smiles_to_inchi_converter</span> <span class="o">=</span> <span class="n">StructuredTool</span><span class="o">.</span><span class="n">from_function</span><span class="p">(</span>
+    <span class="n">func</span><span class="o">=</span><span class="n">smiles_to_inchi</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Smiles to InChI&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Return the InChI representation of the given SMILES representation&quot;</span><span class="p">,</span>
+    <span class="n">args_schema</span><span class="o">=</span><span class="n">ChemicalRepresentation</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">smiles_to_iupac_converter</span> <span class="o">=</span> <span class="n">StructuredTool</span><span class="o">.</span><span class="n">from_function</span><span class="p">(</span>
+    <span class="n">func</span><span class="o">=</span><span class="n">smiles_to_iupac</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Smiles to IUPAC&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Return the IUPAC name of the given SMILES representation&quot;</span><span class="p">,</span>
+    <span class="n">args_schema</span><span class="o">=</span><span class="n">ChemicalRepresentation</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Once we have defined all the tools, we create a list that will be passed to the agent indicating which tools it has available.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tools</span> <span class="o">=</span> <span class="p">[</span><span class="n">image_extractor</span><span class="p">,</span> <span class="n">smiles_to_inchi_converter</span><span class="p">,</span> <span class="n">smiles_to_iupac_converter</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>After creating and defining the tools, we can start constructing the agent itself by specifying the model to use. For the agent, we will use the GPT-4o model.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">request_timeout</span></code> sets the maximum time to wait for the response from the API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">streaming=&quot;False&quot;</span></code> sets that the entire completion of the model is going to be returned only once it is completely generated. If this parameter is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the completion of the model will be sent to you as it is being generated, token by token.</p></li>
+</ul>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;gpt-4o&quot;</span><span class="p">,</span>
+    <span class="n">request_timeout</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">streaming</span><span class="o">=</span><span class="s2">&quot;False&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then we define the prompt, the agent and what it is called by LangChain as the “chain”.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the ReAct prompt from the hub.</span>
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s2">&quot;hwchase17/react&quot;</span><span class="p">)</span>
+<span class="c1"># Construct the ReAct agent</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">create_react_agent</span><span class="p">(</span><span class="n">llm</span><span class="p">,</span> <span class="n">tools</span><span class="p">,</span> <span class="n">prompt</span><span class="p">)</span>
+<span class="c1"># Define the chain for the agent.</span>
+<span class="n">agent_executor</span> <span class="o">=</span> <span class="n">AgentExecutor</span><span class="p">(</span>
+    <span class="n">agent</span><span class="o">=</span><span class="n">agent</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="n">tools</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Notes about ReAct</p>
+<p>Answer the following questions as best you can. You have access to the following tools:</p>
+<p>{tools}</p>
+<p>Use the following format:</p>
+<p>Question: the input question you must answer<br />
+Thought: you should always think about what to do<br />
+Action: the action to take, should be one of [{tool_names}]<br />
+Action Input: the input to the action<br />
+Observation: the result of the action…(this Thought/Action/Action Input/Observation can repeat N times)<br />
+Thought: I now know the final answer<br />
+Final Answer: the final answer to the original input question\</p>
+<p>Begin!</p>
+<p>Question: {input}<br />
+Thought:{agent_scratchpad}</p>
+<hr class="docutils" />
+<p>What are the variables referred in this prompt?\</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tools</span></code> is a list with all the tools available. The list includes the <code class="docutils literal notranslate"><span class="pre">func</span></code>, <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">description</span></code> and <code class="docutils literal notranslate"><span class="pre">args_schema</span></code> arguments detailed when the tools were created.\</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tool_names</span></code> is a list with the names of the tools available.\</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">input</span></code>is the query from the user.\</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">agent_scratchpad</span></code> contains the previous iterations by the agent.\</p></li>
+</ul>
+</div>
+<p>The last step before calling the agent is to define the query that we want the agent to solve.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;I want the IUPAC name, the SMILES and the InChI representations for the reactants of the reaction contained in the image: </span><span class="si">{</span><span class="n">image_file</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And finally we run the agent.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">agent_executor</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="n">query</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">&gt; Entering new AgentExecutor chain...</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">To answer this question, I need to extract the chemical reactions information from the provided image first. This will give me the reactants, products, and catalysts involved in the reaction. Once I have the reactants, I can then convert their SMILES representations to IUPAC names and InChI representations.</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">Action: Reaction extractor</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">Action Input: image.png</span><span class=" -Color -Color-Bold -Color-Bold-Cyan">[{&#39;reactants&#39;: [{&#39;category&#39;: &#39;[Mol]&#39;, &#39;bbox&#39;: (0.03401700850425213, 0.01468796072044833, 0.24212106053026514, 0.8127338265314743), &#39;category_id&#39;: 1, &#39;smiles&#39;: &#39;*c1ccc2c(c1)C(C)(C)c1cc(Br)ccc1-2&#39;}, {&#39;category&#39;: &#39;[Mol]&#39;, &#39;bbox&#39;: (0.23311655827913957, 0.011750368576358663, 0.4432216108054027, 0.8225258003451065), &#39;category_id&#39;: 1, &#39;smiles&#39;: &#39;*.*.COc1ccc(Nc2ccc(OC)cc2)cc1&#39;}], &#39;conditions&#39;: [{&#39;category&#39;: &#39;[Txt]&#39;, &#39;bbox&#39;: (0.4547273636818409, 0.20269385794218694, 0.7748874437218609, 0.3897205577825623), &#39;category_id&#39;: 2, &#39;text&#39;: [&#39;PEPPSI-iPr [2 mM]&#39;, &#39;LiHMDS [100 mM]&#39;]}, {&#39;category&#39;: &#39;[Txt]&#39;, &#39;bbox&#39;: (0.4627313656828414, 0.42986765041845443, 0.76088044022011, 0.6022063895383815), &#39;category_id&#39;: 2, &#39;text&#39;: [&#39;Biphenyl [40 mM]&#39;, &#39;60 C, 2-MeTHF&#39;]}], &#39;products&#39;: [{&#39;category&#39;: &#39;[Mol]&#39;, &#39;bbox&#39;: (0.7563781890945472, 0.006854381669542554, 1.0, 0.8176298134382903), &#39;category_id&#39;: 1, &#39;smiles&#39;: &#39;CC1(C)c2cc(N)ccc2-c2ccc(N)cc21.I.II&#39;}]}]</span><span class=" -Color -Color-Bold -Color-Bold-Green">The extracted information from the image provides the SMILES representations of the reactants. Here are the reactants:</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">1. `*c1ccc2c(c1)C(C)(C)c1cc(Br)ccc1-2`</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">2. `*.*.COc1ccc(Nc2ccc(OC)cc2)cc1`</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">Next, I will convert these SMILES representations to their IUPAC names and InChI representations.</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">Let&#39;s start with the first reactant.</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">Action: Smiles to IUPAC</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">Action Input: *c1ccc2c(c1)C(C)(C)c1cc(Br)ccc1-2</span><span class=" -Color -Color-Bold -Color-Bold-C200">None</span><span class=" -Color -Color-Bold -Color-Bold-Green">It seems there was an issue with the conversion of the first SMILES representation to its IUPAC name. I will try converting the second reactant&#39;s SMILES representation to its IUPAC name.</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">Action: Smiles to IUPAC</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">Action Input: *.*.COc1ccc(Nc2ccc(OC)cc2)cc1</span><span class=" -Color -Color-Bold -Color-Bold-C200">None</span><span class=" -Color -Color-Bold -Color-Bold-Green">It appears that the SMILES representations extracted from the image might contain some non-standard characters or formatting issues that are causing the conversion tools to fail. I will manually inspect and clean the SMILES strings before attempting the conversion again.</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">The first reactant&#39;s SMILES string is `*c1ccc2c(c1)C(C)(C)c1cc(Br)ccc1-2`. The asterisk `*` might be a placeholder or an error. I will remove it and try converting the cleaned SMILES string `c1ccc2c(c1)C(C)(C)c1cc(Br)ccc1-2`.</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">The second reactant&#39;s SMILES string is `*.*.COc1ccc(Nc2ccc(OC)cc2)cc1`. The asterisks `*.*.` might be placeholders or errors. I will remove them and try converting the cleaned SMILES string `COc1ccc(Nc2ccc(OC)cc2)cc1`.</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">Let&#39;s start with the cleaned SMILES string of the first reactant.</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">Action: Smiles to IUPAC</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">Action Input: c1ccc2c(c1)C(C)(C)c1cc(Br)ccc1-2</span><span class=" -Color -Color-Bold -Color-Bold-C200">2-bromo-9,9-dimethylfluorene</span><span class=" -Color -Color-Bold -Color-Bold-Green">The IUPAC name for the first reactant is &quot;2-bromo-9,9-dimethylfluorene&quot;. Now, I will convert the cleaned SMILES string of the first reactant to its InChI representation.</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">Action: Smiles to InChI</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">Action Input: c1ccc2c(c1)C(C)(C)c1cc(Br)ccc1-2</span><span class=" -Color -Color-Bold -Color-Bold-Yellow">InChI=1S/C15H13Br/c1-15(2)13-6-4-3-5-11(13)12-8-7-10(16)9-14(12)15/h3-9H,1-2H3</span><span class=" -Color -Color-Bold -Color-Bold-Green">The InChI representation for the first reactant is &quot;InChI=1S/C15H13Br/c1-15(2)13-6-4-3-5-11(13)12-8-7-10(16)9-14(12)15/h3-9H,1-2H3&quot;.</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">Next, I will convert the cleaned SMILES string of the second reactant to its IUPAC name.</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">Action: Smiles to IUPAC</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">Action Input: COc1ccc(Nc2ccc(OC)cc2)cc1</span><span class=" -Color -Color-Bold -Color-Bold-C200">4-methoxy-N-(4-methoxyphenyl)aniline</span><span class=" -Color -Color-Bold -Color-Bold-Green">The IUPAC name for the second reactant is &quot;4-methoxy-N-(4-methoxyphenyl)aniline&quot;. Now, I will convert the cleaned SMILES string of the second reactant to its InChI representation.</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">Action: Smiles to InChI</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">Action Input: COc1ccc(Nc2ccc(OC)cc2)cc1</span><span class=" -Color -Color-Bold -Color-Bold-Yellow">InChI=1S/C14H15NO2/c1-16-13-7-3-11(4-8-13)15-12-5-9-14(17-2)10-6-12/h3-10,15H,1-2H3</span><span class=" -Color -Color-Bold -Color-Bold-Green">The InChI representation for the second reactant is &quot;InChI=1S/C14H15NO2/c1-16-13-7-3-11(4-8-13)15-12-5-9-14(17-2)10-6-12/h3-10,15H,1-2H3&quot;.</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">I now have all the necessary information for the reactants:</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">1. First Reactant:</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">   - IUPAC Name: 2-bromo-9,9-dimethylfluorene</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">   - SMILES: c1ccc2c(c1)C(C)(C)c1cc(Br)ccc1-2</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">   - InChI: InChI=1S/C15H13Br/c1-15(2)13-6-4-3-5-11(13)12-8-7-10(16)9-14(12)15/h3-9H,1-2H3</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">2. Second Reactant:</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">   - IUPAC Name: 4-methoxy-N-(4-methoxyphenyl)aniline</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">   - SMILES: COc1ccc(Nc2ccc(OC)cc2)cc1</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">   - InChI: InChI=1S/C14H15NO2/c1-16-13-7-3-11(4-8-13)15-12-5-9-14(17-2)10-6-12/h3-10,15H,1-2H3</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">Final Answer:</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">1. First Reactant:</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">   - IUPAC Name: 2-bromo-9,9-dimethylfluorene</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">   - SMILES: c1ccc2c(c1)C(C)(C)c1cc(Br)ccc1-2</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">   - InChI: InChI=1S/C15H13Br/c1-15(2)13-6-4-3-5-11(13)12-8-7-10(16)9-14(12)15/h3-9H,1-2H3</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Green">2. Second Reactant:</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">   - IUPAC Name: 4-methoxy-N-(4-methoxyphenyl)aniline</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">   - SMILES: COc1ccc(Nc2ccc(OC)cc2)cc1</span>
+<span class=" -Color -Color-Bold -Color-Bold-Green">   - InChI: InChI=1S/C14H15NO2/c1-16-13-7-3-11(4-8-13)15-12-5-9-14(17-2)10-6-12/h3-10,15H,1-2H3</span>
+
+<span class=" -Color -Color-Bold">&gt; Finished chain.</span>
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;input&#39;: &#39;I want the IUPAC name, the SMILES and the InChI representations for the reactants of the reaction contained in the image: image.png&#39;,
+ &#39;output&#39;: &#39;1. First Reactant:\n   - IUPAC Name: 2-bromo-9,9-dimethylfluorene\n   - SMILES: c1ccc2c(c1)C(C)(C)c1cc(Br)ccc1-2\n   - InChI: InChI=1S/C15H13Br/c1-15(2)13-6-4-3-5-11(13)12-8-7-10(16)9-14(12)15/h3-9H,1-2H3\n\n2. Second Reactant:\n   - IUPAC Name: 4-methoxy-N-(4-methoxyphenyl)aniline\n   - SMILES: COc1ccc(Nc2ccc(OC)cc2)cc1\n   - InChI: InChI=1S/C14H15NO2/c1-16-13-7-3-11(4-8-13)15-12-5-9-14(17-2)10-6-12/h3-10,15H,1-2H3&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<p>First, it’s worth noting that the model’s reasoning about the tool use is accurate.</p>
+<p>The ReAct prompt’s reasoning enables the agent to correctly identify and provide information only about the reactants, contrary to the previous case.</p>
+<p>For reactant 2, the extracted information is correct, with both representations that we asked for. On the other hand, for reactant 1, the information provided by the model is not correct at all. But this is because it can not identify the R chain as a proper part of the molecule, something that was partially expected. Thus, the name and representations provided by the agent correspond to a molecule where R corresponds to a hydrogen atom.</p>
+<p>In summary, we implemented a basic agent for extracting chemical reactions from images. The agent proved to improve vanilla models by far, and the results can be even better by making more robust tools.</p>
+<section id="references">
+<h2><span class="section-number">6.1. </span>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<div class="docutils container" id="id4">
+<div role="list" class="citation-list">
+<div class="citation" id="id10" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>DDM+22<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
+<p>Madeleine C. Deem, Joshua S. Derasp, Thomas C. Malig, Kea Legard, Curtis P. Berlinguette, and Jason E. Hein. Ring walking as a regioselectivity control element in pd-catalyzed c-n cross-coupling. <em>Nature Communications</em>, May 2022. URL: <a class="reference external" href="http://dx.doi.org/10.1038/s41467-022-30255-1">http://dx.doi.org/10.1038/s41467-022-30255-1</a>, <a class="reference external" href="https://doi.org/10.1038/s41467-022-30255-1">doi:10.1038/s41467-022-30255-1</a>.</p>
+</div>
+<div class="citation" id="id13" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">QGT+23</a><span class="fn-bracket">]</span></span>
+<p>Yujie Qian, Jiang Guo, Zhengkai Tu, Connor W. Coley, and Regina Barzilay. Rxnscribe: a sequence generation model for reaction diagram parsing. <em>Journal of Chemical Information and Modeling</em>, 63(13):4030–4041, June 2023. URL: <a class="reference external" href="http://dx.doi.org/10.1021/acs.jcim.3c00439">http://dx.doi.org/10.1021/acs.jcim.3c00439</a>, <a class="reference external" href="https://doi.org/10.1021/acs.jcim.3c00439">doi:10.1021/acs.jcim.3c00439</a>.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/agents"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../beyond_text/beyond_images.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Beyond text</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../constrained_decoding/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Constrained generation to guarantee syntactic correctness</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">6.1. References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mara Schilling-Wilhelmi, Martiño Ríos-García, Sherjeel Shabih, María Victoria Gil, Santiago Miret, Christoph Koch, Pepe Márquez, and Kevin Maik Jablonka
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

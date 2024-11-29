@@ -1,0 +1,1163 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" lang="en" name="description" xml:lang="en" />
+<meta content="en_US" property="og:locale" />
+<meta content="summary" name="twitter:card" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" name="twitter:description" />
+<meta content="structmatdat.pub 📖" name="twitter:title" />
+<meta content="https://structmatdat.pub/_static/logo.png" name="twitter:image" />
+<meta content="&#64;jablonkagroup" name="twitter:site" />
+
+    <title>8. Evaluations &#8212; From Text to Insight: Large Language Models for Materials Science Data Extraction</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e878585a" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/evaluations/evaluations';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="9. Research articles vs datasets in chemistry and materials science" href="../intro_figure/figure1_intro_notebook.html" />
+    <link rel="prev" title="7. Constrained generation to guarantee syntactic correctness" href="../constrained_decoding/index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+    <img src="../../_static/logo_white.png" class="logo__image only-dark pst-js-only" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction and background</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../background/resources_LLMs.html">Overview of the working principles of LLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">A. Structured Extraction Workflow</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../obtaining_data/index.html">1. Obtaining data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/crossref_search.html">1.1. Obtaining a set of relevant data sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/data_mining.html">1.2. Mining data from ChemRxiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/annotation.html">1.3. Data annotation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../document_parsing_and_cleaning/index.html">2. Cleaning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/parsing.html">2.1. Document parsing with OCR tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/cleaning.html">2.2. Document cleaning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../context_window/Dealing_with_context_window.html">3. Strategies to tackle context window limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../finetune/choosing_paradigm.html">4. Choosing the learning paradigm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../beyond_text/beyond_images.html">5. Beyond text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../agents/agent.html">6. Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../constrained_decoding/index.html">7. Constrained generation to guarantee syntactic correctness</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">8. Evaluations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">B. Case Studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../intro_figure/figure1_intro_notebook.html">9. Research articles vs datasets in chemistry and materials science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../biomass_case/biomass_case.html">10. Collecting data on the synthesis procedures of bio-based adsorbents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../perovskite/constrained_formulas.html">11. Retrieving data from chacolgenide perovskites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NMR_composition_matching/NMR_comp_matching.html">12. Validation case study: Matching NMR spectra to composition of the molecule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reaction_case/reaction.html">13. Collecting data for reactions procedures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/evaluations/evaluations.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Evaluations</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">8.1. Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-example-data">8.2. Simple example data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scoring-a-key-value-pair">8.3. Scoring a Key-Value pair</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-of-results-from-the-choosing-a-learning-paradigm-chapter">8.4. Evaluation of results from the choosing a learning paradigm chapter</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-results">8.4.1. Loading the results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-common-functions-for-later-use">8.4.2. Defining common functions for later use</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-of-the-results">8.4.3. Evaluation of the results</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#f1-score">8.4.3.1. F1 score</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matching-to-ground-truth">8.4.4. Matching to ground truth</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-normalization">8.4.5. Data normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#chemically-informed-normalization">8.4.5.1. Chemically informed normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#organics">8.4.5.1.1. Organics</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#inorganics">8.4.5.1.2. Inorganics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="evaluations">
+<h1><span class="section-number">8. </span>Evaluations<a class="headerlink" href="#evaluations" title="Link to this heading">#</a></h1>
+<p>Every extraction task needs a good way to evaluate whether the extracted data is correct and give it a score of how correct it is. The goal is to quantify the extraction pipeline’s (model’s) performance. With partial scores giving insight on how correct a data point is, usually between 0 and 1, the pipeline can be improved by fixing any edge cases or errors found by comparing lower scored data points.</p>
+<section id="imports">
+<h2><span class="section-number">8.1. </span>Imports<a class="headerlink" href="#imports" title="Link to this heading">#</a></h2>
+<p>We import all required libraries at the start here.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">statistics</span> <span class="kn">import</span> <span class="n">mean</span>
+<span class="kn">from</span> <span class="nn">pint</span> <span class="kn">import</span> <span class="n">UnitRegistry</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="simple-example-data">
+<h2><span class="section-number">8.2. </span>Simple example data<a class="headerlink" href="#simple-example-data" title="Link to this heading">#</a></h2>
+<p>To start of with a simple example, we define a set of key-value pairs as our ground truth and a dummy output from the model as prediction.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">truth</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;result&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;correct&quot;</span><span class="p">:</span> <span class="s2">&quot;correct&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;number&quot;</span><span class="p">:</span> <span class="mf">0.45</span><span class="p">,</span>
+    <span class="s2">&quot;wrong&quot;</span><span class="p">:</span> <span class="mf">1.023</span><span class="p">,</span>
+    <span class="s2">&quot;bool&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s2">&quot;missing&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">prediction</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;result&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;correct&quot;</span><span class="p">:</span> <span class="s2">&quot;incorrect&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;number&quot;</span><span class="p">:</span> <span class="mf">0.45</span><span class="p">,</span>
+    <span class="s2">&quot;wrong&quot;</span><span class="p">:</span> <span class="mf">1.025</span><span class="p">,</span>
+    <span class="s2">&quot;bull&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="scoring-a-key-value-pair">
+<h2><span class="section-number">8.3. </span>Scoring a Key-Value pair<a class="headerlink" href="#scoring-a-key-value-pair" title="Link to this heading">#</a></h2>
+<p>To properly evaluate a structured output from a model, we have to walk through the structure of the ground truth and the output simultaneously. We have to check every value we were expecting the model to return and count how many of these are correct.
+With the count of the correct keys, we can calculate our metrics:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{precision} = \frac{|{\text{relevant entries}} \cap {\text{retrieved entries}}| }{|{\text{retrieved entries}}|}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{recall} = \frac{|{\text{relevant entries}} \cap {\text{retrieved entries}}| }{|{\text{relevant entries}}|}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F_1 = \frac{2}{\mathrm{recall}^{-1} + \mathrm{precision}^{-1}}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">relevant_entries_intersection_retrieved_entries</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">t_key</span> <span class="ow">in</span> <span class="n">truth</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">t_key</span> <span class="ow">in</span> <span class="n">prediction</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">truth</span><span class="p">[</span><span class="n">t_key</span><span class="p">]</span> <span class="o">==</span> <span class="n">prediction</span><span class="p">[</span><span class="n">t_key</span><span class="p">]:</span>
+            <span class="n">relevant_entries_intersection_retrieved_entries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t_key</span><span class="p">)</span>
+<span class="n">recall</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">relevant_entries_intersection_retrieved_entries</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">truth</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">precision</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">relevant_entries_intersection_retrieved_entries</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span>
+    <span class="n">prediction</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recall: </span><span class="si">{</span><span class="n">recall</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\n</span><span class="s2">Precision: </span><span class="si">{</span><span class="n">precision</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recall: 0.33
+Precision: 0.40
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="evaluation-of-results-from-the-choosing-a-learning-paradigm-chapter">
+<h2><span class="section-number">8.4. </span>Evaluation of results from the choosing a learning paradigm chapter<a class="headerlink" href="#evaluation-of-results-from-the-choosing-a-learning-paradigm-chapter" title="Link to this heading">#</a></h2>
+<p>Using those scores, we can now revisit the results from our previous experiments in the <a class="reference internal" href="../finetune/choosing_paradigm.html#choosing-paradigm-openai-results"><span class="std std-ref">Choosing a learning paradigm chapter</span></a>.</p>
+<section id="loading-the-results">
+<h3><span class="section-number">8.4.1. </span>Loading the results<a class="headerlink" href="#loading-the-results" title="Link to this heading">#</a></h3>
+<p>We will use the responses from GPT-4o. We will read the JSON file that has both the predicted structured output and the expected reference ground truth.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;../finetune/OpenAI_results.json&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">open_ai_results</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">truths</span> <span class="o">=</span> <span class="n">open_ai_results</span><span class="p">[</span><span class="s2">&quot;1-shot&quot;</span><span class="p">][</span><span class="s2">&quot;references&quot;</span><span class="p">]</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">open_ai_results</span><span class="p">[</span><span class="s2">&quot;1-shot&quot;</span><span class="p">][</span><span class="s2">&quot;predictions&quot;</span><span class="p">]</span>
+    <span class="c1"># We convert the output from a JSON str to a dict object</span>
+    <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">truth</span><span class="p">)</span> <span class="k">for</span> <span class="n">truth</span> <span class="ow">in</span> <span class="n">truths</span><span class="p">]</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">prediction</span><span class="p">[</span><span class="n">prediction</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">)</span> <span class="p">:</span> <span class="n">prediction</span><span class="o">.</span><span class="n">rindex</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">prediction</span> <span class="ow">in</span> <span class="n">predictions</span>
+    <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="defining-common-functions-for-later-use">
+<h3><span class="section-number">8.4.2. </span>Defining common functions for later use<a class="headerlink" href="#defining-common-functions-for-later-use" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">common_items</span><span class="p">(</span><span class="n">dict1</span><span class="p">,</span> <span class="n">dict2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Finds common keys between two dicts and yields if the values are equal.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">dict1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">dict2</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dict1</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dict2</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">subkey</span><span class="p">,</span> <span class="n">subvalue</span> <span class="ow">in</span> <span class="n">common_items</span><span class="p">(</span><span class="n">dict1</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">dict2</span><span class="p">[</span><span class="n">key</span><span class="p">]):</span>
+                    <span class="k">yield</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">subkey</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">subvalue</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dict1</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dict2</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">item1</span> <span class="ow">in</span> <span class="n">dict1</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
+                    <span class="k">for</span> <span class="n">item2</span> <span class="ow">in</span> <span class="n">dict2</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item1</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item2</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                            <span class="k">for</span> <span class="n">subkey</span><span class="p">,</span> <span class="n">subvalue</span> <span class="ow">in</span> <span class="n">common_items</span><span class="p">(</span><span class="n">item1</span><span class="p">,</span> <span class="n">item2</span><span class="p">):</span>
+                                <span class="k">yield</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">.[].</span><span class="si">{</span><span class="n">subkey</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">subvalue</span>
+            <span class="k">elif</span> <span class="n">dict1</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">==</span> <span class="n">dict2</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
+                <span class="k">yield</span> <span class="n">key</span><span class="p">,</span> <span class="n">dict1</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">count_correct_items</span><span class="p">(</span><span class="n">dict1</span><span class="p">,</span> <span class="n">dict2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Counts the common keys between two dicts and returns the count.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">correct</span> <span class="k">for</span> <span class="n">correct</span> <span class="ow">in</span> <span class="n">common_items</span><span class="p">(</span><span class="n">dict1</span><span class="p">,</span> <span class="n">dict2</span><span class="p">)])</span>
+
+
+<span class="k">def</span> <span class="nf">count_leaf_keys</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Counts the number of keys at the deepest levels (leaf) of an arbitrarily nested dict&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="n">count_leaf_keys</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">count</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="n">count_leaf_keys</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">count</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="evaluation-of-the-results">
+<h3><span class="section-number">8.4.3. </span>Evaluation of the results<a class="headerlink" href="#evaluation-of-the-results" title="Link to this heading">#</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The code below assumes that the <code class="docutils literal notranslate"><span class="pre">truths</span></code> and <code class="docutils literal notranslate"><span class="pre">predictions</span></code> are already matched.
+If you run extraction using a model, this is not the case in general.</p>
+<p>In this case, you will need to match the ground truth with the prediction.
+This is explained in a section below.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recalls</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">precisions</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">truth</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">truths</span><span class="p">):</span>
+    <span class="n">prediction</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">num_correct_items</span> <span class="o">=</span> <span class="n">count_correct_items</span><span class="p">(</span><span class="n">truth</span><span class="p">,</span> <span class="n">prediction</span><span class="p">)</span>
+    <span class="n">recalls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">num_correct_items</span> <span class="o">/</span> <span class="n">count_leaf_keys</span><span class="p">(</span><span class="n">truth</span><span class="p">))</span>
+    <span class="n">precisions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">num_correct_items</span> <span class="o">/</span> <span class="n">count_leaf_keys</span><span class="p">(</span><span class="n">prediction</span><span class="p">))</span>
+
+<span class="n">recall</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">recalls</span><span class="p">)</span>
+<span class="n">precision</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">precisions</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recall: </span><span class="si">{</span><span class="n">recall</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\n</span><span class="s2">Precision: </span><span class="si">{</span><span class="n">precision</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recall: 0.30
+Precision: 0.30
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">truth</span></code> is the manually curated reference extraction and <code class="docutils literal notranslate"><span class="pre">prediction</span></code> is what the LLM returns through the pipeline.</p>
+</div>
+<section id="f1-score">
+<h4><span class="section-number">8.4.3.1. </span>F1 score<a class="headerlink" href="#f1-score" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f1_score</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">((</span><span class="mi">1</span> <span class="o">/</span> <span class="n">recall</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">precision</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;F1 score: </span><span class="si">{</span><span class="n">f1_score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>F1 score: 0.30
+</pre></div>
+</div>
+</div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">LLM-as-Judge</p>
+<p>For certain applications, it is possible to use an LLM as the evaluator, which is probably one of the easiest ways to implement some evaluations. However, as <span id="id1"></span> states, the evaluator model have all the problems of the LLM used for extraction, so it is not always the best approach, and to have a good evaluation, it is necessary to <a class="reference external" href="https://hamel.dev/blog/posts/llm-judge/#step-5-build-your-llm-as-a-judge-iteratively">align the LLM-as-Judge with the preferences of a human evaluator</a>.</p>
+</div>
+</section>
+</section>
+<section id="matching-to-ground-truth">
+<h3><span class="section-number">8.4.4. </span>Matching to ground truth<a class="headerlink" href="#matching-to-ground-truth" title="Link to this heading">#</a></h3>
+<p>If we look at the inputs section of our data, we realize that the evaluation of the extraction can be more complex than one might expect:</p>
+<ul class="simple">
+<li><p>First, we have to deal with the fact that some values are chemicals. This is problematic as there are typically many equivalent ways of naming the same chemical. In naive socring this will lead to problems.
+For instance, our ground truth might contain “aspirin” but we extracted “2-acetoxybenzoic acid” (the IUPAC name). A string matching would not identify those two names to be the same – even though they refer to the same chemical.</p></li>
+<li><p>If we extract data, there might be multiple entries that are almost the same. In addition, the model might miss extracting some entries or hallucinate some. For our evaluations, we must decide what to compare (i.e., which extracted entry to compare with which entry from the ground truth).
+This requires us to <em>match</em> the extracted entry with the ground truth entry.</p></li>
+</ul>
+<p>The code above assumed that <code class="docutils literal notranslate"><span class="pre">truths</span></code> and <code class="docutils literal notranslate"><span class="pre">predictions</span></code> are the same length and already such that each item <code class="docutils literal notranslate"><span class="pre">i</span></code> in <code class="docutils literal notranslate"><span class="pre">truths</span></code> matches to item <code class="docutils literal notranslate"><span class="pre">i</span></code> in <code class="docutils literal notranslate"><span class="pre">predictions</span></code>.
+As we just described, this is not the case in general, and we have to find the closet extraction for a given element of <code class="docutils literal notranslate"><span class="pre">truths</span></code> to perform a meaningful evaluation.</p>
+<p>In the following, we will do this based on the <code class="docutils literal notranslate"><span class="pre">inputs</span></code> section of the data. As a first approximation, we will say that a ground truth “matches” an extraction result if it is the most similar from all extraction results. To solve this for all the elements of the extraction, we use the <code class="docutils literal notranslate"><span class="pre">deepdiff</span></code> library to measure how similar two dictionaries are, and then use the <a class="reference external" href="https://en.wikipedia.org/wiki/Hungarian_algorithm">Kuhn-Munkres algorithm</a> to find the optimal assignments between ground truth and extraction.</p>
+<p>Note that in practice it is often better to not perform the matching on the entire extracted output but only on what one can define as an “identifier” of an entry.</p>
+<div class="note admonition">
+<p class="admonition-title">On what to match</p>
+<p>The choice of what fields of the schema the matching is performed on is crucial.
+If one imagines extracting reactions with associated yields one could imagine matching reactions based on the reaction yield.</p>
+<p>This, however, is not the ideal way to match reactions as the interpretation of the results is counterintuitive: Chemists would intuitively match extracted results and ground truth based on the reaction SMILES (and conditions) and then compare the yields. If now the matching is performed on the yield, the evaluation would be counterintuitive to a chemist. For example, and incorrectly extracted  yield might lead to counterintuitive matches and thus a bad evaluation.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+<span class="n">For</span> <span class="n">materials</span><span class="p">,</span> <span class="n">this</span> <span class="n">can</span> <span class="n">be</span> <span class="n">properties</span> <span class="n">that</span> <span class="n">might</span> <span class="n">be</span> <span class="n">a</span> <span class="n">canonicalized</span> <span class="n">representation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">material</span><span class="o">.</span> <span class="n">For</span> <span class="n">reactions</span><span class="p">,</span> <span class="n">this</span> <span class="n">might</span> <span class="n">be</span> <span class="n">the</span> <span class="n">canonicalized</span> <span class="n">reaction</span> <span class="n">SMILES</span> <span class="k">with</span> <span class="n">condition</span> <span class="n">information</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+<div class="note dropdown admonition">
+<p class="admonition-title">The DeepDiff algorithm</p>
+<p>The <a class="reference external" href="https://zepworks.com/deepdiff/current/deep_distance.html">Deep Distance concept in DeepDiff</a> is inspired by <a class="reference external" href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein Edit Distance</a>, but it’s not the same.</p>
+<p>The Levenshtein distance is a metric used to measure the difference between two sequences (usually strings).
+It’s defined as the minimum number of single-character edits (insertions, deletions, or substitutions) required to change one word into another.
+For example, the Levenshtein distance between “kitten” and “sitting” is 3, as it takes three edits to transform one into the other.
+DeepDiff’s Deep Distance differs from Levenshtein distance in a few key ways:</p>
+<ul class="simple">
+<li><p>It works on any Python objects, not just strings.</p></li>
+<li><p>It’s based on the number of operations needed to convert one object to another, not necessarily the minimum number.</p></li>
+<li><p>The result is normalized to a value between 0 and 1.</p></li>
+<li><p>The calculation is highly dependent on the granularity of the diff results, which can be controlled by parameters passed to DeepDiff. One element of the granularity is, for example, how the algorithm deals with the comparison of iterables such as list (e.g., if the order is ignored or not).</p></li>
+</ul>
+</div>
+<div class="note dropdown admonition">
+<p class="admonition-title">The Kuhn-Munkres algorithm</p>
+<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Hungarian_algorithm">Kuhn-Munkres algorithm</a> is used to solve the assignment problem, which is about finding the optimal way to assign <span class="math notranslate nohighlight">\(n\)</span> items to <span class="math notranslate nohighlight">\(n\)</span> other items (e.g., tasks to workers) in a way that minimizes the total cost or maximizes the total profit.
+Key points about the Kuhn-Munkres algorithm:</p>
+<ul class="simple">
+<li><p>Purpose: It finds a perfect matching in a weighted bipartite graph that minimizes the total weight of the matching.</p></li>
+<li><p>Input: A cost matrix where each element represents the cost of assigning one item to another.</p></li>
+<li><p>Output: An optimal assignment that minimizes the total cost.</p></li>
+<li><p>Time Complexity: <span class="math notranslate nohighlight">\(\mathcal{O}(n^3)\)</span>, where <span class="math notranslate nohighlight">\(n\)</span> is the number of vertices in one partition of the bipartite graph.</p></li>
+<li><p>Optimality: It guarantees finding the optimal solution.</p></li>
+</ul>
+<h3 class="rubric" id="process">Process:</h3>
+<p>Imagine you’re planning a party game where you need to pair up kids with party hats. Each kid has a preference score for each hat, and you want to make everyone as happy as possible.
+Here’s how the Hungarian algorithm would solve this:</p>
+<ol class="arabic">
+<li><p>Setup:</p>
+<p>Make a grid (matrix) where rows are kids and columns are hats.
+Each cell has a “sadness score” - how sad a kid would be wearing that hat (lower is better).</p>
+</li>
+<li><p>Find the Cheapest Hats:</p>
+<p>For each kid, find their favorite hat (lowest sadness score).
+Write down how sad they’d be with that hat.</p>
+</li>
+<li><p>Try Matching:</p>
+<p>Try to give each kid their favorite hat.
+If every kid gets a unique hat, you’re done! If not, move to step 4.</p>
+</li>
+<li><p>Detective Work:</p>
+<p>Start with a kid who didn’t get a hat.
+Look for a path to swap hats so this kid gets one:</p>
+<p>Can they take someone else’s favorite hat?
+Can that someone take another hat they like?
+Keep going until you find an unused hat.</p>
+<p>If you find such a path, do the swaps and go back to step 3.
+If not, move to step 5.</p>
+</li>
+<li><p>Adjust Expectations:</p>
+<p>If you can’t find a swapping path, slightly increase everyone’s sadness tolerance.
+This makes more hat options available.
+Go back to step 4 and try again.</p>
+</li>
+<li><p>Repeat:</p>
+<p>Keep doing steps 4 and 5 until everyone has a hat.</p>
+</li>
+</ol>
+<p>In programming language:</p>
+<ul class="simple">
+<li><p>The “sadness scores” form the cost matrix.</p></li>
+<li><p>The “favorite hats” step is creating initial feasible labeling.</p></li>
+<li><p>The “swapping path” is an augmenting path in graph theory.</p></li>
+<li><p>“Adjusting expectations” is the label update step.</p></li>
+<li><p>The algorithm always finds the optimal solution in polynomial time (<span class="math notranslate nohighlight">\(\mathcal{O}(n^3)\)</span>).</p></li>
+</ul>
+<p>You’d implement this with matrices and graph algorithms.
+Use data structures like priority queues for efficiency.
+The core loop involves depth-first search (for augmenting paths) and matrix operations.</p>
+<p>This algorithm is powerful because it always finds the best overall matching, not just good individual matches.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">deepdiff</span> <span class="kn">import</span> <span class="n">DeepDiff</span>
+
+<span class="n">recalls</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">precisions</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Here we use a 2d matrix to store the distance between each ground truth and prediction</span>
+<span class="c1"># as distance, we use DeepDiff to calculate the distance</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">truth</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">truths</span><span class="p">):</span>
+    <span class="n">scores_</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">prediction</span> <span class="ow">in</span> <span class="n">predictions</span><span class="p">:</span>
+        <span class="n">scores_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">DeepDiff</span><span class="p">(</span>
+                <span class="n">truth</span><span class="p">,</span>
+                <span class="n">prediction</span><span class="p">,</span>
+                <span class="n">ignore_order</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">get_deep_distance</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">ignore_numeric_type_changes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">cache_size</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
+                <span class="n">cutoff_intersection_for_pairs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="p">)[</span><span class="s2">&quot;deep_distance&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scores_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The scores matrix is a 2d matrix of size (<code class="docutils literal notranslate"><span class="pre">len(truths)</span></code>, <code class="docutils literal notranslate"><span class="pre">len(predictions)</span></code>) and tells us how similar each truth is to each prediction.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;hot&quot;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x1227ff8e0&gt;
+</pre></div>
+</div>
+<img alt="../../_images/65d13fdbc97913550c1f6bcc1003ee465665ffd703ea41cb73f5e98e674d352d.png" src="../../_images/65d13fdbc97913550c1f6bcc1003ee465665ffd703ea41cb73f5e98e674d352d.png" />
+</div>
+</div>
+<p>If the items were perfectly matched, we would get a diagonal matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">munkres</span> <span class="kn">import</span> <span class="n">Munkres</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">Munkres</span><span class="p">()</span>  <span class="c1"># We will use the Kuhn-Munkres algorithm for our matching</span>
+<span class="n">indexes</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>  <span class="c1"># We find the best matching scores for each key</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The indices returned by the Kuhn-Munkres algorithm tell us the best assignment ground truth and prediction.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">indexes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(0, 91),
+ (1, 1),
+ (2, 2),
+ (3, 60),
+ (4, 4),
+ (5, 5),
+ (6, 6),
+ (7, 7),
+ (8, 8),
+ (9, 9),
+ (10, 77),
+ (11, 11),
+ (12, 12),
+ (13, 13),
+ (14, 66),
+ (15, 15),
+ (16, 16),
+ (17, 17),
+ (18, 18),
+ (19, 0),
+ (20, 20),
+ (21, 21),
+ (22, 19),
+ (23, 23),
+ (24, 68),
+ (25, 25),
+ (26, 47),
+ (27, 27),
+ (28, 28),
+ (29, 29),
+ (30, 30),
+ (31, 31),
+ (32, 24),
+ (33, 33),
+ (34, 38),
+ (35, 35),
+ (36, 52),
+ (37, 37),
+ (38, 34),
+ (39, 39),
+ (40, 40),
+ (41, 41),
+ (42, 42),
+ (43, 43),
+ (44, 44),
+ (45, 45),
+ (46, 46),
+ (47, 36),
+ (48, 48),
+ (49, 49),
+ (50, 50),
+ (51, 51),
+ (52, 84),
+ (53, 53),
+ (54, 54),
+ (55, 55),
+ (56, 56),
+ (57, 57),
+ (58, 58),
+ (59, 59),
+ (60, 3),
+ (61, 61),
+ (62, 22),
+ (63, 63),
+ (64, 64),
+ (65, 65),
+ (66, 72),
+ (67, 67),
+ (68, 14),
+ (69, 69),
+ (70, 70),
+ (71, 71),
+ (72, 93),
+ (73, 73),
+ (74, 74),
+ (75, 75),
+ (76, 76),
+ (77, 10),
+ (78, 32),
+ (79, 79),
+ (80, 80),
+ (81, 81),
+ (82, 82),
+ (83, 83),
+ (84, 78),
+ (85, 85),
+ (86, 86),
+ (87, 98),
+ (88, 88),
+ (89, 89),
+ (90, 90),
+ (91, 62),
+ (92, 92),
+ (93, 26),
+ (94, 94),
+ (95, 95),
+ (96, 96),
+ (97, 97),
+ (98, 87),
+ (99, 99)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>With those, we can now recompute the recall and precision.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Once we have the indexes of the matches, we collect the pairs in one list object</span>
+<span class="n">recalls</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">precisions</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">indexes</span><span class="p">:</span>
+    <span class="n">truth</span> <span class="o">=</span> <span class="n">truths</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">prediction</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+
+    <span class="n">num_correct_items</span> <span class="o">=</span> <span class="n">count_correct_items</span><span class="p">(</span><span class="n">truth</span><span class="p">,</span> <span class="n">prediction</span><span class="p">)</span>
+    <span class="n">recalls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">num_correct_items</span> <span class="o">/</span> <span class="n">count_leaf_keys</span><span class="p">(</span><span class="n">truth</span><span class="p">))</span>
+    <span class="n">precisions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">num_correct_items</span> <span class="o">/</span> <span class="n">count_leaf_keys</span><span class="p">(</span><span class="n">prediction</span><span class="p">))</span>
+
+<span class="n">recall</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">recalls</span><span class="p">)</span>
+<span class="n">precision</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">precisions</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recall: </span><span class="si">{</span><span class="n">recall</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\n</span><span class="s2">Precision: </span><span class="si">{</span><span class="n">precision</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recall: 0.31
+Precision: 0.30
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-normalization">
+<h3><span class="section-number">8.4.5. </span>Data normalization<a class="headerlink" href="#data-normalization" title="Link to this heading">#</a></h3>
+<p>Sometimes the data you have in the ground truth could be normalized to a certain format. For example, all units could be converted to SI units. The original text might have them in different units. In such a situation, it is essential to convert the prediction from the model to our required units before checking those keys.</p>
+<p>Let’s take a <strong>truth</strong> and <strong>prediction</strong> consisting of values and units:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">truth</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;mass&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">22.0</span><span class="p">,</span> <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;g&quot;</span><span class="p">}}</span>
+
+<span class="n">prediction</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;mass&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">22000.0</span><span class="p">,</span> <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;mg&quot;</span><span class="p">}}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, we can parse the prediction with <strong>pint</strong> and normalize the values to SI units.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ureg</span> <span class="o">=</span> <span class="n">UnitRegistry</span><span class="p">()</span>
+<span class="n">text_representation_of_value</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="nb">str</span><span class="p">(</span><span class="n">prediction</span><span class="p">[</span><span class="s2">&quot;mass&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">prediction</span><span class="p">[</span><span class="s2">&quot;mass&quot;</span><span class="p">][</span><span class="s2">&quot;unit&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converting&quot;</span><span class="p">,</span> <span class="n">text_representation_of_value</span><span class="p">)</span>
+<span class="n">normalized_pint_quantity</span> <span class="o">=</span> <span class="n">ureg</span><span class="p">(</span><span class="n">text_representation_of_value</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;g&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="n">normalized_pint_quantity</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Converting 22000.0 mg
+to 22.0 gram
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can check the magnitudes of our truth value and our normalized predicted value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">truth</span><span class="p">[</span><span class="s2">&quot;mass&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">normalized_pint_quantity</span><span class="o">.</span><span class="n">magnitude</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Predicted value is correct.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Predicted value is correct.
+</pre></div>
+</div>
+</div>
+</div>
+<section id="chemically-informed-normalization">
+<h4><span class="section-number">8.4.5.1. </span>Chemically informed normalization<a class="headerlink" href="#chemically-informed-normalization" title="Link to this heading">#</a></h4>
+<p>When we extract chemical or materials science data, the entities can often be representation in many equivalent forms.
+To address this, one most normalized the representations prior to performing any evaluation.</p>
+<section id="organics">
+<h5><span class="section-number">8.4.5.1.1. </span>Organics<a class="headerlink" href="#organics" title="Link to this heading">#</a></h5>
+<p>When we are trying to extract chemical formulas (as the reagents in our example), they could be reported in various forms.
+To make sure we got the expected value regardless of what form it’s represented in, we can convert them to their SMILES representation. This is important to make sure we have the right information and not score incorrectly.</p>
+<p>Here, we set up example extractions from a model and show how to get their SMILES before validation. Note that this is essential because a string distance (that we used above) between common names and SMILES would make no sense. Here we must normalize the entries before we can compute any meaningful score.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matextract.utils</span> <span class="kn">import</span> <span class="n">name_to_smiles</span>
+<span class="kn">from</span> <span class="nn">rdkit</span> <span class="kn">import</span> <span class="n">Chem</span>
+
+
+<span class="k">def</span> <span class="nf">canonical_smiles</span><span class="p">(</span><span class="n">smiles</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Chem</span><span class="o">.</span><span class="n">MolToSmiles</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">smiles</span><span class="p">))</span>
+
+
+<span class="n">truth</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;solvents&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;CCCO&quot;</span><span class="p">,</span> <span class="s2">&quot;CC(C)O&quot;</span><span class="p">,</span> <span class="s2">&quot;CC(C)=O&quot;</span><span class="p">,</span> <span class="s2">&quot;CC(=O)O&quot;</span><span class="p">,</span> <span class="s2">&quot;C=O&quot;</span><span class="p">]}</span>
+
+<span class="n">prediction</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;solvents&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;propanol&quot;</span><span class="p">,</span> <span class="s2">&quot;isopropanol&quot;</span><span class="p">,</span> <span class="s2">&quot;Propanone&quot;</span><span class="p">,</span> <span class="s2">&quot;Ethanoic acid&quot;</span><span class="p">]}</span>
+
+<span class="n">predictions_as_smiles</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;solvents&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">name_to_smiles</span><span class="p">(</span><span class="n">solvent</span><span class="p">)</span> <span class="k">for</span> <span class="n">solvent</span> <span class="ow">in</span> <span class="n">prediction</span><span class="p">[</span><span class="s2">&quot;solvents&quot;</span><span class="p">]]</span>
+<span class="p">}</span>
+
+<span class="n">truth_canonical</span> <span class="o">=</span> <span class="p">[</span><span class="n">canonical_smiles</span><span class="p">(</span><span class="n">solvent</span><span class="p">)</span> <span class="k">for</span> <span class="n">solvent</span> <span class="ow">in</span> <span class="n">truth</span><span class="p">[</span><span class="s2">&quot;solvents&quot;</span><span class="p">]]</span>
+<span class="n">predictions_as_smiles_canonical</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">canonical_smiles</span><span class="p">(</span><span class="n">solvent</span><span class="p">)</span> <span class="k">for</span> <span class="n">solvent</span> <span class="ow">in</span> <span class="n">predictions_as_smiles</span><span class="p">[</span><span class="s2">&quot;solvents&quot;</span><span class="p">]</span>
+<span class="p">]</span>
+
+
+<span class="n">number_of_values_correct</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">truth_canonical</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">predictions_as_smiles_canonical</span><span class="p">)</span>
+
+<span class="n">number_of_values_correct</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">number_of_values_correct</span><span class="p">)</span>
+
+<span class="n">precision</span> <span class="o">=</span> <span class="n">number_of_values_correct</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">predictions_as_smiles</span><span class="p">[</span><span class="s2">&quot;solvents&quot;</span><span class="p">])</span>
+<span class="n">recall</span> <span class="o">=</span> <span class="n">number_of_values_correct</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">truth</span><span class="p">[</span><span class="s2">&quot;solvents&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recall: </span><span class="si">{</span><span class="n">recall</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\n</span><span class="s2">Precision: </span><span class="si">{</span><span class="n">precision</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/kevinmaikjablonka/miniconda3/envs/dataextract2/lib/python3.9/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recall: 0.80
+Precision: 1.00
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="inorganics">
+<h5><span class="section-number">8.4.5.1.2. </span>Inorganics<a class="headerlink" href="#inorganics" title="Link to this heading">#</a></h5>
+<p>Also for inorganic materials there is a need for normalization. For example, formulas might be reported in the Hill or IUPAC system, or just as a reduced empirical formula.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymatgen.core</span> <span class="kn">import</span> <span class="n">Composition</span>
+
+<span class="n">truth</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;inorganics&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;SiC2&quot;</span><span class="p">,</span> <span class="s2">&quot;CaCO3&quot;</span><span class="p">,</span> <span class="s2">&quot;NaCN&quot;</span><span class="p">,</span> <span class="s2">&quot;CO&quot;</span><span class="p">,</span> <span class="s2">&quot;HCL&quot;</span><span class="p">]}</span>
+
+<span class="n">prediction</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;inorganics&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;C2 Si&quot;</span><span class="p">,</span> <span class="s2">&quot;C Ca O3&quot;</span><span class="p">,</span> <span class="s2">&quot;Na1 C1 N1&quot;</span><span class="p">,</span> <span class="s2">&quot;C1 O6&quot;</span><span class="p">]}</span>
+
+<span class="n">predictions_as_reduced_formula</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;inorganics&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">Composition</span><span class="p">(</span><span class="n">inorganic</span><span class="p">)</span><span class="o">.</span><span class="n">reduced_formula</span> <span class="k">for</span> <span class="n">inorganic</span> <span class="ow">in</span> <span class="n">prediction</span><span class="p">[</span><span class="s2">&quot;inorganics&quot;</span><span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">number_of_values_correct</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="n">inorganic</span>
+        <span class="k">for</span> <span class="n">inorganic</span> <span class="ow">in</span> <span class="n">truth</span><span class="p">[</span><span class="s2">&quot;inorganics&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">inorganic</span> <span class="ow">in</span> <span class="n">predictions_as_reduced_formula</span><span class="p">[</span><span class="s2">&quot;inorganics&quot;</span><span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">precision</span> <span class="o">=</span> <span class="n">number_of_values_correct</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">predictions_as_reduced_formula</span><span class="p">[</span><span class="s2">&quot;inorganics&quot;</span><span class="p">])</span>
+<span class="n">recall</span> <span class="o">=</span> <span class="n">number_of_values_correct</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">truth</span><span class="p">[</span><span class="s2">&quot;inorganics&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recall: </span><span class="si">{</span><span class="n">recall</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\n</span><span class="s2">Precision: </span><span class="si">{</span><span class="n">precision</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recall: 0.60
+Precision: 0.75
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/evaluations"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../constrained_decoding/index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Constrained generation to guarantee syntactic correctness</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../intro_figure/figure1_intro_notebook.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Research articles vs datasets in chemistry and materials science</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">8.1. Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-example-data">8.2. Simple example data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scoring-a-key-value-pair">8.3. Scoring a Key-Value pair</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-of-results-from-the-choosing-a-learning-paradigm-chapter">8.4. Evaluation of results from the choosing a learning paradigm chapter</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-results">8.4.1. Loading the results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-common-functions-for-later-use">8.4.2. Defining common functions for later use</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-of-the-results">8.4.3. Evaluation of the results</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#f1-score">8.4.3.1. F1 score</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matching-to-ground-truth">8.4.4. Matching to ground truth</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-normalization">8.4.5. Data normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#chemically-informed-normalization">8.4.5.1. Chemically informed normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#organics">8.4.5.1.1. Organics</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#inorganics">8.4.5.1.2. Inorganics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mara Schilling-Wilhelmi, Martiño Ríos-García, Sherjeel Shabih, María Victoria Gil, Santiago Miret, Christoph Koch, Pepe Márquez, and Kevin Maik Jablonka
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
