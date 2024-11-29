@@ -793,7 +793,7 @@ monty==2024.7.12
     # via
     #   matextract (setup.py)
     #   pymatgen
-mplcursors==0.5.3
+mplcursors==0.6
     # via
     #   matextract (setup.py)
     #   python-doctr
@@ -971,7 +971,7 @@ opentelemetry-exporter-otlp-proto-common==1.25.0
     # via
     #   matextract (setup.py)
     #   opentelemetry-exporter-otlp-proto-grpc
-opentelemetry-exporter-otlp-proto-grpc==1.28.2
+opentelemetry-exporter-otlp-proto-grpc==1.25.0
     # via
     #   matextract (setup.py)
     #   chromadb

@@ -21,7 +21,6 @@ jobs:
     - name: Install dependencies
       run: |
         cd package && python -m pip  --no-cache-dir install . && cd ..
-        pip install jupyter-book
     - name: Check pre-commit
       run: |
         pip install pre-commit

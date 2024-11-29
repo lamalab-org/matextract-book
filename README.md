@@ -23,6 +23,22 @@ Read it on [matextract.pub](https://matextract.pub).
 
 For more details, see our [review article](https://arxiv.org/abs/2407.16867).
 
+## Installation
+
+To install the package and its dependencies:
+
+```bash
+pip install -e .
+```
+
+For development, we recommend using a virtual environment:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate  # On Windows use: .venv\Scripts\activate
+pip install -e .
+```
+
 ## Citation
 
 If you find our work useful, please cite our review article:
