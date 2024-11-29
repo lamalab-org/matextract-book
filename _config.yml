@@ -1,7 +1,6 @@
 # Book settings
 title: "From Text to Insight: Large Language Models for Materials Science Data Extraction"
-author:  "Mara Wilhelmi, Martiño Ríos-García, Sherjeel Shabih, María Victoria Gil, Santiago Miret, Christoph Koch, Pepe Márquez, and Kevin Maik Jablonka"
-logo: _static/images/logo.png
+author:  "Mara Schilling-Wilhelmi, Martiño Ríos-García, Sherjeel Shabih, María Victoria Gil, Santiago Miret, Christoph Koch, Pepe Márquez, and Kevin Maik Jablonka"
 copyright: "2024"
 
 latex:
@@ -56,6 +55,10 @@ sphinx:
     html_js_files:
     - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js
     suppress_warnings: ["mystnb.unknown_mime_type"]
+    html_theme_options:
+      logo:
+        image_light: _static/images/logo.png
+        image_dark: _static/images/logo_white.png
 
 execute:
   timeout: -1
