@@ -14,9 +14,7 @@ jobs:
         python-version: '3.9'
     - name: Install dependencies
       run: |
-        cd package
-        python -m pip  --no-cache-dir install .
-        cd ..
+        pip install -e .
     - name: Build the book
       run: jupyter-book build -n .
     - name: Deploy Jupyter book to GitHub pages
