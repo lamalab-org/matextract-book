@@ -20,7 +20,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        cd package && python -m pip  --no-cache-dir install . && cd ..
+        pip install -e .
     - name: Check pre-commit
       run: |
         pip install pre-commit
