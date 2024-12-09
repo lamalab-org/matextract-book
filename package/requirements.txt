@@ -557,7 +557,7 @@ joblib==1.4.2
     #   nltk
     #   pymatgen
     #   scikit-learn
-json5==0.9.25
+json5==0.10.0
     # via
     #   matextract (setup.py)
     #   jupyterlab-server
