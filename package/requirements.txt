@@ -426,7 +426,7 @@ html5lib==1.1
     # via
     #   matextract (setup.py)
     #   weasyprint
-httpcore==1.0.5
+httpcore==1.0.7
     # via
     #   matextract (setup.py)
     #   httpx
