@@ -244,7 +244,7 @@ decorator==5.1.1
     # via
     #   matextract (setup.py)
     #   ipython
-deepdiff==7.0.1
+deepdiff==8.0.1
     # via matextract (setup.py)
 defusedxml==0.7.1
     # via
