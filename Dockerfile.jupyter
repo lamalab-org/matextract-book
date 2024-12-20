@@ -10,10 +10,10 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 USER root
 
 RUN apt-get update \
- && apt-get install --yes --quiet --no-install-recommends \
-       libmagic1 \
-       # clean cache and logs
-       && rm -rf /var/lib/apt/lists/* /var/log/* /var/tmp/* ~/.npm
+      && apt-get install --yes --quiet --no-install-recommends \
+      libmagic1 \
+      # clean cache and logs
+      && rm -rf /var/lib/apt/lists/* /var/log/* /var/tmp/* ~/.npm
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER ${NB_UID}
@@ -27,9 +27,16 @@ RUN uv pip install torch torchvision torchaudio --index-url https://download.pyt
 # Copy the current directory contents into the container at /app
 COPY --chown=${NB_UID}:${NB_GID} . ${HOME}
 
+# Copy the start notebook to the root of home directory
+RUN cp ${HOME}/_static/notebook_start-cpu.ipynb ${HOME}/START_HERE.ipynb
+
 # Install the local package
 RUN uv pip install -e ${HOME}
 
 # Get rid ot the following message when you open a terminal in jupyterlab:
 # groups: cannot find name for group ID 11320
 RUN touch ${HOME}/.hushlogin
+
+# Create default workspace that opens START_HERE.ipynb
+RUN mkdir -p ${HOME}/.jupyter/lab/workspaces && \
+      echo '{"data":{"layout-restorer:data":{"main":{"dock":{"type":"tab-area","currentIndex":0,"widgets":["notebook:START_HERE.ipynb"]}}}}}' > ${HOME}/.jupyter/lab/workspaces/default-37a8.json
