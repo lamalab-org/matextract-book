@@ -15,48 +15,26 @@ RUN apt-get update \
       # clean cache and logs
       && rm -rf /var/lib/apt/lists/* /var/log/* /var/tmp/* ~/.npm
 
-# Create and populate the overrides.json file
-RUN mkdir -p /opt/conda/share/jupyter/lab/settings && \
-      echo '{\
-      "@jupyterlab/notebook-extension:tracker": {\
+# Create directory for JupyterLab settings
+RUN mkdir -p /home/jovyan/.jupyter/lab/user-settings/@jupyterlab/notebook-extension/
+
+# Add custom CSS through notebook settings
+RUN echo '{\
       "codeCellConfig": {\
+      "autoClosingBrackets": true,\
+      "lineNumbers": true,\
       "customStyles": [\
-      ".col-margin-right { \
-      border: 1px solid #ddd !important; \
-      background-color: #f8f8f8 !important; \
-      margin: 20px 0 !important; \
-      padding: 15px !important; \
-      border-radius: 4px !important; \
-      display: block !important; \
-      height: auto !important; \
-      min-height: fit-content !important; \
-      overflow: visible !important; \
-      }", \
-      ".col-margin-right::before { \
-      content: none !important; \
-      }", \
-      ".col-margin-right p { \
-      margin: 0 !important; \
-      color: #333 !important; \
-      display: block !important; \
-      height: auto !important; \
-      overflow: visible !important; \
-      }", \
-      ".col-margin-right a { \
-      color: #0366d6 !important; \
-      text-decoration: underline !important; \
-      }", \
-      ".lg\\\\:h-0 { \
-      height: auto !important; \
-      }" \
+      ".col-margin-right { border: 1px solid #ddd !important; background-color: #f8f8f8 !important; margin: 20px 0 !important; padding: 15px !important; border-radius: 4px !important; display: block !important; height: auto !important; min-height: fit-content !important; overflow: visible !important; width: 100% !important; max-width: 100% !important; white-space: normal !important; }",\
+      ".col-margin-right::before { content: none !important; }",\
+      ".col-margin-right p { margin: 0 !important; color: #333 !important; display: block !important; height: auto !important; overflow: visible !important; white-space: normal !important; width: 100% !important; word-wrap: break-word !important; }",\
+      ".col-margin-right a { color: #0366d6 !important; text-decoration: underline !important; word-break: break-word !important; }",\
+      ".lg\\\\:h-0 { height: auto !important; width: 100% !important; }"\
       ]\
       }\
-      }\
-      }' > /opt/conda/share/jupyter/lab/settings/overrides.json
+      }' > /home/jovyan/.jupyter/lab/user-settings/@jupyterlab/notebook-extension/tracker.json
 
 # Set proper permissions
-RUN chown -R ${NB_UID}:${NB_GID} /opt/conda/share/jupyter/lab/settings
-
+RUN chown -R ${NB_UID}:${NB_GID} /home/jovyan/.jupyter
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER ${NB_UID}
