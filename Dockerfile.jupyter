@@ -24,11 +24,18 @@ COPY --from=ghcr.io/astral-sh/uv:0.5 /uv /bin/uv
 # Install PyTorch with CUDA support
 RUN uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 
+# Install myst-nb and jupyterlab-myst for admonitions support
+RUN uv pip install myst-nb jupyterlab-myst
+
 # Copy the current directory contents into the container at /app
 COPY --chown=${NB_UID}:${NB_GID} . ${HOME}
 
 # Copy the start notebook to the root of home directory
 RUN cp ${HOME}/_static/notebook_start-cpu.ipynb ${HOME}/START_HERE.ipynb
+
+# Create a jupyter_server_config.json file to set the default notebook
+RUN mkdir -p ${HOME}/.jupyter && \
+      echo '{"ServerApp": {"default_url": "/lab/tree/START_HERE.ipynb"}}' > ${HOME}/.jupyter/jupyter_server_config.json
 
 # Install the local package
 RUN uv pip install -e ${HOME}
@@ -36,7 +43,3 @@ RUN uv pip install -e ${HOME}
 # Get rid ot the following message when you open a terminal in jupyterlab:
 # groups: cannot find name for group ID 11320
 RUN touch ${HOME}/.hushlogin
-
-# Create default workspace that opens START_HERE.ipynb
-RUN mkdir -p ${HOME}/.jupyter/lab/workspaces && \
-      echo '{"data":{"layout-restorer:data":{"main":{"dock":{"type":"tab-area","currentIndex":0,"widgets":["notebook:START_HERE.ipynb"]}}}}}' > ${HOME}/.jupyter/lab/workspaces/default-37a8.json
