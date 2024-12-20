@@ -15,43 +15,48 @@ RUN apt-get update \
       # clean cache and logs
       && rm -rf /var/lib/apt/lists/* /var/log/* /var/tmp/* ~/.npm
 
-
-# Create custom CSS directory
-RUN mkdir -p ${HOME}/.jupyter/custom
-
-# Create custom CSS file
-RUN echo '\
-      .col-margin-right { \
-      border: 1px solid #ddd; \
-      background-color: #f8f8f8; \
-      margin: 20px 0; \
-      padding: 15px; \
-      border-radius: 4px; \
-      display: block; \
+# Create and populate the overrides.json file
+RUN mkdir -p /opt/conda/share/jupyter/lab/settings && \
+      echo '{\
+      "@jupyterlab/notebook-extension:tracker": {\
+      "codeCellConfig": {\
+      "customStyles": [\
+      ".col-margin-right { \
+      border: 1px solid #ddd !important; \
+      background-color: #f8f8f8 !important; \
+      margin: 20px 0 !important; \
+      padding: 15px !important; \
+      border-radius: 4px !important; \
+      display: block !important; \
       height: auto !important; \
       min-height: fit-content !important; \
       overflow: visible !important; \
-      } \
-      .col-margin-right::before { \
+      }", \
+      ".col-margin-right::before { \
       content: none !important; \
-      } \
-      .col-margin-right p { \
-      margin: 0; \
-      color: #333; \
+      }", \
+      ".col-margin-right p { \
+      margin: 0 !important; \
+      color: #333 !important; \
       display: block !important; \
       height: auto !important; \
       overflow: visible !important; \
-      } \
-      .col-margin-right a { \
-      color: #0366d6; \
-      text-decoration: underline; \
-      } \
-      .lg\\:h-0 { \
+      }", \
+      ".col-margin-right a { \
+      color: #0366d6 !important; \
+      text-decoration: underline !important; \
+      }", \
+      ".lg\\\\:h-0 { \
       height: auto !important; \
-      }' > ${HOME}/.jupyter/custom/custom.css
+      }" \
+      ]\
+      }\
+      }\
+      }' > /opt/conda/share/jupyter/lab/settings/overrides.json
 
 # Set proper permissions
-RUN chown -R ${NB_UID}:${NB_GID} ${HOME}/.jupyter
+RUN chown -R ${NB_UID}:${NB_GID} /opt/conda/share/jupyter/lab/settings
+
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER ${NB_UID}
