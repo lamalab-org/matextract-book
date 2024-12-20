@@ -29,57 +29,10 @@ RUN uv pip install torch torchvision torchaudio --index-url https://download.pyt
 
 # Install myst-nb and jupyterlab-myst for admonitions support
 RUN uv pip install myst-nb jupyterlab-myst
-
-# Create necessary directories
-RUN mkdir -p ${HOME}/.jupyter/custom ${HOME}/.jupyter/lab/user-settings/
-
-# Create the custom CSS file
-RUN echo '\
-      .col-margin-right { \
-      border: 1px solid #ddd !important; \
-      background-color: #f8f8f8 !important; \
-      margin: 20px 0 !important; \
-      padding: 15px !important; \
-      border-radius: 4px !important; \
-      display: block !important; \
-      height: auto !important; \
-      min-height: fit-content !important; \
-      overflow: visible !important; \
-      width: 100% !important; \
-      max-width: 100% !important; \
-      white-space: normal !important; \
-      } \
-      .col-margin-right::before { \
-      content: none !important; \
-      } \
-      .col-margin-right p { \
-      margin: 0 !important; \
-      color: #333 !important; \
-      display: block !important; \
-      height: auto !important; \
-      overflow: visible !important; \
-      white-space: normal !important; \
-      width: 100% !important; \
-      word-wrap: break-word !important; \
-      } \
-      .col-margin-right a { \
-      color: #0366d6 !important; \
-      text-decoration: underline !important; \
-      word-break: break-word !important; \
-      } \
-      .lg\\:h-0 { \
-      height: auto !important; \
-      width: 100% !important; \
-      }' > ${HOME}/.jupyter/custom/custom.css
-
-# Create jupyter_lab_config.py to enable custom CSS
-RUN echo '\
-      c.LabApp.custom_css = True\n\
-      c.ServerApp.custom_css = True\n\
-      ' > ${HOME}/.jupyter/jupyter_lab_config.py
-
 # Copy the current directory contents into the container at /app
 COPY --chown=${NB_UID}:${NB_GID} . ${HOME}
+
+RUN find ${HOME} -name "*.ipynb" -type f -exec sed -i 's/{margin}/{note}/g' {} +
 
 # Copy the start notebook to the root of home directory
 RUN cp ${HOME}/_static/notebook_start-cpu.ipynb ${HOME}/START_HERE.ipynb
