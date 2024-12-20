@@ -1166,7 +1166,7 @@ ptyprocess==0.7.0
     #   terminado
 pubchempy==1.0.4
     # via matextract (setup.py)
-pure-eval==0.2.2
+pure-eval==0.2.3
     # via
     #   matextract (setup.py)
     #   stack-data
