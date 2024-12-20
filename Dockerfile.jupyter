@@ -30,47 +30,25 @@ RUN uv pip install torch torchvision torchaudio --index-url https://download.pyt
 # Install myst-nb and jupyterlab-myst for admonitions support
 RUN uv pip install myst-nb jupyterlab-myst
 
-# Create custom CSS directory and add the CSS file
-RUN mkdir -p ${HOME}/.jupyter/custom
+# Create JupyterLab settings directory
+RUN mkdir -p ${HOME}/.jupyter/lab/settings/
 
-# Create the custom CSS file
-RUN echo '\
-.col-margin-right { \
-    border: 1px solid #ddd !important; \
-    background-color: #f8f8f8 !important; \
-    margin: 20px 0 !important; \
-    padding: 15px !important; \
-    border-radius: 4px !important; \
-    display: block !important; \
-    height: auto !important; \
-    min-height: fit-content !important; \
-    overflow: visible !important; \
-    width: 100% !important; \
-    max-width: 100% !important; \
-    white-space: normal !important; \
-} \
-.col-margin-right::before { \
-    content: none !important; \
-} \
-.col-margin-right p { \
-    margin: 0 !important; \
-    color: #333 !important; \
-    display: block !important; \
-    height: auto !important; \
-    overflow: visible !important; \
-    white-space: normal !important; \
-    width: 100% !important; \
-    word-wrap: break-word !important; \
-} \
-.col-margin-right a { \
-    color: #0366d6 !important; \
-    text-decoration: underline !important; \
-    word-break: break-word !important; \
-} \
-.lg\\:h-0 { \
-    height: auto !important; \
-    width: 100% !important; \
-}' > ${HOME}/.jupyter/custom/custom.css
+# Add the overrides.json settings
+RUN echo '{ \
+      "@jupyterlab/notebook-extension:tracker": { \
+      "codeCellConfig": { \
+      "autoClosingBrackets": true, \
+      "lineNumbers": true, \
+      "customStyles": [ \
+      ".col-margin-right { border: 1px solid #ddd !important; background-color: #f8f8f8 !important; margin: 20px 0 !important; padding: 15px !important; border-radius: 4px !important; display: block !important; height: auto !important; min-height: fit-content !important; overflow: visible !important; width: 100% !important; max-width: 100% !important; white-space: normal !important; }", \
+      ".col-margin-right::before { content: none !important; }", \
+      ".col-margin-right p { margin: 0 !important; color: #333 !important; display: block !important; height: auto !important; overflow: visible !important; white-space: normal !important; width: 100% !important; word-wrap: break-word !important; }", \
+      ".col-margin-right a { color: #0366d6 !important; text-decoration: underline !important; word-break: break-word !important; }", \
+      ".lg\\\\:h-0 { height: auto !important; width: 100% !important; }" \
+      ] \
+      } \
+      } \
+      }' > ${HOME}/.jupyter/lab/settings/overrides.json
 
 # Copy the current directory contents into the container at /app
 COPY --chown=${NB_UID}:${NB_GID} . ${HOME}
