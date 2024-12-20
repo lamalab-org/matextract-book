@@ -41,7 +41,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
-        file: ./Dockerfile
+        file: ./Dockerfile.jupyter
         push: true
-        tags: ${{ steps.meta.outputs.tags }}-cpu
+        tags: ${{ steps.meta.outputs.tags }}-jupyter-cpu
         labels: ${{ steps.meta.outputs.labels }}
