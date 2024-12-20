@@ -72,13 +72,14 @@ This work was supported by:
 If you use this book in your research, please cite it as follows:
 
 ```bibtex
-@misc{schillingwilhelmi2024textinsightlargelanguage,
-      title={From Text to Insight: Large Language Models for Materials Science Data Extraction},
-      author={Mara Schilling-Wilhelmi and Martiño Ríos-García and Sherjeel Shabih and María Victoria Gil and Santiago Miret and Christoph T. Koch and José A. Márquez and Kevin Maik Jablonka},
-      year={2024},
-      eprint={2407.16867},
-      archivePrefix={arXiv},
-      primaryClass={cond-mat.mtrl-sci},
-      url={https://arxiv.org/abs/2407.16867},
+@article{Schilling_Wilhelmi_2025,
+  title={From text to insight: large language models for chemical data extraction},
+  ISSN={1460-4744},
+  url={http://dx.doi.org/10.1039/D4CS00913D},
+  DOI={10.1039/d4cs00913d},
+  journal={Chemical Society Reviews},
+  publisher={Royal Society of Chemistry (RSC)},
+  author={Schilling-Wilhelmi, Mara and Ríos-García, Martiño and Shabih, Sherjeel and Gil, María Victoria and Miret, Santiago and Koch, Christoph T. and Márquez, José A. and Jablonka, Kevin Maik},
+  year={2025}
 }
 ```
