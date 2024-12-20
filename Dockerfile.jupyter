@@ -15,6 +15,44 @@ RUN apt-get update \
       # clean cache and logs
       && rm -rf /var/lib/apt/lists/* /var/log/* /var/tmp/* ~/.npm
 
+
+# Create custom CSS directory
+RUN mkdir -p ${HOME}/.jupyter/custom
+
+# Create custom CSS file
+RUN echo '\
+      .col-margin-right { \
+      border: 1px solid #ddd; \
+      background-color: #f8f8f8; \
+      margin: 20px 0; \
+      padding: 15px; \
+      border-radius: 4px; \
+      display: block; \
+      height: auto !important; \
+      min-height: fit-content !important; \
+      overflow: visible !important; \
+      } \
+      .col-margin-right::before { \
+      content: none !important; \
+      } \
+      .col-margin-right p { \
+      margin: 0; \
+      color: #333; \
+      display: block !important; \
+      height: auto !important; \
+      overflow: visible !important; \
+      } \
+      .col-margin-right a { \
+      color: #0366d6; \
+      text-decoration: underline; \
+      } \
+      .lg\\:h-0 { \
+      height: auto !important; \
+      }' > ${HOME}/.jupyter/custom/custom.css
+
+# Set proper permissions
+RUN chown -R ${NB_UID}:${NB_GID} ${HOME}/.jupyter
+
 # Switch back to jovyan to avoid accidental container runs as root
 USER ${NB_UID}
 WORKDIR "${HOME}"
