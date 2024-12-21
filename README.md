@@ -21,7 +21,7 @@
 MatExtract is a guide to structured (materials) data extraction using LLMs.
 Read it on [matextract.pub](https://matextract.pub).
 
-For more details, see our [review article](https://arxiv.org/abs/2407.16867).
+For more details, see our [review article](https://pubs.rsc.org/en/content/articlelanding/2025/cs/d4cs00913d).
 
 ## Installation
 

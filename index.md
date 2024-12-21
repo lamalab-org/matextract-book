@@ -5,12 +5,18 @@
 Structured data is at the heart of machine learning. LLMs offer a convenient way to generate structured data based on unstructured inputs.
 This book gives hands-on examples of the different steps in the extraction workflow using LLMs.
 
-You can find more background on the topics covered in this book in our [review article](https://arxiv.org/abs/2407.16867).
+You can find more background on the topics covered in this book in our [review article](https://pubs.rsc.org/en/content/articlelanding/2025/cs/d4cs00913d).
+
 
 ## How to use this book?
 
 This book is based on Jupyter notebooks. That is, beyond simply reading along, you can also run the notebooks yourself.
 You have different options to do so.
+
+### Run it on the matextract JupyterHub 
+
+You can start running most parts by clicking on [this link](https://t1p.de/matextract-cpu). 
+This will take you to the JupyterHub of [Base4NFDI](https://base4nfdi.de/) where the notebook can be run on a small CPU instance. We're working on making it possible to also run the GPU-intensive parts. 
 
 ### Running it on your own machine
 
