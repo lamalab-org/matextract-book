@@ -1,0 +1,805 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" lang="en" name="description" xml:lang="en" />
+<meta content="en_US" property="og:locale" />
+<meta content="summary" name="twitter:card" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" name="twitter:description" />
+<meta content="structmatdat.pub 📖" name="twitter:title" />
+<meta content="https://structmatdat.pub/_static/logo.png" name="twitter:image" />
+<meta content="&#64;jablonkagroup" name="twitter:site" />
+
+    <title>1.3. Data annotation &#8212; From Text to Insight: Large Language Models for Materials Science Data Extraction</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e878585a" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/obtaining_data/annotation';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="2. Cleaning" href="../document_parsing_and_cleaning/index.html" />
+    <link rel="prev" title="1.2. Mining data from ChemRxiv" href="data_mining.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+    <img src="../../_static/logo_white.png" class="logo__image only-dark pst-js-only" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction and background</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../background/resources_LLMs.html">Overview of the working principles of LLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">A. Structured Extraction Workflow</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">1. Obtaining data</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="crossref_search.html">1.1. Obtaining a set of relevant data sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_mining.html">1.2. Mining data from ChemRxiv</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.3. Data annotation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../document_parsing_and_cleaning/index.html">2. Cleaning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/parsing.html">2.1. Document parsing with OCR tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/cleaning.html">2.2. Document cleaning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../context_window/Dealing_with_context_window.html">3. Strategies to tackle context window limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../finetune/choosing_paradigm.html">4. Choosing the learning paradigm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../beyond_text/beyond_images.html">5. Beyond text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../agents/agent.html">6. Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../constrained_decoding/index.html">7. Constrained generation to guarantee syntactic correctness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluations/evaluations.html">8. Evaluations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">B. Case Studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../intro_figure/figure1_intro_notebook.html">9. Research articles vs datasets in chemistry and materials science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../biomass_case/biomass_case.html">10. Collecting data on the synthesis procedures of bio-based adsorbents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../perovskite/constrained_formulas.html">11. Retrieving data from chacolgenide perovskites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NMR_composition_matching/NMR_comp_matching.html">12. Validation case study: Matching NMR spectra to composition of the molecule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reaction_case/reaction.html">13. Collecting data for reactions procedures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/obtaining_data/annotation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Data annotation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#considerations-for-choosing-a-data-structure">1.3.1. Considerations for choosing a data structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-aspects-to-consider">1.3.2. Additional aspects to consider</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#schema-definition-languages">1.3.2.1. Schema definition languages</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-annotations">1.3.2.2. Semantic annotations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-missing-or-uncertain-data">1.3.2.3. Handling missing or uncertain data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#versioning">1.3.2.3.1. Versioning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="data-annotation">
+<h1><span class="section-number">1.3. </span>Data annotation<a class="headerlink" href="#data-annotation" title="Link to this heading">#</a></h1>
+<p>For structured data extraction, it is indeed essential to define a structure into which the data is supposed to be stored. This process of defining and applying structure to data is often referred to as data annotation. The choice of data structure and format is crucial and can significantly impact the efficiency and effectiveness of your data extraction process.</p>
+<section id="considerations-for-choosing-a-data-structure">
+<h2><span class="section-number">1.3.1. </span>Considerations for choosing a data structure<a class="headerlink" href="#considerations-for-choosing-a-data-structure" title="Link to this heading">#</a></h2>
+<p>While there’s no one-size-fits-all answer, here are some key points to consider when deciding on a data structure:</p>
+<ul class="simple">
+<li><p>Nested vs. flat: Certain formats like YAML or JSON are better at expressing dependencies and hierarchies compared to flat formats like CSV.</p></li>
+<li><p>Verbosity and human readability: Some formats (e.g., XML) can be more verbose, which may affect readability.</p></li>
+<li><p>Type annotations and documentation: It’s best practice to include as much metadata as possible, including data types and descriptions.</p></li>
+<li><p>Machine readability: Consider how easily the format can be parsed by various programming languages and tools.</p></li>
+<li><p>Extensibility: Choose a format that allows for easy addition of new fields or structures as your data needs evolve.</p></li>
+<li><p>Standardization: Consider if there are any industry-standard formats for your specific domain.</p></li>
+</ul>
+<div class="note admonition">
+<p class="admonition-title">Old formats regain attention</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I&#39;m switching from team JSON to team XML for LLM prompts. Escaping JSON and writing JSON is much more limiting. You can just yeet XML tags wherever and not have to worry about escaping/format/validity.</p>&mdash; Andrew White 🐦‍⬛/acc (@andrewwhite01) <a href="https://twitter.com/andrewwhite01/status/1786160868671307947?ref_src=twsrc%5Etfw">May 2, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>Note also that models have different preferences for formats. <a class="reference external" href="https://www.oreilly.com/radar/what-we-learned-from-a-year-of-building-with-llms-part-i/">For example, Claude was reported to perform very well with XML, whereas GPT seems to prefer JSON</a>.</p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Examples of various serialization formats</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>For modeling reactions, we can serialize data in a simple data model in different formats. 
+
+Description of our data model:
+
+- A reaction has a name, reactants, products, and conditions.
+- Each reactant and product has a chemical formula and amount.
+- Conditions include temperature and pressure.
+
+#### CSV example
+
+```
+reaction_name,reactant_formula,reactant_amount,product_formula,product_amount,temperature,pressure
+Combustion of Methane,CH4,1 mol,CO2,1 mol,298 K,1 atm
+Combustion of Methane,O2,2 mol,H2O,2 mol,298 K,1 atm
+Photosynthesis,6 CO2,6 mol,C6H12O6,1 mol,300 K,1 atm
+Photosynthesis,6 H2O,6 mol,O2,6 mol,300 K,1 atm
+```
+
+#### YAML Example
+
+```
+reactions:
+  - name: Combustion of Methane
+    reactants:
+      - formula: CH4
+        amount: 1 mol
+      - formula: O2
+        amount: 2 mol
+    products:
+      - formula: CO2
+        amount: 1 mol
+      - formula: H2O
+        amount: 2 mol
+    conditions:
+      temperature: 298 K
+      pressure: 1 atm
+  - name: Photosynthesis
+    reactants:
+      - formula: 6 CO2
+        amount: 6 mol
+      - formula: 6 H2O
+        amount: 6 mol
+    products:
+      - formula: C6H12O6
+        amount: 1 mol
+      - formula: O2
+        amount: 6 mol
+    conditions:
+      temperature: 300 K
+      pressure: 1 atm
+```
+
+#### JSON Example
+
+```
+{
+  &quot;reactions&quot;: [
+    {
+      &quot;name&quot;: &quot;Combustion of Methane&quot;,
+      &quot;reactants&quot;: [
+        { &quot;formula&quot;: &quot;CH4&quot;, &quot;amount&quot;: &quot;1 mol&quot; },
+        { &quot;formula&quot;: &quot;O2&quot;, &quot;amount&quot;: &quot;2 mol&quot; }
+      ],
+      &quot;products&quot;: [
+        { &quot;formula&quot;: &quot;CO2&quot;, &quot;amount&quot;: &quot;1 mol&quot; },
+        { &quot;formula&quot;: &quot;H2O&quot;, &quot;amount&quot;: &quot;2 mol&quot; }
+      ],
+      &quot;conditions&quot;: {
+        &quot;temperature&quot;: &quot;298 K&quot;,
+        &quot;pressure&quot;: &quot;1 atm&quot;
+      }
+    },
+    {
+      &quot;name&quot;: &quot;Photosynthesis&quot;,
+      &quot;reactants&quot;: [
+        { &quot;formula&quot;: &quot;6 CO2&quot;, &quot;amount&quot;: &quot;6 mol&quot; },
+        { &quot;formula&quot;: &quot;6 H2O&quot;, &quot;amount&quot;: &quot;6 mol&quot; }
+      ],
+      &quot;products&quot;: [
+        { &quot;formula&quot;: &quot;C6H12O6&quot;, &quot;amount&quot;: &quot;1 mol&quot; },
+        { &quot;formula&quot;: &quot;O2&quot;, &quot;amount&quot;: &quot;6 mol&quot; }
+      ],
+      &quot;conditions&quot;: {
+        &quot;temperature&quot;: &quot;300 K&quot;,
+        &quot;pressure&quot;: &quot;1 atm&quot;
+      }
+    }
+  ]
+}
+```
+
+#### XML example 
+
+```
+&lt;reactions&gt;
+  &lt;reaction&gt;
+    &lt;name&gt;Combustion of Methane&lt;/name&gt;
+    &lt;reactants&gt;
+      &lt;reactant&gt;
+        &lt;formula&gt;CH4&lt;/formula&gt;
+        &lt;amount&gt;1 mol&lt;/amount&gt;
+      &lt;/reactant&gt;
+      &lt;reactant&gt;
+        &lt;formula&gt;O2&lt;/formula&gt;
+        &lt;amount&gt;2 mol&lt;/amount&gt;
+      &lt;/reactant&gt;
+    &lt;/reactants&gt;
+    &lt;products&gt;
+      &lt;product&gt;
+        &lt;formula&gt;CO2&lt;/formula&gt;
+        &lt;amount&gt;1 mol&lt;/amount&gt;
+      &lt;/product&gt;
+      &lt;product&gt;
+        &lt;formula&gt;H2O&lt;/formula&gt;
+        &lt;amount&gt;2 mol&lt;/amount&gt;
+      &lt;/product&gt;
+    &lt;/products&gt;
+    &lt;conditions&gt;
+      &lt;temperature&gt;298 K&lt;/temperature&gt;
+      &lt;pressure&gt;1 atm&lt;/pressure&gt;
+    &lt;/conditions&gt;
+  &lt;/reaction&gt;
+  &lt;reaction&gt;
+    &lt;name&gt;Photosynthesis&lt;/name&gt;
+    &lt;reactants&gt;
+      &lt;reactant&gt;
+        &lt;formula&gt;6 CO2&lt;/formula&gt;
+        &lt;amount&gt;6 mol&lt;/amount&gt;
+      &lt;/reactant&gt;
+      &lt;reactant&gt;
+        &lt;formula&gt;6 H2O&lt;/formula&gt;
+        &lt;amount&gt;6 mol&lt;/amount&gt;
+      &lt;/reactant&gt;
+    &lt;/reactants&gt;
+    &lt;products&gt;
+      &lt;product&gt;
+        &lt;formula&gt;C6H12O6&lt;/formula&gt;
+        &lt;amount&gt;1 mol&lt;/amount&gt;
+      &lt;/product&gt;
+      &lt;product&gt;
+        &lt;formula&gt;O2&lt;/formula&gt;
+        &lt;amount&gt;6 mol&lt;/amount&gt;
+      &lt;/product&gt;
+    &lt;/products&gt;
+    &lt;conditions&gt;
+      &lt;temperature&gt;300 K&lt;/temperature&gt;
+      &lt;pressure&gt;1 atm&lt;/pressure&gt;
+    &lt;/conditions&gt;
+  &lt;/reaction&gt;
+&lt;/reactions&gt;
+```
+</pre></div>
+</div>
+</div>
+</section>
+<section id="additional-aspects-to-consider">
+<h2><span class="section-number">1.3.2. </span>Additional aspects to consider<a class="headerlink" href="#additional-aspects-to-consider" title="Link to this heading">#</a></h2>
+<section id="schema-definition-languages">
+<h3><span class="section-number">1.3.2.1. </span>Schema definition languages<a class="headerlink" href="#schema-definition-languages" title="Link to this heading">#</a></h3>
+<p>When working with complex data structures, it can be beneficial to use schema definition languages. These allow you to formally define your data structure, which can then be used for validation, documentation, and even code generation. Some examples include:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://json-schema.org">JSON Schema</a> for JSON.</p></li>
+<li><p><a class="reference external" href="https://www.w3.org/TR/xmlschema-1/">XSD (XML Schema Definition)</a> for XML.</p></li>
+<li><p><a class="reference external" href="https://linkml.io">LinkML (Linked data Modeling Language)</a> for various formats.</p></li>
+</ul>
+<div class="tip admonition">
+<p class="admonition-title">LinkML</p>
+<p><a class="reference external" href="https://linkml.io">LinkML (Linked data Modeling Language)</a> is a framework for modeling and working with structured data. It can be useful for structured data extraction using LLMs in several ways:</p>
+<ul class="simple">
+<li><p>Schema definition: LinkML allows you to define schemas for your data models, specifying classes, attributes, and relationships. This provides a structured foundation for extracting information.</p></li>
+<li><p>Interoperability: It promotes interoperability between different data formats and systems, making it easier to integrate extracted data into various workflows.</p></li>
+<li><p>Validation: LinkML schemas can be used to validate extracted data, ensuring it conforms to the defined structure and constraints.</p></li>
+<li><p>Code generation: It can generate code in various languages (e.g., Python, Java) based on your schema, facilitating data manipulation and processing.</p></li>
+<li><p>Semantic web integration: LinkML is compatible with semantic web technologies, allowing extracted data to be easily linked and integrated with existing knowledge graphs.</p></li>
+</ul>
+</div>
+</section>
+<section id="semantic-annotations">
+<h3><span class="section-number">1.3.2.2. </span>Semantic annotations<a class="headerlink" href="#semantic-annotations" title="Link to this heading">#</a></h3>
+<p>Beyond just structuring data, consider adding semantic annotations. This involves linking your data to standardized vocabularies or ontologies, which can greatly enhance the interoperability and machine-readability of your data. For example:</p>
+<ul class="simple">
+<li><p>Using standard chemical identifiers (like InChI or SMILES) in your chemical formulas.</p></li>
+<li><p>Linking temperature and pressure units to standard unit ontologies (<a class="reference external" href="https://qudt.org">QUDT ontology</a>) or materials science ontologies (<a class="reference external" href="https://emmo-repo.github.io">EMMO</a>, <a class="reference external" href="https://matportal.org/ontologies/MATONTO?p=classes">MatOnto</a>).</p></li>
+</ul>
+</section>
+<section id="handling-missing-or-uncertain-data">
+<h3><span class="section-number">1.3.2.3. </span>Handling missing or uncertain data<a class="headerlink" href="#handling-missing-or-uncertain-data" title="Link to this heading">#</a></h3>
+<p>In real-world data extraction scenarios, you often encounter missing or uncertain data. Your annotation scheme should have a way to represent:</p>
+<ul class="simple">
+<li><p>Missing data (e.g., null values, specific placeholders).</p></li>
+<li><p>Uncertain data (e.g., confidence scores, possible value ranges).</p></li>
+</ul>
+<section id="versioning">
+<h4><span class="section-number">1.3.2.3.1. </span>Versioning<a class="headerlink" href="#versioning" title="Link to this heading">#</a></h4>
+<p>If your data model is likely to evolve over time, consider how you’ll handle versioning. This might involve:</p>
+<ul class="simple">
+<li><p>Including version numbers in your schema.</p></li>
+<li><p>Maintaining backwards compatibility.</p></li>
+<li><p>Documenting changes between versions.</p></li>
+</ul>
+<div class="admonition-data-model-schema-format admonition">
+<p class="admonition-title">Data model, schema format</p>
+<p><em>Data Model:</em> Represents the structure and organization of data, defining how data is stored, organized, and manipulated. In this case, it includes reactions, reactants, products, and conditions.</p>
+<p><em>Schema:</em> Defines the structure of data within a particular format, specifying the data types, constraints, and relationships. For example, an XML Schema (XSD) or JSON Schema can be used to validate the structure of XML or JSON data, respectively.</p>
+<p><em>Format:</em> Refers to the way data is encoded and represented for storage or transmission. CSV, YAML, JSON, and XML are different formats that encode data in different way.</p>
+</div>
+<p>In practice, it is often most convenient to define a data schema in code. This has multiple advantages:</p>
+<ul class="simple">
+<li><p>the data schema can be tracked with all other code using version control,</p></li>
+<li><p>there are existing routines for export in various formats,</p></li>
+<li><p>data can be conveniently accessed in code, e.g., via class attributes.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">pydantic</span></code> is a library that makes it easy to define and validate data in Python.
+It can also parse data from various formats and serialize it to various formats.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Reaction</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">reaction_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The name of the reaction&quot;</span><span class="p">)</span>
+    <span class="n">reactants</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The reactants of the reaction&quot;</span><span class="p">)</span>
+    <span class="n">catalyst</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The catalysts of the reaction&quot;</span><span class="p">)</span>
+    <span class="n">base</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The base of the reaction&quot;</span><span class="p">)</span>
+    <span class="n">solvent</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The solvent of the reaction&quot;</span><span class="p">)</span>
+    <span class="n">temperature</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The temperature of the reaction&quot;</span><span class="p">)</span>
+    <span class="n">temperature_unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The unit of the temperature&quot;</span><span class="p">)</span>
+    <span class="n">product</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The product of the reaction&quot;</span><span class="p">)</span>
+    <span class="n">rxn_yield</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The yield of the reaction&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now use the <code class="docutils literal notranslate"><span class="pre">Reaction</span></code> class to create an instance of the <code class="docutils literal notranslate"><span class="pre">Reaction</span></code> using a dict.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rxn_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;reaction_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Buchwald-Hartwig reaction&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;reactants&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;5-Bromo-m-xylene&quot;</span><span class="p">,</span> <span class="s2">&quot;Benzylmethylamine&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;catalyst&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Bis(dibenzylideneacetone)palladium(0)&quot;</span><span class="p">,</span> <span class="s2">&quot;Tri(o-tolyl)phosphine&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;base&quot;</span><span class="p">:</span> <span class="s2">&quot;Sodium tert-butoxide&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;solvent&quot;</span><span class="p">:</span> <span class="s2">&quot;Toluene&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="mi">65</span><span class="p">,</span>
+    <span class="s2">&quot;temperature_unit&quot;</span><span class="p">:</span> <span class="s2">&quot;°C&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;product&quot;</span><span class="p">:</span> <span class="s2">&quot;N-Benzyl-N-methyl(3,5-xylyl)amine&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rxn_yield&quot;</span><span class="p">:</span> <span class="mi">88</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rxn</span> <span class="o">=</span> <span class="n">Reaction</span><span class="p">(</span><span class="o">**</span><span class="n">rxn_dict</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also save the data as a JSON file.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rxn</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;{&quot;reaction_name&quot;:&quot;Buchwald-Hartwig reaction&quot;,&quot;reactants&quot;:[&quot;5-Bromo-m-xylene&quot;,&quot;Benzylmethylamine&quot;],&quot;catalyst&quot;:[&quot;Bis(dibenzylideneacetone)palladium(0)&quot;,&quot;Tri(o-tolyl)phosphine&quot;],&quot;base&quot;:&quot;Sodium tert-butoxide&quot;,&quot;solvent&quot;:&quot;Toluene&quot;,&quot;temperature&quot;:65,&quot;temperature_unit&quot;:&quot;°C&quot;,&quot;product&quot;:&quot;N-Benzyl-N-methyl(3,5-xylyl)amine&quot;,&quot;rxn_yield&quot;:88.0}&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Annotating data</p>
+<p>The creation of a test and validation set is crucial and can be time-consuming. Therefore, <a class="reference external" href="https://hamel.dev/notes/llm/finetuning/04_data_cleaning.html">using an automation tool is recommended</a>. For doing so, <a class="reference external" href="https://www.teamtat.org">TeamTat</a> can be a convenient choice, but there are also other tools available such as <a class="reference external" href="https://labelstud.io">Label Studio</a>, <a class="reference external" href="https://doccano.github.io/doccano/">Docano</a> or <a class="reference external" href="https://prodi.gy">Prodigy</a>.</p>
+<p>Labeling itself can be very difficult and it can be worth to consider <a class="reference external" href="https://eugeneyan.com/writing/labeling-guidelines/">guidelines used by other projects</a>.</p>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/obtaining_data"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="data_mining.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1.2. </span>Mining data from ChemRxiv</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../document_parsing_and_cleaning/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>Cleaning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#considerations-for-choosing-a-data-structure">1.3.1. Considerations for choosing a data structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-aspects-to-consider">1.3.2. Additional aspects to consider</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#schema-definition-languages">1.3.2.1. Schema definition languages</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-annotations">1.3.2.2. Semantic annotations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-missing-or-uncertain-data">1.3.2.3. Handling missing or uncertain data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#versioning">1.3.2.3.1. Versioning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mara Schilling-Wilhelmi, Martiño Ríos-García, Sherjeel Shabih, María Victoria Gil, Santiago Miret, Christoph Koch, Pepe Márquez, and Kevin Maik Jablonka
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

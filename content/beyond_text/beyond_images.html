@@ -1,0 +1,819 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" lang="en" name="description" xml:lang="en" />
+<meta content="en_US" property="og:locale" />
+<meta content="summary" name="twitter:card" />
+<meta content="From Text to Insight: Large Language Models for Materials Science Data Extraction" name="twitter:description" />
+<meta content="structmatdat.pub 📖" name="twitter:title" />
+<meta content="https://structmatdat.pub/_static/logo.png" name="twitter:image" />
+<meta content="&#64;jablonkagroup" name="twitter:site" />
+
+    <title>5. Beyond text &#8212; From Text to Insight: Large Language Models for Materials Science Data Extraction</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e878585a" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/beyond_text/beyond_images';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="6. Agents" href="../agents/agent.html" />
+    <link rel="prev" title="4. Choosing the learning paradigm" href="../finetune/choosing_paradigm.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+    <img src="../../_static/logo_white.png" class="logo__image only-dark pst-js-only" alt="From Text to Insight: Large Language Models for Materials Science Data Extraction - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction and background</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../background/resources_LLMs.html">Overview of the working principles of LLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">A. Structured Extraction Workflow</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../obtaining_data/index.html">1. Obtaining data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/crossref_search.html">1.1. Obtaining a set of relevant data sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/data_mining.html">1.2. Mining data from ChemRxiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining_data/annotation.html">1.3. Data annotation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../document_parsing_and_cleaning/index.html">2. Cleaning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/parsing.html">2.1. Document parsing with OCR tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../document_parsing_and_cleaning/cleaning.html">2.2. Document cleaning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../context_window/Dealing_with_context_window.html">3. Strategies to tackle context window limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../finetune/choosing_paradigm.html">4. Choosing the learning paradigm</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Beyond text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../agents/agent.html">6. Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../constrained_decoding/index.html">7. Constrained generation to guarantee syntactic correctness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluations/evaluations.html">8. Evaluations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">B. Case Studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../intro_figure/figure1_intro_notebook.html">9. Research articles vs datasets in chemistry and materials science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../biomass_case/biomass_case.html">10. Collecting data on the synthesis procedures of bio-based adsorbents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../perovskite/constrained_formulas.html">11. Retrieving data from chacolgenide perovskites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NMR_composition_matching/NMR_comp_matching.html">12. Validation case study: Matching NMR spectra to composition of the molecule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reaction_case/reaction.html">13. Collecting data for reactions procedures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/beyond_text/beyond_images.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Beyond text</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="beyond-text">
+<h1><span class="section-number">5. </span>Beyond text<a class="headerlink" href="#beyond-text" title="Link to this heading">#</a></h1>
+<p>NLP-LLMs tend to have problems with analyzing and understanding complex structures such as tables, plots and images included in scientific articles. Since especially in chemistry and material science information about chemical components is included in these, one should think about different approaches for these structures. Therefore, vision language models (VLMs) since they can analyse images alongside text. There are several open and closed-source VLMs available, e.g., <a class="reference external" href="https://platform.openai.com/docs/guides/vision">Vision models from OpenAI</a>, <a class="reference external" href="https://docs.anthropic.com/en/docs/vision">Claude models</a> and <a class="reference external" href="https://github.com/deepseek-ai/DeepSeek-VL">DeepSeek-VL</a>. As an example, we show the extraction of images with <a class="reference external" href="https://platform.openai.com/docs/models/gpt-4o">GPT4-o</a>.</p>
+<p>First one has to convert the file into images.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The used PDF file was obtained in the <a class="reference internal" href="../obtaining_data/data_mining.html"><span class="std std-doc">mining data notebook</span></a>.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matextract</span>  <span class="c1"># noqa: F401</span>
+<span class="kn">from</span> <span class="nn">pdf2image</span> <span class="kn">import</span> <span class="n">convert_from_path</span>
+
+<span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;../obtaining_data/PDFs/10.26434_chemrxiv-2024-1l0sn.pdf&quot;</span>
+
+<span class="c1"># converting the PDF files to images</span>
+<span class="n">pdf_images</span> <span class="o">=</span> <span class="n">convert_from_path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>After that, one should process the obtained images, for instance, rotate pages with vertical text since many models have problems with this.</p>
+<div class="dropdown note admonition">
+<p class="admonition-title">Correcting text orientation</p>
+<p>The algorithm we use here, applies the following steps:</p>
+<ol class="arabic simple">
+<li><p>Convert the image to grayscale.</p></li>
+<li><p>Detect edges using the <a class="reference external" href="https://en.wikipedia.org/wiki/Canny_edge_detector">Canny edge detection algorithm</a>.</p></li>
+<li><p>Use <a class="reference external" href="https://en.wikipedia.org/wiki/Hough_transform">Hough Line Transform</a> to detect lines in the image.</p></li>
+<li><p>Calculate the angles of these lines.</p></li>
+<li><p>Find the dominant angle by taking the median of all angles.</p></li>
+<li><p>Based on the dominant angle, determine if the image needs to be rotated 90, 180, or 270 degrees.</p></li>
+<li><p>Rotate the image accordingly.</p></li>
+</ol>
+</div>
+<div class="dropdown note admonition">
+<p class="admonition-title">Alternative implementation</p>
+<p>You could implement the preprocessing for text-orientation also with the popular <a class="reference external" href="https://github.com/tesseract-ocr/tesseract"><code class="docutils literal notranslate"><span class="pre">tesseract</span></code> package</a>.
+<code class="docutils literal notranslate"><span class="pre">tesseract</span></code>’s <code class="docutils literal notranslate"><span class="pre">image_to_osd</span></code> (Orientation and Script Detection) function is specifically designed to detect text orientation, including cases where text might be rotated 90, 180, or 270 degrees. It can identify the script (e.g., Latin, Cyrillic, Arabic) used in the document, which can be useful for multi-language documents and can often handle documents with mixed orientations or complex layouts better than simpler edge-detection methods.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">correct_text_orientation</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">save_directory</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">Image</span><span class="o">.</span><span class="n">Image</span><span class="p">):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">pil_to_cv2</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">rgb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">pytesseract</span><span class="o">.</span><span class="n">image_to_osd</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="n">Output</span><span class="o">.</span><span class="n">DICT</span><span class="p">)</span>
+    <span class="n">rotated</span> <span class="o">=</span> <span class="n">imutils</span><span class="o">.</span><span class="n">rotate_bound</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;rotate&quot;</span><span class="p">])</span>
+    <span class="n">base_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="n">name_without_ext</span><span class="p">,</span> <span class="o">*</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">base</span><span class="o">*</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">new_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">savedirectory</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;corrected</span><span class="si">{</span><span class="n">name_without_ext</span><span class="si">}</span><span class="s2">_page</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">.png&quot;</span>
+    <span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="n">new_filename</span><span class="p">,</span> <span class="n">rotated</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[INFO] </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2"> - corrected image saved as </span><span class="si">{</span><span class="n">new_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rotated</span>
+</pre></div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">imutils</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="c1"># most VLM models struggle with rotated text therefore, rotated text gets detect and the pages flipped</span>
+<span class="k">def</span> <span class="nf">correct_text_orientation</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">save_directory</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">Image</span><span class="o">.</span><span class="n">Image</span><span class="p">):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">pil_to_cv2</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+    <span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+    <span class="c1"># This applies Canny edge detection to our grayscale image, with lower threshold 50, upper threshold 150, and an aperture size of 3.</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Canny</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="n">apertureSize</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1"># find lines in the edge-detected image, which often correspond to text lines or document edges</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">HoughLinesP</span><span class="p">(</span>
+        <span class="n">edges</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">minLineLength</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">maxLineGap</span><span class="o">=</span><span class="mi">10</span>
+    <span class="p">)</span>
+
+    <span class="n">angles</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># The slope of a line is essentially rise over run, or (y2-y1)/(x2-x1). This ratio is exactly what arctan converts into an angle</span>
+        <span class="n">angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">180.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+        <span class="n">angles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+
+    <span class="c1"># Find the dominant angle</span>
+    <span class="n">dominant_angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
+
+    <span class="c1"># Determine if the image needs to be rotated 90, 180, or 270 degrees</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dominant_angle</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">45</span><span class="p">:</span>
+        <span class="n">rotation_angle</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="mi">45</span> <span class="o">&lt;=</span> <span class="n">dominant_angle</span> <span class="o">&lt;</span> <span class="mi">135</span><span class="p">:</span>
+        <span class="n">rotation_angle</span> <span class="o">=</span> <span class="mi">90</span>
+    <span class="k">elif</span> <span class="o">-</span><span class="mi">135</span> <span class="o">&lt;=</span> <span class="n">dominant_angle</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">45</span><span class="p">:</span>
+        <span class="n">rotation_angle</span> <span class="o">=</span> <span class="o">-</span><span class="mi">90</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">rotation_angle</span> <span class="o">=</span> <span class="mi">180</span>
+
+    <span class="n">rotated</span> <span class="o">=</span> <span class="n">imutils</span><span class="o">.</span><span class="n">rotate_bound</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="n">rotation_angle</span><span class="p">)</span>
+
+    <span class="n">base_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="n">name_without_ext</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">base_filename</span><span class="p">)</span>
+    <span class="n">new_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">save_directory</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;corrected_</span><span class="si">{</span><span class="n">name_without_ext</span><span class="si">}</span><span class="s2">_page</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">.png&quot;</span>
+    <span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="n">new_filename</span><span class="p">,</span> <span class="n">rotated</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[INFO] </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2"> - corrected image saved as </span><span class="si">{</span><span class="n">new_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rotated</span>
+
+
+<span class="c1"># the images get converted into jpeg format</span>
+<span class="k">def</span> <span class="nf">convert_to_jpeg</span><span class="p">(</span><span class="n">cv2_image</span><span class="p">):</span>
+    <span class="n">retval</span><span class="p">,</span> <span class="n">buffer</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imencode</span><span class="p">(</span><span class="s2">&quot;.jpg&quot;</span><span class="p">,</span> <span class="n">cv2_image</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">retval</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">buffer</span>
+
+
+<span class="c1"># conversion of the images from a python-image-library object to an OpenCV object</span>
+<span class="k">def</span> <span class="nf">pil_to_cv2</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="n">np_image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">cv2_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">np_image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2BGR</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cv2_image</span>
+
+
+<span class="c1"># the images get resized to a unified size with a maximum dimensions</span>
+<span class="k">def</span> <span class="nf">resize_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">max_dimension</span><span class="p">):</span>
+    <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="c1"># Check if the image has a palette and convert it to true color mode</span>
+    <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;P&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;transparency&quot;</span> <span class="ow">in</span> <span class="n">image</span><span class="o">.</span><span class="n">info</span><span class="p">:</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;RGBA&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;RGB&quot;</span><span class="p">)</span>
+    <span class="c1"># convert to black and white</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;L&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">width</span> <span class="o">&gt;</span> <span class="n">max_dimension</span> <span class="ow">or</span> <span class="n">height</span> <span class="o">&gt;</span> <span class="n">max_dimension</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">width</span> <span class="o">&gt;</span> <span class="n">height</span><span class="p">:</span>
+            <span class="n">new_width</span> <span class="o">=</span> <span class="n">max_dimension</span>
+            <span class="n">new_height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">height</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_dimension</span> <span class="o">/</span> <span class="n">width</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_height</span> <span class="o">=</span> <span class="n">max_dimension</span>
+            <span class="n">new_width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_dimension</span> <span class="o">/</span> <span class="n">height</span><span class="p">))</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="n">new_width</span><span class="p">,</span> <span class="n">new_height</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">LANCZOS</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">image</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, one has to convert the pictures into machine-readable Base-64 format.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># process the images to a unified and for an VLM better suiting format</span>
+<span class="k">def</span> <span class="nf">process_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">max_size</span><span class="p">,</span> <span class="n">output_folder</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">resized_image</span> <span class="o">=</span> <span class="n">resize_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">max_size</span><span class="p">)</span>
+    <span class="n">rotate_image</span> <span class="o">=</span> <span class="n">correct_text_orientation</span><span class="p">(</span><span class="n">resized_image</span><span class="p">,</span> <span class="n">output_folder</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">jpeg_image</span> <span class="o">=</span> <span class="n">convert_to_jpeg</span><span class="p">(</span><span class="n">rotate_image</span><span class="p">)</span>
+    <span class="n">base64_encoded_image</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">jpeg_image</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">base64_encoded_image</span><span class="p">,</span>
+        <span class="nb">max</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span>
+    <span class="p">)</span>
+
+
+<span class="n">output_folder_images</span> <span class="o">=</span> <span class="s2">&quot;./images&quot;</span>
+
+<span class="c1"># all images get preprocessed</span>
+<span class="n">images_base64</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">process_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="mi">2048</span><span class="p">,</span> <span class="n">output_folder_images</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">j</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">image</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pdf_images</span><span class="p">)</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[INFO] ../obtaining_data/PDFs/10.26434_chemrxiv-2024-1l0sn.pdf - corrected image saved as ./images/corrected_10.26434_chemrxiv-2024-1l0sn_page1.png
+[INFO] ../obtaining_data/PDFs/10.26434_chemrxiv-2024-1l0sn.pdf - corrected image saved as ./images/corrected_10.26434_chemrxiv-2024-1l0sn_page2.png
+[INFO] ../obtaining_data/PDFs/10.26434_chemrxiv-2024-1l0sn.pdf - corrected image saved as ./images/corrected_10.26434_chemrxiv-2024-1l0sn_page3.png
+[INFO] ../obtaining_data/PDFs/10.26434_chemrxiv-2024-1l0sn.pdf - corrected image saved as ./images/corrected_10.26434_chemrxiv-2024-1l0sn_page4.png
+[INFO] ../obtaining_data/PDFs/10.26434_chemrxiv-2024-1l0sn.pdf - corrected image saved as ./images/corrected_10.26434_chemrxiv-2024-1l0sn_page5.png
+[INFO] ../obtaining_data/PDFs/10.26434_chemrxiv-2024-1l0sn.pdf - corrected image saved as ./images/corrected_10.26434_chemrxiv-2024-1l0sn_page6.png
+</pre></div>
+</div>
+</div>
+</div>
+<p>As a next step, one could call the OpenAI API. Therefore, one needs an API-key to pay for the calls. Moreover, one needs to create the prompt including the images and the text prompt.</p>
+<div class="tip admonition">
+<p class="admonition-title">Prompt</p>
+<p>This is a very simple example prompt. One should optimize and engineer the prompt before usage. For that one could use a tool like <a class="reference external" href="https://github.com/stanfordnlp/dspy">DSPy</a>.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the text prompt text for the model call gets defined</span>
+<span class="n">prompt_text</span> <span class="o">=</span> <span class="s2">&quot;Extract all the relevant information about Buchwald-Hartwig reactions included in these images.&quot;</span>
+
+
+<span class="c1"># the composite prompt is put together</span>
+<span class="k">def</span> <span class="nf">get_prompt_vision_model</span><span class="p">(</span><span class="n">images_base64</span><span class="p">,</span> <span class="n">prompt_text</span><span class="p">):</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># the images get added in base64 format and in the end the text prompt will be added</span>
+    <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">images_base64</span><span class="p">:</span>
+        <span class="n">content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">create_image_content</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+    <span class="n">content</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">prompt_text</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">content</span>
+
+
+<span class="c1"># the images get converted into base64 format</span>
+<span class="k">def</span> <span class="nf">create_image_content</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;high&quot;</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;image_url&quot;</span><span class="p">,</span>
+        <span class="c1"># the level of detail is set to &#39;high&#39; since mostly text on the images is small</span>
+        <span class="s2">&quot;image_url&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;data:image/jpeg;base64,</span><span class="si">{</span><span class="n">image</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="n">detail</span><span class="p">},</span>
+    <span class="p">}</span>
+
+
+<span class="c1"># the composite prompt for the model call gets defined</span>
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">get_prompt_vision_model</span><span class="p">(</span><span class="n">images_base64</span><span class="p">,</span> <span class="n">prompt_text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To call the actual model one could use <a class="reference external" href="https://github.com/BerriAI/litellm">LiteLLM</a> instead of directly using an API like the OpenAI-API. So one could easily switch between different models for different providers.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>One has to provide his or her own API-key in the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file.</p>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">litellm</span> <span class="kn">import</span> <span class="n">completion</span>
+
+
+<span class="c1"># Define the function to call the LiteLLM API</span>
+<span class="k">def</span> <span class="nf">call_litellm</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o&quot;</span><span class="p">,</span> <span class="n">temperature</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Call LiteLLM model</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        prompt (str): Prompt to send to model</span>
+<span class="sd">        model (str, optional): Name of the API. Defaults to &quot;gpt-4o&quot;.</span>
+<span class="sd">        temperature (float, optional): Inference temperature. Defaults to 0.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: New data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">(</span>
+                <span class="s2">&quot;You are a scientific assistant, extracting important information about reaction conditions &quot;</span>
+                <span class="s2">&quot;out of PDFs in valid JSON format. Extract just data which you are 100</span><span class="si">% c</span><span class="s2">onfident about the &quot;</span>
+                <span class="s2">&quot;accuracy. Keep the entries short without details. Be careful with numbers.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">},</span>
+    <span class="p">]</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">completion</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+        <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+        <span class="n">temperature</span><span class="o">=</span><span class="n">temperature</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Extract and return the message content and token usage</span>
+    <span class="n">message_content</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;choices&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;message&quot;</span><span class="p">][</span><span class="s2">&quot;content&quot;</span><span class="p">]</span>
+    <span class="n">input_tokens</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;usage&quot;</span><span class="p">][</span><span class="s2">&quot;prompt_tokens&quot;</span><span class="p">]</span>
+    <span class="n">output_tokens</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;usage&quot;</span><span class="p">][</span><span class="s2">&quot;completion_tokens&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">message_content</span><span class="p">,</span> <span class="n">input_tokens</span><span class="p">,</span> <span class="n">output_tokens</span>
+
+
+<span class="c1"># Call the LiteLLM API and print the output and token usage</span>
+<span class="n">output</span><span class="p">,</span> <span class="n">input_tokens</span><span class="p">,</span> <span class="n">output_tokens</span> <span class="o">=</span> <span class="n">call_litellm</span><span class="p">(</span><span class="n">prompt</span><span class="o">=</span><span class="n">prompt</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Output: &quot;</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Input tokens used:&quot;</span><span class="p">,</span> <span class="n">input_tokens</span><span class="p">,</span> <span class="s2">&quot;Output tokens used:&quot;</span><span class="p">,</span> <span class="n">output_tokens</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Output:  Here is the extracted information about Buchwald-Hartwig reactions from the provided images:
+
+```json
+{
+  &quot;Buchwald-Hartwig Reactions&quot;: {
+    &quot;Key Step&quot;: &quot;Cross-coupling reaction of an α-amino-BODIPY and the respective halide.&quot;,
+    &quot;Conditions&quot;: [
+      {
+        &quot;Reagents&quot;: [
+          &quot;Pd(OAc)2&quot;,
+          &quot;(±)-BINAP&quot;,
+          &quot;Cs2CO3&quot;,
+          &quot;PhMe&quot;
+        ],
+        &quot;Temperature&quot;: &quot;80 °C&quot;,
+        &quot;Time&quot;: &quot;1.5 h&quot;
+      },
+      {
+        &quot;Reagents&quot;: [
+          &quot;Pd(OAc)2&quot;,
+          &quot;(±)-BINAP&quot;,
+          &quot;Cs2CO3&quot;,
+          &quot;PhMe&quot;
+        ],
+        &quot;Temperature&quot;: &quot;80 °C&quot;,
+        &quot;Time&quot;: &quot;6-322 h&quot;
+      }
+    ],
+    &quot;Yields&quot;: [
+      {
+        &quot;Compound&quot;: &quot;EDM-Ar-mono-NH2&quot;,
+        &quot;Yield&quot;: &quot;47%&quot;
+      },
+      {
+        &quot;Compound&quot;: &quot;DM-Ar-mono-NH2&quot;,
+        &quot;Yield&quot;: &quot;58%&quot;
+      },
+      {
+        &quot;Compound&quot;: &quot;Br-Ar-mono-NH2&quot;,
+        &quot;Yield&quot;: &quot;56%&quot;
+      },
+      {
+        &quot;Compound&quot;: &quot;EDM-Ar-di&quot;,
+        &quot;Yield&quot;: &quot;20%&quot;
+      },
+      {
+        &quot;Compound&quot;: &quot;DM-Ar-di&quot;,
+        &quot;Yield&quot;: &quot;30%&quot;
+      },
+      {
+        &quot;Compound&quot;: &quot;Br-Ar-di&quot;,
+        &quot;Yield&quot;: &quot;44%&quot;
+      },
+      {
+        &quot;Compound&quot;: &quot;EDM-Ar-di&quot;,
+        &quot;Yield&quot;: &quot;66%&quot;
+      },
+      {
+        &quot;Compound&quot;: &quot;DM-Ar-di&quot;,
+        &quot;Yield&quot;: &quot;62%&quot;
+      },
+      {
+        &quot;Compound&quot;: &quot;Br-Ar-di&quot;,
+        &quot;Yield&quot;: &quot;45%&quot;
+      }
+    ]
+  }
+}
+```
+Input tokens used: 6704 Output tokens used: 389
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To get only the JSON part of the output, one could use Regex to extract this content.</p>
+</div>
+<p>Since in the article there is no experimental section provided, the model just extracted general information about the reactions. It failed with extraction the data provided in the reaction schemes. To extract this information, one should use tools presented in the <a class="reference internal" href="../agents/agent.html"><span class="std std-doc">agentic section</span></a>.</p>
+<p>Now one could use this structured output to build up a database of Buchwald-Hartwig-Coupling reactions.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/beyond_text"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../finetune/choosing_paradigm.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Choosing the learning paradigm</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../agents/agent.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Agents</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mara Schilling-Wilhelmi, Martiño Ríos-García, Sherjeel Shabih, María Victoria Gil, Santiago Miret, Christoph Koch, Pepe Márquez, and Kevin Maik Jablonka
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+/* Style changes*/
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap');
+
+/* update font variable */
+:root {
+  --font-family-sans-serif: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+  --pst-font-family-base: var(--font-family-sans-serif);
+  --pst-background-color: #f5f4e9;
+}
+
+p {
+  text-align: justify;
+}
+div.math {
+    overflow-x: auto !important;
+  }
+
+  div.output .text_html {
+    overflow-x: auto !important;
+  }
+
+/* Update the fontsize of the margin sidebar class */
+
+div.margin {
+    font-size: 0.5em !important;
+  }
+
+div.sidebar {
+    padding: 7px !important;
+    border: unset !important;
+    font-size: 0.5em !important;
+    overflow: visible !important;
+}
+
+aside.sidebar {
+    padding: 7px !important;
+    font-size: 0.5em !important;
+    border: unset !important;
+    overflow: visible !important;
+}
+
+
+div.cell_output {
+    overflow-y: scroll !important;
+    max-height: 400px !important;
+  }
