@@ -1195,7 +1195,7 @@ pybtex==0.24.0
     #   sphinxcontrib-bibtex
 pybtex-docutils==1.0.3
     # via sphinxcontrib-bibtex
-pyclipper==1.3.0.post5
+pyclipper==1.3.0.post6
     # via
     #   matextract (setup.py)
     #   easyocr
