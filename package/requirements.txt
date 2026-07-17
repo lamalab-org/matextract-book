@@ -861,7 +861,7 @@ nltk==3.8.1
     # via
     #   matextract (setup.py)
     #   unstructured
-notebook==7.2.1
+notebook==7.3.3
     # via
     #   matextract (setup.py)
     #   jupyter
