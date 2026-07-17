@@ -857,7 +857,7 @@ ninja==1.11.1.1
     # via
     #   matextract (setup.py)
     #   easyocr
-nltk==3.8.1
+nltk==3.9.1
     # via
     #   matextract (setup.py)
     #   unstructured
